@@ -1,0 +1,111 @@
+<!-- heading_search.vm -->
+<div class="row m-0">
+	<div class="col-md-6 offset-md-3 col-sm-12 py-4">
+		#set($howManyRecords = $result.getNumFound())	
+		#if ($howManyRecords)					
+			<strong><span class="navigation-result">$howManyRecords ${text.result_for_subject}:</span><span id="yoursearch" class="searchqeryexp"> $query</span></strong>
+		#end
+	</div> 
+</div> 
+<div class="row bg-white py-4 m-0"> 
+	<div class="col-md-3 col-sm-12">
+		<div class="float-md-right">
+			<h5 class="my-2">$text.new_search_for_subject</h5>
+			<form name="searchForm" method="get" action="heading">
+				<div class="input-group">					
+					<label class="sr-only" for="q">$text.subject_search_placeholder</label>	
+					<input type="text" class="form-control search-input" id="q" name="q" autocomplete="off" placeholder="$text.subject_search_placeholder" aria-label="Search"/>
+					<div class="input-group-append">
+			       		<span class="input-group-text fa fa-search icon-input">
+			       			<button type="submit" class="magnifier">
+			       				<img src="img/search.png" alt="">
+			       			</button>
+			       		</span>
+			     	</div>
+				</div>
+				<button type="submit" class="button-blue uppercase float-right btn-block py-2 my-3">$text.search</button>	
+			</form>			
+		</div>
+	</div>
+	<div class="col-md-8 col-sm-12">
+		######## results list #############		
+		
+			<ul class="list-group list-group-flush">
+			#foreach($heading in $result)  		
+				<li class="list-group-item ">
+					<a class="label-blue" href="search?v=l&q=&h=any_bc&s=10&o=score&f=heading_subject_id:$heading.id&label=$esc.url($heading.label)">
+						$esc.html($heading.label)
+					</a>
+				</li>
+			#end
+			</ul>
+		
+		#################################
+		########### pagination ##########
+		<div id="navigator">	
+		#set($howManyRecords = $result.getNumFound())
+		#set ($pageSizeParameter = $request.getParameter("s"))
+		#set($Integer = 0)
+		#set($start = 0)
+		#if ($pageSizeParameter)
+			#set($howManyRecordsPerPage = $Integer.parseInt($request.getParameter("s")))			
+		#else
+			#set($howManyRecordsPerPage = $result.size())	
+		#end 	
+		#set($start = $result.start)	
+		#set($startIndex = $start + 1)
+		#set($endIndex = $start + $howManyRecordsPerPage)
+		#set ($pages = $howManyRecords / $howManyRecordsPerPage)
+		#if ($howManyRecords && $howManyRecords % $howManyRecordsPerPage > 0)
+			#set ($pages = $pages + 1)
+		#end
+		#if ($result && $pages > 1)				
+			#set($curPage = $start / $howManyRecordsPerPage + 1)
+			#if ($viewType == 'll')
+				#set($curPage = $Integer.parseInt($request.getParameter("p")))
+			#end	
+			#set ($onsides = 6)
+			#set ($tmp = $curPage - $onsides)
+			#if ($tmp > 0) 
+				#set ($firstClkbl = $tmp)
+			#else	
+				#set ($firstClkbl = 1)
+			#end
+			#set ($tmpIndex = $firstClkbl + (2 * $onsides))
+			#if ($tmpIndex < $pages)
+				#set ($lastClkbl = $tmpIndex)
+			#else
+				#set ($lastClkbl = $pages)				
+			#end	
+			
+			#if( $curPage > 1)
+    			 <a href='heading?$parameters&p=1' ><img src="img/fastRewindDisabled.png" class="fast-navigation-button"/></a>			
+			#end	
+			#if ($curPage > 1)
+    			#set ($previousPage = $curPage - 1)
+    			<a href='heading?$parameters&p=$previousPage'><img src="img/stepRewindDisabled.png" class="fast-navigation-button"/></a>							
+			#end	
+			#if ($firstClkbl > 1) <span class="page mx-1"> ... </span> #end	
+			#foreach($pageIndex in [$firstClkbl..$lastClkbl])
+				#if ($pageIndex == $curPage)
+					<span class="current-page-number page mx-1">$curPage</span>
+				#else
+					<a href='heading?$parameters&p=$pageIndex' title="$pageIndex" class="page mx-1 underline">$pageIndex</a>			
+				#end	
+			#end 
+			#if ($lastClkbl < $pages) <span class="page mx-1"> ... </span> #end
+			#if ($pages - $curPage > 0)
+				#set ($nextPage = $curPage + 1)
+				<a href='heading?$parameters&p=$nextPage'><img src="img/stepForwardEnabled.png" class="fast-navigation-button"/></a>									
+			#end 
+			#if ($pages - $curPage > 0)		
+    			 <a href='heading?$parameters&p=$pages'><img src="img/fastForwardEnabled.png" class="fast-navigation-button"/></a>
+			#end	
+		#end
+	</div>
+		#################################
+		
+	</div>
+	<div class="col-md-1 col-sm-12"></div>
+</div>
+<div class="linedotted bg-white pt-5"/>

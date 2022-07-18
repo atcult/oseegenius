@@ -1,0 +1,43 @@
+<div class="hit" id="hit">
+	<table width="100%"  style="border-bottom:1px dashed #cccccc;">
+		<tr>
+		<td width="5%" valign="top" align="center">
+			#set ($img = "$link.relative('/img')/checked_${tab.isSelected($document.id)}.png")
+			<a id="check_link" href="javascript:toggle('$document.id')"><img id="check_$document.id" src="$img"/></a>
+			<br/><center>#set($index = $velocityCount+$tab.query.start) $index/${howManyRecords}</center>
+        	#spacer(4)
+		</td>
+		<td width="96%" valign="top">
+			<div id="document_header">	
+					<a href="$link.relative('/resource')?uri=$document.id&v=$viewType" class="document_title">#highlight($document.title)</a> 
+					<br/>
+					#if ($document.author_person)
+						#set($filterValue = $document.author_person.replaceAll("\"", "\\""))
+						 <a href='$link.relative('/search')?h=def&q=*:*&f=author_1xx_7xx_search:$esc.q$esc.url($filterValue)$esc.q' class="document_author">
+							#highlight($document.author_person)
+						 </a>
+					#elseif ($document.author_corporate)
+						#set($filterValue = $document.author_corporate.replaceAll("\"", "\\""))
+						<a href='$link.relative('/search')?h=def&q=*:*&f=author_1xx_7xx_search:$esc.q$esc.url($filterValue)$esc.q' class="document_author">
+							#highlight($document.author_corporate)
+						 </a>
+					#elseif ($document.author_conference)
+						#set($filterValue = $document.author_conference.replaceAll("\"", "\\""))
+						<a href='$link.relative('/search')?h=def&q=*:*&f=author_1xx_7xx_search:$esc.q$esc.url($filterValue)$esc.q' class="document_author">
+							#highlight($document.author_conference)
+						 </a>												
+					#end
+			</div>
+			<br/>
+			#set ($viewId = "customization/hits/list_${viewType}_view_additional_attributes.vm")
+			#parse($viewId)
+		</td>
+		<td class="list_cover_container" rowspan="2">
+			<center>
+				<img src="cover?isbn=$document.get($cover.isbnAttributeName).get(0)&size=M" height="$cover.mediumCoverHeight" width="$cover.mediumCoverWidth" class="cover"/>
+			</center>
+		</td>
+	</tr>
+	#parse("components/community/community.vm")
+</table>
+</div>

@@ -1,0 +1,24 @@
+#if ($request.reviews)
+     <a name="review"></a>
+     <table id="reviews" class="detail_record" width="100%" cellspacing="4">
+    	<tr>
+    		<td><span class="detail-section-title">$text.reviews</span></td>
+    	</tr>
+    	#foreach($review in $request.reviews)
+			#if ($velocityCount % 2 == 0)
+				#set ($rowStyle="review-row-even")
+			#else
+				#set ($rowStyle="review-row-odd")
+			#end	
+    		<tr class="$rowStyle">
+    			<td>
+        			<div id="document_header">	
+        					<a class="document_title">$date.format("dd/MM/yyyy",$review.date, $session.visit.preferredLocale)</a> 
+        					<br/>
+        					<i>$review.text</i>
+        			</div>
+        		</td>
+			</tr>	
+    	#end	
+     </table>	 
+#end	 

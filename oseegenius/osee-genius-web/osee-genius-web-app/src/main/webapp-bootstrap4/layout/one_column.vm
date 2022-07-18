@@ -1,0 +1,6 @@
+#set($fromServlet = $request.servletName)
+#if ($fromServlet == "showAll")
+	#parse("layout/modal_like_display.vm")
+#else
+	#parse("layout/homepage.vm")
+#end

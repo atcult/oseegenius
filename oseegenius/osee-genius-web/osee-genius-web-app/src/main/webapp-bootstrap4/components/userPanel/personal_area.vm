@@ -1,0 +1,94 @@
+<!-- components/userPanel/personal_area.vm -->	
+#set($loggedUser = $session.visit.folioAccount)
+
+<div class="row m-0 py-4 bg-grey">
+	<h2 class="px-5">$text.personal_dashboard</h2>
+</div>
+<div class="row m-0 py-4 bg-grey">
+	<div class="col-md-3 p-3 d-none d-md-block">
+		<div class="embed-responsive embed-responsive-1by1 text-center">
+			<div class="embed-responsive-item">
+				<a href="folioHistory">
+					<div class="default-special parent-size">
+						<div class="p-3">
+							<div class="landingLink py-2">$text.landpage_folio_history1</div>
+							<div class="strSizeColor">$text.landpage_folio_history2</div>
+							<img alt="" src="img/requestsBlu.png" align="right" width="50px" height="50px">
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	
+#*	
+	<div class="row m-0 py-4 bg-grey">
+		<div class="col-md-3 p-3 d-none d-md-block">
+			<div class="embed-responsive embed-responsive-1by1 text-center">
+				<div class="embed-responsive-item">
+					<a href="folioResearchHistory">
+						<div class="default-special parent-size">
+							<div class="p-3">
+								<div class="landingLink py-2">$text.folio_research_history</div>
+								##<div class="strSizeColor">$text.landpage_folio_history2</div>
+								<img alt="" src="img/requestsBlu.png" align="right" width="50px" height="50px">
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+*#
+	<div class="col-md-3 p-3 d-none d-md-block">
+		<div class="embed-responsive embed-responsive-1by1 text-center">
+			<div class="embed-responsive-item ">
+				<a href="folioCatalog">
+					<div class="default-special parent-size">
+						<div class="p-3">
+							<div class="landingLink py-2">$text.landpage_request_not_catalog1</div>
+							<div class="strSizeColor">$text.landpage_request_not_catalog2</div>
+							<img alt="" src="img/requestsBlu.png" align="right" width="50px" height="50px">
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	
+	
+	#if($loggedUser.isAdmin())
+		<div class="col-md-3 p-3 d-none d-md-block">
+		<div class="embed-responsive embed-responsive-1by1 text-center">
+			<div class="embed-responsive-item">
+				<a href="searchFolio">
+					<div class="default-special parent-size">
+						<div class="p-3">
+							<div class="landingLink py-2">$text.landpage_users1</div>
+							<div class="strSizeColor">$text.landpage_users2</div>
+							<img alt="" src="img/usersBlu.png" align="right" width="70px" height="50px">
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	
+		<div class="col-md-3 p-3 d-none d-md-block">
+		<div class="embed-responsive embed-responsive-1by1 text-center">
+			<div class="embed-responsive-item">
+				<a href="signUp">
+					<div class="default-special parent-size">
+						<div class="p-3">
+							<div class="landingLink py-2">$text.landpage_register1</div>
+							<div class="strSizeColor">$text.landpage_register2</div>
+							<img alt="" src="img/usersBlu.png" align="right" width="70px" height="50px">
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	</div>
+	
+	#end
+</div>	

@@ -1,0 +1,9 @@
+#if (!$tab.empty)
+	#set ($resources = $tab.response)
+	#i18n_facet( $text.sources $resources.getFacetField('category_code') 'categories' 'middle_viewlet_body')	
+	#literal_facet( $text.company_svg $resources.getFacetField('company_svg') 'middle_viewlet_body')	
+	#literal_facet( $text.mime_type $resources.getFacetField('mime_type') 'middle_viewlet_body')	
+	#literal_facet( $text.project $resources.getFacetField('project') 'middle_viewlet_body')	
+	#literal_facet( $text.author $resources.getFacetField('author') 'middle_viewlet_body')	
+	#literal_facet( $text.keywords $resources.getFacetField('inferred_untokenized_keywords') 'middle_viewlet_body')	
+#end	

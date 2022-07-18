@@ -1,0 +1,74 @@
+<br/><br/><br/>
+<b>$text.get($request.limitname)</b><br/>
+#set($limit = $request.limit)
+#set ( $bundlename = $request.bundle)
+<hr/>
+<input type="button" value="$text.confirm" onclick="document.location='advanced'">
+#set ($maxColumns = 3)
+#set ($module = $limit.valueCount % $maxColumns)
+#if (($module) == 0)
+	#set( $howManyRowsPerColumn = $limit.valueCount / $maxColumns ) 
+#else 
+	#set ($howManyRowsPerColumn = ($limit.valueCount / $maxColumns) + $module )
+#end
+#if ($request.back)
+	<a class="atc_head_link" href="javascript:manipulateQueryString('offset', '$request.backOffset')">&lt;&lt; $text.back</a>
+	&nbsp;	
+#end	
+#if ($request.next)
+	<a class="atc_head_link" href="javascript:manipulateQueryString('offset', '$request.nextOffset')">$text.forward &gt;&gt;</a>
+#end
+</center>
+    <table cellspacing="5">
+    	#set ($currentRowIndex = 0)		
+		#set ($limitFacet = $request.limitFacet)
+    	#foreach($facet in $limit.values)
+			#if ($velocityCount == $limit.values.size())
+				#break
+			#end	
+			#if($bundlename && $bundlename != "library" && !$text.bundleGet($bundlename,$facet.name).startsWith("?"))		
+    			#if ($currentRowIndex == 0 )
+    				<tr nowrap="nowrap" valign="top">
+    				<td>
+    					<ul type = none>
+    			#elseif ($currentRowIndex == $howManyRowsPerColumn)
+					#set ($currentRowIndex = 0)	
+    					</ul>
+    					<td>
+    					<ul type = none>
+    			#end
+    			 <li>		
+						<input type="checkbox" #if($limitFacet.isSelected($facet.name)) checked="true" #end onclick="toggleLimit('$limitname', '$esc.javascript($facet.name)', this.checked, $facet.count, false)">
+							$text.bundleGet($bundlename,$facet.name) ($facet.count)		
+    					#set ($currentRowIndex = $currentRowIndex + 1)
+        		</li>
+				#else 
+				  #if(!$bundlename || $bundlename == "library")
+					 #if ($currentRowIndex == 0 )
+    				<tr nowrap="nowrap" valign="top">
+    				<td>
+    					<ul type = none>
+    			    #elseif ($currentRowIndex == $howManyRowsPerColumn)
+					 #set ($currentRowIndex = 0)	
+    					</ul>
+    					<td>
+    					<ul type = none>
+					 #end
+    			 <li>		
+						<input type="checkbox" #if($limitFacet.isSelected($facet.name)) checked="true" #end onclick="toggleLimit('$limitname', '$esc.javascript($facet.name)', this.checked, $facet.count, false)">
+						#if ($bundlename == "library")	
+    							#set($values = $application.mainLibraries )
+    						$values.get($facet.name) ($facet.count)	
+						#else		
+        				  $esc.html($facet.name) ($facet.count)
+						#end
+    					#set ($currentRowIndex = $currentRowIndex + 1)
+        		</li>	
+					#end
+				#end	
+				
+    	#end
+    	</ul>
+    	</td>
+    	</tr>
+    </table>	

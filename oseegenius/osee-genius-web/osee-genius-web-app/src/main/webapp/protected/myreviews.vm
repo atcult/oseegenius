@@ -1,0 +1,40 @@
+#if ($request.documents && !$request.documents.isEmpty())
+<br/><br/>
+<table width="100%">
+	<tr>
+		<td>
+			<table class="items">
+				#foreach ($document in $request.documents)
+					<tr><th>$text.title</th><th>$text.author</th><th>$text.publisher</th></tr>
+    				<tr valign="top">
+    					<td><a class="linked_value" href="resource?uri=$document.id">$document.title</a></td>
+    					<td>#if ($document.author)$document.author#end</td>
+    					<td>#if ($document.publisher)$document.publisher.get(0)#end</td>
+    				</tr>
+    				#set ($documentReviews = $request.reviews.get($document.id))
+					#if ($documentReviews)
+    					#foreach ($review in $documentReviews)
+							#if ($velocityCount % 2 == 0)
+								#set ($rowStyle="review-row-even")
+							#else
+								#set ($rowStyle="review-row-odd")
+							#end	
+    						<tr >
+            					<td colspan="3" class="$rowStyle">
+    								<i>$review.getText()</i>
+    							</td>	
+    						</tr>	
+						#end
+					#end	
+				#end
+			</table>
+		</td>
+	</tr>
+</table>
+#else
+		<br/><br/>
+    <table>
+		<tr class="circulation_container"><td class="loans"></td><td class="circulation_text_no">${text.empty_reviews}.</td></tr>
+		<tr><td colspan="2" height="10px"></td></tr>
+    </table>
+#end	

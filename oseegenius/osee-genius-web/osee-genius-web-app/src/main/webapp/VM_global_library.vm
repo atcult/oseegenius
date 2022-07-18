@@ -1,0 +1,1468 @@
+#macro (autosuggestorScript)
+#end
+
+#macro(highlight $targetText)
+	$highlighter.highlight($tokens, $targetText)
+#end
+
+#macro (i18nToolbar)
+    #if ($configuration.i18nEnabled)
+    <span style="float:right;margin-right:5px;">
+		#if ($configuration.useLabelInsteadFlags)
+        	#foreach($language in $configuration.supportedLanguages)
+        		#spacer(10)<a href="javascript:l10n('$language.languageCode')"><img src="$language.icon"/></a>
+        	#end 
+		#else
+        	#foreach($language in $configuration.supportedLanguages)
+        		#spacer(10)<a href="javascript:l10n('$language.languageCode')">$language.icon</a>
+        	#end 			
+		#end 
+    </span>			
+    #end
+#end
+
+#macro (banner)
+<div id="banner"><a href="$link.relative('/home')"><img src="$link.relative($corporate-logo-url)" height="#if($corporate-logo-url-height)${corporate-logo-url-height}#else 60#end"/></a></div>
+#end	
+
+#macro ( notes $label $notes $anchorName)
+	#if ($notes)
+		<a id="$anchorName"/>
+		<div class="notes-section">
+			<div><h3>$label</h3></div>
+			<div class="clear"></div>
+			<div>
+				#foreach ($note in $notes)<i>$note</i>#end
+			</div>
+		</div>
+	#end
+#end
+
+#macro (codevalue_limit $label $facetField $values $bodyClass)
+	#set ($counts = $facetField.values)
+    #if ($counts)	
+     <div class="viewlet">
+        	<div>
+        		<div class="viewlet_toggable_head"><h3>$label</h3></div>
+        		<div class="$bodyClass">
+        	        <ul>
+						#set ($more = false)
+        				#foreach( $count in $counts)
+							#if( $velocityCount > 10)
+								#set ($more = true)
+								#break
+							#end
+							
+        					#set( $value = $count.name )
+    						#set ( $i18nValue = $values.get($value))
+            					<li>
+    								<input type="checkbox" style="vertical-align:middle;" onclick="toggleLimit('${facetField.name}', '$value', this.checked, $count.count, true)" name="${facetField.name}:$value" #if ($count.checked)checked#end/>
+    								<span class="limit-entry">$i18nValue ($count.count)</span>
+                				</li>
+								
+						#end
+        	        </ul>	
+					#if( $more )
+						<div style="text-align:right;"><a style="color:#575757" href='showAllLimit?f=${facetField.name}&bundle=library'>$text.more</a></div>
+					#end
+        		</div>	
+            </div>
+        </div>		
+    #end
+#end
+
+##da rifinire
+#macro ( imss_select_facet $label $facetField $bundleName)
+	#set ($counts = $facetField.values)
+	#if($counts)
+		<div class="sidemenu slidemenu">
+			<h3><a href="#" title="$label">$label</a></h3>
+			<select>
+				#foreach ($count in $counts)
+					#set($value = $count.name)
+					#set( $filterValue = $value.replace("#","%23"))
+					#set($filterValue = $filterValue.replaceAll("\"", "%5C%22"))
+					#set ( $i18nValue = $esc.html($text.bundleGet($bundleName,$value) ))
+					#set ( $filterQuery = "${facetField.name}:$esc.q$filterValue$esc.q")
+					#if ($request.currentTab.containsFilter($filterQuery, $request))
+						<option value="$value">
+							$i18nValue<span class="count">($count.count)</span>
+						</option>
+					#else
+						<option value="$value">
+							<a href="javascript:filter('$facetField.name','$esc.javascript($filterValue)')">$i18nValue</a>
+							<span class="count"> ($count.count)</span>
+						</option>					
+					#end
+				#end
+			</select>
+		</div>
+	#end
+#end
+
+
+#macro ( i18n_limit $label $facetField $bundleName $bodyClass )
+	#set ($counts = $facetField.values)
+    #if ($counts)	
+     <div class="viewlet">
+        	<div>
+        		<div class="viewlet_toggable_head"><h3>$label</h3></div>
+        		<div class="$bodyClass">
+        	        <ul>
+						#set ($more = false)
+        				#foreach( $count in $counts)
+							#if( $velocityCount > 10)
+								#set ($more = true)
+								#break
+							#end
+							
+        					#set( $value = $count.name )
+    						#set ( $i18nValue = $text.bundleGet($bundleName, $value))
+            					<li>
+    								<input type="checkbox" style="vertical-align:middle;" onclick="toggleLimit('${facetField.name}', '$esc.javascript($value)', this.checked, $count.count, true)" name="${facetField.name}:$value" #if ($count.checked)checked#end/>
+    								<span class="limit-entry">$i18nValue ($count.count)</span>
+                				</li>
+        					#end
+        	        </ul>
+					#if( $more )
+						<div style="text-align:right;"><a style="color:#575757" href='showAllLimit?f=${facetField.name}&bundle=${bundleName}'>$text.more</a></div>
+					#end
+        		</div>	
+            </div>
+        </div>		
+    #end
+#end
+
+#foreach($pageIndex in [$firstClkbl..$lastClkbl])
+				#if ($pageIndex == $curPage)
+					<span class="current-page-number">$curPage</span>
+				#else
+					<a href='$link.relative('search')?$parameters&p=$pageIndex'>$pageIndex</a>			
+				#end	
+			#end 
+
+#macro ( i18n_limit_2_columns $label $facetField $bundleName $bodyClass)
+	#set ($counts = $facetField.values)
+    #if ($counts)	
+     <div class="viewlet">
+        	<div>
+        		<div class="viewlet_toggable_head"><h3>$label</h3></div>
+        		<div class="$bodyClass">
+        	        <table width="100%">
+						<tr>
+							<td>
+                                <ul>
+									#foreach( $count in $counts)
+										#set( $value = $count.name )
+										#set ( $i18nValue = $text.bundleGet($bundleName,$value) )
+											#if ($velocityCount  <= 15 || $velocityCount > 16)
+													<li>
+														<input type="checkbox" style="vertical-align:middle;" name="${facetField.name}:$value" #if ($count.checked)checked#end/>
+														<span class="limit-entry">$i18nValue</span>
+													</li>
+										#elseif ($velocityCount == 16)
+												</ul>
+											</td>
+											<td>
+													<ul>
+        												<li>
+        														<input type="checkbox" style="vertical-align:middle;" name="${facetField.name}:$value" #if ($count.checked)checked#end/>
+        														<span class="limit-entry">$i18nValue</span>
+        													</li>
+										 #end 	
+								#end
+                                </ul>
+							</td>
+						</tr>
+					</table>
+        		</div>	
+            </div>
+        </div>		
+    #end
+#end
+			
+			
+#macro ( i18n_limit_no_count $label $facetField $bundleName $bodyClass)
+	#set ($counts = $facetField.values)
+    #if ($counts)	
+     <div class="viewlet">
+        	<div>
+        		<div class="viewlet_toggable_head"><h3>$label</h3></div>
+        		<div class="$bodyClass">
+        	        <ul>
+						#foreach( $count in $counts)
+        					#set( $value = $count.name )
+    						#set ( $i18nValue = $text.bundleGet($bundleName,$value) )
+            					#if ($velocityCount > 10)
+									<li class="more">
+								#else
+									<li>
+								#end
+    								<input type="checkbox" style="vertical-align:middle;" name="${facetField.name}:$value" #if ($count.checked)checked#end/>
+									<span class="limit-entry">$i18nValue</span>
+                				</li>
+        					#end
+        	        </ul>
+        		</div>	
+            </div>
+        </div>		
+    #end
+#end
+
+#macro ( literal_limit $label $facetField $bodyClass)
+    #set ($counts = $facetField.values)
+    #if ($counts)	
+     <div class="viewlet">
+        	<div>
+        		<div class="viewlet_toggable_head"><h3>$label</h3></div>
+        		<div class="$bodyClass">
+        	        <ul>
+						#set ($more = false)
+        				#foreach( $count in $counts)
+    							#if( $velocityCount > 10)
+    								#set ($more = true)
+    								#break
+    							#end
+        						#set( $value = $count.name )
+            					<li>
+    								<input type="checkbox" style="vertical-align:middle;" onclick="toggleLimit('${facetField.name}', '$esc.javascript($value)', this.checked, $count.count, true)" name="${facetField.name}:$value" #if ($count.checked)checked#end />
+    								<span class="limit-entry">$value ($count.count)</span>
+                				</li>
+    						#end
+        	        </ul>
+					#if( $more )
+						<div style="text-align:right;"><a style="color:#575757" href='showAllLimit?f=${facetField.name}'>$text.more</a></div>
+					#end
+        		</div>	
+            </div>
+        </div>		
+    #end	
+#end
+
+#macro ( literal_limit_no_count $label $facetField $bodyClass)
+    #set ($counts = $facetField.values)
+    #if ($counts)	
+     <div class="viewlet">
+        	<div>
+        		<div class="viewlet_toggable_head"><h3>$label</h3></div>
+        		<div class="$bodyClass">
+        	        <ul>
+        				#foreach( $count in $counts)
+        						#set( $value = $count.name )
+            					<li>
+    								<input type="checkbox" style="vertical-align:middle;" name="${facetField.name}:$value" #if ($count.checked)checked#end />
+    								<span class="limit-entry">$value</span>
+                				</li>
+    						#end
+        	        </ul>
+        		</div>	
+            </div>
+        </div>		
+    #end	
+#end
+
+#macro ( codevalue_facet $label $facetField $values $bodyClass $more)
+    #set ($counts = $facetField.values)
+    #if ($counts)
+		#if ($more) 
+			#set ($maxVisibleItems = $configuration.getFacetLimit($facetField.name))
+			#if ($maxVisibleItems)
+				#set ($more = $counts.size() > $maxVisibleItems)
+			#else
+				#set ($more = false)
+			#end	
+		#end			
+     <div class="viewlet">
+        	<div>
+        		<div class="viewlet_toggable_head"><h3>$label</h3></div>
+        		<div class="$bodyClass">
+        	        <ul>
+    					#foreach( $count in $counts)
+        					#set( $value = $count.name )
+							#set( $filterValue = $value.replace("#","%23"))
+
+    						#set ( $i18nValue = $esc.html($values.get($value) ))
+            					<li>
+                					<span >
+    									#set ( $filterQuery = "${facetField.name}:$esc.q$filterValue$esc.q" )
+										#if ($request.currentTab.containsFilter($filterQuery, $request))
+											<a>$i18nValue</a>
+            								<span class="count">($count.count)</span>
+											<a href='javascript:removeFilter("$facetField.name","$value")'><img src="$link.relative('/img/cancel.png')" style="vertical-align:middle;"/></a>											
+    									#else
+											<a href='javascript:filter("$facetField.name","$value")'>$i18nValue</a>
+            								<span class="count"> ($count.count)</span>
+    									#end	
+        							</span>	
+                				</li>
+        					#end
+        	        </ul>
+					 #if( $more )
+					   <div style="text-align:right;"><a href='$link.relative('showAll')?f=${facetField.name}&b=$bundleName'>$text.more</a></div>
+					 #end
+        		</div>	
+            </div>
+        </div>		
+    #end
+#end
+
+#macro ( i18n_facet $label $facetField $bundleName $bodyClass $more)
+    #set ($counts = $facetField.values)
+    #if ($counts.size() > 0)
+		#if ($more) 
+			#set ($maxVisibleItems = $configuration.getFacetLimit($facetField.name))
+			#if ($maxVisibleItems)
+				#set ($more = $counts.size() > $maxVisibleItems)
+			#else
+				#set ($more = false)
+			#end	
+		#end	
+     <div class="viewlet">
+        	<div>
+        		<div class="viewlet_toggable_head"><h3>$label</h3></div>
+        		<div class="$bodyClass">
+        	        <ul>
+    					#foreach( $count in $counts)
+        					#set( $value = $count.name )
+							#set( $filterValue = $value.replace("#","%23"))
+							#set($filterValue = $filterValue.replaceAll("\"", "%5C%22"))
+    						#set ( $i18nValue = $esc.html($text.bundleGet($bundleName,$value) ))
+								#if (!$i18nValue.startsWith("?"))
+            					<li>
+                					<span >
+    									#set ( $filterQuery = "${facetField.name}:$esc.q$filterValue$esc.q" )
+										#if ($request.currentTab.containsFilter($filterQuery, $request))
+											<a>$i18nValue</a>
+            								<span class="count">($count.count)</span>
+											<a href="javascript:removeFilter('$facetField.name','$esc.javascript($filterValue)')"><img src="$link.relative('/img/cancel.png')" style="vertical-align:middle;"/></a>											
+    									#else
+											<a href="javascript:filter('$facetField.name','$esc.javascript($filterValue)')">$i18nValue</a>
+            								<span class="count"> ($count.count)</span>
+    									#end	
+        							</span>	
+                				</li>
+								#end
+        					#end
+        	        </ul>
+					 #if( $more )
+					   <div style="text-align:right;"><a href='$link.relative('showAll')?f=${facetField.name}&b=$bundleName'>$text.more</a></div>
+					 #end
+        		</div>	
+            </div>
+        </div>		
+    #end
+#end
+	
+#macro ( literal_facet $label $facetField $bodyClass $more)
+    #set ($counts = $facetField.values)
+    #if ($counts.size() > 0)
+		#if ($more) 
+			#set ($maxVisibleItems = $configuration.getFacetLimit($facetField.name))
+			#if ($maxVisibleItems)
+				#set ($more = $counts.size() > $maxVisibleItems)
+			#else
+				#set ($more = false)
+			#end	
+		#end	
+		<div class="viewlet">
+        	<div>
+        		<div class="viewlet_toggable_head">
+        			<h3>$label</h3>  
+        		</div>
+        		<div class="$bodyClass">
+        	        <ul>
+        				#foreach( $count in $counts)
+        					#set( $value = $count.name)
+							#set( $filterValue = $value.replace("#","%23"))
+							#set($filterValue = $filterValue.replaceAll("\"", "%5C%22"))
+							
+							#if (!$value.startsWith("http"))
+            					<li>
+                					<span >
+    									#set ( $filterQuery = "${facetField.name}:$esc.q$filterValue$esc.q")
+										#if ($request.currentTab.containsFilter($filterQuery, $request))
+											<a>$value</a> 
+            								<span class="count">($count.count)</span>
+											<!--<a href="javascript:removeFilter('$facetField.name','$esc.javascript($value)')"><img src="$link.relative('/img/cancel.png')" style="vertical-align:middle;"/></a>-->
+											<a href="javascript:removeFilter('$facetField.name','$esc.javascript($filterValue)')"><img src="$link.relative('/img/cancel.png')" style="vertical-align:middle;"/></a>
+    									#else
+											<a href="javascript:filter('$facetField.name','$esc.javascript($filterValue)')">$value</a>
+            								<span class="count"> ($count.count)</span>
+    									#end	
+        							</span>	
+                				</li>
+							#end	
+        				#end
+        	        </ul>
+					#if( $more )
+						<div style="text-align:right;"><a href='$link.relative('showAll')?f=${facetField.name}'>$text.more</a></div>
+					#end
+        		</div>	
+            </div>
+        </div>		
+	 #end
+#end
+
+#macro ( vspacer $height )
+	<img src="$link.relative('/img/blank.png')" width="1" height="$height"/>
+#end	
+
+#macro ( spacer $width )
+	<img src="$link.relative('/img/blank.png')" width="$width" height="1"/>
+#end	
+
+#macro (detail_id_attribute $value)
+    #if ($value)	
+		#set ($imgUrl = $cover.getMediumCoverUrl($resource))
+		#set ($isbn= $resource.get($cover.isbnAttributeName).get(0))
+		#set ($height=$cover.big-cover-height)
+		#set ($height=$cover.big-cover-width)		
+    	<tr>
+			<td rowspan="100" width="4%" valign="top"><img src="cover?url=${imgUrl}&isbn=${isbn}&size=M" width="$width" height="$height"/></div></td>
+			<td rowspan="100" width="4%">&nbsp;</div></td>
+    		<td valign="top">
+    			<span class="attribute_name_detail">ID</span>
+    		</td>
+    		<td valign="top">
+    			<span class="attribute_value_detail">$value</span>
+    		</td>			
+    	</tr>	
+	#end	
+ #end 
+
+#macro (monovalued_literal_attribute $label $value)
+    #if ($value)	
+    	<tr>
+    		<td valign="top">
+    			<span class="attribute_name">$label</span>
+    		</td>
+			<td>&nbsp;</td>
+    		<td valign="top">
+    			<span class="attribute_value">$value</span>
+    		</td>			
+    	</tr>	
+	#end	
+ #end  
+ 
+#macro ( multivalued_literal_attribute $label $list)
+	#if( $list )
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name">$label</span>
+    		</td>
+			<td>&nbsp;</td>
+    		<td valign="top">
+				#foreach ($element in $list)
+					<span class="attribute_value">$element</span>			
+					<br/>
+				 #end
+    		</td>			
+    	</tr>
+	#end
+#end  
+
+#macro (list_monovalued_i18n_attribute $label $bundle_name $value)
+	#if ($value)
+		<tr>
+    		<td valign="top" nowrap="nowrap">
+    			<span class="attribute_name">$label</span>	
+    		</td>
+			<td>#spacer(10)</td>
+    		<td>
+				<span class="attribute_value">$text.bundleGet($bundle_name,$value)</span><br/>
+    		</td>
+		</tr>
+	#end	
+#end
+
+#macro (list_splitted_subject)
+	#if ($document.subject)
+		<tr>
+			<td valign="top" nowrap="nowrap">
+    			<span class="attribute_name">$text.subjects</span>	
+    		</td>
+			<td>#spacer(10)</td>
+    		<td>
+				#set($countOuter=0)
+				
+				#set($numSogg = $document.subject.keySet().size())
+				#foreach($key in $document.subject.keySet())
+					#set($countOuter=$countOuter +1)
+					#set($count=0)
+					
+					#foreach($subject in $document.subject.get($key))
+						#set($numElem = $document.subject.get($key).size())
+						 #set($count = $count + 1)
+							#if($count != $numElem )
+					  		 <a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_search:$esc.q$esc.url($subject)$esc.q'>#highlight($subject)</a>--
+							#else
+								#if($countOuter!= $numSogg)
+									<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_search:$esc.q$esc.url($subject)$esc.q'>#highlight($subject)</a>--
+								#else
+									<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_search:$esc.q$esc.url($subject)$esc.q'>#highlight($subject)</a>
+								#end	
+							#end	
+					  #end
+					  #if ($document.subject.get($key).size() > 1)
+						#if($countOuter == $numSogg)
+							-- <a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_search:$esc.q$esc.url($key)$esc.q'><span>($text.all_string)</span></a><br/>
+						#else
+							<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_search:$esc.q$esc.url($key)$esc.q'><span>($text.all_string)</span></a><br/>
+						#end	
+					  #end	
+				#end 
+    		</td>
+		</tr>
+	#end	
+#end
+
+#macro (list_splitted_subject_ar)
+	#if ($document.subject)
+		<tr>
+			<td valign="top" nowrap="nowrap">
+    			<span class="attribute_name">$text.subjects</span>	
+    		</td>
+			<td>#spacer(10)</td>
+    		<td>
+				#set($countOuter=0)
+				
+				#set($numSogg = $document.subject.keySet().size())
+				#foreach($key in $document.subject.keySet())
+					#set($countOuter=$countOuter +1)
+					#set($count=0)
+					
+					  #foreach($subject in $document.subject.get($key))
+						#set($numElem = $document.subject.get($key).size())
+						 #set($count = $count + 1)
+							#if($count != $numElem )
+					  		 <a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_ar_search:$esc.q$esc.url($subject)$esc.q'>#highlight($subject)</a>--
+							#else
+								#if($countOuter!= $numSogg)
+									<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_ar_search:$esc.q$esc.url($subject)$esc.q'>#highlight($subject)</a>--
+								#else
+									<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_ar_search:$esc.q$esc.url($subject)$esc.q'>#highlight($subject)</a>
+								#end	
+							#end	
+					  #end
+					  #if ($document.subject.get($key).size() > 1)
+						#if($countOuter == $numSogg)
+						-- <a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_ar_search:$esc.q$esc.url($key)$esc.q'><span>($text.all_string)</span></a><br/>
+						#else
+							<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_ar_search:$esc.q$esc.url($key)$esc.q'><span>($text.all_string)</span></a><br/>
+						#end	
+					#end
+				#end 
+    		</td>
+		</tr>
+	#end	
+#end
+
+#macro (list_monovalued_literal_attribute $label $value)
+	#if ($value)
+		<tr>
+    		<td valign="top" nowrap="nowrap">
+    			<span class="attribute_name">$label</span>	
+    		</td>
+			<td>#spacer(10)</td>
+    		<td>
+				<span class="attribute_value">$value</span><br/>
+    		</td>
+		</tr>
+	#end	
+#end
+
+#macro (list_multivalued_literal_attribute $label $list)
+	#if ($list && !$list.isEmpty())
+		<tr>
+			<td valign="top" nowrap="nowrap">
+    			<span class="attribute_name">$label</span>	
+    		</td>
+			<td>#spacer(10)</td>
+    		<td>
+				#foreach($element in $list)
+					#set ($value = $esc.html($element))
+					<span>#highlight($value)</span><br/>
+				#end 
+    		</td>
+		</tr>
+	#end 	
+#end	
+
+#macro (list_multivalued_i18n_attribute $label $bundle_name $list)
+	#if ($list)
+		<tr>
+    		<td valign="top" nowrap="nowrap">
+    			<span class="attribute_name">$label</span>	
+    		</td>
+			<td>#spacer(10)</td>
+    		<td>
+				#foreach($element in $list)
+				<span class="attribute_value">$text.bundleGet($bundle_name,$element)</span><br/>
+				#end
+				</td>
+		</tr>
+	#end	
+#end				
+
+#macro (list_multivalued_literal_linked_attribute $label $list $fq_field)
+	#if ($list && !$list.isEmpty())
+		<tr>
+			<td valign="top" nowrap="nowrap">
+    			<span class="attribute_name">$label</span>	
+    		</td>
+			<td>#spacer(10)</td>
+    		<td>
+				#foreach($element in $list)
+					##set($filterValue = $esc.url($element))
+					#set($filterValue = $element.replaceAll("\"", "\\""))
+					#set($filterValue = $esc.url($filterValue))
+					<a class="linked_value" href='$link.relative('search')?h=def&q=*:*&f=$fq_field:$esc.q$filterValue$esc.q'><span>#highlight($element)</span><br/></a>
+				#end 
+    		</td>
+		</tr>
+	#end 	
+#end
+
+#macro ( list_multivalued_literal_linked_attribute2 $label $list $filterName)
+	#if ($list && !$list.isEmpty())
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name">$label</span>
+    		</td>
+			<td>#spacer(10)</td>
+    		<td>
+				#foreach ($element in $list)
+					#set ($index = $velocityCount - 1)
+					#set($filters = $document.getFieldValues($filterName))
+					#if($filters)
+						##set($filterValue = $esc.url($filters.get($index)))
+						#set($filterValue = $filters.get($index))
+						#set($filterValue = $filterValue.replaceAll("\"", "\\""))
+						#set($filterValue = $esc.url($filterValue))
+						<a class="linked_value" href='search?q=*:*&f=$filterName:${esc.q}${filterValue}$esc.q'><span>$element</span></a>		
+					#else
+						##set($filterValue = $esc.url($element))
+						#set($filterValue = $element.replaceAll("\"", "\\""))
+						#set($filterValue = $esc.url($filterValue))
+						<a class="linked_value" href='search?q=*:*&f=$filterName:${esc.q}${filterValue}$esc.q'><span>$element</span></a>		
+					#end	
+					<br/>
+				 #end
+    		</td>			
+    	</tr>
+	#end
+#end 
+
+
+#macro (list_multivalued_literal_linked_attribute_2 $label $list $fq_field)
+	#if ($list && !$list.isEmpty())
+		<tr>
+			<td valign="top" nowrap="nowrap">
+    			<span class="attribute_name">$label</span>	
+    		</td>
+			<td>#spacer(10)</td>
+    		<td>
+				#foreach($element in $list)
+					#set($filterValue = $element.replaceAll("\"", "\\""))
+					<a class="linked_value" href='$link.relative('search')?h=def&q=*:*&f=$fq_field:$esc.q$filterValue$esc.q'><span>#highlight($element)</span><br/></a>
+				#end 
+    		</td>
+		</tr>
+	#end 	
+#end
+
+#macro (list_monovalued_literal_linked_attribute $label $field $fq_field)
+	#if ($field)
+		<tr>
+			<td valign="top" nowrap="nowrap">
+    			<span class="attribute_name">$label</span>	
+    		</td>
+			<td>#spacer(10)</td>
+    		<td>
+				#set($filterValue = $field.replaceAll("\"", "\\""))
+					<a class="linked_value" href='$link.relative('search')?h=def&q=*:*&f=$fq_field:$esc.q$filterValue$esc.q'><span>#highlight($field)</span><br/></a>
+    		</td>
+		</tr>
+	#end 	
+#end
+
+#macro (detail_monovalued_literal_attribute $label $value)
+    #if ($value)	
+    	<tr>
+    		<td valign="top">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+    			<span class="attribute_value_detail">$esc.html($value)</span>
+    		</td>			
+    	</tr>	
+	#end	
+ #end 
+ 
+ #macro (detail_monovalued_linked_literal_attribute $label $value $filterName)
+    #if ($value)	
+    	<tr>
+    		<td valign="top">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				#set($filterValue = $value.replaceAll("\"", "\\""))
+    			<a class="linked_value" href='search?q=*:*&f=$filterName:$esc.q$esc.url($filterValue)$esc.q'><span  class="attribute_value_detail">$value</span></a>
+    		</td>			
+    	</tr>	
+	#end	
+ #end 
+
+#macro (detail_monovalued_i18n_attribute $label $value $bundle)
+    #if ($value)	
+    	<tr>
+    		<td valign="top">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+    			<span class="attribute_value_detail">$text.bundleGet($bundle,$value)</span>
+    		</td>			
+    	</tr>	
+	#end	
+ #end  
+ 
+ #macro (detail_monovalued_linked_i18n_attribute $label $value $bundle $filterName)
+    #if ($value)	
+    	<tr>
+    		<td valign="top">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				#set($filterValue = $value.replaceAll("\"", "\\""))
+    			<a class="linked_value" href='search?q=*:*&f=$filterName:$esc.q$esc.url($filterValue)$esc.q'><span style="font-size: 1.1em;">$text.bundleGet($bundle,$value)</span></a>
+    		</td>			
+    	</tr>	
+	#end	
+ #end  
+ 
+#macro ( detail_multivalued_literal_attribute $label $list)
+	#if( $list )
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				#foreach ($element in $list)
+					<span class="attribute_value_detail">$esc.html($element)</span>			
+					<br/>
+				 #end
+    		</td>			
+    	</tr>
+	#end
+#end 
+
+#macro ( detail_multivalued_linked_literal_attribute $label $list $filterName)
+	#if( $list )
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				#foreach ($element in $list)
+						##set($filterValue = $esc.url($element))
+						#set($filterValue = $element.replaceAll("\"", "\\""))
+						#set($filterValue = $esc.url($filterValue))
+						<a class="linked_value" href='search?q=*:*&f=$filterName:${esc.q}${filterValue}$esc.q'><span class="attribute_value_detail">$element</span></a>		
+					<br/>
+				 #end
+    		</td>			
+    	</tr>
+	#end
+#end 
+
+#macro ( detail_multivalued_linked_literal_attribute_2 $label $list $filterName)
+	#if( $list )
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				#foreach ($element in $list)
+					#set ($index = $velocityCount - 1)
+					#set($filters = $resource.getFieldValues($filterName))
+					#if($filters)
+						##set($filterValue = $esc.url($filters.get($index)))
+						#set($filterValue = $filters.get($index))
+						#set($filterValue = $filterValue.replaceAll("\"", "\\""))
+						#set($filterValue = $esc.url($filterValue))
+						<a class="linked_value" href='search?q=*:*&f=$filterName:${esc.q}${filterValue}$esc.q'><span class="attribute_value_detail">$element</span></a>		
+					#else
+						##set($filterValue = $esc.url($element))
+						#set($filterValue = $element.replaceAll("\"", "\\""))
+						#set($filterValue = $esc.url($filterValue))
+						<a class="linked_value" href='search?q=*:*&f=$filterName:${esc.q}${filterValue}$esc.q'><span class="attribute_value_detail">$element</span></a>		
+					#end	
+					<br/>
+				 #end
+    		</td>			
+    	</tr>
+	#end
+#end 
+
+#macro ( detail_multivalued_linked_splitted_literal_attribute $label $map $filterName)
+	#if( $map )
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				<span class="attribute_value_detail">
+				#set($countOuter=0)
+				#set($numSogg = $map.keySet().size())
+				
+				#foreach($key in $map.keySet())
+					
+					#set($countOuter=$countOuter +1)
+					#set($count=0)
+					
+					#foreach($subject in $map.get($key))
+						#set($numElem = $map.get($key).size())
+						#set($count = $count + 1)
+						
+						#if($count != $numElem )
+					  		<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_search:$esc.q$esc.url($subject)$esc.q'>#highlight($subject)</a>--
+						#else
+							#if($countOuter!= $numSogg)
+								<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_search:$esc.q$esc.url($subject)$esc.q'>#highlight($subject)</a>--
+							#else
+								<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_search:$esc.q$esc.url($subject)$esc.q'>#highlight($subject)</a>
+							#end	
+						#end		
+					  #end
+					  ##if ($document.subject.get($key).size() > 1)
+					  #if ( $map.get($key).size() > 1)
+						#if($countOuter == $numSogg)
+						-- <a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_search:$esc.q$esc.url($key)$esc.q'>($text.all_string)</a><br/>
+						#else
+							<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_search:$esc.q$esc.url($key)$esc.q'>($text.all_string)</a><br/>
+						#end
+					#end
+				#end 				
+				</span>
+    		</td>			
+    	</tr>
+	#end
+#end 
+
+
+#macro ( detail_multivalued_linked_splitted_literal_attribute_ar $label $map $filterName)
+	#if( $map )
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				<span class="attribute_value_detail">
+				#set($countOuter=0)
+				#set($numSogg = $map.keySet().size())
+				
+				#foreach($key in $map.keySet())
+					
+					#set($countOuter=$countOuter +1)
+					#set($count=0)
+					
+					  #foreach($subject in $map.get($key))
+						#set($numElem = $map.get($key).size())
+						#set($count = $count + 1)
+						
+						#if($count != $numElem )
+					  		<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_ar_search:$esc.q$esc.url($subject)$esc.q'>#highlight($subject)</a>--
+						#else
+							#if($countOuter!= $numSogg)
+								<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_ar_search:$esc.q$esc.url($subject)$esc.q'>#highlight($subject)</a>--
+							#else
+								<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_ar_search:$esc.q$esc.url($subject)$esc.q'>#highlight($subject)</a>
+							#end	
+						#end		
+					  #end
+					  ##if ($document.subject.get($key).size() > 1)
+					   #if ( $map.get($key).size() > 1)
+						#if($countOuter == $numSogg)
+						-- <a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_ar_search:$esc.q$esc.url($key)$esc.q'>($text.all_string)</a><br/>
+						#else
+							<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_ar_search:$esc.q$esc.url($key)$esc.q'>($text.all_string)</a><br/>
+						#end
+					#end
+				#end 				
+				</span>
+    		</td>			
+    	</tr>
+	#end
+#end 
+
+#macro ( detail_multivalued_linked_splitted_literal_attribute_ar_2 $label $map $filterName)
+	#if( $map )
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				#set($countOuter=0)
+				#set($numSogg = $map.keySet().size())
+				
+				#foreach($key in $map.keySet())
+					#set($countOuter=$countOuter +1)
+					#set($count=0)
+					
+					  #foreach($subject in $map.get($key))
+						#set($numElem = $map.get($key).size())
+						#set($count = $count + 1)
+						
+						#if($count != $numElem )
+					  		<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_ar_search:$esc.q$esc.url($subject)$esc.q'>#highlight($subject)</a>--
+						#else
+							#if($countOuter!= $numSogg)
+								<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_ar_search:$esc.q$esc.url($subject)$esc.q'>#highlight($subject)</a>--
+							#else
+								<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_ar_search:$esc.q$esc.url($subject)$esc.q'>#highlight($subject)</a>
+							#end	
+						#end		
+					  #end
+					  ##if ($document.subject.get($key).size() > 1)
+					  #if ( $map.get($key).size() > 1)
+						#if($countOuter == $numSogg)
+						-- <a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_ar_search:$esc.q$esc.url($key)$esc.q'>($text.all_string)</a><br/>
+						#else
+							<a class="linked_value" href='search?h=def&q=*:*&f=topical_subject_ar_search:$esc.q$esc.url($key)$esc.q'>($text.all_string)</a><br/>
+						#end
+					#end
+				#end 				
+    		</td>			
+    	</tr>
+	#end
+#end 
+
+#macro (highlighting $resource)
+	#if ($document.highlighting)
+		<tr><td colspan="2"><div class="post-it">#foreach($htline in $resource.highlighting)...${htline}...<br/>#end</div></td></tr>
+	#end
+#end
+
+#macro ( inferred_keywords $label $list)
+	#if( $list )
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				<span class="attribute_value_detail">
+				#foreach ($element in $list)
+					#if ($velocityCount > 1), #end
+					<a href='$link.relative('/search')?h=kw_dg&q="$element"'>$element</a>			
+				#end
+				</span>
+    		</td>			
+    	</tr>
+	#end
+#end 
+
+#macro ( detail_multivalued_i18n_attribute $label $list $bundle)
+	#if( $list )
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				#foreach ($element in $list)
+					<span class="attribute_value_detail">$text.bundleGet($bundle,$element)</span>			
+					<br/>
+				 #end
+    		</td>			
+    	</tr>
+	#end
+#end  
+
+#macro ( detail_multivalued_linked_i18n_attribute $label $list $bundle $filterName)
+	#if( $list )
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				#foreach ($element in $list)
+					#set($filterValue = $element.replaceAll("\"", "\\""))
+					<a class="linked_value" href='search?q=*:*&f=$filterName:$esc.q$filterValue$esc.q'><span style="font-size: 1.1em;">$text.bundleGet($bundle,$element)</span></a>
+					<br/>
+				 #end
+    		</td>			
+    	</tr>
+	#end
+#end  
+
+#macro( detail_literal_linked_entry $label $entries $ids)
+	#if( $entries )
+	<tr> 
+		<td valign="top" width="10%" nowrap="nowrap">
+			<span class="attribute_name_detail">$label</span>
+		</td>
+		<td valign="top">
+			#foreach ($parent in $entries)
+				#set ($index = $velocityCount - 1)
+				#if ($ids)
+					#set ($ind = $ids.get($index))
+					#if($ind == '0')
+						<span class="attribute_value_detail">$parent</span>
+					  #else <a class="linked_value" href='resource?uri=$ids.get($index)'><span class="attribute_value_detail">$parent</span></a>	
+					#end	
+				#else
+					<span class="attribute_value_detail">$parent</span>
+				#end
+				<br/>
+			 #end
+		</td>			
+	</tr>
+#end
+#end
+
+##per gli archivi
+#macro (detail_monovalued_literal_attribute_ar $label $value)
+    #if ($value)	
+    	<tr>
+    		<td valign="top">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+    			<span class="ar_datail_value">$esc.html($value)</span>
+    		</td>			
+    	</tr>	
+	#end	
+ #end 
+ 
+ #macro (detail_monovalued_linked_literal_attribute_ar $label $value $filterName)
+    #if ($value)	
+    	<tr>
+    		<td valign="top">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				#set($filterValue = $value.replaceAll("\"", "\\""))
+    			<a class="linked_value" href='search?q=*:*&f=$filterName:$esc.q$esc.url($filterValue)$esc.q'>
+					$value</a>
+    		</td>			
+    	</tr>	
+	#end	
+ #end 
+ 
+ #macro ( detail_multivalued_literal_attribute_ar $label $list)
+	#if( $list )
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				#foreach ($element in $list)
+					<span class="ar_datail_value">$esc.html($element)</span>			
+					<br/>
+				 #end
+    		</td>			
+    	</tr>
+	#end
+ #end
+ 
+#macro ( detail_multivalued_linked_id_attribute_ar $label $list $filterName)
+	#if( $list )
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				#foreach ($element in $list)
+						<a href="resource?uri=$string.getClusterIdClstrF4Facet($element)">$string.getClusterTitleF4Facet($element)</a>	
+					<br/>
+				 #end
+    		</td>			
+    	</tr>
+	#end
+#end 
+
+#macro ( detail_multivalued_linked_literal_attribute_ar $label $list $filterName)
+	#if( $list )
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				#foreach ($element in $list)
+						##set($filterValue = $esc.url($element))
+						#set($filterValue = $element.replaceAll("\"", "\\""))
+						#set($filterValue = $esc.url($filterValue))
+						<a class="linked_value" href='search?h=def&q=*:*&f=$filterName:${esc.q}${filterValue}$esc.q'>
+							$element</a>		
+					<br/>
+				 #end
+    		</td>			
+    	</tr>
+	#end
+#end 
+
+ #macro (detail_monovalued_linked_i18n_attribute_ar $label $value $bundle $filterName)
+    #if ($value)	
+    	<tr>
+    		<td valign="top">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				#set($filterValue = $value.replaceAll("\"", "\\""))
+    			<a class="linked_value" href='search?h=def&q=*:*&f=$filterName:$esc.q$esc.url($filterValue)$esc.q'>
+					$text.bundleGet($bundle,$value)</a>
+    		</td>			
+    	</tr>	
+	#end	
+ #end  
+ 
+ #macro ( detail_multivalued_linked_i18n_attribute_ar $label $list $bundle $filterName)
+	#if( $list )
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				#foreach ($element in $list)
+					#set($filterValue = $element.replaceAll("\"", "\\""))
+					<a class="linked_value" href='search?h=def&q=*:*&f=$filterName:$esc.q$filterValue$esc.q'>
+						$text.bundleGet($bundle,$element)</a>
+					<br/>
+				 #end
+    		</td>			
+    	</tr>
+	#end
+#end 
+
+#macro( detail_literal_linked_entry_ar $label $entries $ids)
+	#if( $entries )
+	<tr> 
+		<td valign="top" width="10%" nowrap="nowrap">
+			<span class="attribute_name_detail">$label</span>
+		</td>
+		<td valign="top">
+			#foreach ($parent in $entries)
+				#set ($index = $velocityCount - 1)
+				#if ($ids)
+					<a class="linked_value" href='resource?uri=$ids.get($index)'>
+						$parent</a>		
+				#else
+					<a class="ar_datail_value">$parent</a>
+				#end
+				<br/>
+			 #end
+		</td>			
+	</tr>
+#end
+#end
+
+#macro ( detail_multivalued_i18n_attribute_ar $label $list $bundle)
+	#if( $list )
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				#foreach ($element in $list)
+					<span class="ar_datail_value">$text.bundleGet($bundle,$element)</span>			
+					<br/>
+				 #end
+    		</td>			
+    	</tr>
+	#end
+#end  
+
+##bug 5411
+  #macro (cbt_detail_monovalued_linked_literal_attribute_2 $label $value $filterName $searchValue)
+    #if ($value)	
+		<span class="attrField">$label:</span>
+		#set($filterValue = $searchValue.replaceAll('\\', '\\\\'))
+		#set($filterValue = $filterValue.replaceAll("\"", "\\""))
+		<span class="attrValue"><a href='search?q=*:*&f=$filterName:$esc.q$esc.url($filterValue)$esc.q'>$value</a></span>
+	#end	
+ #end 
+
+#macro ( cbt_detail_multivalued_literal_attribute $label $list)
+	#if( $list )
+		<span class="attrField">$label:</span> 
+			#foreach ($element in $list)
+				#if($velocityCount > 1)##if per allineamento campi multivalore
+					<span class="attrField"></span>
+				#end
+				<span class="attrValue">$esc.html($element)</span>
+			#end
+	#end
+#end 
+
+## bug 6254
+
+#macro ( detail_multivalued_linked_literal_attribute_filtered $label $list $filterName $other_list)
+	#if( $list )
+    	<tr> 
+             <td valign="top" width="10%" nowrap="nowrap">
+            		<span class="attribute_name_detail">$label</span>
+            </td>
+            <td valign="top">
+        		#foreach ($element in $list)
+        			#set($index = $velocityCount - 1)
+        			#set($filterValue = $other_list.get($index).replaceAll('\\', '\\\\'))
+        			#set($filterValue = $filterValue.replaceAll("\"", "\\""))
+        			#set($filterValue = $esc.url($filterValue))			
+        			<span class="attribute_value_detail"><a href='search?q=*:*&f=$filterName:${esc.q}${filterValue}$esc.q'>$esc.html($element)</a><br/></span>
+        		#end
+    		</td>			
+        </tr>
+	#end
+#end
+
+
+#macro (cbt_list_multivalued_literal_linked_attribute_2 $label $list $fq_field $other_list)
+	#if ($list && !$list.isEmpty())
+		<tr>
+			<td valign="top" nowrap="nowrap">
+    			<span class="attribute">$label</span>	
+    		</td>
+    		<td>
+				#foreach($element in $list)
+					#set($index = $velocityCount - 1)
+					#set($filterValue = $other_list.get($index).replaceAll('\\', '\\\\'))
+					#set($filterValue = $filterValue.replaceAll("\"", "\\""))
+					#set($filterValue = $esc.url($filterValue))
+					#set($value = $esc.html($element))
+					<a style="color:black;" href='search?h=def&q=*:*&f=$fq_field:$esc.q$filterValue$esc.q'><span>#highlight($value)</span><br/></a>
+				#end 
+    		</td>
+		</tr>
+	#end 	
+#end
+
+#macro (authority_list_attribute $label $list)
+	#if ($list && !$list.isEmpty())
+		<tr class="row0">		
+			<td>$label</td>
+		</tr>
+		<tr class="rowalt">  
+			<td>       
+		    	#foreach($element in $list)
+		    		$element
+		    		<br/>
+		    	#end
+		   	</td>
+		</tr>
+	#end
+#end
+
+#macro (authority_list_attribute_formatted $label $list)
+	#if ($list && !$list.isEmpty())
+		<tr class="row0">		
+			<td>$label</td>
+		</tr>
+		<tr class="rowalt">  
+			<td>       
+		    	#foreach($element in $list)
+		    		$string.dateFormatter($element)
+		    		<br/>
+		    	#end
+		   	</td>
+		</tr>
+	#end
+#end
+
+#macro (authority_linked_list_attribute $label $list $linkList)
+	#if ($list && !$list.isEmpty())
+		<tr class="row0">		
+			<td>$label</td>
+		</tr>
+		<tr class="rowalt">  
+			<td>       
+		    	#foreach($element in $list)
+		    		#set($index = $velocityCount - 1)
+		    		#set($url = $linkList.get($index))
+		    		$element #if("-2147483648" != $url) <a target="_blank" href="$url">$url</a> #end
+		    		<br/>
+		    	#end
+		   	</td>
+		</tr>
+	#end
+#end
+
+#macro (authority_linked_list_attribute_v $label $list $linkList $vList)
+	#if ($list && !$list.isEmpty())
+		<tr class="row0">		
+			<td>$label</td>
+		</tr>
+		<tr class="rowalt">  
+			<td>       
+		    	#foreach($element in $list)
+		    		#set($index = $velocityCount - 1)
+		    		#set($url = $linkList.get($index))
+		    		#set($v_subfield = $vList.get($index))
+		    		$element #if("-2147483648" != $url) <a target="_blank" href="$url">$url</a> #end #if("-2147483648" != $v_subfield) $v_subfield #end 
+		    		<br/>
+		    	#end
+		   	</td>
+		</tr>
+	#end
+#end
+
+#macro (authority_024 $label $list $linkList $vList $list_2)
+	#if ($list && !$list.isEmpty())
+		<tr class="row0">		
+			<td>$label</td>
+		</tr>
+		<tr class="rowalt">  
+			<td>       
+		    	#foreach($element in $list)
+		    		#set($index = $velocityCount - 1)
+		    		#set($url = $linkList.get($index))
+		    		#set($v_subfield = $vList.get($index))
+		    		#set($subfield_2 = $list_2.get($index))
+		    		$element #if("-2147483648" != $url) <a target="_blank" href="$url">$url</a> #end #if("-2147483648" != $v_subfield) $v_subfield #end #if("-2147483648" != $subfield_2) [$text.information_source] $subfield_2 #end 
+		    		<br/>
+		    	#end
+		   	</td>
+		</tr>
+	#end
+#end
+
+#macro (authority_list_attribute_v $label $list $vList)
+	#if ($list && !$list.isEmpty())
+		<tr class="row0">		
+			<td>$label</td>
+		</tr>
+		<tr class="rowalt">  
+			<td>       
+		    	#foreach($element in $list)
+		    		#set($index = $velocityCount - 1)		    		
+		    		#set($v_subfield = $vList.get($index))
+		    		$element #if("-2147483648" != $v_subfield) $v_subfield #end 
+		    		<br/>
+		    	#end
+		   	</td>
+		</tr>
+	#end
+#end
+
+#macro (authority_list_occupation $label $list $vList $sList $tList $list_2)
+	#if ($list && !$list.isEmpty())
+		<tr class="row0">		
+			<td>$label</td>
+		</tr>
+		<tr class="rowalt">  
+			<td>       
+		    	#foreach($element in $list)
+		    		#set($index = $velocityCount - 1)		    		
+		    		#set($v_subfield = $vList.get($index))
+		    		#set($s_subfield = $sList.get($index))
+		    		#set($t_subfield = $tList.get($index))
+		    		#set($subfield_2 = $list_2.get($index))
+		    		$element #if("-2147483648" != $s_subfield) $s_subfield #end #if("-2147483648" != $s_subfield && "-2147483648" != $t_subfield)-#end #if("-2147483648" != $t_subfield) $t_subfield #end  #if("-2147483648" != $v_subfield) [$text.information_source] $v_subfield #end #if("-2147483648" != $subfield_2) [$text.term_source] $subfield_2 #end 
+		    		<br/>
+		    	#end
+		   	</td>
+		</tr>
+	#end
+#end
+
+#macro (authority_linked_biblio $label $list $linkList)
+	#if ($list && !$list.isEmpty())
+		<tr class="row0">		
+			<td>$label</td>
+		</tr>
+		<tr class="rowalt">  
+			<td>       
+		    	#foreach($element in $list)
+		    		#set($index = $velocityCount - 1)
+		    		#set($bibId = $linkList.get($index))
+		    		#if ("-2147483648" != $bibId)
+		    			<a target="_blank" href="resource?uri=${bibId}BIB">
+		    				$element
+		    			</a>
+		    		#else
+		    			$element
+		    		#end
+		    		<br/>
+		    	#end
+		   	</td>
+		</tr>
+	#end
+#end
+
+#macro (detail_multivalued_linked_literal_authority_attribute $label $list $filterName $authorityList)
+	#if( $list )
+    	<tr> 
+    		<td valign="top" width="10%" nowrap="nowrap">
+    			<span class="attribute_name_detail">$label</span>
+    		</td>
+    		<td valign="top">
+				#foreach ($element in $list)
+						#set($index = $velocityCount - 1)
+						##set($filterValue = $esc.url($element))
+						#set($filterValue = $element.replaceAll("\"", "\\""))
+						#set($filterValue = $esc.url($filterValue))
+						<a class="linked_value" href='search?q=*:*&h=def&f=$filterName:${esc.q}${filterValue}$esc.q'>
+							<span class="attribute_value_detail">$element</span>										
+						</a>		
+						#set($authorityUri = "")
+						#if ($authorityList.size() > $index)
+							#set($authorityUri = $authorityList.get($index))
+							<div class="authorityLink" uri="$authorityUri"></div>
+						#end						
+					<br/>
+				 #end
+    		</td>			
+    	</tr>
+	#end
+#end
+
+#macro (list_multivalued_literal_linked_authority_attribute $label $list $fq_field $authorityList)
+	#if ($list && !$list.isEmpty())
+		<tr>
+			<td valign="top" nowrap="nowrap">
+    			<span class="attribute_name">$label</span>	
+    		</td>
+			<td>#spacer(10)</td>
+    		<td>
+				#foreach($element in $list)
+					#set($index = $velocityCount - 1)
+					##set($filterValue = $esc.url($element))
+					#set($filterValue = $element.replaceAll("\"", "\\""))
+					#set($filterValue = $esc.url($filterValue))
+					<a class="linked_value" href='$link.relative('search')?h=def&q=*:*&f=$fq_field:$esc.q$filterValue$esc.q'>
+						<span>#highlight($element)</span>						
+					</a>
+					#set($authorityUri = "")
+					#if ($authorityList.size() > $index)
+						#set($authorityUri = $authorityList.get($index))
+						<div class="authorityLink" uri="$authorityUri"></div>
+					#end					
+					<br/>
+				#end 
+    		</td>
+		</tr>
+	#end 	
+#end
+
+#macro ( detail_multivalued_linked_literal_authority_attribute_filtered $label $list $filterName $other_list $authorityList)
+	#if( $list )
+    	<tr> 
+             <td valign="top" width="10%" nowrap="nowrap">
+            		<span class="attribute_name_detail">$label</span>
+            </td>
+            <td valign="top">
+        		#foreach ($element in $list)
+        			#set($index = $velocityCount - 1)
+        			#set($filterValue = $other_list.get($index).replaceAll('\\', '\\\\'))
+        			#set($filterValue = $filterValue.replaceAll("\"", "\\""))
+        			#set($filterValue = $esc.url($filterValue))			
+        			<span class="attribute_value_detail"><a href='search?q=*:*&h=def&f=$filterName:${esc.q}${filterValue}$esc.q'>$esc.html($element)</a></span>
+        			#set($authorityUri = "")
+					#if ($authorityList.size() > $index)
+						#set($authorityUri = $authorityList.get($index))
+						<div class="authorityLink" uri="$authorityUri"></div>
+					#end	
+					<br/>
+        		#end
+    		</td>			
+        </tr>
+	#end
+#end

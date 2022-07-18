@@ -1,0 +1,1 @@
+curl "http://$OSEEGENIUS_I_HOST:$OSEEGENIUS_I_PORT/solr/main/indexer?target=biblio&mappings=solr2marc.properties&moveAfter=true"

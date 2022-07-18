@@ -1,0 +1,88 @@
+	<div style="float:left;"><a href="$link.relative('/home')"><img src="$link.relative($corporate-logo-url)" #if($corporate-logo-url-height) height="${corporate-logo-url-height}" #end/></a></div>		
+	<div style="float: left; margin-left:0px;margin-right:6px; padding-bottom:2px; height:50px;">			
+		<form name="searchForm" method="get" action="$link.relative('/browse')">
+		#parse("components/page/h-banner.vm")
+		<div style="float:left;">	
+			<table width="" cellpadding="" cellspacing="0" border="0">
+			<tr>
+			<td style="padding-right: 10px;">
+				${text.browse_alphabetically}&nbsp;
+				<select style="display:none;" name="i" id="i"  onchange="javascript:reSubmitBrowse()">
+					#set ($selectedValue = $params.i)
+					#if ($configuration.browsableSimpleIndexes)
+					<optgroup label="$text.indexes">
+    					#foreach($index in $configuration.browsableSimpleIndexes)
+							<option value="$index" #if($index == $selectedValue) selected #end>$text.get($index)</option>
+						#end
+    				</optgroup>
+					#end
+					#if ($configuration.browsableAuthorityIndexes)
+					<optgroup label="$text.authority">
+    					#foreach($authority in $configuration.browsableAuthorityIndexes)
+							<option value="$authority" #if($authority == $selectedValue) selected #end >$text.get($authority)</option>
+						#end
+    				</optgroup>
+					#end					
+    			</select>
+				$text.starting_from
+				<input type="text" class="search-field" id="q" name="from" autocomplete="off" style=""/>
+			</td>
+			<td>
+				${text.showing}&nbsp;
+				#set ($selectedSize = $params.s)
+				#if (!$selectedSize) #set ($selectedSize = $configuration.defaultPageSize) #end
+				<select style="display: none;" name="s" id="s" onchange="javascript:reSubmitSearch()" value="$selectedSize">
+            		#foreach($pageSize in $configuration.allowedPageSizes)
+        				<option value="$pageSize" #if($pageSize == $selectedSize) selected #end>$pageSize</option>
+    				#end
+    			</select>
+				&nbsp;${text.results_per_page}&nbsp;
+			</td>
+			<td>
+				<input type="submit" class="do_search_button" value="$text.browse"/>
+			</td>
+			</tr>
+			</table>
+		</div>
+		<div id="functions">
+			<table cellpadding="5" cellspacing="0">
+				<tr>
+
+			<td>
+			<a href="$link.relative('/home')">$text.simple_search</a>
+			</td>		
+			<td>
+			<a href="$link.relative('/advanced')">$text.advanced_search</a>
+			</td>
+			
+			#if ($configuration.browsingEnabled)
+    			<td>
+    				<a href="browse?${session.visit.browsingExperience.currentTab.queryParameters}">$text.browsing</a>
+    			</td>	
+			#end
+			
+			#if ($session.visit.historyNotEmpty)
+    			<td>
+    				<a href="history">$text.history</a>
+    			</td>	
+				#end			
+			</tr>	
+			</table>
+		</div>
+
+		</form>
+	</div>
+	<script>
+		screenW = screen.width;
+		if (screenW <= 1100)
+		{ 
+			$(".search-field").css("width",160);
+		} else if (screenW < 1300)
+		{
+			$(".search-field").css("width",200);			
+		} else if (screenW <= 1600)
+		{
+			$(".search-field").css("width",500);
+		}		
+		
+	</script>

@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>    
+		<title>ThGenius - Thesaurus Explorer</title>
+		<link href="$link.relative('/style/og.css')" rel="stylesheet" type="text/css" />
+		<link href="$link.relative('/style/jquery.ui.theme.css')" rel="stylesheet" type="text/css" />
+		#if ($configuration.css)
+			<link href="$link.relative('/style/')${configuration.css}" rel="stylesheet" type="text/css" />
+		#else
+			<link href="$link.relative('/style/customer.css')" rel="stylesheet" type="text/css" />
+		#end				
+		<link href="$link.relative('/style/jquery.ui.selectmenu.css')" rel="stylesheet" type="text/css" />	
+		<link href="$link.relative('/style/jquery.contextMenu.css')" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="$link.relative('/js/jquery.min.1.4.4.js')"></script> 
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.core.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.widget.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.position.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.selectmenu.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.button.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.contextMenu.js')"></script>		
+		<script type="text/javascript" src="$link.relative('/js/oseegenius.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/thgenius.js')"></script>
+		#autosuggestorScript
+		<style>
+			div#navigation{float: left;width: 250px;\width:250px;w\idth:250px;padding: 1em 0 0 10px;}
+			div#extra{float: right; width: 235px;\width:235px;w\idth:235px;;padding: 1em 10px;}
+			div#content{margin: 0 270px;padding: 1em 10px; border-width: 0 0px; border-style:none;}
+		</style>
+	</head>
+	<body>
+    	<div id="container"> 
+			#banner
+			<div id="top-toolbar">
+				#parse('components/page/top-toolbar-thexp.vm')	
+				#parse('components/search/breadcrumb.vm')	  
+			</div>
+            <div id="header"></div> 
+            <div id="navigation">
+        		#parse('components/browsing/first_n_top_terms.vm')							
+            </div> 
+            <div id="extra"> 
+        		#parse('components/browsing/facets_thexp.vm')			
+        	</div> 
+            <div id="content">$screen_content</div>
+    		#parse('components/search/bottom-toolbar-thexp.vm')	
+    		#parse('components/page/footer.vm')
+		</div>	
+		<ul id="searchMenu" class="contextMenu">#foreach($provider in $configuration.thGeniusSearchProviders)<li><a href="#$provider.url">$provider.label</a></li>#end</ul>
+	</body>
+</html>

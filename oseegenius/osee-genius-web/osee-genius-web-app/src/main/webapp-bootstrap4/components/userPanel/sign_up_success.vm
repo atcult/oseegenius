@@ -1,0 +1,75 @@
+<!-- components/userPanel/sign_up_success.vm -->
+<div class="form-signin  p-4">
+	<h2 class="text-center my-5">$text.sign_up_success</h2>
+	<div class="bg-white shadow p-4">
+		<img alt="" class="mx-auto d-block mb-4" src="img/success.png">	
+		#set($isAdmin = $session.visit.folioAccount.isAdmin())
+		#if(!$isAdmin)	
+			<div>$text.sign_up_success_message</div>		
+			<button class="button-blue btn-block my-3 py-2" type="button" onclick="document.location='signIn'">$text.login</button>	
+		#else
+			$text.get($message) $text.complete_sign_up 
+			<a target="_blank" href="folioCard?name=$user.firstName&surname=$user.lastName&cfu=$user.barcode&userId=$user.id">
+				<button class="btn link-btn button-blue btn-block py-2 my-3" type="button">$text.print_card</button>
+			</a>		
+		#end		
+	</div>
+</div>
+
+
+#if($isAdmin)
+	<div class="row my-3 mx-0">
+				<div class="col-12">
+					<table class="table"> 
+	            		<thead>
+	                		<th>$text.name</th>
+	                		<th>Username</th>
+	                		<th>$text.dateOfBirth</th>
+	                		<th>$text.barcode</th>
+	                		<th>Email</th>      
+	                		<th>$text.category</th>    
+	                		<th>$text.blocked_untill</th>  						
+	                        <th><span class="sr-only">$text.edit</span></th>
+	                        #if($loggedUser.isSuperAdmin())							
+								<th><span class="sr-only">$text.clear</span></th>
+							#end
+							<th><span class="sr-only">$text.block_user</span></th>
+							<th><span class="sr-only">$text.print_card</span></th>
+							<th><span class="sr-only">Folio</span></th>
+	            		</thead>
+	            		<tbody>
+	            			<tr>        						
+	                    		<td>#if($user.firstName)$user.firstName #end  #if($user.lastName)$user.lastName #end</td>
+	                    		<td>#if($user.username)$user.username #end</td>
+	                    		<td>#if($user.dateOfBirth)$string.showSimpleDate($user.dateOfBirth)#end</td>
+	                    		<td>#if($user.barcode)$user.barcode #end</td>
+	                    		<td>#if($user.email)$user.email #end</td>    
+	                    		<td>#if($user.patronGroupName)$user.patronGroupName#end</td> 
+	                    		<td>#if($user.blockExpireDate)$string.showSimpleDate($user.blockExpireDate)#end</td>
+								<!-- <td><a href="resetPassword?userId=$user.id" class="btn">reset password</a></td> -->
+								<td><a href="updateFolioUser?userId=$user.id" title="$text.edit" aria-label="$text.edit"><img src="img/edit-icon.png" height="35px" alt="$text.edit"></a></td>
+								#if($loggedUser.isSuperAdmin())				
+									<td>
+										<button type="button" aria-label="$text.clear" class="btn btn-default shadow-none identifyingModalClass p-0" data-toggle="modal" data-target="#deleteUserModal" data-userid="${user.id}">
+	  										<input type="image" title="$text.clear" aria-label="$text.clear" src="img/delete-icon.png" height="35px" alt="$text.clear">
+										</button>			
+									</td>
+								#end
+								<td>												
+									<a href="blockUser?userId=$user.id" title="$text.block_user"><img alt="$text.block_user" src="img/block-icon.png" height="35px"></a>												
+								</td>
+								<td>
+	    							<a target="_blank" href="folioCard?name=$user.firstName&surname=$user.lastName&cfu=$user.barcode&userId=$user.id" title="$text.print_card" aria-label="$text.print_card"><img alt="$text.print_card" src="img/print-icon.png" height="35px"></a>
+	    						</td>
+	    						<td>
+	    							#set($relocated = "${folioFrontendUrl}/users/view/${user.id}?layer=edit&sort=name")
+	    							<a target="_blank" href="$relocated" aria-label="Folio">
+	    								<button type="button" class="button-blue py-2 px-4">Folio</button>	
+									</a>
+	    						</td>    										
+	                    	</tr>
+	                    </tbody>
+	            	</table>
+				</div>
+			</div>
+#end

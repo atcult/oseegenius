@@ -1,0 +1,39 @@
+<div class="hit" id="hit">
+		<table width="100%" style="margin-top:5px;">
+			<tr>
+				<td width="4%" valign="top">
+					#set ($img = "$link.relative('/img')/checked_${tab.isSelected($document.id)}.png")
+					<a id="check_link" href="javascript:toggle('$document.id','$document.category_code')"><img id="check_$document.id" src="$img"/></a>
+	            	#spacer(4)
+				</td>
+				<td width="96%" valign="top" style="border-bottom:1px solid #cccccc;">
+					<div id="document_header">	
+							<a href="$link.relative('/resource')?uri=$document.id" class="document_title">
+							 #if ($document.title_dg) $document.title_dg
+							 #else
+								$text.title_na
+							#end
+							</a>
+							<br/>
+							#if ($document.author_dg)
+								 <a href='$link.relative('/search')?h=author_dg&q=$esc.q$document.author_dg$esc.q' class="document_author">
+									$document.author_dg
+								 </a>				
+							#else
+								<a class="document_author">$text.author_na</a>
+							#end
+							<br/>
+							#parse("customization/hits/dg_list_view_additional_attributes.vm")
+					</div>
+				</td>
+				<td style="vertical-align: top; width: 50px">
+				</td>
+			</tr>
+			<tr>
+				<td>
+				</td>
+				<td width="100%">
+				</td>				
+			</tr>
+		</table>
+</div>

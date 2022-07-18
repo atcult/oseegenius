@@ -1,0 +1,36 @@
+<!-- components/hits/bc_list_resource_view_mode.vm -->
+#set ($dummy_cover_nr = $string.randomValue)
+#set ($groupSize = $document.groupedItems.size())
+#if ($params.v != 'll')
+	#set($groupedView = false)		  
+#else
+	#set($groupedView = true)
+#end
+#if ($groupedView && $groupSize > 1)
+		#*
+		 <span class="title"><a style="text-decoration:none;">$document.title</a> 
+			<span class="record-group">($groupSize records)</span>
+		 </span> 
+		*#			
+#else
+	<li class="list-group-item py-1">
+		<div class="row">
+			<div class="form-check">
+				<input class="form-check-input my-2" type="checkbox" onclick="javascript:toggle('$document.id')" name="to_check" id="check_${document.id}">
+  				<label class="form-check-label" for="check_${document.id}">
+    				<a class="strSizeOnly" href="resource?uri=$document.id&v=$viewType&dcnr=$dummy_cover_nr">#highlight($esc.html($document.title))</a>
+  				</label>
+			</div>
+		</div>
+		<div class="row my-2 mx-0">
+				#if ($viewType == 'm21')
+					<span class="strSizeOnly">$breadcrumbTool.toMarc21($document.marc_xml)</span>
+				#else
+					#set ($viewId = "customization/hits/list_${viewType}_view_additional_attributes.vm")
+					#parse($viewId)
+				#end
+		</div>	
+		 <a title="Facebook" onclick="javascript:share('http://www.facebook.com/sharer.php?u=','$document.id')" data-g-label="OseeGenius - Search and Discovery" data-g-action="share facebook"><span class="share-facebook share"></span></a>
+		 <a title="Google Bookmarks" onclick="javascript:share('http://www.google.com/bookmarks/mark?op=add&title=OseeGenius - Search and Discovery - $document.id&output=popup&bkmk=','$document.id')" data-g-label="OseeGenius -  Search and Discovery" data-g-action="share bookmarks"><span class="share-igoogle share"></span></a>
+	</li>
+#end

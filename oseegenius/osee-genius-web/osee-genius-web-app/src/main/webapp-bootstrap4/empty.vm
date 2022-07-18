@@ -1,0 +1,6 @@
+<!-- empty.vm -->
+<div class="container alert alert-danger" role="alert">
+	<h5>
+		There are no records - Non ci sono record.
+	</h5>
+</div>

@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<tools>
+	<data key="institution">Biblioteca nazionale di Firenze</data>
+	<data key="corporate-logo-url">img/logo.jpg</data>
+	<data key="corporate-portal-link"></data>
+	<data key="googlekey"></data>
+	<data key="unavailavility-start" class="java.lang.Integer">24</data>	
+	<data key="unavailavility-start-mm" class="java.lang.Integer">24</data>	
+	<data key="unavailavility-end" class="java.lang.Integer">7</data>	
+	<data key="unavailavility-end-mm" class="java.lang.Integer">00</data>	
+	
+	<toolbox scope="request">
+		<tool class="com.atc.osee.web.tools.LayoutLinkTool"/>
+		<tool key="text" class="com.atc.osee.web.tools.ResourceTool"/>		
+	</toolbox>
+	  	
+  	<toolbox scope="session">
+	  	<tool key="text" class="com.atc.osee.web.tools.ResourceTool"/>
+  	</toolbox>
+  <toolbox scope="application">
+  	<tool key="date"/>
+  	<tool class="com.atc.osee.web.tools.HighlightingTool"/>
+    <tool class="com.atc.osee.web.tools.BreadcrumbHandlingTool"  
+    	i18nMappings="cat/aree_tematiche,loan_type/loan_types,target_audience/target_audiences,publication_country/publication_countries,language/languages,format/formats,bibliographic_level/bibliographic_levels,content_type/content_types,dewey_1digit/dewey,category_code/categories,dewey/dewey,publication_date_interval/pub_intervals,collection_code/collections,library/library,format_for/format_for" />  
+    <tool class="com.atc.osee.web.tools.StringManipulationTool"/>  
+
+	<tool class="com.atc.osee.web.tools.LicenseTool"
+		olisuite-naming-context-factory="weblogic.jndi.WLInitialContextFactory"
+		olisuite-provider-url="t3://192.168.0.158:7021"
+		olisuite-borrower-management-service-name="BorrowerManagementService#com.atc.weloan.logic.core.services.PersonManagementRemoteService"
+		olisuite-hold-management-service-name="HoldManagementService#com.atc.weloan.logic.core.services.HoldManagementRemoteService"
+		olisuite-circulation-service-name="CirculationService#com.atc.weloan.logic.core.services.circulation.CirculationRemoteService"
+		olisuite-online-service-name="OnlineService#com.atc.weloan.logic.core.services.OnlineRemoteService"
+		desiderata-enabled="false"
+		
+		holding-data-viewer-enabled="true"
+		more-like-this-viewer-enabled="true"
+		th-explorer-enabled="false"
+		th-explorer-standalone="false"
+		field-collapsing-enabled="false"
+		pin-filters-capability-enabled="true"
+		federated-search-enabled="true"/>
+	<tool
+		 class="com.atc.osee.web.tools.ConfigurationTool"
+		 searchable-meta-attributes = "[bibliographic_catalogue:any_bc,title_bc,author_bc,sub_bc,publisher_bc,series_bc]"
+		 advanced-searchable-meta-attributes="[bibliographic_catalogue:any_bc,asw_bc,author_bc,tsw_bc,title_bc,sub_bc,classification,classification_sw,pub_bc,series_bc,isbn_or_issn,collocation,collocation_sw,collocation_part,mark,fingerprint,bninumber,provenance,possessor,miur_code,others_id_uni_sw,inventory,an]"
+		 quoted-meta-attributes="classification,classification_sw,asw_bc,tsw_bc,ssw_bc,psw_bc,isbn_or_issn,collocation,collocation_sw,other_standard_identifier,publisher_number,barcode,inventory"
+		 allowed-page-sizes="5,10,25,50"
+		 default-page-size ="10"
+		 order-by-meta-attributes = "score/score,title/title,author/author,year/publication_year,yearAsc/publication_year_asc"
+		 default-where-values-for-advanced-fields="any_bc,title_bc,author_bc,pub_bc"
+		 initial-number-of-advanced-search-fields = "3"
+		 i18n-support="it=img/lang_Italian.png,en=img/lang_English.png"
+		 email-sender-address="bncf@bncf-folio.it"
+		 email-receiver-address="bncf@bncf-folio.it"
+		 view-perspectives-enabled="true"
+		 default-order-by-criteria="score"
+		 browsable-simple-indexes="title_browse,author_browse,publisher_browse,publication_place_browse"
+		 facet-limits="author_person_facet/10,author_corporate_facet/10,author_conference_facet/10,publisher_name/10,language/10,publication_date_interval/10,publication_date/10"
+		 loan-not-allowed-codes="2,3,5,6,8,9,A,B,C,D,E"
+		 in-vm-hostname="https://opac.bncf.firenze.sbn.it"
+		 in-vm-port="443"
+		 disabled-branches="216,239,16458,16517,16539,126,16312,136,16529,195,16539,262,16123,16517,4,16151,118,15887,231,221,175,128,168,192,278"
+		 disabled-main-libraries="15983,125,16311,135,16538,261,16122,3,16150,117,15886,16516,222,220,127,16596,277"
+		 opendata-file-path="opendata/biblioteche.xml"
+		 desiderata-email-address="http://dev.atcult.it:7021/olisuite/"
+		 branches-location="158:3/15988:1,2,3,4,5,6,7/154:5,4,6"	
+		 goolgle-recaptcha-key="6Le5ZbYUAAAAAK1t7NTgacF6aSFBLZK6Px6PsVuU"
+		 holdings-sbn-enabled="true"
+		 upload-folder="/home/alice/atcult/bncf/upload/"
+		 navigation-dewey-enabled="true"
+		 list-filter-dewey-editions="x,23,22,21,20,19,18,17,16,15,15r,14,13,12,11,10"
+		 printer-ip="slettura/192.168.3.11:9100,sconsultazione/192.168.3.24:9100,smusica/192.168.3.10:9100,smanoscritti/192.168.3.22:9100,speriodici/192.168.3.19:9100"
+		 aplus-service-url="http://aproweb.bncf.lan:8080/soap/IAxwSoapWebService"
+		 aplus-print-card-page="https://aproweb.bncf.lan/?barcode="
+		 sebina-service-url="http://sebina.bncf.lan/sebina/fascicoli/F_BNCF_OPAC.do"		
+		 library-domain-url="https://www.bncf.firenze.sbn.it"
+		 print-folder="/app/spool/"
+		 print-command="lpr -o fit-to-page"
+		 delete-pdf-enabled="false"
+		 loan-limit="4"
+		 loan-count-enabled="true"
+		 loan-service-close=""
+		 library-close=""
+		 save-permanently-history-enabled="true"
+		 create-schema="true"
+		 custom-fields="true"
+		 />
+		 <!-- settaggi originali
+		  printer-ip="slettura/192.168.3.11:9100,sconsultazione/192.168.3.24:9100,smusica/192.168.3.10:9100,smanoscritti/192.168.3.22:9100,speriodici/192.168.3.19:9100"
+		 aplus-service-url="http://192.168.7.75:8080/soap/IAxwSoapWebService"
+		 aplus-print-card-page="http://192.168.7.75:8077/?barcode="
+		 sebina-service-url="http://10.96.1.23:80/sebina/fascicoli/F_BNCF_OPAC.do"
+		  -->
+		  <!-- folio-url="https://okapi-snd-eu-central-1.folio.ebsco.com" -->
+	<tool 
+		class="com.atc.osee.web.tools.CoverPluginManagerTool"
+		small-cover-width=""
+		small-cover-height=""
+		medium-cover-width="120"
+		medium-cover-height="180"
+		big-cover-width="300"
+		big-cover-height="400"		
+		embedded-url-strategy="com.atc.osee.web.plugin.cover.EmbeddedAbsoluteCoverPlugin"
+		small-cover-embedded-attribute-name="small-cover-url"
+		medium-cover-embedded-attribute-name="medium-cover-url"
+		big-cover-embedded-attribute-name="big-cover-url"
+		use-no-cover-i18n-images="true"
+		no-cover-small-image-path = "/img/copertina_non_disponibile.jpg"
+		no-cover-medium-image-path="/img/copertina_non_disponibile.jpg"
+		no-cover-big-image-path="/img/copertina_non_disponibile.jpg"
+		eng-no-cover-small-image-path = "/img/copertina_non_disponibile.jpg"
+		eng-no-cover-medium-image-path="/img/copertina_non_disponibile.jpg"
+		eng-no-cover-big-image-path="/img/copertina_non_disponibile.jpg"
+		chain-of-responsibility="com.atc.osee.web.plugin.cover.OpenLibraryProviderCoverPlugin"
+		isbn-attribute-name="isbn"
+		syndetics-account="cbtinfotn"
+		/>	
+		
+		<tool class="com.atc.osee.web.tools.AvailableTargetsTool"
+			id="lx2.loc.gov:210/LCDB,
+			    z3950cat.bl.uk:9909/BNB03U,
+			    opac.sbn.it:2100/nopac"
+			names="Library of Congress,
+				   British Library,
+				   Catalogo SBN"/>
+			
+  </toolbox>  
+</tools>

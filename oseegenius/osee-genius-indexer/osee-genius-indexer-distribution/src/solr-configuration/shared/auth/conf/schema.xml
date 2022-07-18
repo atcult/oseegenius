@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="Osee Genius Schema - Authority" version="1.2">
+	<types>
+	    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>	    
+	    <fieldType name="tint" class="solr.TrieIntField" precisionStep="8" omitNorms="true" positionIncrementGap="0"/>
+		<fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>		
+		<fieldType name="exact_match" class="solr.TextField" omitNorms="true" positionIncrementGap="100" stored="false" multiValued="true">
+			<analyzer>
+				<charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>	
+				<tokenizer class="solr.KeywordTokenizerFactory"/>
+	        	<filter class="solr.LowerCaseFilterFactory" />
+	        	<filter class="solr.WordDelimiterFilterFactory" generateWordParts="0" generateNumberParts="0" catenateWords="0" catenateNumbers="0" catenateAll="1" splitOnCaseChange="0" />
+			</analyzer>
+		</fieldType>
+		<fieldType name="right_truncated_phrase" class="solr.TextField" positionIncrementGap="100" stored="false" multiValued="true" omitNorms="true">
+			<analyzer type="index">
+				<tokenizer class="solr.KeywordTokenizerFactory"/>
+	        	<filter class="solr.LowerCaseFilterFactory" />
+	        	<filter class="solr.WordDelimiterFilterFactory" generateWordParts="0" generateNumberParts="0" catenateWords="0" catenateNumbers="0" catenateAll="1" splitOnCaseChange="0" />
+				<filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="40" side="front"/>
+			</analyzer>
+			<analyzer type="query">
+				<tokenizer class="solr.KeywordTokenizerFactory"/>
+	        	<filter class="solr.LowerCaseFilterFactory" />
+	        	<filter class="solr.WordDelimiterFilterFactory" generateWordParts="0" generateNumberParts="0" catenateWords="0" catenateNumbers="0" catenateAll="1" splitOnCaseChange="0" />
+			</analyzer>
+		</fieldType>
+		<fieldType name="light-stemmed-text-field" class="solr.TextField" omitNorms="true">
+			<analyzer>
+				<charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>	
+				<tokenizer class="solr.WhitespaceTokenizerFactory"/>
+				<filter class="solr.LowerCaseFilterFactory" />
+				<filter class="solr.WordDelimiterFilterFactory" 
+						generateWordParts="1" 
+						generateNumberParts="1" 
+						catenateWords="0" 
+						catenateNumbers="0" 
+						catenateAll="0" 
+						splitOnCaseChange="0" />
+				<filter class="solr.ItalianLightStemFilterFactory" />
+			</analyzer>
+		</fieldType>		
+		<fieldtype name="unstemmed-name-text-field" class="solr.TextField" positionIncrementGap="100" omitNorms="true">
+	      	<analyzer>
+				<charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>
+	        	<tokenizer class="solr.WhitespaceTokenizerFactory" />
+		        	<filter class="solr.LowerCaseFilterFactory" />			        	
+					<filter class="solr.WordDelimiterFilterFactory" 
+						generateWordParts="1" 
+						generateNumberParts="1" 
+						catenateWords="0" 
+						catenateNumbers="0" 
+						catenateAll="0" 
+						splitOnCaseChange="0" />	
+	      	</analyzer>
+		</fieldtype>		
+		<fieldtype name="unstemmed-text-field" class="solr.TextField" positionIncrementGap="100" omitNorms="true">
+	      	<analyzer>
+				<charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>
+	        	<tokenizer class="solr.WhitespaceTokenizerFactory" />        	 
+		        	<filter class="solr.LowerCaseFilterFactory" />			        	
+					<filter class="solr.WordDelimiterFilterFactory" 
+						generateWordParts="1" 
+						generateNumberParts="1" 
+						catenateWords="0" 
+						catenateNumbers="0" 
+						catenateAll="0" 
+						splitOnCaseChange="0" />	
+	      	</analyzer>
+		</fieldtype>
+		<fieldtype name="identifier_text" class="solr.TextField" positionIncrementGap="100" omitNorms="true">
+	      	<analyzer>
+	        	<tokenizer class="solr.KeywordTokenizerFactory" /> 
+		        	<filter class="solr.LowerCaseFilterFactory" />
+					<filter class="solr.WordDelimiterFilterFactory" 
+						generateWordParts="0" 
+						generateNumberParts="0" 
+						catenateWords="0" 
+						catenateNumbers="0" 
+						catenateAll="1" 
+						splitOnCaseChange="0" />	
+	      	</analyzer>
+		</fieldtype>
+		<fieldtype name="isbn_or_issn_normalized_text" class="solr.TextField" positionIncrementGap="100" omitNorms="true">
+	      	<analyzer type="index">
+	        	<tokenizer class="solr.KeywordTokenizerFactory" /> 
+		        	<filter class="solr.LowerCaseFilterFactory" />
+					<filter class="solr.WordDelimiterFilterFactory" 
+						generateWordParts="0" 
+						generateNumberParts="0" 
+						catenateWords="0" 
+						catenateNumbers="0" 
+						catenateAll="1" 
+						splitOnCaseChange="0" />
+					<filter class="solr.LengthFilterFactory" min="8" max="13" />	
+	      	</analyzer>
+			<analyzer type="query">
+	        	<tokenizer class="solr.KeywordTokenizerFactory" /> 
+		        	<filter class="solr.LowerCaseFilterFactory" />
+					<filter class="solr.WordDelimiterFilterFactory" 
+						generateWordParts="0" 
+						generateNumberParts="0" 
+						catenateWords="0" 
+						catenateNumbers="0" 
+						catenateAll="1" 
+						splitOnCaseChange="0" />
+	      	</analyzer>	      	
+		</fieldtype>
+		<fieldtype name="sort-field" class="solr.TextField" sortMissingLast="true" omitNorms="true">
+	    	<analyzer>
+		        <tokenizer class="solr.KeywordTokenizerFactory" />	        
+			<filter class="solr.LowerCaseFilterFactory" />
+			<filter class="solr.TrimFilterFactory" />
+	      </analyzer>
+	</fieldtype>
+</types>
+	<fields>
+		<!-- 001 da mostrare in scheda e da ricercare -->
+		<field name="id" type="string" indexed="true" stored="true" required="true" omitNorms="true" multiValued="false"/> 
+		<!-- 092a da utilizzare per il browsing -->
+	    <field name="hdg_nbr_id" type="string" indexed="true" stored="true" required="true" omitNorms="true" multiValued="false"/>
+	     
+		<field name="id_sort" type="tint" indexed="true" stored="false" required="true" omitNorms="true" multiValued="false"/> 
+		<field name="id_search" type="identifier_text" indexed="true" stored="false" required="true" multiValued="false"/> 
+		<copyField source="id" dest="id_search" />
+		<copyField source="id" dest="id_sort" />
+
+		<!-- Titles -->
+		<field name="title" type="string" indexed="false" stored="true" required="false" multiValued="false"/>
+		<field name="title_sort" type="sort-field" indexed="true" stored="false" required="false" multiValued="false"/>	
+		
+		<field name="heading_linking_entry_uniform_search" type="unstemmed-text-field" indexed="true" stored="false" required="false" multiValued="true"/>
+		
+		<field name="title_130_search" type="unstemmed-text-field" indexed="true" stored="false" />
+		<copyField source="title" dest="title_130_search"/>
+		
+		<field name="title_search" type="unstemmed-text-field" indexed="true" stored="false" />
+	
+		<!-- Authors -->
+		<field name="author" type="string" indexed="true" stored="true" multiValued="false"/>
+		<field name="author_sort" type="sort-field" indexed="true" stored="false" required="true"/>
+		<field name="discipline_sort" type="sort-field" indexed="true" stored="false" required="true"/>		
+		
+		<field name="author_person" type="string" indexed="true" stored="true" multiValued="false"/>
+		<field name="author_corporate" type="string" indexed="true" stored="true" multiValued="false"/>
+		<field name="author_conference" type="string" indexed="true" stored="true" multiValued="false"/>
+		<field name="author_search_imss" type="string" indexed="true" stored="true" multiValued="false"/>
+		
+		<field name="heading_linking_entry_personal" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="heading_linking_entry_corporate" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="heading_linking_entry_meeting" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		
+		<field name="author_1xx_search" type="unstemmed-name-text-field" indexed="true" stored="false" multiValued="true"/>
+		<field name="author_7xx_search" type="unstemmed-text-field" indexed="true" stored="false" multiValued="true"/>
+		
+		<field name="author_1xx_search_imss" type="unstemmed-name-text-field" indexed="true" stored="false" multiValued="true"/>
+		<copyField source="author_search_imss" dest="author_1xx_search_imss"/>
+		
+		<field name="author_cross_reference_search" type="unstemmed-text-field" indexed="true" stored="false" multiValued="true"/>
+		<field name="author_cross_reference_exact_match" type="exact_match" indexed="true" stored="false" multiValued="true"/>
+		<copyField source="author_cross_reference_search" dest="author_cross_reference_exact_match"/>	
+		
+		<copyField source="author_person" dest="author"/>
+		<copyField source="author_corporate" dest="author" />
+		<copyField source="author_conference" dest="author" />
+
+		<copyField source="author_person" dest="author_1xx_search"/>
+		<copyField source="author_corporate" dest="author_1xx_search" />
+		<copyField source="author_conference" dest="author_1xx_search" />
+		
+		<copyField source="heading_linking_entry_personal" dest="author_7xx_search" />
+		<copyField source="heading_linking_entry_corporate" dest="author_7xx_search" />
+		<copyField source="heading_linking_entry_meeting" dest="author_7xx_search" />	
+		
+		<field name="author_1xx_7xx_search" type="string" indexed="true" stored="false" multiValued="true"/>
+		
+		<copyField source="author_person" dest="author_1xx_7xx_search"/>
+		<copyField source="author_corporate" dest="author_1xx_7xx_search" />
+		<copyField source="author_conference" dest="author_1xx_7xx_search" />
+		
+		<copyField source="heading_linking_entry_personal" dest="author_1xx_7xx_search" />
+		<copyField source="heading_linking_entry_corporate" dest="author_1xx_7xx_search" />
+		<copyField source="heading_linking_entry_meeting" dest="author_1xx_7xx_search" />	
+		
+		<!-- marc_xml -->
+		<field name="marc_xml" type="string" indexed="false" stored="true" multiValued="false"/>   
+	
+		<!--  ISBN / ISSN -->
+		<field name="isbn" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="issn" type="string" indexed="false" stored="true" required="false" multiValued="true"/>		
+		<field name="isbn_issn_search" type="isbn_or_issn_normalized_text" indexed="true" stored="false" required="false" multiValued="true"/>
+		<copyField source="isbn" dest="isbn_issn_search" />
+		<copyField source="issn" dest="isbn_issn_search" />
+		
+		<!-- CLASSIFICATION -->
+		<field name="library_of_congress_call_number" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="library_of_congress_call_number_search" type="identifier_text" indexed="true" stored="false" required="false" multiValued="true"/> 
+		<copyField source="library_of_congress_call_number" dest="library_of_congress_call_number_search" />
+		
+		<field name="geographic_classification" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="geographic_classification_search" type="identifier_text" indexed="true" stored="false" required="false" multiValued="true"/> 
+		<copyField source="geographic_classification" dest="geographic_classification_search" />
+		
+		<field name="lc_classification_number" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="lc_classification_number_search" type="identifier_text" indexed="true" stored="false" required="false" multiValued="true"/> 
+		<copyField source="lc_classification_number" dest="lc_classification_number_search" />
+		
+		<field name="lib_arch_canada_call_number" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="lib_arch_canada_call_number_search" type="identifier_text" indexed="true" stored="false" required="false" multiValued="true"/> 
+		<copyField source="lib_arch_canada_call_number" dest="lib_arch_canada_call_number_search" />
+		
+		<field name="national_lib_of_med_call_number" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="national_lib_of_med_call_number_search" type="identifier_text" indexed="true" stored="false" required="false" multiValued="true"/> 
+		<copyField source="national_lib_of_med_call_number" dest="national_lib_of_med_call_number_search" />
+		
+		<field name="other_classification_number" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="other_classification_number_search" type="identifier_text" indexed="true" stored="false" required="false" multiValued="true"/> 
+		<copyField source="other_classification_number" dest="other_classification_number_search" />
+		
+		<field name="national_agricult_lib_call_number" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="national_agricult_lib_call_number_search" type="identifier_text" indexed="true" stored="false" required="false" multiValued="true"/> 
+		<copyField source="national_agricult_lib_call_number" dest="national_agricult_lib_call_number_search" />
+		
+		<field name="universal_decimal_classification_number" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="universal_decimal_classification_number_search" type="identifier_text" indexed="true" stored="false" required="false" multiValued="true"/> 
+		<copyField source="universal_decimal_classification_number" dest="universal_decimal_classification_number_search" />
+		
+		<field name="dewey_decimal_call_number" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="dewey_decimal_call_number_search" type="identifier_text" indexed="true" stored="false" required="false" multiValued="true"/> 
+		<copyField source="dewey_decimal_call_number" dest="dewey_decimal_call_number_search" />
+		
+		<field name="dewey_decimal_classification_number" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="dewey_decimal_classification_number_search" type="identifier_text" indexed="true" stored="false" required="false" multiValued="true"/> 
+		<copyField source="dewey_decimal_classification_number" dest="dewey_decimal_classification_number_search" />
+		
+
+		<!-- SUBJECTS -->		
+		<field name="author_subject" type="string" indexed="true" stored="true" multiValued="false" />		
+		<field name="author_subject_unstem_search" type="unstemmed-text-field" indexed="true" stored="false" multiValued="false" />		
+		<copyField source="author_subject" dest="author_subject_unstem_search" />
+						
+		<!-- 1) TOPICAL SUBJECTS -->
+		<field name="topical_subject" type="string" indexed="true" stored="true" multiValued="false" />		
+		<field name="topical_subject_unstem_search" type="unstemmed-text-field" indexed="true" stored="false" multiValued="false" />		
+		<copyField source="topical_subject" dest="topical_subject_unstem_search" />
+		
+		<!-- 2) CHRONOLOGICAL SUBJECT -->
+		<field name="chronological_subject" type="string" indexed="true" stored="true" multiValued="false" />
+		<field name="chronological_subject_unstem_search" type="unstemmed-text-field" indexed="true" stored="false" multiValued="false" />
+		<copyField source="chronological_subject" dest="chronological_subject_unstem_search" />
+		
+		<!-- 3) GEOGRAPHIC SUBJECT -->
+		<field name="geographic_subject" type="string" indexed="true" stored="true" multiValued="false" />
+		<field name="geographic_subject_unstem_search" type="unstemmed-text-field" indexed="true" stored="false" multiValued="false" />
+		<copyField source="geographic_subject" dest="geographic_subject_unstem_search" />
+				
+		<!-- 4) GENRE / FORM SUBJECT -->
+		<field name="genre_form_subject" type="string" indexed="true" stored="true" multiValued="false" />
+		<field name="genre_form_subject_unstem_search" type="unstemmed-text-field" indexed="true" stored="false" multiValued="false" />
+		<copyField source="genre_form_subject" dest="genre_form_subject_unstem_search" />
+		
+		<!-- RINVII DEI SOGGETTI -->
+		<field name="subject_cross_reference_search" type="unstemmed-text-field" indexed="true" stored="false" multiValued="true"/>
+		<field name="subject_cross_reference_exact_match" type="exact_match" indexed="true" stored="false" multiValued="true"/>
+		<copyField source="subject_cross_reference_search" dest="subject_cross_reference_exact_match"/>
+		
+		<!--  NOTES -->
+		<!-- note da ricercare -->
+		<field name="source_data_found" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="source_data_found_link" type="string" indexed="true" stored="true" required="false" multiValued="true"/>		
+		<field name="nonpublic_general_note" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="source_data_not_found" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="biographical_or_historical_data" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		
+		<field name="public_general_note" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="subject_example_tracing_note" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="deleted_heading_information" type="string" indexed="false" stored="true" required="false" multiValued="false"/>
+		<field name="application_history_note" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		
+		<field name="content_type" type="string" indexed="false" stored="true" required="false" multiValued="true"/> 
+		<field name="other_attributes_of_person_or_corporate_body" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="associated_place" type="string" indexed="false" stored="true" required="false" multiValued="true"/> 
+		<field name="address" type="string" indexed="false" stored="true" required="false" multiValued="true"/> 
+		<field name="field_of_activity" type="string" indexed="false" stored="true" required="false" multiValued="true"/> 
+		<field name="affiliation" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="occupation" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		
+		<field name="gender" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="family_information" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="associated_language" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="fuller_form_of_personal_name" type="string" indexed="false" stored="true" required="false" multiValued="false"/>
+		<field name="form_of_work" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="other_distinguishing_characteristics_of_work" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="other_distinguishing_characteristics_of_work_search" type="unstemmed-text-field" indexed="true" stored="false" required="false" multiValued="true"/>
+		<field name="medium_of_performance" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		
+		<field name="numeric_designation_of_musical_work" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="key" type="string" indexed="false" stored="true" required="false" multiValued="false"/>
+		<field name="audience_characteristics" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="creator_characteristics" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+			
+		<!-- tutte le note da ricercare in un unico campo -->
+		<field name="notes_search" type="unstemmed-text-field" indexed="true" stored="false" required="false" multiValued="true"/>
+		<copyField source="biographical_or_historical_data" dest="notes_search" />
+		<copyField source="source_data_found" dest="notes_search" />
+		<copyField source="nonpublic_general_note" dest="notes_search" />
+		<copyField source="source_data_not_found" dest="notes_search" />
+		<copyField source="public_general_note" dest="notes_search" />
+		<copyField source="subject_example_tracing_note" dest="notes_search" />
+		<copyField source="deleted_heading_information" dest="notes_search" />
+		<copyField source="application_history_note" dest="notes_search" />
+		<copyField source="content_type" dest="notes_search" />
+		<copyField source="other_attributes_of_person_or_corporate_body" dest="notes_search" />
+		<copyField source="associated_place" dest="notes_search" />
+		<copyField source="address" dest="notes_search" />
+		<copyField source="field_of_activity" dest="notes_search" />
+		<copyField source="affiliation" dest="notes_search" />
+		<copyField source="occupation" dest="notes_search" />
+		<copyField source="gender" dest="notes_search" />
+		<copyField source="family_information" dest="notes_search" />
+		<copyField source="associated_language" dest="notes_search" />
+		<copyField source="fuller_form_of_personal_name" dest="notes_search" />	
+		<copyField source="form_of_work" dest="notes_search" />
+		<copyField source="other_distinguishing_characteristics_of_work" dest="notes_search" />
+		<copyField source="medium_of_performance" dest="notes_search" />
+		<copyField source="numeric_designation_of_musical_work" dest="notes_search" />
+		<copyField source="key" dest="notes_search" />
+		<copyField source="audience_characteristics" dest="notes_search" />
+		<copyField source="creator_characteristics" dest="notes_search" />
+		
+		<!-- Per queste note non definire il campo di ricerca -->
+		<field name="series_dates_of_pub_and_seq_designation" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="series_numbering_peculiarities" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="series_numbering_example" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="series_place_publisher_body" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="series_analysis_practice" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="series_tracing_practice" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="series_classification_practice" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="machine_metadata_provenance" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+				
+		<!-- VARIA -->	
+		
+		<dynamicField name="authority_group_*" type="exact_match" indexed="true"  stored="true" multiValued="true"/>
+			
+		<field name="variant_forms" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="variant_forms_search" type="unstemmed-text-field" indexed="true" stored="false" multiValued="true" />		
+		<copyField source="variant_forms" dest="variant_forms_search" />
+		
+		<field name="uri" type="string" indexed="false" stored="true" required="false" multiValued="true"/>	
+		<field name="alternate_graphic_representation" type="string" indexed="true" stored="true" required="false" multiValued="true"/> 
+		<field name="general_explanatory_reference" type="string" indexed="false" stored="true" required="false" multiValued="false"/>
+		<field name="history_reference" type="string" indexed="false" stored="true" required="false" multiValued="false"/>
+		<field name="complex_see_also_reference" type="string" indexed="false" stored="true" required="false" multiValued="false"/>
+		<field name="complex_see_reference" type="string" indexed="false" stored="true" required="false" multiValued="false"/>
+		
+		<field name="heading_linking_entry_uniform" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="heading_linking_entry_chronological_term" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="heading_linking_entry_topical_term" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="heading_linking_entry_geographic_name" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="heading_linking_entry_genre_form_term" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="heading_linking_entry_medium_of_performance_term" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		
+		<field name="subdiv_linking_entry_general" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="subdiv_linking_entry_geographic" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="subdiv_linking_entry_chronological" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="subdiv_linking_entry_form" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		
+		<field name="complex_linking_entry_data" type="string" indexed="true" stored="true" required="false" multiValued="false"/>
+		<field name="special_coded_dates" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		
+		<field name="library_of_congress_control_number" type="string" indexed="true" stored="true" required="false" multiValued="false"/>
+		<field name="link_to_biblio_record_for_serial" type="string" indexed="true" stored="true" required="false" multiValued="false"/>
+		
+		<field name="national_biblio_agency_control_number" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		
+		<field name="other_standard_identifier" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="other_standard_identifier_link" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="musical_incipits_information" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="coded_cartographic_math_data" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="system_control_number" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		
+		<field name="place_search" type="unstemmed-text-field" indexed="true" stored="false" multiValued="true" />
+		
+		<field name="seenFrom" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="seenFromDiscipline" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="seeAlso" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		
+		<field name="broader_term" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="formal_subdivision" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+		<field name="discipline_subdivision" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+					
+		<field name="disc_search" type="unstemmed-text-field" indexed="true" stored="false" required="false" multiValued="true"/>
+		<copyField source="seenFromDiscipline" dest="disc_search" />
+		<copyField source="seeAlso" dest="disc_search" />
+		<copyField source="seenFrom" dest="disc_search" />		
+		<copyField source="broader_term" dest="disc_search" />
+		<copyField source="formal_subdivision" dest="disc_search" />
+		<copyField source="discipline_subdivision" dest="disc_search" />
+		<copyField source="heading_linking_entry_topical_term" dest="disc_search" />
+		
+		<dynamicField name="*_v" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<dynamicField name="*_s" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<dynamicField name="*_t" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<dynamicField name="*_2" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		
+		<field name="last_update" type="string" indexed="false" stored="true" multiValued="false"/>
+		<field name="birthday" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="deathday" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="birthplace" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="deathplace" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="language" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="title_entity" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+		<field name="title_entity_link" type="string" indexed="false" stored="true" required="false" multiValued="true"/>
+	 </fields>
+ 	<uniqueKey>id</uniqueKey>
+ 	<defaultSearchField>id</defaultSearchField>
+ 	<solrQueryParser defaultOperator="OR"/>
+</schema>

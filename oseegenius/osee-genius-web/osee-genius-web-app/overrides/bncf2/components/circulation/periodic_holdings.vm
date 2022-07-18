@@ -1,0 +1,265 @@
+<!-- bncf2/componets/circulation/periodic_holdings.vm -->
+#set($loggedUser = $session.visit.folioAccount)	
+#set($defaultServicePoint = $loggedUser.getDefaultServicePoint())
+<script>
+	$(document).ready(function() {
+		$(".years-toggle-div").click(function() {
+			$(this).next().toggle();
+		});
+		$(".show-periodic-form").click(function() {
+			$(this).prev().toggle();
+		});
+	});
+</script>
+<table class="table">
+	<thead class="strSizeOnly">
+		<th align="left">$text.library</th>
+		<th align="left">$text.collocation</th>
+		<th align="left">$text.yearHoldingStatement</th>
+		<td></td>
+		<td></td>
+	</thead>
+	<tbody class="strSizeOnly14">
+		#set($tableRowId = 0)
+		#set($institutionList = $request.copies)
+		#foreach($institutionName in $institutionList.keySet())				
+			#set($istitutionText = "library$institutionName")
+			#set ($codlibURL = "libraryname$institutionName")
+			#set($collocationList = $institutionList.get($institutionName))
+			#foreach($collocation in $collocationList.keySet())
+				#set($yearList = $collocationList.get($collocation))
+				#foreach($year in $yearList.keySet())
+					#set($copyList = $yearList.get($year))					
+					<tr>
+						<td>						
+							#if($previousInstitution && $previousInstitution == $istitutionText)
+								## don't repeat instituition name
+							#else
+								<b>$text.bundleGet('additional_resources', $codlibURL)</b>
+							#end
+						</td>
+						<td>
+							$collocation 
+							######## nota belvedere solo se collocazione opportunamente substringata inizia per GA, GE, ecc..
+							#if($institutionName == 'CF')
+								#if ($collocation.indexOf(" ") > -1)
+									#set($collocationSubstring = $collocation.toLowerCase().substring($collocation.indexOf(" ")).trim())
+								#else 
+									#set($collocationSubstring = $collocation.toLowerCase())
+								#end
+								#set($prefixCollocation = ["GA.", "GE.", "Gi.1", "Gi.2", "Gi.3", "Gi.4", "Gi.I", "Gi.II."])
+								#set($doesCollStart = false)
+								#foreach($currentPrefix in $prefixCollocation)
+									#set($doesCollStart = $doesCollStart || $collocationSubstring.startsWith($currentPrefix.toLowerCase()))	
+								#end
+								#if($doesCollStart)									
+									</br><a target="_blank" href="$configuration.getLibraryDomainUrl()/biblioteca/apertura-e-orario-dei-servizi/#Sala%20Periodici">$text.nota-fortebelvedere</a>					
+								#end
+							#end
+							#########################################################
+						</td>
+						<td>
+							$year <br/>
+							#if ($previousInstitution && $previousInstitution == $istitutionText)
+								## doesn't repeat subscriptions
+							#else	
+								#if ($request.subscriptions)
+									#foreach($subsEntry in $request.subscriptions)
+										#set ($subsData = $subsEntry.getValue())
+										#set ($subslib = "library$subsData.institution-id")
+										#if ($subslib == $istitutionText)
+											<a target="_blank" class="year-detail-btn" href="sebinaSol?subscriptionCode=$subsData.code-subscription&institution=$subsData.institution-id">Fascicoli (Abb. $subsData.code-subscription)</a>
+										#end
+									#end
+								#end
+							#end												
+						</td>
+						<td>
+							#set($tableRowId = $tableRowId + 1)
+							<a href="" class="year-detail-btn" data-toggle="modal" data-target="#modal$tableRowId">$text.yearDetail</a>
+							
+							##################### year modal ###############
+							<div class="modal fade" id="modal$tableRowId" tabindex="-1" role="dialog" aria-labelledby="$text.yearDetail" aria-hidden="true">
+  								<div class="modal-dialog" role="document">
+    								<div class="modal-content">
+      									<div class="modal-header year-modal pb-0">       
+        									<button type="button" class="close" data-dismiss="modal" aria-label="$text.close">
+          										<span aria-hidden="true"><img src="img/closeBtn.png"></span>
+       										</button>
+      									</div>
+      									<div class="modal-body px-5">
+									        <table class="table strSizeOnly">
+									        	<thead>
+													<th>$text.year</th>
+				                					<th>$text.fruition</th>
+												</thead>
+												<tbody>
+													#foreach($copy in $copyList)
+				                						#set($codeAvail = "$copy.code-available")
+				                						#set($codeNotAvail = "$copy.code-notavailable")
+				                						#set($textAvail = "available$copy.code-available")	
+				                						#set($holdingStmnt = "$copy.holding-statement")
+														<tr class="year-table">	
+															<td>$copy.year</td>
+															<td>$text.bundleGet('additional_resources',$textAvail)</td>
+														</tr>
+													#end
+												</tbody>
+									        </table>
+									     </div>
+									</div>
+								</div>
+							</div>
+						</td>						
+						####################
+						<td>
+							
+							### show request button only for Biblioteca Nazionale Centrale
+							#if($institutionName == 'CF')	
+								#if ($codeNotAvail != "" && !($codeNotAvail == 'P' || $codeNotAvail == 'D'))
+            						## la presenza del codice di non disponibilità implica che la risorsa non sia richiedibile. 
+            						## A meno che non siano P e D, in tal caso non è prestabile ma richiedibile
+            							$text.request_not_allowed
+            					#else
+									### redirect to login if not authenticated for request
+									#if( !$session.visit.isFolioAuthenticated())
+										<form method="POST" action="folioLoanSerial">
+											<input type="hidden" name="idResource" value="$resource.id">
+											<button class="button-blue btn-block py-2" style="white-space: nowrap;" type="submit">$text.web_circ_doloans</button>
+										</form>	
+									#else
+										### show button modal if service points available										
+	                					#set($servicePointList = $loggedUser.servicePoints.get($codeAvail))	
+										#if ($servicePointList.size() > 0 )								
+											<button class="button-blue btn-block py-2" style="white-space: nowrap;" data-toggle="modal" data-target="#modal-request" type="button" data-codeavail="$codeAvail" data-collocation="$collocation" data-codenotavail="$codeNotAvail" data-holding="$holdingStmnt">
+												$text.web_circ_doloans
+											</button>
+										#else
+											$text.loan_unavail_user	
+										#end	
+									#end
+								#end
+							#end	
+						</td>
+					</tr>
+				#set($previousInstitution = $istitutionText)				
+				#end		
+			#end			
+		#end
+	</tbody>
+</table>
+
+###### request modal ############
+<div class="modal fade" id="modal-request" tabindex="-1" role="dialog" aria-labelledby="$text.web_circ_doloans" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+    	<div class="modal-content">
+      		<div class="modal-header year-modal pb-0">       
+        		<button type="button" class="close" data-dismiss="modal" aria-label="$text.close">
+          			<span aria-hidden="true"><img src="img/closeBtn.png"></span>
+       			</button>
+      		</div>
+      		<div class="modal-body px-5">
+				<form method="POST" action="folioLoanSerial">
+					<input type="hidden" name="idResource" value="$resource.id">
+				   	<input type="hidden" name="title" value="$esc.html($resource.title_bc)">
+				    <input type="hidden" name="publisher" value="$esc.html($resource.publisher.get(0))">
+				    <input type="hidden" name="collocation" id="collocation" value="">
+				    <input type="hidden" name="section" id="section" value ="">
+				    <input type="hidden" name="edition" id="edition" #if($resource.edition) value="$esc.html($resource.edition.get(0))" #end>	
+				    <input type="hidden" name="holding" id="holding" #if($resource.holding) value="$esc.html($resource.holding)" #end>	
+				    <div class="form-group row">
+						<label for="servicePoint" class="col-3 col-form-label label-search">$text.service_point_label</label>
+						<div class="col-sm-9">
+				        	<select class="form-control form-osee" name="servicePoint" id="servicePoint">					               
+				            </select>
+				        </div>
+			        </div>
+				    <div class="form-group row">
+				    	<label for="year" class="col-3 col-form-label label-search">$text.year</label>
+				    	<div class="col-9">
+				    		<input type="text" class="form-control form-osee" name="year" id="year" required> 
+				    	</div>
+				    </div>
+				    <div class="form-group row">
+				    	<label for="volume" class="col-3 col-form-label label-search">$text.volume</label>
+				    	<div class="col-9">
+				    		<input type="text" class="form-control form-osee" name="volume" id="volume"> 
+				    	</div>
+				    </div>
+				    <div class="form-group row">
+				    	<label for="month" class="col-3 col-form-label label-search">$text.month</label>
+				    	<div class="col-9">
+				    		<input type="text" class="form-control form-osee" name="month" id="month"> 
+				    	</div>
+				    </div>
+				    <div class="form-group row">
+				    	<label for="issue" class="col-3 col-form-label label-search">$text.issue</label>
+				    	<div class="col-9">
+				    		<input type="text" class="form-control form-osee" name="issue" id="issue"> 
+				    	</div>
+				    </div>
+				    <div class="form-group row">
+				    	<label for="day" class="col-3 col-form-label label-search">$text.day</label>
+				    	<div class="col-9">
+				    		<input type="text" class="form-control form-osee" name="day" id="day"> 
+				    	</div>
+				    </div>
+				    <div class="form-group row">
+				    	<label for="note" class="col-3 col-form-label label-search">$text.note</label>
+				    	<div class="col-9">
+				    		<input type="text" class="form-control form-osee" name="note" id="note"> 
+				    	</div>
+				    </div>
+			        	
+			        <div class="form-group row">
+			    		<div class="col-9 offset-3 label-search">
+			    			$text.request_microfilm
+			    		</div>
+			    	</div>
+			    	<div class="form-group row">
+			    		<div class="col-9 offset-3">
+			    			<button id="request-submit-button" class="button-blue btn-block py-2" type="submit" disabled>$text.send_request</button>
+			    		</div>
+			    	</div>    
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	
+
+	$('#modal-request').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget) // Button that triggered the modal
+		var codeAvail = button.data('codeavail')
+		
+		var codeNotAvail = button.data('codenotavail')
+		var collocation = button.data('collocation')
+		var defaultServicePoint = "$defaultServicePoint";
+		var holding = button.data('holding')
+		var modal = $(this)
+		modal.find('.modal-body #section').val(codeAvail)
+		modal.find('.modal-body #collocation').val(collocation)
+##  con questo if non viene stampato il valore di holding nella richiesta		
+##		if(!(holding == "$holdingStmnt")){
+			modal.find('.modal-body #holding').val(holding)
+##		}
+		${esc.dollar}.get("servicePoint?codeAvail=" + codeAvail + "&codeNotAvail=" + codeNotAvail, function (data) {			
+			var sp = data.servicePoints;	
+			$("#servicePoint").empty();
+			for (i = 0; i < sp.length; i++) {
+				var value = sp[i].value;
+				var label = sp[i].label;
+				var option = '<option value="' + value + '___' + label +'"';
+					if (value == defaultServicePoint) {
+						option = option + ' selected '
+					}
+					option = option + '>' + label + '</option>'
+				$("#servicePoint").append(option)
+			}
+			modal.find('.modal-body #request-submit-button').prop("disabled", false);		
+		});	
+	});
+	
+	
+</script>

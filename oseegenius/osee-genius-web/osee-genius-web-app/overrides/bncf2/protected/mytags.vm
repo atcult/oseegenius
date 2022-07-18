@@ -1,0 +1,87 @@
+#if($request.tags && !$request.tags.isEmpty())
+<!-- bncf2/protected/mytags.vm -->
+    <table width="100%">
+    	<tr>
+    		<td>
+    			#parse("protected/toolbar.vm")
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" style="font-size:1.8.em;">
+    			<table >
+    				<tr>
+    					<td>
+							<table cellspacing="4" cellpadding="4">
+								<tr>
+            						#foreach ($tag in $request.tags)<!--
+            		-->				<td align="center">#if($request.objectId == $tag.id)<span style="font-size:1.5em;">$tag.label</span><br/><span style="font-size:1.0em;"><a href="javascript:removeTag($tag.id)">($text.remove)</a></span>#else<a class="linked_value" href="javascript:getTaggedDocuments($tag.id)">$tag.label</a>#end</td><!--
+            		-->			#end 
+								</tr>			
+							</table>				
+    					</td>
+    				</tr>
+    			</table>				
+    		</td>
+    	</tr>			
+		#if ($request.taggedDocuments)
+        	<tr>
+        		<td>
+        			<table class="items">
+        					<tr><th colspan="2">&nbsp;</th><th>$text.title</th><th>$text.author</th><th>$text.publisher</th></tr>
+        					#foreach($document in $request.taggedDocuments)	
+    							#if ($velocityCount % 2 == 0)
+    								#set ($rowStyle="tag-row-even")
+    							#else
+    								#set ($rowStyle="tag-row-odd")
+    							#end	
+            					<tr class="$rowStyle">
+    								<td nowrap="nowrap">
+        								$velocityCount / $request.taggedDocuments.size()
+        							</td>
+        							<td>
+        								#set ($checked = $session.wsel && $session.wsel.contains($document.id))
+        								<a id="check_link" href="javascript:wtoggle('$document.id')"><img id="check_$document.id" src="img/checked_${checked}.png"/></a>
+        							</td>
+                					<td><a class="linked_value" href="resource?uri=$document.id">$document.title</a></td>
+                					<td>#if ($document.author)${document.author}#else N.A. #end</td>
+                					<td>#if ($document.publisher)${document.publisher.get(0)}#else N.A.#end</td>
+        						</tr>
+        					#end
+        			</table>
+        		</td>
+        	</tr>
+		#end
+		</table>
+        <form name="form" method="post" action="workspace">
+        	<input type="hidden" name="action"/>	
+        	<input type="hidden" name="id"/>
+        </form>
+        <script type="text/javascript">
+        	function removeTag(id)
+        	{
+        		document.form.id.value=id;
+        		document.form.action.value='remove_tag';	
+        		document.form.submit();
+        	}
+        	
+        	function removeSelected(id)
+            {
+            	document.form.id.value=id;
+            	document.form.action.value='remove_from_tag';	
+            	document.form.submit();
+            }
+        	
+        	function getTaggedDocuments(id)
+        	{
+        		document.form.id.value=id;
+        		document.form.action.value='get_tagged_documents';	
+        		document.form.submit();
+        	}	
+        </script>	
+     #else
+		<br/><br/>
+    <table>
+		<tr class="circulation_container"><td class="loans"></td><td class="circulation_text_no">${text.empty_tags}.</td></tr>
+		<tr><td colspan="2" height="10px"></td></tr>
+    </table>
+#end	

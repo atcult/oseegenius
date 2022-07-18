@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+  	<parent>
+    	<artifactId>osee-genius-searcher</artifactId>
+    	<groupId>com.atc.osee.genius</groupId>
+    	<version>1.2</version>
+  	</parent>
+  	<artifactId>osee-genius-searcher-holdings</artifactId>
+	<name>OseeGenius -S- Holdings Add-On</name>
+	<build>
+	  	<plugins>
+	  		<plugin>
+	  			<groupId>org.apache.maven.plugins</groupId>
+	  			<artifactId>maven-compiler-plugin</artifactId>
+	  			<version>2.3.2</version>
+	  			<configuration>
+	  				<source>1.6</source>
+	  				<target>1.6</target>
+	  			</configuration>
+	  		</plugin>
+	  	</plugins>
+  	</build>  
+  	<dependencies>
+  		<dependency>
+  		<groupId>org.apache.solr</groupId>
+  		<artifactId>solr-core</artifactId>
+  		<version>${solr.version}</version>
+  		<scope>provided</scope>
+  		<exclusions>
+  			<exclusion>
+  				<artifactId>jdk.tools</artifactId>
+  				<groupId>jdk.tools</groupId>
+  			</exclusion>
+  		</exclusions>
+  		</dependency>
+  </dependencies>
+</project>

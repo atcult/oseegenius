@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+	<abortOnConfigurationError>${solr.abortOnConfigurationError:true}</abortOnConfigurationError>
+	<luceneMatchVersion>LUCENE_47</luceneMatchVersion>
+ 	<dataDir>${solr.data.dir}/${solr.core.name}/data</dataDir>
+	<indexConfig>
+	    <lockType>${solr.lock.type:native}</lockType>
+  	</indexConfig>
+	<updateHandler class="solr.DirectUpdateHandler2" />
+	<query>
+		<maxBooleanClauses>1024</maxBooleanClauses>
+	    <filterCache class="solr.LRUCache" size="102400" initialSize="102400" autowarmCount="51200"/>
+	    <fieldValueCache class="solr.FastLRUCache" size="5120" autowarmCount="2048" showItems="64"/>
+	    <queryResultCache class="solr.LRUCache" size="8192" initialSize="8192" autowarmCount="0"/>
+	    <documentCache class="solr.LRUCache" size="51200" initialSize="51200" autowarmCount="10240"/>
+	    <enableLazyFieldLoading>true</enableLazyFieldLoading>
+	    <useFilterForSortedQuery>true</useFilterForSortedQuery>
+	    <queryResultWindowSize>80</queryResultWindowSize>
+	    <queryResultMaxDocsCached>100</queryResultMaxDocsCached>
+	    <HashDocSet maxSize="200000" loadFactor="0.75"/>
+    	<listener event="newSearcher" class="solr.QuerySenderListener">
+      		<arr name="queries">
+      		    <lst>
+      		        <str name="q">*:*</str> 
+      		        <str name="qt">def</str>
+      		        <str name="sort">title_sort asc, author_sort asc</str> 
+				</lst>
+      		    <lst>
+      		        <str name="q">storia</str> 
+      		        <str name="qt">any_bc</str>
+      		        <str name="sort">title_sort asc, author_sort asc</str> 
+				</lst>
+      		    <lst>
+      		        <str name="q">potter</str> 
+      		        <str name="qt">author_bc</str>
+      		        <str name="sort">title_sort asc, author_sort asc</str> 
+				</lst>				
+      		    <lst>
+      		        <str name="q">italia</str> 
+      		        <str name="qt">sub_bc</str>
+      		        <str name="sort">title_sort asc, author_sort asc</str> 
+				</lst>				
+			</arr>
+		</listener>
+    	<listener event="firstSearcher" class="solr.QuerySenderListener">
+      		<arr name="queries">
+      		    <lst>
+      		        <str name="q">*:*</str> 
+      		        <str name="qt">def</str>
+      		        <str name="sort">title_sort asc, author_sort asc</str> 
+				</lst>
+      		    <lst>
+      		        <str name="q">storia</str> 
+      		        <str name="qt">any_bc</str>
+      		        <str name="sort">title_sort asc, author_sort asc</str> 
+				</lst>
+      		    <lst>
+      		        <str name="q">potter</str> 
+      		        <str name="qt">author_bc</str>
+      		        <str name="sort">title_sort asc, author_sort asc</str> 
+				</lst>				
+      		    <lst>
+      		        <str name="q">italia</str> 
+      		        <str name="qt">sub_bc</str>
+      		        <str name="sort">title_sort asc, author_sort asc</str> 
+				</lst>				
+			</arr>  
+    	</listener>
+    	<useColdSearcher>true</useColdSearcher>
+    	<maxWarmingSearchers>2</maxWarmingSearchers>
+    </query>
+  	<requestDispatcher handleSelect="true" >
+    	<requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="2048" />
+    	<httpCaching lastModifiedFrom="openTime" etagSeed="Solr" />
+    </requestDispatcher>
+	<requestHandler name="/replication" class="solr.ReplicationHandler" >
+		<lst name="slave">
+        	<str name="masterUrl">http://${oseegenius.i.host}:${oseegenius.i.port}/solr/${solr.core.name}/replication</str>  
+        	<str name="pollInterval">00:00:10</str>  
+	        <str name="compression">internal</str>
+	        <str name="maxNumberOfBackups">0</str>
+	        <str name="httpConnTimeout">5000</str>
+	        <str name="httpReadTimeout">10000</str>
+		</lst>
+	</requestHandler>
+	<requestHandler name="/doc" class="solr.SearchHandler" >
+    		<lst name="defaults">
+		    	<str name="echoParams">explicit</str>
+		    	<str name="df">id</str>
+				<str name="fl">*</str>
+		    	<str name="rows">1</str>
+				<str name="facet">false</str>	
+				<str name="hl">false</str>
+			</lst>
+	</requestHandler>
+	<requestHandler name="/mlt" class="solr.MoreLikeThisHandler" >
+    	<lst name="defaults">
+			<str name="mlt">false</str>
+			<str name="mlt.fl">dewey_decimal_call_number</str>
+			<str name="rows">0</str>					
+		</lst>		
+	</requestHandler>
+	<requestHandler name="def" class="solr.SearchHandler">
+    	<lst name="defaults">
+	    	<str name="echoParams">explicit</str>
+	    	<str name="rows">10</str>
+			<str name="sort">score desc, title_sort asc, author_sort asc</str>
+			<str name="facet">true</str>
+			<str name="facet.mincount">1</str>		
+			<str name="facet.field">title</str>
+			<str name="facet.field">author_person</str>
+			<str name="facet.field">author_corporate</str>
+			<str name="facet.field">author_conference</str>
+			<str name="facet.field">chronological_subject</str>
+			<str name="facet.field">topical_subject</str>	
+			<str name="facet.field">geographic_subject</str>
+			<str name="facet.field">genre_form_subject</str>
+			<str name="facet.limit">10</str>
+			<str name="f.title.facet.limit">11</str>
+			<str name="f.author_person.facet.limit">11</str>
+			<str name="f.author_corporate.facet.limit">11</str>
+			<str name="f.author_conference.facet.limit">11</str>
+			<str name="f.chronological_subject.facet.limit">11</str>
+			<str name="f.topical_subject.facet.limit">11</str>
+			<str name="f.geographic_subject.facet.limit">11</str>
+			<str name="f.genre_form_subject.facet.limit">11</str>
+			<str name="fl">*</str>
+		</lst>
+	</requestHandler>
+	<requestHandler name="hp" class="solr.SearchHandler">
+    	<lst name="defaults">
+    		<str name="rows">0</str>
+			<str name="facet">true</str>
+			<str name="facet.field">dewey_decimal_call_number</str>
+			<str name="facet.mincount">1</str>	
+			<str name="facet.limit">-1</str>			
+		</lst>
+	</requestHandler>
+	<requestHandler name="any_bc" class="solr.SearchHandler" default="true">
+		<lst name="defaults">
+			<str name="defType">dismax</str>
+			<str name="echoParams">explicit</str>
+			<str name="sort">score desc, title_sort asc, author_sort asc</str>
+			<str name="mm">100%</str> 	
+			<str name="qf">
+				title_130_search^10000
+				title_search^10000
+		
+				heading_linking_entry_uniform_search^1000
+
+				author_1xx_search^5000
+				author_7xx_search^5000
+				author_cross_reference_search^5000
+	
+				library_of_congress_call_number_search^10000
+				geographic_classification_search^10000
+				lc_classification_number_search^10000
+				lib_arch_canada_call_number_search^10000
+				national_lib_of_med_call_number_search^10000
+				other_classification_number_search^10000
+				national_agricult_lib_call_number_search^10000
+				universal_decimal_classification_number_search^10000
+				dewey_decimal_call_number_search^10000
+				dewey_decimal_classification_number_search^10000
+				
+				topical_subject_unstem_search^3000					
+				subject_conference_unstem_search^3000
+				geographic_subject_unstem_search^3000
+				genre_form_subject_unstem_search^3000
+				
+				subject_cross_reference_search^3000
+				
+				variant_forms_search^3000
+				
+				notes_search^3000
+				
+				isbn_issn_search^10000
+				id_search^10000	
+			</str>
+			<str name="pf">
+				title_130_search^100000
+				title_search^100000
+		
+				heading_linking_entry_uniform_search^10000
+
+				author_1xx_search^50000
+				author_7xx_search^50000
+				author_cross_reference_search^50000
+	
+				library_of_congress_call_number_search^100000
+				geographic_classification_search^100000
+				lc_classification_number_search^100000
+				lib_arch_canada_call_number_search^100000
+				national_lib_of_med_call_number_search^100000
+				other_classification_number_search^100000
+				national_agricult_lib_call_number_search^100000
+				universal_decimal_classification_number_search^100000
+				dewey_decimal_call_number_search^100000
+				dewey_decimal_classification_number_search^100000
+				
+				topical_subject_unstem_search^30000					
+				subject_conference_unstem_search^30000
+				geographic_subject_unstem_search^30000
+				genre_form_subject_unstem_search^30000
+				
+				subject_cross_reference_search^30000
+				
+				variant_forms_search^30000
+				
+				notes_search^30000
+				
+				isbn_issn_search^100000
+				id_search^100000	
+			</str>
+			<int name="ps">0</int>
+			<float name="tie">0.1</float>
+			<str name="facet">true</str>
+			<str name="facet.mincount">1</str>		
+			<str name="facet.field">title</str>
+			<str name="facet.field">author_person</str>
+			<str name="facet.field">author_corporate</str>
+			<str name="facet.field">author_conference</str>
+			<str name="facet.field">chronological_subject</str>
+			<str name="facet.field">topical_subject</str>	
+			<str name="facet.field">geographic_subject</str>
+			<str name="facet.field">genre_form_subject</str>
+			<str name="facet.limit">10</str>
+			<str name="f.title.facet.limit">11</str>
+			<str name="f.author_person.facet.limit">11</str>
+			<str name="f.author_corporate.facet.limit">11</str>
+			<str name="f.author_conference.facet.limit">11</str>
+			<str name="f.chronological_subject.facet.limit">11</str>
+			<str name="f.topical_subject.facet.limit">11</str>
+			<str name="f.geographic_subject.facet.limit">11</str>
+			<str name="f.genre_form_subject.facet.limit">11</str>
+			<str name="fl">*</str>
+		</lst>
+	</requestHandler>        			
+	<requestHandler name="title_bc" class="solr.SearchHandler">
+		<lst name="defaults">
+			<str name="defType">dismax</str>
+			<str name="echoParams">explicit</str>
+			<str name="sort">score desc, title_sort asc, author_sort asc</str>
+			<str name="mm">100%</str> 	
+			<str name="qf">
+				title_130_search^10000
+				title_search^10000
+			</str>
+			<str name="pf">
+				title_130_search^100000
+				title_search^100000
+			</str>
+			<int name="ps">0</int>
+			<float name="tie">0.1</float>
+			<str name="facet">true</str>
+			<str name="facet.mincount">1</str>		
+			<str name="facet.field">title</str>
+			<str name="facet.field">author_person</str>
+			<str name="facet.field">author_corporate</str>
+			<str name="facet.field">author_conference</str>
+			<str name="facet.field">chronological_subject</str>
+			<str name="facet.field">topical_subject</str>	
+			<str name="facet.field">geographic_subject</str>
+			<str name="facet.field">genre_form_subject</str>
+			<str name="facet.limit">10</str>
+			<str name="f.title.facet.limit">11</str>
+			<str name="f.author_person.facet.limit">11</str>
+			<str name="f.author_corporate.facet.limit">11</str>
+			<str name="f.author_conference.facet.limit">11</str>
+			<str name="f.chronological_subject.facet.limit">11</str>
+			<str name="f.topical_subject.facet.limit">11</str>
+			<str name="f.geographic_subject.facet.limit">11</str>
+			<str name="f.genre_form_subject.facet.limit">11</str>
+			<str name="fl">*</str>
+		</lst>
+	</requestHandler> 
+	<requestHandler name="author_bc" class="solr.SearchHandler">
+		<lst name="defaults">
+			<str name="defType">dismax</str>
+			<str name="echoParams">explicit</str>
+			<str name="sort">score desc, title_sort asc, author_sort asc</str>
+			<str name="mm">100%</str> 	
+			<str name="qf">
+				author_1xx_search^5000
+				author_cross_reference_search^5000
+			</str>
+			<str name="pf">
+				author_1xx_search^50000
+				author_cross_reference_search^50000
+			</str>
+			<int name="ps">0</int>
+			<float name="tie">0.1</float>
+			<str name="facet">true</str>
+			<str name="facet.mincount">1</str>		
+			<str name="facet.field">title</str>
+			<str name="facet.field">author_person</str>
+			<str name="facet.field">author_corporate</str>
+			<str name="facet.field">author_conference</str>
+			<str name="facet.field">chronological_subject</str>
+			<str name="facet.field">topical_subject</str>	
+			<str name="facet.field">geographic_subject</str>
+			<str name="facet.field">genre_form_subject</str>
+			<str name="facet.limit">10</str>
+			<str name="f.title.facet.limit">11</str>
+			<str name="f.author_person.facet.limit">11</str>
+			<str name="f.author_corporate.facet.limit">11</str>
+			<str name="f.author_conference.facet.limit">11</str>
+			<str name="f.chronological_subject.facet.limit">11</str>
+			<str name="f.topical_subject.facet.limit">11</str>
+			<str name="f.geographic_subject.facet.limit">11</str>
+			<str name="f.genre_form_subject.facet.limit">11</str>
+			<str name="fl">*</str>
+		</lst>
+	</requestHandler> 
+	<requestHandler name="sub_bc" class="solr.SearchHandler">
+		<lst name="defaults">
+			<str name="defType">dismax</str>
+			<str name="echoParams">explicit</str>
+			<str name="sort">score desc, title_sort asc, author_sort asc</str>
+			<str name="mm">100%</str> 	
+			<str name="qf">
+				topical_subject_unstem_search^3000					
+				subject_conference_unstem_search^3000
+				geographic_subject_unstem_search^3000
+				genre_form_subject_unstem_search^3000
+				
+				subject_cross_reference_search^3000
+			</str>
+			<str name="pf">
+				topical_subject_unstem_search^30000						
+				subject_conference_unstem_search^30000
+				geographic_subject_unstem_search^30000
+				genre_form_subject_unstem_search^30000
+				
+				subject_cross_reference_search^30000
+			</str>
+			<int name="ps">0</int>
+			<float name="tie">0.1</float>
+			<str name="facet">true</str>
+			<str name="facet.mincount">1</str>		
+			<str name="facet.field">title</str>
+			<str name="facet.field">author_person</str>
+			<str name="facet.field">author_corporate</str>
+			<str name="facet.field">author_conference</str>
+			<str name="facet.field">chronological_subject</str>
+			<str name="facet.field">topical_subject</str>	
+			<str name="facet.field">geographic_subject</str>
+			<str name="facet.field">genre_form_subject</str>
+			<str name="facet.limit">10</str>
+			<str name="f.title.facet.limit">11</str>
+			<str name="f.author_person.facet.limit">11</str>
+			<str name="f.author_corporate.facet.limit">11</str>
+			<str name="f.author_conference.facet.limit">11</str>
+			<str name="f.chronological_subject.facet.limit">11</str>
+			<str name="f.topical_subject.facet.limit">11</str>
+			<str name="f.geographic_subject.facet.limit">11</str>
+			<str name="f.genre_form_subject.facet.limit">11</str>
+			<str name="fl">*</str>
+		</lst>
+	</requestHandler> 
+	<requestHandler name="place_bc" class="solr.SearchHandler" default="true">
+		<lst name="defaults">
+			<str name="defType">dismax</str>
+			<str name="echoParams">explicit</str>
+			<str name="sort">score desc, title_sort asc, author_sort asc</str>
+			<str name="mm">100%</str> 	
+			<str name="qf">
+				place_search^500
+				geographic_subject_unstem_search^500
+			</str>
+			<str name="pf">
+				place_search^500
+				geographic_subject_unstem_search^500
+			</str>
+			<int name="ps">0</int>
+			<float name="tie">0.1</float>
+			<str name="facet">true</str>
+			<str name="facet.mincount">1</str>		
+			<str name="facet.field">title</str>
+			<str name="facet.field">author_person</str>
+			<str name="facet.field">author_corporate</str>
+			<str name="facet.field">author_conference</str>
+			<str name="facet.field">chronological_subject</str>
+			<str name="facet.field">topical_subject</str>	
+			<str name="facet.field">geographic_subject</str>
+			<str name="facet.field">genre_form_subject</str>
+			<str name="facet.limit">10</str>
+			<str name="f.title.facet.limit">11</str>
+			<str name="f.author_person.facet.limit">11</str>
+			<str name="f.author_corporate.facet.limit">11</str>
+			<str name="f.author_conference.facet.limit">11</str>
+			<str name="f.chronological_subject.facet.limit">11</str>
+			<str name="f.topical_subject.facet.limit">11</str>
+			<str name="f.geographic_subject.facet.limit">11</str>
+			<str name="f.genre_form_subject.facet.limit">11</str>
+			<str name="fl">*</str>
+		</lst>
+	</requestHandler>	
+	<requestHandler name="suggest" class="solr.SearchHandler">
+		<lst name="defaults">	
+			<str name="rows">5</str>
+			<str name="facet">false</str>
+			<str name="fl">title, author</str>
+		</lst>		
+	</requestHandler> 
+	<queryConverter name="queryConverter" class="solr.SpellingQueryConverter"/>
+  	<requestHandler name="/update" class="solr.XmlUpdateRequestHandler" startup="lazy"/>
+	<requestHandler name="/admin/ping" class="solr.PingRequestHandler">
+	    <lst name="defaults">
+	      	<str name="qt">def</str>
+	      	<str name="q">*:*</str>
+	      	<str name="rows">0</str>
+			<str name="facet">false</str>
+	    </lst>
+	  </requestHandler>
+  	<requestHandler name="/update/javabin" class="solr.BinaryUpdateRequestHandler" startup="lazy"/>
+  	<requestHandler name="/admin/" class="org.apache.solr.handler.admin.AdminHandlers" />
+	<requestHandler name="/debug/dump" class="solr.DumpRequestHandler" >
+	    <lst name="defaults">
+    		<str name="echoParams">explicit</str>
+     		<str name="echoHandler">true</str>
+      		<str name="debugQuery">true</str>
+    	</lst>
+  	</requestHandler>
+  	<queryResponseWriter name="json" class="solr.JSONResponseWriter"/>	
+  	<admin>
+    	<defaultQuery>Authority</defaultQuery>
+	</admin>
+</config>

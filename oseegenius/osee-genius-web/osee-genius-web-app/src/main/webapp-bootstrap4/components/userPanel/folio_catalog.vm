@@ -1,0 +1,53 @@
+<!-- components/userPanel/folio_catalog.vm -->
+<script>
+	$(document).ready(function() {
+		$("#manuscript").on('input', function(e) {	
+			window.location = "folioCatalog?resourceType=manuscript";
+		});
+		$("#monograph").on('input', function(e) {
+			window.location = "folioCatalog?resourceType=monograph";
+		});
+		$("#periodic").on('input', function(e) {
+			window.location = "folioCatalog?resourceType=periodic";
+		});
+	});
+</script>
+#set($loggedUser = $session.visit.folioAccount)
+ #set($type = $request.type)
+<div class="row m-0 py-4 bg-grey">
+	<div class="col-md-6 offset-md-3 col-sm-12 py-4">
+		<h2>$text.request_not_catalog</h2>
+	</div>
+</div>	
+<div class="row m-0 py-4 bg-white">
+	<div class="col-md-6 col-12 px-5 m-0 strSizeOnly"> 
+		<form method="POST" action="folioCatalog">
+			<div class="form-row my-5">				
+				<div class="col-md-4">
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" name="resourceType" id="monograph" type="radio" value="monograph"  #if($type == 'monograph')checked#end>
+						<label class="form-check-label" for="monograph">$text.monograph</label>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" name="resourceType" id="periodic" type="radio" value="periodic" #if($type == 'periodic')checked#end>
+						<label class="form-check-label" for="periodic">$text.periodic</label>
+					</div>
+				</div>
+				#if ($loggedUser.manuscriptEnabled())
+					<div class="col-md-4">
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" name="resourceType" id="manuscript" type="radio" value="manuscript" #if($type == 'manuscript')checked#end>
+							<label class="form-check-label" for="manuscript">$text.handwrite</label>
+						</div>
+					</div>
+				#end
+			</div>
+						
+			#parse("components/userPanel/folio_catalog_${type}.vm")
+  
+			
+		</form>
+	</div>
+</div>

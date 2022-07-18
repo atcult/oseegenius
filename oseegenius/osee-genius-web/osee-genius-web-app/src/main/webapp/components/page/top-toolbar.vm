@@ -1,0 +1,95 @@
+	<div style="float:left;"><a href="home"><img src="$link.relative($corporate-logo-url)" #if($corporate-logo-url-height) height="${corporate-logo-url-height}" #end/></a></div>		
+	<div style="float: left; margin-left:0px;margin-right:6px; padding-bottom:2px; height:50px;">		
+		<form name="searchForm" method="get" action="search">
+		#parse("components/page/h-banner.vm")
+		<div style="float:left;">	
+			<table width="" cellpadding="" cellspacing="0" border="0">
+			<tr>
+			<td style="padding-right: 5px;">
+    			<input type="text" class="search-field" id="q" name="q" autocomplete="off" style="float:left;"/>
+    			&nbsp;
+				<select style="display:none;" name="h" id="h" onchange="javascript:manipulateQueryString(this.name,this.value)">
+    					#set ($groups = $configuration.searchableMetaAttributes.entrySet())
+    					#if ($groups.size() > 1)<option value="any">$text.any</option>#end
+						#set ($selected = $params.h)
+    					#foreach($group in $groups)
+        				<optgroup label="$text.get($group.key)">
+        					#foreach($attribute in $group.value)
+        					<option value="$attribute" #if($attribute == $selected) selected #end >$text.get($attribute)</option>
+        					#end
+        				</optgroup>
+    					#end
+        		</select>
+    			&nbsp;${text.showing}&nbsp;
+				
+				#set ($selectedSize = $params.s)
+				#if (!$selectedSize) #set ($selectedSize = $configuration.defaultPageSize) #end
+    			<select style="display: none;" name="s" id="s" onchange="javascript:manipulateQueryString(this.name,this.value)" value="$selectedSize">
+        		#foreach($pageSize in $configuration.allowedPageSizes)
+    				<option  value="$pageSize" #if($pageSize == $selectedSize) selected #end>$pageSize</option>#end
+    			</select>
+    			&nbsp;${text.top_toolbar_message}&nbsp;
+    			
+    			<select style="display: none;" name="o" id="o" onchange="javascript:manipulateQueryString(this.name,this.value)">
+						#foreach($criteria in $configuration.orderByMetaAttributes)
+							<option value="$criteria.value">$text.get($criteria.messageKey)</option>
+						#end
+        		</select>	
+			</td>
+    			<td>
+    				<input type="submit" class="do_search_button" value="$text.search"/>
+    			</td>
+			</tr>
+			</table>
+		</div>
+		<div id="functions">
+			<table cellpadding="5" cellspacing="0">
+				<tr>
+				<td>
+					<a href="home">$text.simple_search</a>
+				</td>
+				 <td><a href="advanced">$text.advanced_search</a></td>
+				
+				#if ($configuration.browsingEnabled)
+    			<td>
+    				<a href="browse?${session.visit.browsingExperience.currentTab.queryParameters}">$text.browsing</a>
+    			</td>	
+				#end
+				#if ($session.visit.historyNotEmpty)
+    			<td>
+    				<a href="history">$text.history</a>
+    			</td>	
+				#end				
+			<td></td>
+			</tr>	
+			</table>
+		</div>
+		</form>
+	</div>	
+	<script>
+		screenW = screen.width;
+	
+		if (screenW <= 1100)
+		{ 
+			$(".search-field").css("width",140);
+		} else if (screenW < 1300)
+		{
+			$(".search-field").css("width",200);			
+		} else if (screenW <= 1600)
+		{
+			$(".search-field").css("width",480);
+		}		
+		
+		var acType = $("#h").val();
+	
+		var a = $('#q').autocomplete({ 
+			serviceUrl:'suggest',
+			minChars:2, 
+			maxHeight:500,
+			width:300,
+			zIndex: 9999,
+			deferRequestBy: 0, 
+			noCache: false, 
+			onSelect: function(value, data){ reSubmitSearch(); }
+		});
+	</script>

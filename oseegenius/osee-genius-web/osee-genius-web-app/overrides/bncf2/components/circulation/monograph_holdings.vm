@@ -1,0 +1,317 @@
+<!-- bncf2/componets/circulation/monograph_holdings.vm -->
+#set($loggedUser = $session.visit.folioAccount)
+#set($defaultServicePoint = $loggedUser.getDefaultServicePoint())
+
+<script>
+	${esc.dollar}(document).ready(function() {
+		${esc.dollar}('.loan').each(function(){			
+			var barcode = ${esc.dollar}(this).attr('id');
+			var idResource = ${esc.dollar}(this).attr('idResource');
+			var url = "copyStatus?barcode=" + barcode.replace("__", "%20");
+			var current = ${esc.dollar}(this);
+			${esc.dollar}.ajax({
+              	url: url,
+              	dataType: "json",           	
+              	success: function(data) {     
+              		var status = "";         		
+					if(data.item.status.name != "Available") {				
+						${esc.dollar}("#" + barcode).val("$text.do_book");							
+						if(data.item.status.name == "Checked out") {						
+							var date = data.item.dueDate;
+							if (date.indexOf("T") > -1) {
+								date = date.substring(0, date.indexOf("T")); 
+							}
+							status = "$text.not_available " + date + "<br/> $text.to_be_loan";
+							${esc.dollar}("#" + barcode).append("$text.not_available " + date + "<br/> $text.to_be_loan");
+							${esc.dollar}("#" + barcode).show();
+						}
+						else {
+							status = "$text.to_be_loan";
+							${esc.dollar}("#" + barcode).append("$text.to_be_loan");
+							${esc.dollar}("#" + barcode).show();							
+						}
+					}
+					else {					
+						status = "$text.available";
+					}	
+				
+						
+				},
+				error: function(data) {
+					console.log("ajax error");
+				}
+			});
+		});
+		
+		$(".show-monograph-form").click(function() {
+			$(this).prev().toggle();
+		});
+	});
+</script>
+#set ($actMainLibrary = -1)	
+#set ($actBranch = -1)		
+#set ($mlSwitch = -1)
+#set ($inHoldingStat = 'false')
+#set ($inVolume = 'false')
+#set ($inHoldingsNotes = 'false')
+#set ($inHoldingsDigitalLink = 'false')
+#set ($numcols = 5)
+#foreach($copyEntry in $request.copies)
+	#set ($testData = $copyEntry.getValue())
+	#if(($testData.holding-statement) && ($inHoldingStat == 'false') )
+		#set($inHoldingStat = 'true')
+		#set($numcols = $numcols + 1)
+	#end
+	#if(($testData.volume)  && ($inVolume == 'false'))
+		#set($inVolume = 'true')
+		#set($numcols = $numcols + 1)
+	#end
+	#if(($testData.note-inventory) && ($inHoldingsNotes == 'false') )
+		#set($inHoldingsNotes = 'true')
+		#set($numcols = $numcols + 1)
+	#end
+	#if ( ($testData.digital-copy-link) && ($inHoldingsDigitalLink == 'false'))
+		#set($inHoldingsDigitalLink = 'true')
+		#set($numcols = $numcols + 1)
+	#end
+#end
+
+
+<table class="table strSizeOnly table-responsive">
+	<thead>
+		<tr>
+			<th align="left">$text.library</th>
+			#if($inHoldingStat == 'true')<th align="left">$text.holding-statement</th>#end
+        	<th align="left">$text.inventory</th>												
+            #if($inVolume == 'true')<th align="left">$text.volume</th>#end
+            <th align="left">$text.collocation</th>
+            <th align="left">$text.fruition</th>	
+            #if($inHoldingsNotes == 'true')<th align="left">$text.holding_notes</th>#end
+            #if($inHoldingsDigitalLink == 'true')<th align="left">$text.holding-digital-link-colhead</th>#end
+            <th align="left">$text.status</th>
+            <th align="left">#*$text.foliorequests*#</th>
+		</tr>
+	</thead>
+	<tbody>
+		#foreach($copyEntry in $request.copies)
+			#set ($copyId = $copyEntry.getKey())
+			#set ($copyData = $copyEntry.getValue())
+			<tr>
+				#set ($codlib = "libraryname$copyData.institution-id")
+				########### LIBRARY ###########################
+				<td><b>$text.bundleGet('additional_resources',$codlib)</b></td>
+				###############################################
+				################## holding-statement ##########
+				#if($inHoldingStat == 'true')
+					<td>
+						#if($copyData.holding-statement)
+							$copyData.holding-statement
+						#end
+					</td>
+				#end
+				###############################################
+				################ inventory ####################
+				<td>
+					#if($copyData.barcode)
+						$copyData.barcode
+					#end
+				</td>
+				###############################################
+				################ volume #######################
+				#if($inVolume == 'true')
+					<td>
+						#if($copyData.volume)
+							$copyData.volume
+						#end
+					</td>
+				#end		
+				###############################################
+				############ collocation #####################
+				<td>
+					#if($copyData.shelf-list)
+						$copyData.shelf-list						
+					#end
+				</td>
+				###############################################
+				################# fruition ####################
+				<td align="left">
+					#if ($copyData.institution-id == "CF")					
+						#set($codeAvail = "$copyData.code-available")
+						#if ($copyData.code-notavailable != "")												
+							#set($textAvail = "notavailable$copyData.code-notavailable")												
+							#set($classAvail = "item-notavailable")
+						#else
+							#set($textAvail = "available$copyData.code-available")											
+							#set($classAvail = "")
+						#end
+						<span class="$classAvail">$text.bundleGet('additional_resources',$textAvail)</span>
+					#else
+						<span> </span>
+					#end											
+            	</td>
+				###############################################
+				############### holding notes #################
+				#if($inHoldingsNotes == 'true')
+					<td>
+						#if($copyData.note-inventory)
+							$copyData.note-inventory
+						#end
+					</td>
+				#end
+				###############################################
+				############ holding digital link #############
+				#if($inHoldingsDigitalLink == 'true')
+					<td>
+						#if($copyData.digital-copy-link)
+							#set ($codeholdiglink = "holdinglink$copyData.digital-copy-available")
+							#set ($textholdlinkavail = '')
+							#set ($textholdlink = '')
+							#set ($len = $codeholdiglink.length() - 1)
+							#set ($codeholdigavail = $codeholdiglink.substring($len))
+							#set ($codeholdiglink = $codeholdiglink.substring(0,$len)) 
+							#if ($codeholdigavail == 'L')
+								#set ($textholdlinkavail = $text.bundleGet('additional_resources',"holdinglinkavaibleL"))
+							#end
+							#if (($codeholdiglink == 'holdinglinkSBN3') || ($codeholdiglink == 'holdinglinkSBN4'))
+								<a href="$copyData.digital-copy-link" target="_blank">$text.bundleGet('additional_resources',$codeholdiglink) $textholdlinkavail</a>
+							#else
+								<a href="$copyData.digital-copy-link" target="_blank">$text.bundleGet('additional_resources',"holdinglinkDefault") $textholdlinkavail</a>
+							#end
+						#end
+					</td>
+				#end
+				###############################################
+				################ status ################
+				<td width="10%" id="$copyData.barcode.replace(' ', '__')" class="loan">
+					
+					
+				</td >
+				###############################################
+				################ folio request ################										
+				<td>
+					#if ($copyData.code-notavailable != "" && !($copyData.code-notavailable == 'P' || $copyData.code-notavailable == 'D'))
+            		## la presenza del codice di non disponibilità implica che la risorsa non sia richiedibile. 
+            		## A meno che non siano P e D, in tal caso non è prestabile ma richiedibile
+            			$text.request_not_allowed
+            		#else
+            			#if ($copyData.institution-id != 'CF')
+            				$text.libraries_no_web_circ
+            			#else	
+            				########### status in prestito  #############
+	    					##<div id="$copyData.barcode.replace(' ', '__')-loan-status" style="display: none;"></div>	    													
+	    					#############################################
+	    					###### request area  ######		
+                			### redirect to login if not authenticated for request
+                			
+							#if( !$loggedUser)
+								<form method="POST" action="folioLoan">
+										<input type="hidden" name="idResource" value="$resource.id">
+										<button class="button-blue btn-block py-2" style="white-space: nowrap;" type="submit">$text.web_circ_doloans</button>
+								</form>	
+							#else
+								#set($codeAvail = "$copyData.code-available")
+								#set($codeNotAvail = "$copyData.code-notavailable")
+								### show button modal if service points available									
+	                			#set($servicePointList = $loggedUser.servicePoints.get($codeAvail))	
+								#if ($servicePointList.size() > 0 )								
+									<button class="button-blue btn-block py-2" style="white-space: nowrap;" data-toggle="modal" data-target="#modal-request" type="button" data-codeavail="$codeAvail" data-collocation="$copyData.shelf-list" data-codenotavail="$codeNotAvail" data-barcode="$copyData.barcode.replace(' ', '__')" data-holding="$copyData.holding-statement">
+										$text.web_circ_doloans
+									</button>
+								#else
+									$text.loan_unavail_user	
+								#end	
+							#end		
+	    					###########################	    													
+	    												
+            			#end	
+    				#end					
+				</td> 	
+				###############################################
+			</tr>
+		#end
+	</tbody>
+</table>
+
+
+###### request modal ############
+<div class="modal fade" id="modal-request" tabindex="-1" role="dialog" aria-labelledby="$text.web_circ_doloans" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+    	<div class="modal-content">
+      		<div class="modal-header year-modal pb-0">       
+        		<button type="button" class="close" data-dismiss="modal" aria-label="$text.close">
+          			<span aria-hidden="true"><img src="img/closeBtn.png"></span>
+       			</button>
+      		</div>
+      		<div class="modal-body px-5">
+				<form method="POST" action="folioLoan">
+					<input type="hidden" name="barcode" id="barcode" value=""> 
+					<input type="hidden" name="idResource" value="$resource.id">
+				   	<input type="hidden" name="title" value="$esc.html($resource.title_bc)">
+				   	<input type="hidden" name="author" #if($resource.author) value="$esc.html($resource.author)" #end>
+				    <input type="hidden" name="publisher" value="$esc.html($resource.publisher.get(0))">
+				    <input type="hidden" name="collocation" id="collocation" value=""> 
+				    <input type="hidden" name="edition" id="edition" #if($resource.edition) value="$esc.html($resource.edition)" #end>	
+				    <input type="hidden" name="holding" id="holding" #if($resource.holding) value="$esc.html($resource.holding)" #end>			
+				    <div class="form-group row">
+						<label for="servicePoint" class="col-3 col-form-label label-search">$text.service_point_label</label>
+						<div class="col-sm-9">
+				        	<select class="form-control form-osee" name="servicePoint" id="servicePoint">					               
+				            </select>
+				        </div>
+			        </div>
+				    <div class="form-group row">
+				    	<label for="note" class="col-3 col-form-label label-search">$text.note</label>
+				    	<div class="col-9">
+				    		<input type="text" class="form-control form-osee" name="note" id="note"> 
+				    	</div>
+				    </div>
+			    	<div class="form-group row">
+			    		<div class="col-9 offset-3">
+			    			<button id="request-submit-button" class="button-blue btn-block py-2" type="submit" disabled>$text.web_circ_doloans</button>
+			    		</div>
+			    	</div>    
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	
+
+	$('#modal-request').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget) // Button that triggered the modal
+		var codeAvail = button.data('codeavail')
+		
+		var codeNotAvail = button.data('codenotavail')
+		var collocation = button.data('collocation')
+		var barcode = button.data('barcode')
+		var holding = button.data('holding')
+		var defaultServicePoint = "$defaultServicePoint";
+		
+		var modal = $(this)
+		modal.find('.modal-body #section').val(codeAvail)
+		modal.find('.modal-body #collocation').val(collocation)
+		modal.find('.modal-body #barcode').val(barcode)
+		if(!(holding == '$copyData.holding-statement')){
+			modal.find('.modal-body #holding').val(holding)
+		}
+		
+		${esc.dollar}.get("servicePoint?codeAvail=" + codeAvail + "&codeNotAvail=" + codeNotAvail, function (data) {			
+			var sp = data.servicePoints;	
+			$("#servicePoint").empty();
+			for (i = 0; i < sp.length; i++) {
+				var value = sp[i].value;
+				var label = sp[i].label;
+				var option = '<option value="' + value + '___' + label +'"';
+					if (value == defaultServicePoint) {
+						option = option + ' selected '
+					}
+					option = option + '>' + label + '</option>'
+				$("#servicePoint").append(option)
+			}
+			modal.find('.modal-body #request-submit-button').prop("disabled", false);		
+		});	
+	});
+	
+	
+</script>	

@@ -1,0 +1,60 @@
+#if (!$request.holdsByLibraries.isEmpty())
+<!-- bncf2/protected/myholds.vm -->
+    <table width="100%" >
+		<tr>
+    		<td>
+    			#parse("protected/toolbar.vm")
+    		</td>
+    	</tr>
+		<tr>
+    		<td> 
+            	#set ($firstLetter = "-")
+                #foreach($library in $request.holdsByLibraries.keySet())
+                	#set ($firstLetterOfLibrary = $library.name.substring(0,1))
+                		#if ($firstLetterOfLibrary != $firstLetter)
+                    		#set ($firstLetter = $firstLetterOfLibrary)
+                    		<div id="$firstLetterOfLibrary"></div>
+                		#end	
+                	<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+                		<a href="" class="document_title_detail">$library.name</a>
+                	<br/><br/>
+                	#set ($holds = $request.holdsByLibraries.get($library))
+                	#if ($holds)
+							<table class="items">
+                    			<tr>
+                    				<th colspan="2">&nbsp;</th><th>$text.title</th><th>$text.author</th><th>$text.date</th>
+								</tr>						
+                            	#foreach($hold in $holds)
+                					#if ($velocityCount % 2 == 0)
+                						#set ($rowStyle="tag-row-even")
+                					#else
+                						#set ($rowStyle="tag-row-odd")
+                					#end		
+									<tr class="$rowStyle">
+                						<td nowrap="nowrap">$velocityCount / $holds.size()</td>
+                						<td>
+											#set ($checked = $session.wsel && $session.wsel.contains($hold.amicusNumber.toString()))
+                    						<a id="check_link" href="javascript:wtoggle('$hold.amicusNumber')"><img id="check_$hold.amicusNumber" src="img/checked_${checked}.png"/></a>
+                						</td>						
+										<td><a class="linked_value" href="resource?uri=$hold.amicusNumber">$hold.title</a></td>	
+										<td>#if ($hold.author)$hold.author#end</td>
+										<td>$date.format("dd/MM/yyyy",$hold.date, $session.visit.preferredLocale)</td>	
+									</tr>	
+								#end
+							</table>
+                        	#end	
+                </div>	
+                #end 
+                <br/>
+                <br/>
+                <br/>
+			</td>
+		</tr>
+	</table>		
+#else
+	<br/><br/>
+    <table>
+		<tr class="circulation_container"><td class="holds"></td><td class="circulation_text_no">${text.i_dont_have_active_holds}.</td></tr>
+		<tr><td colspan="2" height="10px"></td></tr>
+	</table>
+#end	

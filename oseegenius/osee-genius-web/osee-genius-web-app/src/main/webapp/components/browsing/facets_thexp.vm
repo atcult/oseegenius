@@ -1,0 +1,5 @@
+#if (!$request.currentTab.empty)
+	#set ($resources = $request.currentTab.response)
+    #i18n_facet( $text.level $resources.getFacetField('is_top_concept') 'top_terms_facet' 'middle_viewlet_body')
+    #literal_facet ( $text.scheme_name $resources.getFacetField('scheme_name') 'viewlet_body')
+#end	

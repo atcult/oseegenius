@@ -1,0 +1,92 @@
+#set ($viewType = $params.v)
+#if (!$viewType) #set($viewType = 'l') #end
+#set ($mlt = $request.similarItems.results && $request.similarItems.results.numFound != 0)
+#if ($mlt)
+<div id="containerMoreLikeThis" class="border morelikethis">
+	<div id="headMoreLikeThis" class="p-2">
+    	<h5 class="bold-text">$text.mlt</h5>
+    </div>
+	<div id="resultsMoreLikeThis" class="p-2">
+		<ul class="list-group border-0">	
+			#foreach($document in $request.similarItems.results)
+				<li class="list-group-item border-0 m-0 p-1 strSizeOnly">
+					#if($document.category_code == "ar")
+						<a class="colorLinkOnly" href="resource?uri=$document.id&v=$viewType&cc=ar">#if ($document.title)$document.title#else$text.title_na#end</a>
+					#else
+						<a class="colorLinkOnly" href="resource?uri=$document.id&v=$viewType">#if ($document.title)$document.title#else$text.title_na#end</a>
+					#end			
+					
+					#if ($document.author_person)
+						#set($filterValue = $document.author_person.replaceAll("\"", "\\""))
+						 <a class="authorlinkmlt" href='search?h=def&f=author_1xx_7xx_search:$esc.q$esc.url($filterValue)$esc.q'>$document.author_person</a>
+					#elseif ($document.author_corporate)
+						#set($filterValue = $document.author_corporate.replaceAll("\"", "\\""))
+						 <a class="authorlinkmlt" href='search?h=def&f=author_1xx_7xx_search:$esc.q$esc.url($filterValue)$esc.q'>$document.author_corporate</a>
+					#elseif ($document.author_conference)
+						#set($filterValue = $document.author_conference.replaceAll("\"", "\\""))
+						<a class="authorlinkmlt" href='search?h=def&f=author_1xx_7xx_search:$esc.q$esc.url($filterValue)$esc.q'>$document.author_conference</a>	
+					#end
+				</li>
+			#end	
+		</ul>		
+		<div id="navigator">		
+			#set ($currentAddress = $request.requestURL)
+    		#set($howManyRecords = $request.similarItems.results.numFound)
+    		#set ($pageSizeParameter = 10)
+    		#set($howManyRecordsPerPage =10)
+    		#set($start = $request.similarItems.results.start)
+    		#set($startIndex = $start + 1)
+    		#set($endIndex = $start + $howManyRecordsPerPage)
+    		#set ($pages = $howManyRecords / $howManyRecordsPerPage)
+    		#if ($howManyRecords % $howManyRecordsPerPage > 0)
+    			#set ($pages = $pages + 1)
+    		#end	
+    		#if ($pages > 1)	
+    			#set($curPage = $start / $howManyRecordsPerPage + 1)
+    			#set ($onsides = 6)
+    			#set ($tmp = $curPage - $onsides)
+    			#if ($tmp > 0) 
+    				#set ($firstClkbl = $tmp)
+    			#else	
+    				#set ($firstClkbl = 1)
+    			#end
+    			#set ($tmpIndex = $firstClkbl + (2 * $onsides))
+    			#if ($tmpIndex < $pages)
+    				#set ($lastClkbl = $tmpIndex)
+    			#else
+    				#set ($lastClkbl = $pages)				
+    			#end	
+                ##<span class="navigation-result"><strong>$startIndex - $endIndex</b> $text.of <b>$howManyRecords $text.results_found</strong></span>
+    			##if( $firstClkbl > 1)
+				#if( $curPage > 1)	
+        			 <a onclick="javascript:mlt('p','1')" ><img src="img/fastRewindDisabled.png" alt="$text.rwFirstStep" class="fast-navigation-button"/></a>
+        		#end
+    			#if ($curPage > 1)
+        			#set ($previousPage = $curPage - 1)
+        			<a onclick="javascript:mlt('p','$previousPage')"><img src="img/stepRewindDisabled.png"  alt="$text.rwOneStep" class="fast-navigation-button"/></a>
+    			#end	
+    			#if ($firstClkbl > 1) <span class="page mx-1"> ... </span> #end		
+    			#foreach($pageIndex in [$firstClkbl..$lastClkbl])
+    				#if ($pageIndex == $curPage)
+    					<span class="current-page-number page mx-1">$curPage</span>
+    				#else
+    					<a onclick="javascript:mlt('p','$pageIndex')" class="page mx-1 underline">$pageIndex</a>			
+    				#end	
+    			#end 
+    			#if ($lastClkbl < $pages) ...
+    			#end	
+    			#if ($pages - $curPage > 0)
+    				#set ($nextPage = $curPage + 1)
+					<a onclick="javascript:mlt('p','$nextPage')"><img src="img/stepForwardEnabled.png" alt="$text.fwOneStep" class="fast-navigation-button"/></a>
+    			#end 
+    			##if ($firstClkbl <= 1)
+				#if ($pages - $curPage > 0)	
+        			<a onclick="javascript:mlt('p','$pages')"><img src="img/fastForwardEnabled.png" alt="$text.fwLastStep" class="fast-navigation-button"/></a>
+    			#end
+    		#elseif ($howManyRecords > 0)
+    			<b>$howManyRecords $text.results_found</b>
+    		#end
+		</div>	
+	</div>	
+</div>	
+#end

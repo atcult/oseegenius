@@ -1,0 +1,88 @@
+#set($tab = $session.visit.searchExperience.currentTab)
+#set($catalog = $session)
+<div class="row m-0">
+	<div class="col-md-6 offset-md-3 col-sm-12 py-2">						
+		<!-- from components/search/search_expression.vm -->
+<strong><span id="nav-res" class="navigation-result">
+</span>
+<span id="nav-cat" class="navigation-result">
+</span>
+</strong>	
+	</div> 
+	<div class="col-md-3 py-1 px-2 d-none d-md-block">
+		<img src="img/trick.png" alt="">
+		<br/>
+		<span class="strSizeOnly">$text.page_info_16</span>		
+	</div>
+</div>
+<div style="margin-left: 3%">	
+		#foreach($searchTab in $session.visit.searchExperience.tabs)
+		#if ($searchTab.title != 'NA')
+				#set ($tabTitle = $searchTab.title)			
+			#else
+				#set ($tabTitle = $text.defaultTitleTab)									
+			#end	
+					#if (!$searchTab.externalSearchTab)
+						<a href="search?${searchTab.queryParameters}&dls=true" style="color: #507B9A" title="$tabTitle">Torna a catalogo BNCF</a>
+					#else
+				#end
+			#end
+</div>
+<div class="row bg-white py-4 m-0"> 
+	################### left sidebar ##################
+	<div class="col-md-2 col-sm-12">
+		<div class="float-md-right">
+			#parse('components/export-or-download.vm') 
+			<form name="searchForm" method="get" action="metasearch">
+				########### input box ##########
+				<div class="input-group">					
+					<label class="sr-only" for="q">$text.simple_search_placeholder</label>	
+					<input type="text" class="form-control search-input strSizeOnly" id="q" name="q" autocomplete="off" placeholder="$text.simple_search_placeholder" aria-label="Search" aria-describedby="search"/>
+					<div class="input-group-append strSizeOnly">
+			       		<span class="input-group-text fa fa-search icon-input">
+			       			<button type="submit" class="magnifier">
+			       				<img src="img/search.png" width="30" height="30">
+			       			</button>
+			       		</span>
+			     	</div>
+				</div>
+				###### sort and pages ########
+				<div class="col-md-6 col-sm-12 form-row">				
+				<div>
+	        		<label for="s" class="label-search" style="width: max-content">
+	        			$text.result_per_page
+	        		</label>
+	        	</div>
+	        	<div style="margin-right: auto">
+	        		#set ($selectedSize = $params.s)
+        			#if (!$selectedSize) #set ($selectedSize = $configuration.defaultPageSize) #end
+                	<select name="num" id="num" onchange="javascript:reSubmitSearch()" class="form-control form-osee mb-2">
+						#foreach($pageSize in $configuration.allowedPageSizes)<option value="$pageSize" #if($pageSize == $selectedSize) selected #end>$pageSize</option>#end
+					</select>	
+	        	</div>	
+	        	<div>
+	        		<label for="o" class="label-search" style="width: max-content">
+	        			$text.sorting_results_for
+	        		</label>
+	        	</div>	
+	        	<div style="min-width: max-content; margin-right: auto">				
+	        		#set ($selectedOrder = $params.sort)
+							<select name="sort" id="sort" onchange="javascript:reSubmitSearch()" class="form-control form-osee">
+								<option value="relevance" #if (!$selectedOrder || $selectedOrder == 'relevance') selected #end>$text.score</option>
+								<option value="title:1" #if ($selectedOrder == 'title:1') selected #end>$text.title</option>
+								<option value="date:0" #if ($selectedOrder == 'date:0') selected #end>$text.newest</option>
+								<option value="date:1" #if ($selectedOrder == 'date:1') selected #end>$text.oldest</option>
+							</select>
+				</div>	
+			</div>
+			############### search button #############
+				<button type="submit" class="button-blue uppercase float-right btn-block py-2 my-3 strSizeOnly">$text.search</button>
+			</form> 
+		</div>
+	</div>
+	<div class="results" style="width: 78%; margin-right: auto; margin-left: auto"></div>
+</div>
+<div id="navigator" style="text-align: -webkit-center"></div>
+#set($pageSize = $params.num)
+#if (!$pageSize || $pageSize == 0) #set($pageSize = 5) #end
+<script type="text/javascript" src="js/ext_list_view.jsp?num=$pageSize"></script>	

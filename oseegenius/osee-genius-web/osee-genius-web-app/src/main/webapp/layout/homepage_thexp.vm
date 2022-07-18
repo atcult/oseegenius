@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>    
+		<title>ThGenius - Thesaurus Explorer</title>
+		<link href="$link.relative('/style/jquery.ui.theme.css')" rel="stylesheet" type="text/css" />				
+		<link href="$link.relative('/style/jquery.ui.selectmenu.css')" rel="stylesheet" type="text/css" />			
+		<link href="$link.relative('/style/jqcloud.css')" rel="stylesheet" type="text/css" />
+		<link href="$link.relative('/style/og.css')" rel="stylesheet" type="text/css" />
+		<link href="$link.relative('/style/customer.css')" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="$link.relative('/js/jquery.min.1.4.4.js')"></script> 
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.core.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.widget.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.position.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.selectmenu.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.button.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/oseegenius.js')"></script>
+		<script type="text/javascript" src="${link.relative('/js/jqcloud-0.1.8.min.js')}"></script>		
+		<script>
+			function vtr(uri) {document.location="thresource?uri="+encodeURIComponent(uri);}
+		</script>
+		<style>
+div#content {
+    border-style: none;
+    border-width: 0 0;
+    margin: 0 120px;
+    padding: 1em 10px;
+}
+			
+		</style>			
+	</head>
+	<body>
+    	<div id="container"> 
+			#parse('components/links.vm')
+			<div id="top-toolbar" style="float:left;">
+				#parse('components/page/top-toolbar-thexp.vm')	
+				#parse('components/search/breadcrumb.vm')	 
+			</div>
+            <div id="header"></div> 
+            <div id="content_detail">$screen_content</div>
+    		#parse('components/search/bottom-toolbar-thexp.vm')	
+			<br/><br/>
+			#parse('components/page/footer.vm')
+		</div>	
+	</body>
+</html>
+
+<script type="text/javascript">
+		var word_list = $request.cloud;
+	  
+  	$(document).ready(function() {		
+		${esc.dollar}.ajax({
+        			type: "GET",
+        			url: "cloud",
+					data:"",
+					success: function(result)
+					{
+						screenW = screen.width;
+				 		screenH = screen.height;	
+						$("#tlcloud").css("width",screenW - 100);
+						$("#tlcloud").css("height",200);
+						$("#tlcloud").jQCloud(word_list);
+					}
+        		});
+
+  	});
+</script>	

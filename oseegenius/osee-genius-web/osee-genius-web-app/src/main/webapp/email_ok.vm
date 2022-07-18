@@ -1,0 +1,20 @@
+<div class="account-form">
+			<table class="login-table" >
+			  <tbody>
+					<tr>
+						<td colspan="2"><div class="account-form-sub-title">$text.email_sent</div></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<br/>$text.email_sent_info_1
+							<br/>$text.email_sent_info_2
+							<br/>$text.email_sent_info_3
+							<br/><br/>
+							$text.email_sent_info_4 <a href="$link.relative('/email')#if($request.resourceId)?resourceId=$request.resourceId#end">$text.here</a> $text.otherwise
+							<br/>$text.email_sent_info_5
+							<br/>${text.email_sent_info_6}. 
+						</td>
+					</tr>
+			  </tbody>
+			</table>
+	</div>

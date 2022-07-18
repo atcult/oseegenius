@@ -1,0 +1,85 @@
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>    
+	<style>
+	    .login-input-text {
+	    	padding:3px;
+	    	color:#333333;
+	    	
+	    	border:1px solid #96A6C5;
+	    	margin-top:2px;
+	    	width:340px;
+	    	font-size:11px;
+	    }
+	    
+	    
+	    .login-label{
+	    	font-size:11px;
+	    	display:block;
+	    	text-align:left;
+	    }
+	    
+	    .login-table {
+	    	width:370px;
+	    	font-size:11px;
+	    	padding:4px;
+	    }
+	    
+	    .login-input {
+	    	padding:1px;
+	    }
+	    
+	    .account-form{	
+	    	border:3px solid #eeeeee;
+	    	padding-top:15px;	
+	    	padding-left:15px;	
+	    	padding-right:15px;	
+	    	padding-bottom:5px;	
+	    	color:#203360;
+	    	
+	    	margin:0px auto;
+	    }
+	    
+	    .account-form-title,
+	    .account-form-sub-title{
+	    	font-size: 18px;
+	    	font-family:"Lucida Grande",Tahoma,Verdana,Arial,sans-serif;
+	    	font-weight:bold;
+	    }
+	    
+	    .account-form-sub-title{
+	    	font-weight:normal;
+	    	padding:3px 0 3px 0;
+	    }
+	    
+	    .account-button {
+			font-family:"Lucida Grande",Tahoma,Verdana,Arial,sans-serif;
+	    	width:auto;
+	    	margin:10px 0 0 2px;
+	    	padding:3px 4px 3px 4px;
+	    	color:white;
+	    	background-color:#FF9933;
+	    	outline:none;
+	    	border:1px solid #000000;
+	    	font-weight:bold;
+	    }
+	    
+	    .account-button:active{
+	    	background-color:#FF6633;
+	    	padding:4px 3px 2px 5px;
+	    }	
+	</style>
+	        <script type="text/javascript" src="$link.relative('/js/jquery.min.1.4.4.js')"></script> 
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.core.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.widget.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.position.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.selectmenu.js')"></script>
+		<link href="$link.relative('/style/og.css')" rel="stylesheet" type="text/css" />
+		<link href="$link.relative('/style/jquery.ui.theme.css')" rel="stylesheet" type="text/css" />
+		<link href="$link.relative('/style/customer.css')" rel="stylesheet" type="text/css" />
+		<link href="$link.relative('/style/jquery.ui.selectmenu.css')" rel="stylesheet" type="text/css" />	
+	</head>
+	<body>
+		$screen_content
+	</body>
+</html>	

@@ -1,0 +1,35 @@
+<table class="copies" cellpadding="5">
+    <thead>
+    	<tr>
+        	<th scope="col">$text.date</th>			
+        	<th scope="col">$text.terms</th>
+            <th scope="col">$text.index</th>
+			<th scope="col">$text.order_by</th>
+			<th scope="col">$text.filters</th>
+			<th scope="col">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+		#foreach($entry in $request.entries)	
+    	<tr>
+        	<td><a class="linked_value" href='$entry.searchUri'>$date.format("dd/MM/yyyy HH:mm",$entry.date, $session.visit.preferredLocale)</a></td>
+            <td><a class="linked_value" href='$entry.searchUri'>$entry.query</a></td>
+            <td><a class="linked_value" href='$entry.searchUri'>#if ($entry.targetMetaAttribute)$text.get($entry.targetMetaAttribute)#else$text.any_bc#end</a></td>
+            <td><a class="linked_value" href='$entry.searchUri'>$text.get($entry.orderByCriteria.replaceFirst(":","_"))</a></td>
+			<td>
+				#if ($entry.filters)
+				<a class="linked_value" href='$entry.searchUri'>
+					#foreach($filter in $entry.filters)
+						- $breadcrumbTool.getHumanReadableFederatedLabel($request, $filter)<br/>
+					#end	
+				</a>
+				#end
+			</td>
+			<td valign="middle">
+				<a class="linked_value" href="javascript:removeSearchEntry('$entry.id')"><img src="img/minus.gif" style="vertical-align:middle;">&nbsp;$text.remove</a>
+			</td>					
+        </tr>
+		#end
+    </tbody>
+</table>
+<br/><br/><br/><br/>

@@ -1,0 +1,20 @@
+<!-- components/page/menu-navigator.vm -->
+<div class="mt-5 mb-3">
+	<div class="row">
+		<div class="col-md-4 col-sm-12">
+			<a href="home">
+				<button type="button" class="btn btn-block button-search #if($searchType == 'simple') current-button #end">$text.simple_search</button>   			
+			</a>
+		</div>
+		<div class="col-md-4 col-sm-12">
+			<a href="advanced?a=reset">
+				<button type="button" class="btn btn-block button-search #if($searchType == 'advanced') current-button #end">$text.advanced_search</button>   			
+			</a>
+		</div>
+		<div class="col-md-4 col-sm-12 nopadding-left">
+			<a href="heading">
+				<button type="button" class="btn btn-block button-search #if($searchType == 'subject') current-button #end">$text.subject_search</button>   			
+			</a>
+		</div>
+	</div>
+</div>

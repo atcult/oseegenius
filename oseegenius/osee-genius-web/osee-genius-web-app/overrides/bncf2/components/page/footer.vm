@@ -1,0 +1,80 @@
+<!-- bncf2/componets/page/footer.vm -->
+<div class="row">
+	<div class="col-md-2 col-sm-12">
+	</div>
+	<div class="col-md-2 col-sm-12">
+		<h5>Biblioteca Nazionale Centrale di Firenze</h5>
+		<ul class="list-unstyled">
+			<li class="bold-text">Sede Centrale</li>
+			<li>Piazza dei Cavalleggeri, 1 - 50122 Firenze</li>
+			<li>Centralino +39 055 24919 1</li>
+			<li>Informazioni +39 055 24919 96-97</li>
+		</ul>		
+		<ul class="list-unstyled">
+			<li>Codice Fiscale: 80020550481</li>
+		</ul>
+	</div>
+	<div class="col-md-2 col-sm-12">
+		<h5>BNCF</h5>
+		<ul class="list-unstyled">
+			<li><a href="$configuration.getLibraryDomainUrl()/biblioteca/biblioteca-nazionale-centrale-di-firenze/" target="_blank">Chi siamo</a></li>
+			<li><a href="$configuration.getLibraryDomainUrl()/biblioteca/urp/" target="_blank">URP</a></li>
+			<li><a href="$configuration.getLibraryDomainUrl()/biblioteca/apertura-e-orario-dei-servizi/" target="_blank">Apertura e orario dei servizi</a></li>
+			<li><a href="$configuration.getLibraryDomainUrl()/biblioteca/come-arrivare/" target="_blank">Dove siamo</a></li>
+			<li><a href="#" target="_blank">Privacy Policy</a></li>
+			<li><a href="$configuration.getLibraryDomainUrl()/cookie-policy/" target="_blank">Cookie Policy</a></li>
+		</ul>
+	</div>
+	<!--
+	<div class="col-md-2 col-sm-12">
+		<h5>Amministrazione</h5>
+		<ul class="list-unstyled">
+			<li><a href="$configuration.getLibraryDomainUrl()/amministrazione/amministrazione-trasparente/" target="_blank">Amministrazione trasparente</a></li>
+			<li><a href="signIn" target="_blank">Area riservata</a></li>
+			<li><a href="$configuration.getLibraryDomainUrl()/biblioteca/contatti/" target="_blank">Contatti</a></li>
+		</ul>
+	</div>
+	-->
+	
+	<div class="col-md-2 col-sm-12">
+		<h5>Resta in contatto con BNCF</h5>
+		<form  action="https://a3d6h6.mailupclient.com/frontend/subscribe.aspx">
+			<div class="form-group">
+				<input type="text" class="form-control strSizeOnlyNotReduce" name="campo1" id="campo1" title="name" placeholder="$text.name" aria-label="$text.name" aria-labelledby="campo1">
+			</div>
+			<div class="form-group">
+				<input type="email" class="form-control strSizeOnlyNotReduce" name="email" id="email" title="email" placeholder="Email" required="required" aria-label="Email" aria-labelledby="email">
+			</div>
+			<div class="form-group">
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="contact_checkbox" name="privacy" required="required">
+					<label class="form-check-label" for="contact_checkbox">
+						$text.privacy_text <a href="#" class="simple-link">Privacy Policy</a>
+					</label> 
+				</div>
+			</div>
+			
+			<button type="submit" class="btn btn-outline-secondary" name="submit" value="true">$text.subscribe_me</button>
+			<input type="hidden" name="list" value="1">
+            <input type="hidden" id="apgroup" name="apgroup" value="7">
+		</form>
+	</div>
+	<div class="col-md-2 col-sm-12">
+		<h5>Seguici</h5>
+		<div>
+			<a class="social-logo" href="https://www.facebook.com/BNCFirenze/" title="facebook" target="_blank">
+				<img src="img/facebook.png" title="facebook" alt="$text.alt_facebook">
+			</a>
+			<a class="social-logo" href="https://www.instagram.com/bibliotecanazionale/" title="instagram" target="_blank">
+				<img src="img/instagram.png" title="instagram" alt="$text.alt_instagram">
+			</a>
+			<a class="social-logo" href="https://twitter.com/bncfirenze" title="twitter" target="_blank">
+				<img src="img/twitter.png" title="twitter" alt="$text.alt_twitter">
+			</a>
+			</a>
+			<a class="social-logo" href="https://www.youtube.com/channel/UCA0-kD-WLTyyoOhVNXxs4dg" title="youtube" target="_blank">
+				<img src="img/youtube.png" title="youtube" alt="youtube">
+			</a>
+		</div>	
+	</div>
+</div>

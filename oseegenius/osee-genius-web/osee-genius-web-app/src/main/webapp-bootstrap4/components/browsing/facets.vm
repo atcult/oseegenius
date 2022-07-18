@@ -1,0 +1,16 @@
+<!-- components/browsing/facets.vm -->
+<h5 class="mb-3">$text.additional_filter</h5>
+<ul class="list-group facet">	
+	#set ($resources = $tab.response)
+	#results_side_link_with_bundle_bootstrap($text.library $resources.getFacetField('library') 'library')
+	#results_side_link_with_bundle_bootstrap($text.format $resources.getFacetField('format_for') 'format_for')	
+	#results_side_link_with_bundle_bootstrap($text.bibliographic_level $resources.getFacetField('bibliographic_level') 'bibliographic_levels')	
+	#results_side_link_bootstrap($text.author_person_facet $resources.getFacetField('author_person_facet'))	
+	#results_side_link_bootstrap($text.author_corporate_facet $resources.getFacetField('author_corporate_facet'))	
+	#results_side_link_bootstrap($text.author_conference_facet $resources.getFacetField('author_conference_facet'))
+	#results_side_link_bootstrap($text.publisher $resources.getFacetField('publisher_name'))
+	#results_side_link_with_bundle_bootstrap($text.language $resources.getFacetField('language') 'languages')	
+	#results_side_link_with_bundle_bootstrap($text.publication_date_interval $resources.getFacetField('publication_date_interval') 'pub_intervals')	
+	#results_side_link_bootstrap($text.publication_date $resources.getFacetField('publication_date'))
+	#results_side_link_bootstrap($text.classification $resources.getFacetField('dewey_facet'))
+</ul>

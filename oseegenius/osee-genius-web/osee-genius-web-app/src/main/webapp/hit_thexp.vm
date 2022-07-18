@@ -1,0 +1,78 @@
+<ul id="searchMenu" class="contextMenu">#foreach($provider in $configuration.thGeniusSearchProviders)<li><a href="#$provider.url">$provider.label</a></li>#end</ul>
+<div id="resource-details">
+	#set ($resource = $request.resource)
+	<span class="document_title_detail"><a class="searchLabel" style="text-decoration:none;">$resource.prefLabel</a></span>
+	#spacer(4)
+	<br/>
+	<a href='$resource.id' class="document_author_detail" target="_new">$request.resource.id</a>
+	<br/><br/>
+    #if ($resource.in_scheme)	
+		<a id="schemes"/>
+		<div class="detail-section">
+			<h3 class="detail-section-title">$text.schemes</h3>
+		<div class="clear"></div>
+		#foreach($scheme in $resource.in_scheme)		
+			#set ( $index = $velocityCount - 1)
+		<div><a class="pref-label">$resource.scheme_name.get($index)</a></div>
+		<div style="margin-bottom:4px;"><a href="$scheme" target="_new" class="concept-uri">$scheme</a></div>
+		#end
+	</div>
+    #end
+
+	#if ($resource.altLabel)
+		<a id="altLabel"></a>
+    	<div class="detail-section">
+			<h3 class="detail-section-title">$text.alt_labels</h3>
+    		<div class="clear"></div>
+    		<div>#foreach($altLabel in $resource.altLabel)#if ($velocityCount > 1), #end<a class="alt-label searchLabel">$altLabel</a>#end</div>
+    	</div>
+	#end
+    #notes($text.scope_note $resource.scopeNote 'scopeNote')
+    #notes($text.editorial_note $resource.editorialNote 'editorialNote')
+    #notes($text.history_note $resource.historyNote 'historyNote')
+    #notes($text.note $resource.note 'note')	
+	<table>
+		<tr>
+			<td valign="top">
+			<a id="relations"></a>
+            #if ($resource.broader)
+            	<div class="detail-section">
+            		<h3 class="detail-section-title">$text.broader_terms</h3>
+            		<div class="clear"></div>
+            		#foreach($broader in $resource.broader)
+            			#set ( $index = $velocityCount - 1)
+            		<div><a href="thresource?uri=$esc.url($broader)" class="pref-label searchLabel">$resource.broaderLabel.get($index)</a></div>
+            		<div style="margin-bottom:4px;"><a href="$broader" target="_new" class="concept-uri">$broader</a></div>
+            		#end
+            	</div>
+            #end								
+			</td>
+			<td valign="top">
+            #if ($resource.narrower)
+            	<div class="detail-section">
+            		<h3 class="detail-section-title">$text.narrower_terms</h3>
+            		<div class="clear"></div>
+            		#foreach($narrower in $resource.narrower)
+            			#set ( $index = $velocityCount - 1)
+            		<div><a href="thresource?uri=$esc.url($narrower)" class="pref-label searchLabel">$resource.narrowerLabel.get($index)</a></div>
+            		<div style="margin-bottom:4px;"><a href="$narrower" target="_new" class="concept-uri">$narrower</a></div>
+            		#end
+            	</div>
+            #end				
+			</td>
+			<td valign="top">
+            #if ($resource.related)
+            	<div class="detail-section">
+            		<h3 class="detail-section-title">$text.related_terms</h3>
+            		<div class="clear"></div>
+            		#foreach($related in $resource.related)
+            			#set ( $index = $velocityCount - 1)
+            		<div><a href="thresource?uri=$esc.url($related)" class="pref-label searchLabel">$resource.relatedLabel.get($index)</a></div>
+            		<div style="margin-bottom:4px;"><a href="$related" target="_new" class="concept-uri">$related</a></div>
+            		#end
+            	</div>
+            #end			
+			</td>
+		</tr>
+	</table>
+</div>

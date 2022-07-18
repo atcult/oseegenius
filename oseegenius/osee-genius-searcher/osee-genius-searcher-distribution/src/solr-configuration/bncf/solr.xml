@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<solr persistent="false" sharedLib="lib">
+	<cores adminPath="/admin/cores">
+		<core name="main" instanceDir="main" />
+		<core name="autocomplete" instanceDir="autocomplete" />
+		<core name="heading" instanceDir="heading" />
+	</cores>
+</solr>

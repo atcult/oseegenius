@@ -1,0 +1,80 @@
+<div id="toolbar" class="box">
+	#if ($license.thExplorerEnabled)
+	<div style="float:left; padding-left:3px;">
+    	<a href="$link.relative('/thexplorer')"><img src="$link.relative('/img/th-genius-logo.png')" height="24"/></a>
+	</div>
+	#end	
+	<div id="navigator">			
+		#set($tab = $session.visit.searchExperience.currentTab)
+		#set($howManyRecords = $tab.response.results.numFound)
+		#set ($pageSizeParameter = $request.getParameter("s"))
+		#if ($pageSizeParameter)
+			#set($Integer = 0)
+			#set($howManyRecordsPerPage = $Integer.parseInt($request.getParameter("s")))
+		#else
+			#set($howManyRecordsPerPage = $tab.response.results.size())		
+		#end 	
+		#set($start = $tab.response.results.start)
+		#set($startIndex = $start + 1)
+		#set($endIndex = $start + $howManyRecordsPerPage)
+		#set ($pages = $howManyRecords / $howManyRecordsPerPage)
+		#if ($howManyRecords && $howManyRecords % $howManyRecordsPerPage > 0)
+			#set ($pages = $pages + 1)
+		#end	
+		#if ($tab.query && $pages > 1)	
+			#set($curPage = $start / $howManyRecordsPerPage + 1)
+			##set($curPage = $parameters.p)
+			#set ($onsides = 6)
+			#set ($tmp = $curPage - $onsides)
+			#if ($tmp > 0) 
+				#set ($firstClkbl = $tmp)
+			#else	
+				#set ($firstClkbl = 1)
+			#end
+			#set ($tmpIndex = $firstClkbl + (2 * $onsides))
+			#if ($tmpIndex < $pages)
+				#set ($lastClkbl = $tmpIndex)
+			#else
+				#set ($lastClkbl = $pages)				
+			#end	
+			<b>$startIndex - $endIndex</b> $text.of <b>$howManyRecords $text.results_found</b>
+			##if( $firstClkbl > 1)
+			#if( $curPage > 1)
+    			 <a href='$link.relative('search')?$esc.javascript($esc.html($esc.url($parameters)))&p=1' ><img src="$link.relative('img/fastRewindEnabled.png')" class="fast-navigation-button"/></a>
+    		#else
+    			<img src="$link.relative('img/fastRewindDisabled.png')" class="fast-navigation-button"/>
+    		#end
+			#if ($curPage > 1)
+    			#set ($previousPage = $curPage - 1)
+    			<a href='$link.relative('search')?$esc.javascript($esc.html($esc.url($parameters)))&p=$previousPage'><img src="$link.relative('img/stepRewindEnabled.png')" class="fast-navigation-button"/></a>
+			#else
+    			<img src="$link.relative('img/stepRewindDisabled.png')" class="fast-navigation-button"/>					
+			#end	
+			#if ($firstClkbl > 1) ... #end	
+			#foreach($pageIndex in [$firstClkbl..$lastClkbl])
+				#if ($pageIndex == $curPage)
+					<span class="current-page-number">$curPage</span>
+				#else
+					<a href='$link.relative('search')?$esc.javascript($esc.html($esc.url($parameters)))&p=$pageIndex'>$pageIndex</a>			
+				#end	
+			#end 
+			#if ($lastClkbl < $pages) ...
+			#end
+			#if ($pages - $curPage > 0)
+				#set ($nextPage = $curPage + 1)
+				<a href='$link.relative('search')?$esc.javascript($esc.html($esc.url($parameters)))&p=$nextPage'><img src="$link.relative('img/stepForwardEnabled.png')" class="fast-navigation-button"/></a>
+			#else
+    			<img src="$link.relative('img/stepForwardDisabled.png')" class="fast-navigation-button"/>									
+			#end 
+			##if ($firstClkbl <= 1)
+			#if ($pages - $curPage > 0)		
+    			 <a href='$link.relative('search')?$esc.javascript($esc.html($esc.url($parameters)))&p=$pages'><img src="$link.relative('img/fastForwardEnabled.png')" class="fast-navigation-button"/></a>
+    		#else	 
+    			<img src="$link.relative('img/fastForwardDisabled.png')" class="fast-navigation-button"/>
+			#end
+		#elseif ($howManyRecords && $howManyRecords > 0)
+			<b>$howManyRecords $text.results_found</b>
+		#end
+		 #i18nToolbar	 
+	</div>	
+</div>

@@ -1,0 +1,47 @@
+<!-- bncf2/protected/hold_already_exist.vm -->
+<table>
+	<tr>
+		<td valign="top" rowspan="2"  width="1%"><img src="img/error_page_icon.png"/></td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<form  action="hold" method="post">
+				<input type="hidden" name="copy" value="$params.copy"/>
+				<input type="hidden" name="uri" value="$params.uri"/>
+    			<table>
+    				<tr>
+    					<td valign="top"><b><span style="font-size:15px;">$text.duplicate_hold</span></b></td>
+    				</tr>
+					<tr>
+    					<td>
+							$text.duplicate_hold_info<br/>
+							$text.duplicate_hold_info_1 <a class="linked_value" href="workspace?section=myholds">$text.here</a>
+						</td>
+    				</tr>									
+					<tr>
+    					<td>
+							&nbsp;
+    					</td>
+    				</tr>		
+        			<tr>
+        				<td colspan="2">
+    						<input type="button" value="$text.return_to_search"  onclick="goback()" style="padding:3px;"/></td>
+        			</tr>	  
+        		  </tbody>
+        		</table> 	
+    	</form>
+		</td>
+	</tr>
+</table>		
+<br/>	<br/>	<br/>	<br/>	<br/>	<br/><br/>	<br/>
+<script>
+	function goback()
+	{
+		#if (!$visit.searchExperience.empty)
+			document.location = 'search?${session.visit.searchExperience.currentTab.queryParameters}&dls=ik'
+		#else
+			document.location = 'home';
+		#end
+	
+	}
+</script>	

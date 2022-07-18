@@ -1,0 +1,62 @@
+#if ($license.federatedSearchEnabled && $request.federatedSearchApplicable)
+<div class="viewlet">
+	<div class="viewlet_toggable_head">
+		<h3>$text.external_resources &nbsp;<span id="progress"></span></h3>
+	</div>
+	<div class="viewlet_body">	
+    	<div id="targets"></div>
+	</div>	
+</div>			
+<script  type="text/javascript" >
+	function refreshTargets()
+	{
+		${esc.dollar}.ajax({
+		    url: "pazpar2?command=termlist&name=xtargets&num=30",
+			cache: false,
+		    success: function(data) {
+				var targets = [];
+				${esc.dollar}(data).find("term").each(function(){				
+					var id = ${esc.dollar}(this).find("id").text();
+					var name = ${esc.dollar}(this).find("name").text();
+					var hits = ${esc.dollar}(this).find("frequency").text();
+					var h = Request.parameter('h'); 
+					var q = Request.parameter('q');
+					var s = Request.parameter('s');
+					targets.push("<a class='federated_link' href='metasearch?h=" + h + "&q=" + q + "&f=xt:"+id+"&num=" + s + "'>" + name + "</a><span> (" + hits + ")</span><br/>");
+				});
+				
+				${esc.dollar}("#targets").html(targets.join(' '));
+				
+				${esc.dollar}.ajax({
+					url: "pazpar2?command=stat",
+					cache: false,
+					contentType: "text/xml;charset=UTF-8",
+					success: function(statresponse)
+					{
+						var progress =  Math.floor(parseFloat(${esc.dollar}(statresponse).find("progress").text()) * 100) ;
+						if (progress != 100)
+						{						
+							${esc.dollar}("#progress").html("("+progress+"%)");
+							setTimeout(function() { refreshTargets(); }, 1500);
+						} else 
+						{
+							${esc.dollar}("#progress").html("");
+							var howMany = parseInt(${esc.dollar}(statresponse).find("hits").text());
+							if (howMany != 0)
+							{
+    							${esc.dollar}("#targets").prepend("<a class='federated_link' href='metasearch?q="+Request.parameter('q')+"'>$text.open_all</a><span> (" + howMany + ")</span><br/>");
+							} else 
+							{
+    							${esc.dollar}("#targets").prepend("<a class='federated_link'>${text.no_results}</a><br/>");
+							}
+						}
+					}
+				});
+		    }
+		  });	
+	}
+	$(document).ready(function(){
+		refreshTargets();
+	});
+</script>
+#end

@@ -1,0 +1,106 @@
+#if($request.wishlists && !$request.wishlists.isEmpty())
+<!-- bncf2/protected/mywishlist.vm -->
+    <table width="100%">
+    	<tr>
+    		<td colspan="2">
+    			#parse("protected/toolbar.vm")
+    		</td>
+    	</tr>
+    	<tr>
+    		<td valign="top" width="30">
+    			<table class="items">
+            		<tr><th>$text.wishlists</th></tr>
+					        
+					#foreach ($wl in $request.wishlists.entrySet())
+    					<tr>
+    						<td>								
+								#if($session.cswli == $wl.key)
+                					<span class="selected-wish-list">$wl.value</span>
+                				#else
+                					<a class="linked_value" href="javascript:getWishListDocuments('$wl.key')">$wl.value</a>
+                				#end
+    						</td>
+    					</tr> 
+    				#end
+				</table>
+    		</td>
+			#if (!$session.cswli)
+            	<td valign="top" width="99%">
+					 <table>
+						<tr>
+							<td>
+								<img src="img/warning.png"/>
+							</td>
+							<td class="empty-wish-list-msg">
+								$text.select_a_wish_list
+							</td>
+						</tr>
+					 </table>
+				</td>				
+			#elseif ($request.documents)
+            	<td valign="top" width="99%">
+            		<table class="items">
+						<tr><th colspan="2">&nbsp</th><th>$text.title</th><th>$text.author</th><th>$text.publisher</th></tr>
+						#foreach($document in $request.documents)	
+							#if ($velocityCount % 2 == 0)
+								#set ($rowStyle="wishlist-content-row-even")
+							#else
+								#set ($rowStyle="wishlist-content-row-odd")
+							#end	
+						<tr class="$rowStyle">
+							<td nowrap="nowrap">
+    							$velocityCount / $request.documents.size()
+    						</td>
+							<td>
+								#set ($checked = $session.wsel && $session.wsel.contains($document.id))
+								<a id="check_link" href="javascript:wtoggle('$document.id')"><img id="check_$document.id" src="img/checked_${checked}.png"/></a>
+							</td>
+            				<td><a class="linked_value" href="resource?uri=$document.id">$document.title</a></td>
+            				<td>#if ($document.author)${document.author}#end</td>
+            				<td>#if ($document.publisher)${document.publisher.get(0)}#else N.A.#end</td>
+    					</tr>
+    					#end
+					</table>
+            	</td>
+    		#else
+            	<td valign="top" width="99%">
+					 <table>
+						<tr>
+							<td>
+								<img src="img/warning.png"/>
+							</td>
+							<td class="empty-wish-list-msg">
+								$text.empty_wish_list
+							</td>
+						</tr>
+					 </table>
+				</td>	
+				#end	
+    	</tr>	
+    </table>
+    <form name="form" method="post" action="workspace">
+    	<input type="hidden" name="action"/>	
+    	<input type="hidden" name="id"/>
+    </form>
+    <script type="text/javascript">
+    	function removeSelected(id)
+    	{
+    		document.form.id.value=id;
+    		document.form.action.value='remove_from_wish_list';	
+    		document.form.submit();
+    	}
+    	
+    	function getWishListDocuments(id)
+    	{
+    		document.form.id.value=id;
+    		document.form.action.value='get_wish_list_documents';	
+    		document.form.submit();
+    	}	
+    </script>	
+#else
+		<br/><br/>
+    <table>
+		<tr class="circulation_container"><td class="loans"></td><td class="circulation_text_no">${text.i_dont_have_wish_list}.</td></tr>
+		<tr><td colspan="2" height="10px"></td></tr>
+    </table>
+#end	

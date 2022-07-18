@@ -1,0 +1,112 @@
+<script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAxO8EC4KXtKbjwxJN__2_Iuyp2UmjXhfo&sensor=false">
+    </script>
+    <script type="text/javascript">
+     function initialize() {
+	 
+	 if($request.branch.latLon){
+    	  #set ( $stringList =  $request.branch.latLon.split(",") )
+    	   var b = new Array(2);
+    	   #foreach ($coor in $stringList) 
+        				    b[$velocityCount -1] = $coor;
+        	#end
+    		 var lat 	= b[0];
+              var lng 	= b[1];
+    		
+    		 var latlngset = new google.maps.LatLng(lat, lng);
+            
+    		var myOptions = {
+              center: latlngset,
+              zoom: 17,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            
+            var map = new google.maps.Map(document.getElementById("map_canvas"),
+                    myOptions);
+            var marker = new google.maps.Marker({
+                position: latlngset,
+                map: map,
+                title:""
+            });
+		}	
+      }
+    </script>
+
+
+<br/><br/><br/>
+<!--<div id="branch-details" style="position:fixed; top:200;">-->
+<div id="branch-details">
+	#set($branch = $request.branch)
+	#if($branch)
+    	<table width="100%" border="0">
+    		<tr>
+    			<td valign="top">
+    				<table width="100%">
+    					<tr><td><a class="document_title">$branch.name</a></td></tr>
+    					<tr><td>$branch.street, $branch.zipCode -  $branch.city #if ($branch.province) ($branch.province)#end</td></tr>
+    					<tr><td>&nbsp;</td></tr>
+    					<tr><td>
+    							#if ($branch.telephone)Tel. $branch.telephone<br/>#end
+    							#if($branch.fax)Fax $branch.fax<br/>#end
+    							#if($branch.email)$branch.email#end
+    					</td></tr>
+    					<tr><td>&nbsp;</td></tr>					
+    					
+    				</table>
+    			</td>
+				#if($branch.latLon)
+    				<td valign="top" align="left">
+    					<div id="map_canvas" style="width:500px; height:340px"></div>
+    				</td>
+				#end
+    		</tr>
+    			<td colspan="2">
+    				<table width="100%">
+    					<tr>
+    						<td colspan="4"><center><b>$text.opening_hours</b></center></td>
+    					</tr>
+                        #foreach ($day in  $branch.openingHours)
+                        	<tr>
+                        		<td>$text.get($day.dayOfTheWeek)</td> 
+                        		<td align="center">
+                        			#if ($day.morningClosed)----------#else${day.openingMorningHours}:${day.openingMorningMinutes} - ${day.closingMorningHours}:${day.closingMorningMinutes}#end
+                        		</td>
+                        		<td align="center">
+                        			#if ($day.afternoonClosed)----------#else${day.openingAfternoonHours}:${day.openingAfternoonMinutes} - ${day.closingAfternoonHours}:${day.closingAfternoonMinutes}#end
+                        		</td>		
+                        		<td align="center">
+                        			#if ($day.eveningClosed)----------#else${day.openingEveningHours}:${day.openingEveningMinutes} - ${day.closingEveningHours}:${day.closingEveningMinutes}#end
+                        		</td>					
+                        	</tr>
+                        #end	
+    				</table>
+    			</td>
+    		</tr>
+    </table>
+	<br/><br/>
+	#end
+</div>
+#set ($firstLetter = "-")
+#foreach($city in $request.mainLibrariesByCityMap.keySet())
+	#set ($firstLetterOfCity = $city.substring(0,1))
+	#if ($firstLetterOfCity != $firstLetter)
+		#set ($firstLetter = $firstLetterOfCity)
+		<div id="$firstLetterOfCity"></div>
+		<br/><br/>	
+	#end
+	<a href="" class="document_title_detail">$city</a>
+	<br/><br/>	
+	#set ($mainLibraries = $request.mainLibrariesByCityMap.get($city))
+	#foreach($library in $mainLibraries)
+		<a href="" class="document_title">$library.name</a>
+		<ul>
+			#foreach($branch in $library.branches)
+			<li><a  href="$link.relative('/libraries')?id=$branch.id" class="document_author">$branch.name</a></li>	
+			<!--<li><a onclick="javascript:showBranchDetails('$branch.id'); return false;" href="" class="document_author">$branch.name</a></li>-->
+			#end		
+		</ul>	
+	#end
+<br/>
+#end 
+<br/>
+<script> initialize();</script>

@@ -1,0 +1,61 @@
+#if (!$session.wsel || $session.wsel.howManySelectedForExport() == 0)
+	#set ($enabledStyle = "display:none;")
+	#set ($disabledStyle = "")	
+#else
+	#set ($enabledStyle = "")
+	#set ($disabledStyle = "display:none;")	
+#end
+
+#if (!$session.wsel || $session.wsel.howManySelectedForSend() == 0)
+	#set ($opStyle = "display:none")
+#else
+	#set ($opStyle = "")
+#end
+
+<ul class="toolbar"><!--	
+    --><li>
+			<a class="workspace-action-enabled" target="_new"  href="export?sctx=workspace&target=refworks" style="$enabledStyle">Refworks</a>
+			<span class="workspace-action-disabled" style="color:gray;$disabledStyle">Refworks</span>			
+	</li><!--			
+	--><li>
+			<a class="workspace-action-enabled" href="download?format=m21&sctx=w" style="$enabledStyle">MARC21</a>
+			<span class="workspace-action-disabled" style="color:gray;$disabledStyle">MARC21</span>			
+	</li><!--		
+	--><li>
+		<a class="workspace-action-enabled" href="download?format=mxml&sctx=w" style="$enabledStyle">MARC XML</a>
+		<span class="workspace-action-disabled" style="color:gray;$disabledStyle">MARC XML</span>	
+	</li><!--		
+	--><li>
+			<a class="workspace-action-enabled" href="download?format=tmarc&sctx=w" style="$enabledStyle">MARC (txt)</a>
+			<span class="workspace-action-disabled" style="color:gray;$disabledStyle">MARC (txt)</span>		
+	</li><!--			
+	--><li>
+			<a class="workspace-action-enabled" href="download?format=pdf&sctx=w" style="$enabledStyle">PDF</a>
+			<span class="workspace-action-disabled" style="color:gray;$disabledStyle">PDF</span>		
+	</li><!--		
+	--><li>
+			<a class="workspace-action-enabled" href="download?format=xls&sctx=w" style="$enabledStyle">Excel</a>
+			<span class="workspace-action-disabled" style="color:gray;$disabledStyle">Excel</span>		
+	</li><!--		
+	--><li>
+			<a class="workspace-action-enabled"  href="download?format=html&sctx=w" style="$enabledStyle">HTML</a>
+			<span class="workspace-action-disabled" style="color:gray;$disabledStyle">HTML</span>		
+	</li><!--		
+	--><li>
+			<a class="workspace-action-enabled" rel="prettyPhoto" href="email?sctx=xpf&iframe=true&height=460&width=450" style="$enabledStyle">E-Mail</a>
+			<span class="workspace-action-disabled" style="color:gray;$disabledStyle">E-Mail</span>		
+		</li><!--		
+	-->#if ($license.desiderataEnabled && $configuration.desiderataAddress)<li>
+			<a href="desiderata?sctx=xpf">Desiderata</a>
+		</li><!--		
+	-->#end
+		#if($session.section != 'myloans' && $session.section != 'myholds' && $session.section != 'myfines')
+		<li>
+			<a class="workspace-action-enabled" href="javascript:removeSelected('$request.objectId')" style="$enabledStyle">$text.remove</a>
+			<span class="workspace-action-disabled" style="color:gray;$disabledStyle">$text.remove</span>		
+		</li>#end<!--		
+	--><li>
+			<a class="workspace-action-enabled" href="javascript:clearWorkspaceSelection()" style="$enabledStyle">$text.deselect_all</a>
+			<span class="workspace-action-disabled" style="color:gray;$disabledStyle">$text.deselect_all</span>		
+	</li>
+</ul>

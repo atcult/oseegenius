@@ -1,0 +1,108 @@
+<!-- bncf2/protected/new_hold.vm -->
+<table>
+	<tr>
+		<td valign="top" rowspan="2"  width="1%"><img src="img/book.png"/></td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<form  action="hold" method="post">
+				<input type="hidden" name="copy" value="$params.copy"/>
+				<input type="hidden" name="uri" value="$params.uri"/>
+    			<table>
+    				<tr>
+    					<td valign="top"><b><span style="font-size:15px;">$text.confirm_hold</span></b></td>
+    				</tr>
+					<tr>
+    					<td>
+							$text.confirm_hold_info_1<br/>
+							$text.confirm_hold_info_2 
+    					</td>
+    				</tr>									
+    				<tr>
+    					<td>
+							&nbsp;
+    					</td>
+    				</tr>	
+    				<tr>
+    					<td valign="top"><a class="document_title">$resource.title</a></td>
+    				</tr>
+					#if ($resource.author)
+    				<tr>
+    					<td>
+        						<a class="document_author">$resource.author</a>
+    					</td>
+    				</tr>	
+					#end
+					#if ($resource.publisher && $resource.publisher.size() > 0)
+    					<tr>
+        					<td>
+            						<span class="publisher">$resource.publisher.get(0)</span>
+        					</td>
+        				</tr>			
+					#end
+					<tr>
+    					<td>
+							&nbsp;
+    					</td>
+    				</tr>						
+					<tr>
+    					<td>
+							<table>
+								<tr>
+									<td>
+                                            <span class="attribute_name">$text.copy_id</span>
+                					</td>
+                					<td>
+                                            <span class="attribute_value">$copyData.get('copyId')</span>
+                					</td>
+								</tr>
+								<tr>
+									<td>
+                                            <span class="attribute_name">$text.location</span>
+                					</td>
+                					<td>
+                                            <span class="attribute_value">$copyData.get('location')</span>
+                					</td>
+								</tr>
+								#if ($copyData.get('shelf-list'))
+								<tr>
+									<td>
+                                            <span class="attribute_name">$text.collocation</span>
+                					</td>
+                					<td>
+                                            <span class="attribute_value">$copyData.get('shelf-list')</span>
+                					</td>
+								</tr>
+								#end
+							</table>
+						</td>
+    				</tr>	
+					<tr>
+    					<td>
+							&nbsp;
+    					</td>
+    				</tr>		
+        			<tr>
+        				<td colspan="2">
+    						<input type="submit" value="$text.confirm"  style="padding:3px;"/>
+    						&nbsp;&nbsp;&nbsp;
+    						<input type="button" value="$text.cancel"  onclick="goback()" style="padding:3px;"/></td>
+        			</tr>	  
+        		  </tbody>
+        		</table> 	
+    	</form>
+		</td>
+	</tr>
+</table>		
+<br/>	<br/>	<br/>	<br/>	<br/>	<br/><br/>	<br/>
+<script>
+	function goback()
+	{
+		#if (!$visit.searchExperience.empty)
+			document.location = 'search?${session.visit.searchExperience.currentTab.queryParameters}&dls=ik'
+		#else
+			document.location = 'home';
+		#end
+	
+	}
+</script>	

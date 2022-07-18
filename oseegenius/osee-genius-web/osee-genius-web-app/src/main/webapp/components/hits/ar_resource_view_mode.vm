@@ -1,0 +1,36 @@
+#set ($resource = $request.resource)
+<table class="detail_record">
+	<tr>
+		<td colspan="4">
+			<span class="document_title_detail">
+				$request.resource.title
+				#if($configuration.viewPerspectivesEnabled)
+    				 #if ($params.v == 'm21')
+    					<a onclick="manipulateQueryString('v','l')" class="small_link">($text.view_l)</a>
+    				 #else
+    					<a onclick="manipulateQueryString('v','m21')" class="small_link">($text.view_m21)</a>					
+					 #end
+				#end
+			</span>
+			#spacer(4)
+			<br/>
+			#if($resource.author_person)
+                #set($filterValue = $resource.author_person.replaceAll("\"", "\\""))
+                <a href='$link.relative('/search')?h=def&q=*:*&f=author_1xx_7xx_search:$esc.q$esc.url($filterValue)$esc.q' class="document_author_detail">$resource.author_person</a><br/><br/>
+			#elseif($resource.author_corporate)
+                #set($filterValue = $resource.author_corporate.replaceAll("\"", "\\""))
+                <a href='$link.relative('/search')?h=def&q=*:*&f=author_1xx_7xx_search:$esc.q$esc.url($filterValue)$esc.q' class="document_author_detail">$resource.author_corporate</a><br/><br/>
+			#elseif($resource.author_conference)
+                #set($filterValue = $resource.author_conference.replaceAll("\"", "\\""))
+                <a href='$link.relative('/search')?h=def&q=*:*&f=author_1xx_7xx_search:$esc.q$esc.url($filterValue)$esc.q' class="document_author_detail">$resource.author_conference</a><br/><br/>
+			#end
+		</td>
+	</tr>
+	#if ($request.v=='m21')<tr><td colspan="4"><div>$breadcrumbTool.toMarc21($resource.marc_xml)</div></td></tr>
+	#else	
+		#parse('customization/hits/ar_resource_view_additional_attributes.vm')
+	#end	
+</table>
+#parse('components/search/mlt.vm')
+#parse("components/community/community-detail.vm")
+#parse('components/search/reviews.vm')

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="it">
+	<head>
+		<title>
+		#if($specificServletTitle) $text.get($specificServletTitle) - #end
+		#if($specificHtmlResTitle) $specificHtmlResTitle - #end OPAC - $institution
+		
+		</title>
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		#default_head
+	</head>
+	<body>
+		<!-- layout/homepage.vm -->
+		<nav class="navbar navbar-light navbar-expand-md p-0 bg-white">
+			#parse('components/page/default-search-header.vm')
+		</nav>	
+		<div class="main pt-2">
+			<div class="container-fluid px-0">							
+					$screen_content		
+			</div>
+		</div>
+		<footer class="pt-md-5">
+			<div class="container-fluid">
+				#parse('components/page/footer.vm')
+			</div>
+		</footer>		
+	</body>
+</html>

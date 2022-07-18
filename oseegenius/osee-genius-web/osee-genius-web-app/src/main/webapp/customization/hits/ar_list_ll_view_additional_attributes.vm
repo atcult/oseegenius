@@ -1,0 +1,33 @@
+<table width="100%" cellpadding="0" cellspacing="0" >
+	<tr>
+		<td>
+			<table>
+				#list_monovalued_literal_attribute($text.an $document.id)
+				
+				#list_monovalued_literal_attribute($text.initial_date  $document.initial_date)
+				#list_monovalued_literal_attribute($text.final_date  $document.final_date)
+				#list_monovalued_i18n_attribute($text.hierarchy_level 'ar_hierarchy_level' $document.level_code)
+				#list_multivalued_literal_attribute($text.other_classification_number  $document.other_classification_number)		
+				
+				#list_monovalued_literal_linked_attribute($text.main_entry_uniform_title $document.main_entry_uniform_title 'title_uniform_search')
+				#list_monovalued_literal_linked_attribute($text.uniform_title $document.uniform_title 'title_uniform_search')
+				
+				#list_multivalued_i18n_attribute($text.ARC_organization_and_arrangement_of_materials 'typologies' $document.getFieldValues('organization_and_arrangement_of_materials'))
+				
+				#list_multivalued_literal_linked_authority_attribute($text.ARC_other_author_person $document.other_author_person 'author_1xx_7xx_search' $document.getFieldValues('other_author_person_ols_link'))
+				#list_multivalued_literal_linked_authority_attribute($text.ARC_other_author_corporate $document.other_author_corporate 'author_1xx_7xx_search'$document.getFieldValues('other_author_corporate_ols_link')) 
+				#list_multivalued_literal_linked_authority_attribute($text.ARC_other_author_conference $document.other_author_conference 'author_1xx_7xx_search' $document.getFieldValues('other_author_conference_ols_link')) 
+
+				#list_multivalued_literal_linked_attribute($text.current_publication_frequency $document.current_publication_frequency 'current_publication_frequency') 						
+				
+				#list_multivalued_literal_attribute($text.ARC_physical_description  $document.physical_description)		
+				
+				#list_splitted_subject_ar	
+				
+				#list_multivalued_i18n_attribute($text.language 'languages' $document.language)
+				#list_multivalued_literal_attribute($text.location  $document.location)
+    		</table>	
+		</td>	
+	</tr>
+	<tr><td colspan="2">&nbsp;</td></tr>
+</table>

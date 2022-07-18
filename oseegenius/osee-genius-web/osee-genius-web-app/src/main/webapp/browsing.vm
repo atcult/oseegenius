@@ -1,0 +1,97 @@
+<br/>
+#set($tab = $session.visit.browsingExperience.currentTab)
+<ul id="up">
+	#foreach($searchTab in $session.visit.browsingExperience.tabs)
+		#if ($searchTab == $tab)
+			<li class="c">
+				<span style="float:left;margin-top:2px;">$searchTab.title</span>
+				#spacer(5)
+				<a href="$link.relative('closeBrowseTab')"/><img src="$link.relative('/img/close_small.png')" height="9" width="9" style="vertical-align:middle; margin-left:7px;"/></a></li>
+		#else
+			<li>	<a href='browse?$searchTab.queryParameters'>$searchTab.title</a></li>	
+		#end	
+	#end
+	<li><a href="newBrowseTab" style="text-decoration:none;"><img src="$link.relative('/img/add_small.png')" height="9" width="9" style="vertical-align:middle;"/></a></li>
+</ul>								
+<div id="documents" style="padding-bottom: 17px;" class="browsing">
+		#if ($tab.new)
+			#parse('components/search/new-browse-tab.vm')
+		#elseif ($tab.empty)
+			#parse('components/search/empty-search.vm')
+		#else
+			#set ($headings = $tab.response.response.getAll("heading"))
+			#set ($lastHeadingIndex = $headings.size() - 1)
+			#set ($firstHeadingInList = $headings.get(0).sortKey)
+			#set ($lastHeadingInList = $headings.get($lastHeadingIndex).sortKey)
+			#foreach($entry in $headings)
+                <div class="hit" id="hit">
+                		<table width="100%">
+                			<tr>
+                				<td width="96%" valign="top" style="border-bottom:1px solid #ececec;">
+                					<div id="document_header">	
+										#if ($entry.count && $entry.count != 0)
+											#if($session.lv) #set($lvfilter="&f=catalog_source:${session.lv}") #else #set($lvfilter="") #end
+													#set($entryLink = ${entry.term.replaceAll('\\','\\\\')}) 		
+													#set($entryLink = ${entry.term.replaceAll("\"","\\"")}) 		
+											<a href='search?h=def&q=*:*&f=${tab.indexKey}:$esc.q$esc.url($entryLink)$esc.q${lvfilter}' class="document_title">$entry.term</a> 
+											<!--<a href='search?h=def&q=*:*&f=${tab.indexKey}:$esc.q$esc.url($entry.term.replaceAll('\\','\\\\'))$esc.q${lvfilter}' class="document_title">$entry.term</a>--> 
+										#else 
+											<a  class="document_title">$entry.term</a> 
+										#end
+										<br/>
+										#if ($entry.preferred)	
+											#if ($entry.seenFrom)
+                								<br/> &nbsp;&nbsp;$text.seenFrom
+												#foreach($seenFrom in $entry.seenFrom)<!--
+													-->#if ($velocityCount > 1), #end <!--
+														--><a href='search?h=def&q=*:*&f=${tab.indexKey}:$esc.q$esc.url($entry.term)$esc.q${lvfilter}' class="document_author">$seenFrom</a><!--
+										-->#end
+												<br/>
+											#end
+											#if ($entry.seeAlso)
+                								<br/> &nbsp;&nbsp;$text.seeAlso
+												#foreach($seeAlso in $entry.seeAlso)
+													#if ($velocityCount > 1), #end 
+														<a href='search?h=def&q=*:*&f=${tab.indexKey}:$esc.q$esc.url($seeAlso)$esc.q${lvfilter}' class="document_author">$seeAlso</a> 
+												#end
+												<br/>
+											#end
+											#if ($entry.seenAlsoFrom)
+                								<br/> &nbsp;&nbsp;$text.seenAlsoFrom
+												#foreach($seenAlsoFrom in $entry.seenAlsoFrom)
+													#if ($velocityCount > 1), #end 
+														<a href='search?h=def&q=*:*&f=${tab.indexKey}:$esc.q$esc.url($seenAlsoFrom)$esc.q${lvfilter}' class="document_author">$seenAlsoFrom</a> 
+												#end
+												<br/>
+											#end
+    										#if ($entry.sameAs)
+                								<br/> &nbsp;&nbsp;$text.sameAs
+												#foreach($sameAs in $entry.sameAs)
+													#if ($velocityCount > 1), #end 
+														<a href='search?h=def&q=*:*&f=${tab.indexKey}:$esc.q$esc.url($entry.term)$esc.q OR ${tab.indexKey}:$esc.q$esc.url($sameAs)$esc.q${lvfilter}' class="document_author">$sameAs</a> 
+												#end
+												<br/>
+											#end
+										#else	
+											#if ($entry.seeInstead)
+                								<br/> &nbsp;&nbsp;$text.see_instead
+												#foreach($seeInstead in $entry.seeInstead)
+													#if ($velocityCount > 1), #end 
+														<a href='browse?from=$esc.url($seeInstead)&d=f&i=$request.getParameter("i")&pos=1' class="document_author">$seeInstead</a> 
+												#end
+												<br/>
+											#end
+										#end
+                					</div>
+									<br/>
+                				</td>
+								<td width="4%" valign="top" align="center">
+                					#if ($entry.count)${entry.count}#else 0 #end
+                				</td>
+                			</tr>
+                		</table>
+                </div>
+			#end
+		#end	
+</div>
+<div style="clear:both; width:100%; height: 40px;"></div>

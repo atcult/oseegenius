@@ -1,0 +1,15 @@
+#set($layout="homepage.vm")
+<!-- Error.vm -->
+<div class="container alert alert-danger" role="alert">
+	<h5>
+		#if ($request.errorCode)
+			$text.get($request.errorCode)
+		#else
+			$text.msg_500
+		#end	
+	</h5>
+	
+	#if ($configuration.emailReceiverAddress)	
+		$text.error_500_footer_1 <a href="mailto:$configuration.emailReceiverAddress">e-mail</a>$text.error_footer_2 
+	#end
+</div>

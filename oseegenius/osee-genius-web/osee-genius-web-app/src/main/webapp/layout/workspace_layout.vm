@@ -1,0 +1,96 @@
+#if ($license.accountPluginEnabled)
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>    
+		<title>Osee Genius - Search and Discovery</title>
+		<link rel="icon" type="image/x-icon" href="$link.relative('/img/favicon.ico')" />
+		<link href="$link.relative('/style/og.css')" rel="stylesheet" type="text/css" />
+		<link href="$link.relative('/style/jquery.ui.theme.css')" rel="stylesheet" type="text/css" />
+		<link href="$link.relative('/style/customer.css')" rel="stylesheet" type="text/css" />
+		<link href="$link.relative('/style/jquery.ui.css')" rel="stylesheet" type="text/css" />				
+		<link href="$link.relative('/style/jquery.ui.selectmenu.css')" rel="stylesheet" type="text/css" />	
+		<link href="$link.relative('/style/prettyPhoto.css')" rel="stylesheet" type="text/css" />		
+		<link href="$link.relative('/style/workspace.css')" rel="stylesheet" type="text/css" />
+		<link href="$link.relative('/style/jquery.autocomplete.css')" rel="stylesheet" type="text/css" />		
+        <script type="text/javascript" src="$link.relative('/js/jquery.min.1.4.4.js')"></script> 
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.core.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.prettyPhoto.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.widget.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.position.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.selectmenu.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.button.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/oseegenius.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/workspace.js')"></script>		
+		<script type="text/javascript" src="$link.relative('/js/jquery.autocomplete.js')"></script>
+		<script type="text/javascript">
+			$(document).ready(function()
+			{
+				$("[rel^='prettyPhoto']").prettyPhoto({social_tools: false});
+			});
+			</script>	
+	</head>
+	<body>
+    	<div id="container"> 
+			#parse('components/links.vm')
+			<div id="top-toolbar">
+				#parse('components/page/top-toolbar.vm')	
+				#parse('components/search/empty-breadcrumb.vm')	
+			</div>
+			<div id="header"></div>
+            <div id="content-detail">
+                <ul id="up">
+					#if($session.section == 'myaccount')
+                        <li class="c"><span style="float:left;margin-top:2px;">$text.my_account</span></li>
+					#else
+						<li><a href='workspace?view=myaccount'>$text.my_account</a></li>
+					#end 
+					#if($license.communityPluginEnabled)
+    					#if($session.section == 'mytags')
+                            <li class="c"><span style="float:left;margin-top:2px;">$text.my_tags</span></li>
+    					#else
+    						<li><a href='workspace?view=mytags'>$text.my_tags</a></li>
+    					#end 
+    					#if($session.section == 'myreviews')
+                            <li class="c"><span style="float:left;margin-top:2px;">$text.my_reviews</span></li>
+    					#else
+    						<li>	<a href='workspace?view=myreviews'>$text.my_reviews</a></li>
+    					#end 		
+    					#if($session.section == 'mybibliography')
+                            <li class="c"><span style="float:left;margin-top:2px;">$text.my_bibliography</span></li>
+    					#else
+    						<li>	<a href='workspace?view=mybibliography'>$text.my_bibliography</a></li>
+    					#end 					
+						#if($session.section == 'mywishlists')
+                            <li class="c"><span style="float:left;margin-top:2px;">$text.my_wishlists</span></li>
+    					#else
+    						<li>	<a href='workspace?view=mywishlists'>$text.my_wishlists</a></li>
+    					#end 						
+					#end	
+					#if ($license.circulationPluginEnabled)
+						#if($session.section == 'myloans')
+							<li class="c"><span style="float:left;margin-top:2px;">$text.my_loans</span></li>
+						#else	
+							<li>	<a href='workspace?view=myloans'>$text.my_loans</a></li>	
+						#end
+						#if($session.section == 'myholds')
+							<li class="c"><span style="float:left;margin-top:2px;">$text.my_holds</span></li>
+						#else							
+							<li>	<a href='workspace?view=myholds'>$text.my_holds</a></li>	
+						#end
+						#set ($tabTitleKey = "my_fines_${session.moneyFinesInUse}")
+						#if($session.section == 'myfines')
+							<li class="c"><span style="float:left;margin-top:2px;">$text.get($tabTitleKey)</span></li>
+						#else	
+							<li>	<a href='workspace?view=myfines'>$text.get($tabTitleKey)</a></li>	
+						#end	
+					#end	
+            	</ul>						
+				$screen_content
+			</div> 
+			#set ($toolbar = "components/search/bottom-${session.section}-toolbar.vm")
+    		#parse($toolbar)	
+		</div>	
+	</body>
+</html>
+#end

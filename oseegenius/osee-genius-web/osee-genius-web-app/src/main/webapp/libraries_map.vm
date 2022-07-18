@@ -1,0 +1,78 @@
+<script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAxO8EC4KXtKbjwxJN__2_Iuyp2UmjXhfo&sensor=false">
+    </script>
+    <script type="text/javascript">
+     function initialize() {
+	
+        var myOptions = {
+          center: new google.maps.LatLng(45.7566599,11.0055800),
+          zoom: 9,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        
+        var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+		
+		#set($size = $application.branches.size())
+		
+		var locations = new Array();
+		var index = 0;
+		#foreach ($branch in $application.branches) 
+			    var b = new Array(3);
+				 #set ( $stringList =  $branch.latLon.split(",") )
+				 #if( $stringList )
+    				  b[0] = $branch.id;
+    				   #foreach ($coor in $stringList) 
+    				     	b[$velocityCount] = $coor;
+    				    #end
+    					locations[index] = b;
+						index++;
+						
+				 #end
+			#end	
+	
+		var markers = new Array(locations.length);
+		
+           for (var i = 0; i < locations.length; i++) {
+		  	 var lat 	= locations[i][1];
+             var lng 	= locations[i][2];
+			 var id 	= locations[i][0];
+            var latlngset;
+            latlngset = new google.maps.LatLng(lat, lng);
+	
+              markers[i] = new google.maps.Marker({ 
+			  position: latlngset, 
+              map: map,
+			  title:"",
+			  id:id
+            });
+			
+			markers[i].setMap(map);
+			
+		}	
+
+		for (var i2 = 0; i2 < markers.length; i2++) {
+			google.maps.event.addListener(markers[i2], 'click', function() {
+				//alert("ciao");
+				 document.location.href='libraries?id='+this.id;
+  			});
+		}
+		
+		
+      }
+    </script>
+
+<br/><br/>
+<br/>
+	<table cellspacing="10" >
+		<tr>
+			<td valign="top">
+				<div id="map_canvas" style="width:500px; height:500px"></div></div>
+            </td>
+				
+		</tr>
+	</table>	
+	<br/></br><br/>
+
+<script> 
+	initialize();
+</script>

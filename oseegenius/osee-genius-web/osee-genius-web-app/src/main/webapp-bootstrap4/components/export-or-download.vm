@@ -1,0 +1,25 @@
+#set($selectionSize = $session.visit.searchExperience.currentTab.howManySelectedForExport())
+<!-- components/export-or-download-deatail.vm -->
+<div class="viewlet" style="#if ($selectionSize == 0) display:none; #end" id="export-or-download">
+	<div class="viewlet_toggable_head">
+		<h5 class="my-2 heading_generic">${text.exp_dwnd} (<span id="selected-export-count">$selectionSize</span>)</h5>
+	</div>
+	<div>
+		<ul>
+			<li class="no_bull"><a class="label-blue strSizeOnly" href="#" onclick="javascript:export2();" title="$text.export_to_refworks">$text.export_to_refworks</a></li>
+			<!-- <li class="label-blue"><a class="label-blue strSizeOnly" href="#" onclick="javascript:ogdownload('endnote');" title="$text.export_to_endnote">$text.export_to_endnote</a></li> -->
+			<li class="no_bull"><a class="label-blue strSizeOnly" href="#" onclick="javascript:ogdownload('zotero');" title="$text.export_to_zotero">$text.export_to_zotero</a></li>
+			<li class="no_bull"><a class="label-blue strSizeOnly" href="#" onclick="javascript:ogdownload('pdf');" title="$text.export_to_pdf">$text.export_to_pdf</a></li>
+			<li class="no_bull"><a class="label-blue strSizeOnly" href="#" onclick="javascript:ogdownload('xls');" title="$text.export_to_excel">$text.export_to_excel</a></li>
+			<!-- <li class="label-blue"><a class="label-blue strSizeOnly" href="#" onclick="javascript:ogdownload('html');" title="$text.export_to_html">$text.export_to_html</a></li> -->
+			<li class="no_bull"><a class="label-blue strSizeOnly " href="#" onclick="javascript:ogdownload('m21');" title="$text.export_to_m21">$text.export_to_m21</a></li>
+			<li class="no_bull"><a class="label-blue strSizeOnly" href="#" onclick="javascript:ogdownload('mxml');" title="$text.export_to_mxml">$text.export_to_mxml</a></li>
+			<li class="no_bull"><a  class="label-blue strSizeOnly" href="#" onclick="javascript:ogdownload('tmarc');" title="$text.export_to_tmarc">$text.export_to_tmarc</a></li>
+			<li class="no_bull"><a class="label-blue strSizeOnly"  href="#" onclick="javascript:ogdownload('html');" title="Stampa selezione">Stampa la selezione</a></li>
+			<!-- <li class="no_bull"><a class="label-blue strSizeOnly" href="$link.relative('email')?iframe=true&height=460&width=450">$text.send_by_email</a></li> -->
+			<li class="no_bull"><a class="label-blue strSizeOnly" href="#" data-toggle="modal" data-target="#emailModal">$text.send_by_email</a></li>
+			<li id="selected-send-count" style="display:none;"></li>
+		</ul>
+	</div>
+	#vspacer(5)
+</div>

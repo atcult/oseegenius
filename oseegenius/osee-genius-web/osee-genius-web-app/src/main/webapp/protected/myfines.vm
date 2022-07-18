@@ -1,0 +1,35 @@
+<br/>
+#if (!$request.finesByLibraries.isEmpty())	
+    #set ($firstLetter = "-")
+    #foreach($library in $request.finesByLibraries.keySet())
+    	#set ($firstLetterOfLibrary = $library.name.substring(0,1))
+    		#if ($firstLetterOfLibrary != $firstLetter)
+        		#set ($firstLetter = $firstLetterOfLibrary)
+        		<div id="$firstLetterOfLibrary"></div>
+    		#end	
+    	<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+    			<a href="" class="document_title_detail">$library.name</a>
+    		<br/><br/>
+			#if($session.moneyFinesInUse)
+            	#set ($fines = $request.finesByLibraries.get($library))
+            	#if ($fines)
+                	#foreach($fine in $fines)
+        					<div style="color:red;">Euro <b>$fine.balance</b> $text.paid <b>$fine.totalAmount</b> $text.to_be_paid ($date.format("dd/MM/yyyy",$fine.date, $session.visit.preferredLocale))</div>
+            				<br/>
+            		#end
+            	#end	
+			#else
+				#set ($date1 = $request.finesByLibraries.get($library))
+				<div style="color:red;">$text.in_blacklist_til $date.format("dd/MM/yyyy",$date1, $session.visit.preferredLocale)</div>
+            	<br/>
+			#end	
+    	</div>	
+    #end 
+#else
+	<br/>
+	<table>
+		#set ($messageKey = "i_dont_have_fines_${session.moneyFinesInUse}")
+		<tr class="circulation_container"><td class="fines"></td><td class="circulation_text_no">${text.get($messageKey)}.</td></tr>
+		<tr><td colspan="2" height="10px"></td></tr>
+	</table>
+#end	

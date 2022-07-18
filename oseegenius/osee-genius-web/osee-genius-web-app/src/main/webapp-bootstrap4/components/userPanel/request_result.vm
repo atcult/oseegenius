@@ -1,0 +1,24 @@
+<!-- components/userPanel/request_result.vm -->
+<div class="form-signin my-5">
+	<h2 class="text-center my-5">
+		#if ($request.inError) 
+			$text.failed
+		#else
+			$text.success
+		#end
+	</h2>
+	<div class="bg-white shadow p-4">
+		#if ($request.inError) 
+			<div class="alert alert-danger">$text.get($request.errorMessage)</div>
+		#else
+			<img alt="" class="mx-auto d-block mb-4" src="img/success.png">	
+			
+			<div>$text.request_success <a href="$configuration.getLibraryDomainUrl()/biblioteca/apertura-e-orario-dei-servizi/" target="_blank">$text.request_success_2</a> $text.request_success_3</div>
+			#if($session.getAttribute("pdf"))
+				<form action="showPDF" method="get">
+					<button class="btn button-blue btn-block link-btn my-2" type="submit">Mostra cedola</button>
+				</form>
+			#end
+		#end
+	</div>
+</div>

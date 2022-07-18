@@ -1,0 +1,124 @@
+<!-- components/userPanel/folio_history.vm -->
+#set($deleteEnabled = false)
+#if ($session.visit.isFolioAuthenticated())	
+	#set($loggedUser = $session.visit.folioAccount)
+	<div class="row m-0 py-4 bg-grey">
+		<div class="col-md-6 offset-md-3 col-sm-12 py-4">
+			<h2>$text.folio_research_history</h2>
+		</div>
+	</div>	
+	
+	
+	
+	
+			<div class="main pb-5 pt-2">
+			<div class="container-fluid px-0">							
+				<div class="row pl-5">
+				<div class="btn-group">
+				
+
+				
+				#if ($request.section == 'simple')
+  						<div class="btn  mr-2">
+    						$text.simpleSearch
+    					</div>
+    			#else				
+						<a class="btn btn-outline-default landingLink turntowhite" href="folioResearchHistory?section=simple">$text.simpleSearch</a>
+				#end	
+				
+				#if ($request.section == 'advanced')
+  						<div class="btn  mr-2">
+    						$text.advancedSearch
+    					</div>
+    			#else
+					
+						<a class="btn btn-outline-default landingLink turntowhite" href="folioResearchHistory?section=advanced">$text.advancedSearch</a>
+				#end
+				
+				#if ($request.section == 'federated')
+  						<div class="btn  mr-2">
+    						$text.federatedSearch
+    					</div>
+    			#else
+					
+						<a class="btn btn-outline-default landingLink turntowhite" href="folioResearchHistory?section=federated">$text.federatedSearch</a>
+				#end
+    				
+   
+				#if ($request.section == 'browsing')
+				<div class="btn  mr-2">
+					$text.browsingSearch
+				</div>
+				#else
+					<a class="btn btn-outline-default landingLink turntowhite" href="folioResearchHistory?section=browsing">$text.browsingSearch</a>
+				#end
+    				
+    				
+				</div>
+				</div>
+	
+	
+	
+	<div class="bg-white p-5 m-0 strSizeOnly"> 	
+	
+		#if ($request.inError) 
+			<div class="alert alert-danger">$text.get($request.errorMessage)</div>
+		#elseif($request.researchHistoryNumFound==0)
+			<div>
+				<h2>$text.zero_research</h2>
+			</div>
+		
+		#else
+			#set($section=$request.section)
+			#if( $section=="simple")
+				#parse("components/userPanel/history/simple_searches.vm")
+			#elseif ($section=="advanced")
+				#parse("components/userPanel/history/advanced_searches.vm")
+			#elseif ($section=="federated")
+				#parse("components/userPanel/history/federated_searches.vm")
+			#else
+				#parse("components/userPanel/history/browsing.vm")
+			#end
+		#end
+		
+
+			#set($howManyRecords = $math.toInteger($request.researchHistoryNumFound))
+			#set ($pageSizeParameter = $request.researchHistoryLimit)
+			#set ($startOffset = $request.researchHistoryOffset)
+			#set ($url = "folioResearchHistory?section=$section")
+			#set ($offsetParameterName = "researchHistoryOffset")
+			#pagination_macro($howManyRecords $pageSizeParameter $startOffset $url $offsetParameterName)
+				
+			
+	</div>
+	
+				
+#end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

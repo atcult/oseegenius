@@ -1,0 +1,227 @@
+ <div id="resource-details">
+	#set($record =  $xml.parse($request.resource))
+<table class="detail_record" border="0">
+	<tr>
+		<td colspan="4">
+			<span class="document_title_detail">$record.find('md-title').getFirst().text</span>
+			#spacer(4)
+			<br/>
+			#set ($author = $record.find('md-author').getFirst())
+			#if (!$author) #set($author = $record.find('md-title-responsibility').getFirst()) #end
+			#if($author)
+                <a href='$link.relative('/search')?h=author_bc&q=$author.text' class="document_author_detail">$author.text</a>
+			#else
+				$text.author_na
+			#end
+						
+			#if ($resource.publisher)
+				<br/><br/>
+				<i><span class="publisher_detail">$resource.publisher.text</span></i>
+			#end
+			
+	<!-- Anno di pubblicazione -->
+	#set ($year = $record.find('./md-date'))
+	#if ($year)
+		<br/>
+		<br/>
+			<span class="attribute_name_detail">$text.year</span>
+			<span class="attribute_value_detail">$year.text</span>
+	#end
+	
+	<!-- LCCN -->
+	#set ($lccns = $record.find('./md-lccn'))
+	#if ($lccns) 
+		<br/>
+		<br/>
+			<span class="attribute_name_detail">LCCN</span>
+			#foreach($lccn in $lccns)
+				<span class="attribute_value_detail">$lccn.text</span><br/>
+			#end 
+	#end
+			
+			<br/>
+			<br/>
+		</td>
+	</tr>
+</table>
+<table border="0"  class="location" cellpadding="2">
+	#set ($locations = $record.find('./location'))
+	#if ($locations)
+            		#foreach($location in $locations)
+						<tr>
+							<td colspan="2" class="location-header">
+								<a class="document_title">Location #${velocityCount}: $location.attr("name")</a>	
+							</td>	
+						</tr>
+						<tr>
+							<td align="right" width="40%"><span class="attribute_name_detail">ID</span></td>
+							<td>$location.find("./md-id").text</td>
+						</tr>
+						
+						#set ($lccns = $location.find('./md-lccn'))
+						#if ($lccns) 
+    						<tr>
+    							<td align="right"><span class="attribute_name_detail">LCCN</span></td>
+    							<td>			
+									#foreach($lccn in $lccns)
+										<span class="attribute_value_detail">$lccn.text</span><br/>
+									#end 
+								</td>
+    						</tr>
+						#end
+						
+						#set ($isbns = $location.find('./md-isbn'))
+						#if ($isbns) 
+    						<tr>
+    							<td align="right"><span class="attribute_name_detail">ISBN</span></td>
+    							<td>			
+									#foreach($isbn in $isbns)
+										<span class="attribute_value_detail">$isbn.text</span><br/>
+									#end 
+								</td>
+    						</tr>
+						#end						
+
+						#set ($issns = $location.find('./md-issn'))
+						#if ($issns) 
+    						<tr>
+    							<td align="right"><span class="attribute_name_detail">ISSN</span></td>
+    							<td>			
+									#foreach($issn in $issns)
+										<span class="attribute_value_detail">$issn.text</span><br/>
+									#end 
+								</td>
+    						</tr>
+						#end						
+						
+						#set ($pdate = $location.find('./md-date'))
+						#if ($pdate) 
+    						<tr>
+    							<td align="right"><span class="attribute_name_detail">$text.date</span></td>
+    							<td>			
+									<span class="attribute_value_detail">$pdate.text</span><br/>
+								</td>
+    						</tr>
+						#end	
+						
+						#set ($medium = $location.find('./md-medium'))
+						#if ($medium) 
+    						<tr>
+    							<td align="right"><span class="attribute_name_detail">$text.document_type</span></td>
+    							<td>			
+									<span class="attribute_value_detail">$medium.text</span><br/>
+								</td>
+    						</tr>
+						#end		
+						
+						#set ($publicationPlace = $location.find('./md-publication-place'))
+						#if ($publicationPlace) 
+    						<tr>
+    							<td align="right"><span class="attribute_name_detail">$text.publication_place</span></td>
+    							<td>			
+									<span class="attribute_value_detail">$publicationPlace.text</span><br/>
+								</td>
+    						</tr>
+						#end		
+						
+						#set ($publisher = $location.find('./md-publication-name'))
+						#if ($publisher) 
+    						<tr>
+    							<td align="right"><span class="attribute_name_detail">$text.publisher</span></td>
+    							<td>			
+									<span class="attribute_value_detail">$publisher.text</span><br/>
+								</td>
+    						</tr>
+						#end	
+						
+						#set ($publicationDate = $location.find('./md-publication-date'))
+						#if ($publicationDate) 
+    						<tr>
+    							<td align="right"><span class="attribute_name_detail">$text.publication_date</span></td>
+    							<td>			
+									<span class="attribute_value_detail">$publicationDate.text</span><br/>
+								</td>
+    						</tr>
+						#end			
+						
+						#set ($physicalExtent = $location.find('./md-physical-extent'))
+						#if ($physicalExtent) 
+    						<tr>
+    							<td align="right"><span class="attribute_name_detail">$text.physical_extent</span></td>
+    							<td>			
+									<span class="attribute_value_detail">$physicalExtent.text</span><br/>
+								</td>
+    						</tr>
+						#end			
+						
+						#set ($physicalFormat = $location.find('./md-physical-format'))
+						#if ($physicalFormat) 
+    						<tr>
+    							<td align="right"><span class="attribute_name_detail">$text.physical_format</span></td>
+    							<td>			
+									<span class="attribute_value_detail">$physicalFormat.text</span><br/>
+								</td>
+    						</tr>
+						#end				
+						
+						#set ($physicalDimensions = $location.find('./md-physical-dimensions'))
+						#if ($physicalDimensions) 
+    						<tr>
+    							<td align="right"><span class="attribute_name_detail">$text.physical_dimensions</span></td>
+    							<td>			
+									<span class="attribute_value_detail">$physicalDimensions.text</span><br/>
+								</td>
+    						</tr>
+						#end			
+						
+						#set ($subjects = $location.find('./md-subject'))
+						#if ($subjects) 
+    						<tr>
+    							<td align="right"><span class="attribute_name_detail">$text.subjects</span></td>
+    							<td>			
+									#foreach($subject in $subjects)
+										<span class="attribute_value_detail">$subject.text</span><br/>
+									#end 
+								</td>
+    						</tr>
+						#end				
+
+						#set ($holdings = $location.find('./md-holding'))
+						#if ($holdings) 
+    						<tr>
+    							<td align="right"><span class="attribute_name_detail">$text.holdings</span></td>
+    							<td>			
+									#foreach($holding in $holdings)
+										<span class="attribute_value_detail">$holding.text</span><br/>
+									#end 
+								</td>
+    						</tr>
+						#end		
+						
+						#set ($descriptions = $location.find('./md-description'))
+						#if ($descriptions) 
+    						<tr>
+    							<td align="right"><span class="attribute_name_detail">$text.physical_description</span></td>
+    							<td>			
+									#foreach($description in $descriptions)
+										<span class="attribute_value_detail">$description.text</span><br/>
+									#end 
+								</td>
+    						</tr>
+						#end						
+						
+						#set ($links = $location.find('./md-electronic-url'))
+						#if ($links) 
+							#foreach($link in $links)
+								<tr>
+									<td><span colspan="2" class="attribute_name_detail"><a href="$link">$text.electronic_url.text</a></span></td>
+								</tr>	
+    						#end 
+						#end		
+						
+					#end
+	#end
+</table>
+ </div>
+<br/>
+<br/>	

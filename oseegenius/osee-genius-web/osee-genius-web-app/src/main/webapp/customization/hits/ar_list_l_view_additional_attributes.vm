@@ -1,0 +1,17 @@
+<table width="100%" cellpadding="0" cellspacing="0" >
+	<tr>
+		<td>
+			<table>
+				#list_monovalued_literal_attribute($text.initial_date  $document.initial_date)
+				#list_monovalued_literal_attribute($text.final_date  $document.final_date)
+				#list_monovalued_i18n_attribute($text.hierarchy_level 'ar_hierarchy_level' $document.level_code)
+				#list_multivalued_literal_attribute($text.other_classification_number  $document.other_classification_number)		
+
+				#list_splitted_subject_ar
+				#list_multivalued_literal_attribute($text.archive_code $document.archive_code)
+				#list_monovalued_literal_attribute($text.an $document.id)
+    		</table>	
+		</td>	
+	</tr>
+	<tr><td colspan="2">&nbsp;</td></tr>
+</table>

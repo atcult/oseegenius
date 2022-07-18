@@ -1,0 +1,14 @@
+#home
+#set ($tab = $session.visit.searchExperience.currentTab)
+#if ($params.q)
+	>> 
+	<a>$params.q</a>
+	#set ($filterQueries = $tab.getFilterQueries($request))
+	#foreach ($filterQuery in $filterQueries)
+   	<span>>></span>
+    	#set ( $toRemove = "&f=$filterQuery" )
+    	<a href="#" onclick='javascript:removePzFilter("$toRemove.replaceAll("\"","\\\"")")'>
+    		$breadcrumbTool.getHumanReadableFederatedLabel($request, $filterQuery)
+    	</a>
+	#end
+#end	

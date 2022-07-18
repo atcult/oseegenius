@@ -1,0 +1,76 @@
+<table width="100%" cellpadding="0" cellspacing="0" >
+	<tr>
+		<td>
+			<table>
+				#list_monovalued_literal_attribute($text.an $document.id)
+				#list_multivalued_literal_attribute($text.pub  $document.publisher)
+				
+				#list_monovalued_literal_linked_attribute($text.main_entry_uniform_title $resource.main_entry_uniform_title 'title_uniform_search')
+				#list_monovalued_literal_linked_attribute($text.uniform_title $resource.uniform_title 'title_uniform_search')
+							
+				#list_multivalued_literal_linked_attribute($text.portion_of_title  $document.portion_of_title 'portion_of_title_linked_search')
+				#list_multivalued_literal_linked_attribute($text.parallel_title  $document.parallel_title 'parallel_title_linked_search')
+				#list_multivalued_literal_linked_attribute($text.distinctive_title  $document.distinctive_title 'distinctive_title_linked_search')
+				#list_multivalued_literal_linked_attribute($text.other_title  $document.other_title 'other_title_linked_search')
+				#list_multivalued_literal_linked_attribute($text.cover_title  $document.cover_title 'cover_title_linked_search')
+ 				#list_multivalued_literal_linked_attribute($text.added_title_page_title  $document.added_title_page_title 'added_title_page_title_linked_search')
+				#list_multivalued_literal_linked_attribute($text.caption_title  $document.caption_title 'caption_title_linked_search')
+ 				#list_multivalued_literal_linked_attribute($text.running_title  $document.running_title 'running_title_linked_search')
+ 				#list_multivalued_literal_linked_attribute($text.spine_title  $document.spine_title 'spine_title_linked_search')
+				
+				#list_multivalued_literal_attribute($text.abbreviated_title  $document.abbreviated_title)
+				#list_multivalued_literal_attribute($text.key_title  $document.key_title)
+				#list_multivalued_literal_attribute($text.cat_agency_translation_title  $document.cat_agency_translation_title)
+				
+				#list_multivalued_literal_linked_attribute($text.added_uniform_title  $document.added_uniform_title 'titles_linked_search')
+				#list_multivalued_literal_linked_attribute($text.uncontrolled_related_title  $document.uncontrolled_related_title 'titles_linked_search')
+				
+				#list_multivalued_literal_linked_attribute($text.other_author_person $document.other_author_person 'author_1xx_7xx_search') 
+				#list_multivalued_literal_linked_attribute($text.other_author_corporate $document.other_author_corporate 'author_1xx_7xx_search') 
+				#list_multivalued_literal_linked_attribute($text.other_author_conference $document.other_author_conference 'author_1xx_7xx_search') 
+				#list_multivalued_literal_attribute($text.other_author_uncontrolled_name $document.other_author_uncontrolled_name)
+
+				#list_multivalued_literal_linked_attribute($text.current_publication_frequency $document.current_publication_frequency 'current_publication_frequency') 						
+				
+				#list_multivalued_literal_attribute($text.physical_description  $document.physical_description)		
+				#list_multivalued_literal_attribute($text.title_series  $document.series_statement)		
+				#list_multivalued_literal_attribute ($text.lccn $resource.lccn)
+				#list_multivalued_literal_attribute ($text.dewey $resource.dewey)
+				#list_multivalued_literal_attribute ($text.local_classification $resource.local_classification)
+				#list_multivalued_literal_attribute ($text.local_classification $resource.local_classification 'local_classification')
+				#if ($document.subject)
+        			<tr>
+						<td valign="top" nowrap="nowrap">
+                			<span class="attribute_name">$text.subjects</span>	
+                		</td>
+    					<td>#spacer(10)</td>
+                		<td>
+    						#foreach($subject in $document.subject)
+    							#if($velocityCount < 4)<a class="linked_value" href='$link.relative('search')?h=def&q=*:*&f=subject:$esc.q$esc.url($subject)$esc.q'><span>#highlight($subject)</span><br/></a>#end
+    						#end 
+                		</td>
+        			</tr>
+				#end	
+				#list_monovalued_i18n_attribute($text.bibliographic_level 'bibliographic_level' $document.bibliographic_level)
+				#list_multivalued_i18n_attribute($text.language 'languages' $document.language)
+				#list_monovalued_i18n_attribute($text.format 'format' $document.format)
+				#list_multivalued_literal_attribute($text.location  $document.location)
+				#list_multivalued_literal_attribute($text.collocation  $document.collocation)
+				#if ($document.uri)
+					<tr>
+						<td valign="top" nowrap="nowrap">
+							<span class="attribute_name">$text.uri</span>	
+                		</td>
+    					<td>#spacer(10)</td>
+                		<td>
+							#foreach($uri in $document.uri)
+								<a class="linked_value" target="_new" href="$uri"><span class="attribute_value">$uri</span></a>
+							#end
+                		</td>
+        			</tr>
+				#end
+    		</table>	
+		</td>	
+	</tr>
+	<tr><td colspan="2">&nbsp;</td></tr>
+</table>

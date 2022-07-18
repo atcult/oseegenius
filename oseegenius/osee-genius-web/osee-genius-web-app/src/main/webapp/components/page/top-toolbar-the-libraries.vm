@@ -1,0 +1,18 @@
+	<div style="width: 99%; float: left; margin-left:5px;margin-right:6px; padding-bottom:2px;">		
+		<form name="search-form" method="get" action="$link.relative('/search')">
+			<input type="text" class="search-field" id="q" name="q" autocomplete="off" style="float:left;"/>
+			<div style="float:left;">#spacer(5)</div>
+			<div style="float:left; margin-top: 10px; margin-left:5px;">&nbsp;vicino a &nbsp;</div>
+			<div style="float:left;">#spacer(5)</div>
+			<input type="text" class="search-field" id="q" name="q" autocomplete="off" style="float:left;"/>
+			<div style="float:left;">#spacer(5)</div>
+			<div style="float:left; margin-top: 10px; margin-left:5px;">&nbsp;nel raggio di &nbsp;</div>
+			<div style="float:left;">#spacer(5)</div>
+			<input type="text" class="search-field" id="q" name="q" autocomplete="off" style="float:left; width:20px;" size="2"/>
+			<div style="float:left;">#spacer(5)</div>
+			<div style="float:left; margin-top: 10px; margin-left:5px;"> chilometri.</div>
+			<div style="float:left; margin-top: 3px; margin-left:3px;">
+				<input type="submit" value="$text.search" style="width:70px;height:27px; "/>
+			</div>
+		</form>
+	</div>

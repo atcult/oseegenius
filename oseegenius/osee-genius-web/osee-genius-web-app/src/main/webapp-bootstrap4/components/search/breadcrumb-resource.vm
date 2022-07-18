@@ -1,0 +1,1 @@
+#if (!$visit.searchExperience.empty)<a style="text-decoration:none;" href='search?${session.visit.searchExperience.currentTab.queryParameters}'>($text.return_to_search) </a>#else #home #end

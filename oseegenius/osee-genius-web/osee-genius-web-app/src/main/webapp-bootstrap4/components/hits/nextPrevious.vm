@@ -1,0 +1,24 @@
+<!-- components/hits/nextPrevious.vm -->
+#if($next || $previous)
+	  
+<div class="row my-3">	
+	#if ($request.v=='m21')
+		#set($v_param = "&v=m21")
+	#else
+		#set($v_param = "&v=l")
+	#end
+	<div class="col-md-12">
+		#if($previous)
+			<div class="float-left">
+				<a  class="btn button-search current-button nextPrevious" href="resource?uri=$previous&dir=0$v_param">&lt; $text.previous</a>
+			</div>
+		#end
+		#if($next)
+			<div class="float-right">
+				<a class="btn button-search current-button nextPrevious" href="resource?uri=$next&dir=1$v_param">$text.next &gt; </a>
+			</div>	
+		#end
+	</div>
+</div>
+#end
+<!-- Next/previous button END -->

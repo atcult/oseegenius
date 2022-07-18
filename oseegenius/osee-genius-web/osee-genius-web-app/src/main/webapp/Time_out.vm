@@ -1,0 +1,18 @@
+#if($request.accessibility =="true")
+	#set ($layout="accessibility_homepage.vm")
+#end
+<table style="font-size:15px;">
+	<tr>
+        <td align="left"><span style="font-size:1.2em; color:black; text-decoration:none; font-weight:bold;">
+		$text.time_out_1
+		</span></td>
+	</tr>
+	<tr/>
+	<tr>
+		<td colspan="2">
+			$text.time_out_2 
+		</td>
+	</tr>
+</table>
+<br/><br/><br/><br/>
+

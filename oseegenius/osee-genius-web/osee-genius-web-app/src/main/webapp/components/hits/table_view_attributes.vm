@@ -1,0 +1,37 @@
+<table width="100%">
+		<tr>
+			<th>&nbsp;</th>
+			<th>$text.title</th>
+			<th>$text.author</th>
+		</tr>
+		#foreach($document in $tab.response.results)
+		<tr>
+			<td width="4%" valign="top" align="center">
+				#set ($img = "$link.relative('/img')/checked_${tab.isSelected($document.id)}.png")
+				<a id="check_link" href="javascript:toggle('$document.id')"><img id="check_$document.id" src="$img"/></a>
+            	#spacer(4)
+			</td>
+			<td valign="top" style="border-bottom:1px dashed #cccccc;">
+				<a href="$link.relative('/resource')?uri=$document.id" class="document_title">$document.title</a> 
+			</td>
+			<td style="border-bottom:1px dashed #cccccc;">
+				#if ($document.author_person)
+					#set($filterValue = $document.author_person.replaceAll("\"", "\\""))
+					 <a href='$link.relative('/search')?v=t&h=def&q=*:*&f=author_1xx_7xx_search:$esc.q$esc.url($filterValue)$esc.q' class="document_author">
+						$document.author_person
+					 </a>
+				#elseif ($document.author_corporate)
+					#set($filterValue = $document.author_corporate.replaceAll("\"", "\\""))
+					<a href='$link.relative('/search')?v=t&h=def&q=*:*&f=author_1xx_7xx_search:$esc.q$esc.url($filterValue)$esc.q' class="document_author">
+						$document.author_corporate
+					 </a>
+				#elseif ($document.author_conference)
+					#set($filterValue = $document.author_conference.replaceAll("\"", "\\""))
+					<a href='$link.relative('/search')?v=t&h=def&q=*:*&f=author_1xx_7xx_search:$esc.q$esc.url($filterValue)$esc.q' class="document_author">
+						$document.author_conference
+					 </a>												
+				#end
+			</td>
+		</tr>
+		#end
+	</table>

@@ -1,0 +1,5 @@
+<!-- email_notok.vm -->
+<div class="container alert alert-danger" role="alert">
+	<h4>$text.email_error_message_explain</h4>						
+	<h5>$text.email_error_message_goback</h5>
+</div>

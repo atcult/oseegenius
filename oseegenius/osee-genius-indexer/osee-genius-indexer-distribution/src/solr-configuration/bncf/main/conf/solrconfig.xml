@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+	<abortOnConfigurationError>${solr.abortOnConfigurationError:true}</abortOnConfigurationError>
+	<luceneMatchVersion>LUCENE_47</luceneMatchVersion>
+ 	<dataDir>${solr.data.dir}/${solr.core.name}/data</dataDir>
+	<indexConfig>
+	    <lockType>${solr.lock.type:native}</lockType>
+  	</indexConfig>
+	<updateHandler class="solr.DirectUpdateHandler2" >
+		<autoCommit>
+  			<maxTime>${main.max.time.autocommit:300000}</maxTime>
+		</autoCommit>
+	</updateHandler>
+	<query>
+		<maxBooleanClauses>1024</maxBooleanClauses>
+	    <filterCache class="solr.LRUCache" size="102400" initialSize="102400" autowarmCount="51200"/>
+	    <fieldValueCache class="solr.FastLRUCache" size="5120" autowarmCount="2048" showItems="64"/>
+	    <queryResultCache class="solr.LRUCache" size="8192" initialSize="8192" autowarmCount="0"/>
+	    <documentCache class="solr.LRUCache" size="51200" initialSize="51200" autowarmCount="10240"/>
+	    <enableLazyFieldLoading>true</enableLazyFieldLoading>
+	    <useFilterForSortedQuery>true</useFilterForSortedQuery>
+	    <queryResultWindowSize>80</queryResultWindowSize>
+	    <queryResultMaxDocsCached>100</queryResultMaxDocsCached>
+	    <HashDocSet maxSize="200000" loadFactor="0.75"/>
+    	<listener event="newSearcher" class="solr.QuerySenderListener">
+			<arr name="queries"></arr>
+    	</listener>
+    	<listener event="firstSearcher" class="solr.QuerySenderListener">
+      		<arr name="queries"></arr>  
+    	</listener>
+    	<useColdSearcher>true</useColdSearcher>
+    	<maxWarmingSearchers>2</maxWarmingSearchers>
+    </query>
+	<updateRequestProcessorChain name="diacritic-replacement">    
+		<processor class="com.atc.osee.genius.indexer.biblio.urp.DiacriticsReplacementUpdateRequestProcessorFactory">
+			<str name="fields">title_bc,abbreviated_title,key_title,added_uniform_title,added_uniform_title_linked_search,series_statement,series_statement_facet,author_person,author_corporate,author_conference,other_author_person,other_author_corporate,other_author_conference,topical_subject,subject_person,subject_corporate,subject_conference,geographic_subject,index_term,subject_uniform_title,genre_form_subject,autocomplete_sub_bc,autocomplete_title_bc,autocomplete_author_bc,publisher,publisher_name,title_series</str>
+		</processor>
+		<processor class="solr.RunUpdateProcessorFactory" />
+		<processor class="solr.LogUpdateProcessorFactory" />
+	</updateRequestProcessorChain>    
+  	<requestDispatcher handleSelect="true" >
+    	<requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="2048" />
+    	<httpCaching lastModifiedFrom="openTime" etagSeed="Solr" />
+    </requestDispatcher>
+  	<requestHandler name="/replication" class="solr.ReplicationHandler" >
+		<lst name="master">
+		    <str name="maxNumberOfBackups">0</str>
+			<str name="replicateAfter">optimize</str>
+			<str name="confFiles">schema.xml,stopwords.txt,mapping-FoldToASCII.txt,loan_types.txt,target_audiences.txt</str>
+		</lst>
+	</requestHandler> 
+	<requestHandler name="standard" class="solr.SearchHandler">
+    	<lst name="defaults">
+	    	<str name="echoParams">explicit</str>
+	    	<str name="rows">10</str>
+			<str name="facet">true</str>
+			<str name="sort">score desc, title_sort asc</str>
+			<str name="fl">*</str>
+		</lst>
+	</requestHandler>
+	<requestHandler name="/indexer" class="com.atc.osee.genius.indexer.IndexingHandler" >
+		<lst name="common">
+			<str name="source.directory">${source.directory}</str>
+			<str name="worked.directory">${worked.out.directory}</str>		
+		</lst>
+		<lst name="biblio">
+			<str name="implementor">com.atc.osee.genius.indexer.biblio.MarcIndexer</str>
+		</lst>
+	</requestHandler>
+	<requestHandler name="/analysis/field" 
+                  startup="lazy"
+                  class="solr.FieldAnalysisRequestHandler" />	
+	<requestHandler name="/admin/ping" class="solr.PingRequestHandler">
+	    <lst name="defaults">
+	      <str name="qt">standard</str>
+	      <str name="q">*:*</str>
+	      <str name="rows">0</str>
+		  <str name="facet">false</str>
+	    </lst>
+	  </requestHandler>
+	<requestHandler name="/update" class="solr.UpdateRequestHandler">
+		<lst name="defaults">
+			<str name="update.chain">diacritic-replacement</str>
+       </lst>
+	</requestHandler>  
+  	<requestHandler name="/admin/" class="org.apache.solr.handler.admin.AdminHandlers" />
+  	<admin>
+    	<defaultQuery>BNCF</defaultQuery>
+	</admin>
+</config>

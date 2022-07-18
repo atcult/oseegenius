@@ -1,0 +1,59 @@
+<!-- components/page/deafault-search-header.vm -->
+<a class="navbar-brand px-4" href="https://www.bncf.firenze.sbn.it/">
+	<img class="img-responsive" src="$corporate-logo-url" alt="Osee Genius - $institution" />
+</a>
+
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+	<ul class="navbar-nav ml-auto w-100 d-flex justify-content-between">
+		<li class="nav-item search-header-item pt-2">
+        	<a class="nav-link float-right pr-1" href="home">Home</a>
+      	</li>
+		<li class="nav-item search-header-item pt-2">
+        	<a class="nav-link float-right pr-1" href="home">$text.searches</a>
+      	</li>
+      	<li class="nav-item search-header-item pt-2">
+        	<a class="nav-link float-right pr-1" href="showDeweys">$text.dewey_navigator</a>
+      	</li>
+      	<li class="nav-item search-header-item pt-2">
+        	<a class="nav-link float-right pr-1" href="$configuration.getLibraryDomainUrl()/biblioteca/polo-sbn-bncf/" target="_blank">$text.libraries</a>
+      	</li>
+      	<li class="nav-item search-header-item pt-2">
+        	<a class="nav-link float-right pr-1" style="text-align:right;" href="$configuration.getLibraryDomainUrl()/chiedi-al-bibliotecario/" target="_blank">$text.ask_a_librarian</a>
+      	</li>
+      	<li class="nav-item search-header-item pt-2">
+      		#set ($language = $session.visit.preferredLocale.language)
+      		#if ($language != 'it')
+      			<a class="nav-link float-right pr-1" href="javascript:l10n('it')">It | En</a>
+      		#end
+        	#if ($language != 'en')
+      			<a class="nav-link float-right pr-1" href="javascript:l10n('en')">It | En</a>
+      		#end
+      	</li>
+      	#if($session.visit.isFolioAuthenticated())
+      		<li class="nav-item dropdown logged search-header-item">      		
+	      		<a class="nav-link dropdown-toggle py-0 float-right" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+	      			Ciao <b>$session.visit.folioAccount.username</b>
+	      			<img class="img-responsive" src="img/user.png" alt="login" />
+	      		</a>
+	      		<div class="dropdown-menu logged-drop" aria-labelledBy="userDropdown">
+	      			<a class="dropdown-item text-right" href="account">
+	      				Account <img class="ml-2" alt="" src="img/cog.png">
+	      			</a>
+	      			<a class="dropdown-item text-right" href="folioLogout">
+	      				Log out <img class="ml-2" alt="" src="img/logout.png">
+	      			</a>
+	      		</div>
+      		</li>
+      	#else
+      		<li class="nav-item search-header-item">      		
+	      		<a class="nav-link py-0 float-right" href="signIn">
+	      			<img class="img-responsive" src="img/user.png" alt="login" />
+	      		</a>
+      		</li>
+      	#end
+    </ul>
+</div>

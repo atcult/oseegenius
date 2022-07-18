@@ -1,0 +1,108 @@
+#set ($account = $session.visit.account)
+<!-- bncf2/protected/myaccount.vm -->
+<br/><br/><br/>
+<table  cellpadding="3"  cellspacing="3">
+	<tr>
+		<td align="left"><span id="user_name_surname">$account.name $account.surname</span></td>
+	</tr>
+	<tr>
+		<td align="left">
+			#if ($account.street)
+				<span id="user_address">$account.street</span>
+			#end
+		</td>
+	</tr>
+	<tr>
+		<td>
+			#if ($account.zipCode || $account.city)
+				<span id="user_address">#if ($account.zipCode) $account.zipCode #end #if ($account.zipCode && $account.city) - #end  #if ($account.city) $account.city #end #if($account.state) ($account.state) #end</span>
+			#end	
+		</td>
+	</tr>
+</table>
+<br/>
+#if ($license.communityPluginEnabled || $license.circulationPluginEnabled)
+        <table cellpadding="0" cellspacing="10" border="0">
+			<tr>
+				#if ($license.communityPluginEnabled)
+					<td>
+						<table cellpadding="0" cellspacing="0" border="0">
+						#if($request.howManyTags && $request.howManyTags > 0)
+            				<tr class="circulation_container">
+            					<td class="tags"></td><td class="circulation_text">$text.i_created $request.howManyTags tags.</td>
+            				</tr>
+            				<tr><td colspan="2" height="10px"></td></tr>
+    					#else
+    						<tr class="circulation_container">
+								<td class="tags"></td><td class="circulation_text_no">${text.empty_tags}.</td></tr>
+    						<tr><td colspan="2" height="10px"></td></tr>
+    					#end	
+    					#if($request.howManyReviews && $request.howManyReviews > 0)
+    						<tr class="circulation_container">
+            					<td class="reviews"></td><td class="circulation_text">$text.i_exp $request.howManyReviews ${text.documents}.</td>
+            				</tr>
+            				<tr><td colspan="2" height="10px"></td></tr>
+    					#else
+    						<tr class="circulation_container"><td class="reviews"></td><td class="circulation_text_no">${text.empty_reviews}.</td></tr>
+    						<tr><td colspan="2" height="10px"></td></tr>
+    					#end	
+    					#if($request.bibliographySize && $request.bibliographySize > 0)
+    						<tr class="circulation_container">
+            					<td class="bibliography"></td><td class="circulation_text">$text.my_bib_includes $request.bibliographySize ${text.documents}.</td>
+            				</tr>
+            				<tr><td colspan="2" height="10px"></td></tr>						
+    					#else
+    						<tr class="circulation_container"><td class="bibliography"></td><td class="circulation_text_no">${text.empty_bibliography}.</td></tr>
+    						<tr><td colspan="2" height="10px"></td></tr>
+    					#end						
+                        </table>
+					</td>	
+				#end
+				#if ($license.circulationPluginEnabled)
+    				<td>
+						<table cellpadding="0" cellspacing="0" border="0">
+    					#if ($request.loansCount != 0)        				
+    						<tr class="circulation_container">
+            					<td class="loans"></td><td class="circulation_text"><a class="linked_value" href="workspace?view=myloans">$text.i_have $request.loansCount ${text.active_loans}.</a></td>
+            				</tr>
+    						<tr><td colspan="2" height="10px"></td></tr>
+    					#else
+    						<tr class="circulation_container"><td class="loans"></td><td class="circulation_text_no">${text.I_dont_have_active_loans}.</td></tr>
+    						<tr><td colspan="2" height="10px"></td></tr>
+    					#end
+        				#if ($request.holdsCount != 0)
+            				<tr class="circulation_container">
+            					<td class="holds"></td><td class="circulation_text"><a class="linked_value" href="workspace?view=myholds">$text.i_have_hold $request.holdsCount ${text.active_holds}.</a></td>
+            				</tr>
+    						<tr><td colspan="2" height="10px"></td></tr>
+    					#else
+    						<tr class="circulation_container"><td class="holds"></td><td class="circulation_text_no">${text.i_dont_have_active_holds}.</td></tr>
+    						<tr><td colspan="2" height="10px"></td></tr>
+    					#end	
+        				#if ($request.finesCount != 0)
+            				<tr class="circulation_container">
+            					<td class="fines"></td><td class="circulation_text">
+    								#if ($session.moneyFinesInUse)
+    									i_have $request.finesCount ${text.active_fines}.
+    								#else
+    									#if ($request.finesCount == 1)
+    										$text.i_am_in_blacklist
+    									#else
+    										$text.blacklist_msg_1 $request.finesCount ${text.blacklist_msg_2}.
+    									#end	
+    								#end	
+    							</td>
+            				</tr>
+    						<tr><td colspan="2" height="10px"></td></tr>
+    					#else
+    						#set ($messageKey = "i_dont_have_fines_${session.moneyFinesInUse}")
+    						<tr class="circulation_container"><td class="fines"></td><td class="circulation_text_no">${text.get($messageKey)}.</td></tr>
+    						<tr><td colspan="2" height="10px"></td></tr>
+						#end
+                        </table>
+					</td>
+				#end	
+			</tr>	
+		</table>
+	#end
+<br/><br/>

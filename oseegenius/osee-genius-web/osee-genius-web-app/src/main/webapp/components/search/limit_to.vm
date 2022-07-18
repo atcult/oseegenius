@@ -1,0 +1,8 @@
+#set ($resources = $session.visit.advancedSearchExperience)
+#if($resources.limits)
+#literal_limit( $text.company_svg $resources.getLimit('company_svg') 'middle_viewlet_body')	
+#literal_limit( $text.mime_type $resources.getLimit('mime_type') 'middle_viewlet_body')	
+#literal_limit( $text.project $resources.getLimit('project') 'middle_viewlet_body')	
+#literal_limit( $text.author $resources.getLimit('author') 'middle_viewlet_body')	
+#literal_limit( $text.keywords $resources.getLimit('inferred_untokenized_keywords') 'middle_viewlet_body')
+#end

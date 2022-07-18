@@ -1,0 +1,51 @@
+#set ($title = $document.title)
+<table cellspacing="0">
+	<tr>
+		<td colspan="3">
+            <a title="Facebook" style="cursor:pointer;"  onclick="javascript:share('http://www.facebook.com/sharer.php?u=','$document.id')" data-g-label="OseeGenius -  Search and Discovery" data-g-action="share facebook"><span class="share-facebook share"></span></a>
+			<a title="Google Bookmarks" style="cursor:pointer;"  onclick="javascript:share('https://www.google.com/bookmarks/mark?op=add&title=OseeGenius -  Search and Discovery&bkmk=','$document.id')" data-g-label="OseeGenius -  Search and Discovery" data-g-action="share bookmarks"><span class="share-igoogle share"></span></a>
+			<a title="Digg" style="cursor:pointer;"  onclick="javascript:share('http://www.digg.com/submit?phase=2&title=OseeGenius -  Search and Discovery&url=','$document.id')" data-g-label="OseeGenius -  Search and Discovery" data-g-action="share digg">
+				<span class="share-digg share"></span>
+			</a>
+            <a title="Delicious" style="cursor:pointer;"  onclick="javascript:share('http://delicious.com/save?title=OseeGenius -  Search and Discovery&amp;url=','$document.id')" data-g-label="Share any web page from your Toolbar (and more)" data-g-action="share delicious">
+				<span class="share-delicious share">
+			</span></a>
+		</td>
+	</tr>
+	
+	#if ($license.communityPluginEnabled)
+    
+	<tr><td colspan="3">&nbsp;</td></tr>
+	<tr>
+		<td  style="vertical-align:bottom;">
+				<span class="share-label permalink">Commenti ($request.reviewCount.get($document.id))</span>				
+    				#if ($session.visit.authenticated)				
+    				<a rel="prettyPhoto" href="newReview?resourceId=${document.id}&iframe=true&height=480&width=450" class="share-label permalink">[Aggiungi commento]</a>
+        			<div id="bibliography_$document.id">
+            			#if ($request.bibliography.contains($document.id))
+            				<a href="javascript:removeFromBibliography('$document.id')" class="share-label permalink">[Rimuovi dalla bibliografia]</a>
+            			#else
+            				<a href="javascript:add2Bibliography('$document.id')" class="share-label permalink">[Aggiungi alla bibliografia]</a>				
+    					#end
+    				</div>	
+					#end	
+		</td>
+	</tr>
+	#end	
+	#if ($license.communityPluginEnabled && $session.visit.authenticated )
+    	#set ($tagList = $request.tags.get($document.id))
+    	#if ($tagList)
+    	<tr><td colspan="3">&nbsp;</td></tr>
+    	<tr>
+    		<td  align="left" colspan="3" style="vertical-align:bottom;" nowrap="nowrap">
+    			Tags: #foreach($tag in $tagList)
+    				#if ($velocityCount > 1), #end${tag.label}
+				#end
+    		</td>
+    	</tr>
+		#else
+			<tr><td colspan="3">Nessun tag definito per questo documento.</td></tr>
+		#end
+		<tr><td colspan="3"><div id="newtag_$document.id"><a class="share-label permalink" href="javascript:addNewTag('$document.id')">[Nuovo Tag]</a></div></td></tr>
+	#end	
+</table>

@@ -1,0 +1,16 @@
+<div id="toolbar" class="box">
+	<span style="float:left;">#spacer(10)</span>
+	<div id="navigator" style="padding-top:4px;">	
+		#if($request.finesByLibraries.size() > 1)
+			#set ($firstLetter = "-")
+    		#foreach($library in $request.finesByLibraries.keySet())
+    			#set ($firstLetterOfLibrary = $library.name.substring(0,1))
+            	#if ($firstLetterOfLibrary != $firstLetter)
+    				#set ($firstLetter = $firstLetterOfLibrary)
+            		<a class="bottom-toolbar-link" href="javascript:goTo('$firstLetterOfLibrary')">$firstLetterOfLibrary</a>
+            	#end
+			#end
+		#end				
+		#i18nToolbar			 
+	</div>	
+</div>	

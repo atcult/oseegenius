@@ -1,0 +1,37 @@
+<table width="100%" cellpadding="0" cellspacing="0" >
+	<tr>
+		<td>
+			<table>
+				#list_monovalued_literal_attribute($text.an $document.id)
+				#list_multivalued_literal_attribute($text.pub  $document.publisher)
+				#list_multivalued_literal_attribute($text.physical_description  $document.physical_description)		
+				#list_multivalued_literal_attribute($text.title_series  $document.series_statement)		
+				#list_multivalued_literal_attribute ($text.lccn $resource.lccn)
+				#list_multivalued_literal_linked_attribute ($text.universal_decimal_classification_number $resource.universal_decimal_classification_number 'universal_decimal_classification_number')
+				#list_multivalued_literal_attribute ($text.dewey $resource.dewey)
+				#list_multivalued_literal_attribute ($text.local_classification $resource.local_classification)
+				#list_multivalued_literal_attribute ($text.local_classification $resource.local_classification 'local_classification')
+				#list_multivalued_literal_attribute($text.summary_note  $document.summary_note)
+				#if ($document.subject)
+        			<tr>
+						<td valign="top" nowrap="nowrap">
+                			<span class="attribute_name">$text.subjects</span>	
+                		</td>
+    					<td>#spacer(10)</td>
+                		<td>
+    						#foreach($subject in $document.subject)
+    							#if($velocityCount < 4)<a class="linked_value" href='$link.relative('search')?h=def&q=*:*&f=subject:$esc.q$esc.url($subject)$esc.q'><span>#highlight($subject)</span><br/></a>#end
+    						#end 
+                		</td>
+        			</tr>
+				#end	
+				#list_monovalued_i18n_attribute($text.bibliographic_level 'bibliographic_level' $document.bibliographic_level)
+				#list_multivalued_i18n_attribute($text.language 'languages' $document.language)
+				#list_monovalued_i18n_attribute($text.format 'format' $document.format)				
+				#list_multivalued_literal_attribute($text.location  $document.location)
+				#list_multivalued_literal_attribute($text.collocation  $document.collocation)
+    		</table>	
+		</td>	
+	</tr>
+	<tr><td colspan="2">&nbsp;</td></tr>
+</table>

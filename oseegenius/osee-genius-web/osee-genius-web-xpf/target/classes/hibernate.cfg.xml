@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration
+	PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-2.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+	    <mapping resource="librisuite/hibernate/Tags.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/ACNT_APLTN_LIST_ACS_PNT.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/CLSTN.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/CNTL_NBR.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/IDX_LIST.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/NME_HDG.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/NME_NME_TTL_REF.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/NME_REF.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/NME_TTL_HDG.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/NME_TTL_REF.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/PUBL_HDG.hbm.xml" />
+		<mapping resource="librisuite/hibernate/PUBL_REF.hbm.xml" />
+		<mapping resource="librisuite/hibernate/SBJCT_HDG.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/SBJCT_REF.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/SHLF_LIST.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/SHLF_LIST_ACS_PNT.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/S_SYS_GLBL_VRBL.hbm.xml"/>
+	    <mapping resource="librisuite/hibernate/TTL_HDG.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/TTL_NME_TTL_REF.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/TTL_REF.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/T_CLSTN_FNCTN.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/T_CLSTN_TYP.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/T_ITM_DSPLY.hbm.xml"/> 
+		<mapping resource="librisuite/hibernate/T_LANG.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/T_LANG_OF_ACS_PNT.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/T_LANG_OF_ACS_PNT_SBJCT.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/T_LANG_OF_IDXG.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/T_LANG_OF_IDXG_LANG.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/T_LANG_PRFNC.hbm.xml" />
+		<mapping resource="librisuite/hibernate/T_NME_HDG_SUB_TYP.hbm.xml" />
+		<mapping resource="librisuite/hibernate/T_NME_HDG_TYP.hbm.xml"/>
+	    <mapping resource="librisuite/hibernate/T_PUBL_FNCTN.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/T_REF_PRNT_CNSTN.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/T_REF_TYP.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/T_SBJCT_HDG_SRC.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/T_SBJCT_HDG_TYP.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/T_TRLTN_LANG_CDE.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/T_TTL_FNCTN.hbm.xml" />
+		<mapping resource="librisuite/hibernate/T_TTL_SCDRY_FNCTN.hbm.xml" />
+		<mapping resource="librisuite/hibernate/USR_ACNT.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/USR_CATL_TAG_CAT_AUTH.hbm.xml"/>
+   		<mapping resource="librisuite/hibernate/MAD_CLSTN_ITM_ACS_PNT.hbm.xml"/> 
+		<mapping resource="librisuite/hibernate/MAD_NME_ACS_PNT.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/MAD_NME_TTL_ACS_PNT.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/MAD_SBJCT_ACS_PNT.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/MAD_TTL_ACS_PNT.hbm.xml"/> 
+		<mapping resource="librisuite/hibernate/USR_TMP_DTA.hbm.xml"/>
+		<mapping resource="librisuite/hibernate/USR_TMP_PASS.hbm.xml"/>
+	    <mapping resource="librisuite/hibernate/PUBL_TAG.hbm.xml" />
+	    <mapping resource="librisuite/hibernate/CLCTN_ACS_PNT.hbm.xml" />
+	    <mapping resource="librisuite/hibernate/SBJCT_HDG_BRWS_IT_VW.hbm.xml" />
+	    <mapping resource="librisuite/hibernate/SBJCT_HDG_BRWS_EN_VW.hbm.xml" />
+	    <mapping resource="librisuite/hibernate/AUT.hbm.xml"/>
+		
+		
+			
+	</session-factory>
+</hibernate-configuration>

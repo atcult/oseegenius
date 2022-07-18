@@ -1,0 +1,668 @@
+<project name="oseegenius-installer" default="install-release">
+	<description>OseeGenius installer</description>
+	<property file="${user.home}/build.properties" />
+	<tstamp>
+		<format property="now" pattern="dd-MM-yyyy-HHmm" />
+	</tstamp>
+
+	<echo message="**** OSEEGENIUS INSTALLER ****" />
+
+	<property name="input.branch.tag" value="1.2" />
+	<property name="branch.tag" value="/branches/1.2.demo.trento" />
+		
+	<!-- <input addproperty="input.revision">Which revision of ${input.branch.tag} you want to release? (empty value means HEAD)</input> -->
+	<input addproperty="input.customer.code">Enter customer code</input>
+	<input addproperty="input.customer.environment" validargs="test,production">Which environment?</input>
+	
+	<script language="javascript">
+		<![CDATA[
+        	sentence = project.getProperty("input.customer.code");
+        	lowercaseValue = sentence.toLowerCase();
+        	uppercaseValue = sentence.toUpperCase();
+        	project.setProperty("lowercase.customer.code",lowercaseValue);
+        	project.setProperty("uppercase.customer.code",uppercaseValue);
+    	]]>
+	</script>
+
+	<property file="${user.home}/install-config/${lowercase.customer.code}-${input.customer.environment}.config" />
+
+	<property name="install.templates.dir" value="${user.home}/install-templates" />
+	<property name="install.tmp.dir" value="${user.home}/install-tmp" />
+	
+	<property name="oseegenius.working.dir" value="${oseegenius.project.dir}${branch.tag}" />
+	<property name="oseegenius.i.dist.prj" value="${oseegenius.working.dir}/osee-genius-indexer/osee-genius-indexer-distribution" />
+	<property name="oseegenius.i.dist.dir" value="${oseegenius.i.dist.prj}/target/osee-genius-distribution-${input.branch.tag}-${lowercase.customer.code}/${lowercase.customer.code}" />
+	<property name="oseegenius.s.dist.prj" value="${oseegenius.working.dir}/osee-genius-searcher/osee-genius-searcher-distribution" />
+	<property name="oseegenius.s.dist.dir" value="${oseegenius.s.dist.prj}/target/osee-genius-searcher-distribution-${input.branch.tag}-${lowercase.customer.code}/${lowercase.customer.code}" />
+	<property name="pazpar2.dist.dir" value="${oseegenius.s.dist.prj}/target/osee-genius-searcher-distribution-${input.branch.tag}-${lowercase.customer.code}/pz2-${lowercase.customer.code}" />
+	<property name="oseegenius.w.dist.prj" value="${oseegenius.working.dir}/osee-genius-web/osee-genius-web-distribution" />
+	<property name="oseegenius.w.dist.dir" value="${oseegenius.w.dist.prj}/target/osee-genius-web-distribution-${input.branch.tag}-${lowercase.customer.code}" />
+	
+	<property name="install.log" value="${user.home}/install-logs/${now}-${uppercase.customer.code}.log" />
+
+	<input addproperty="input.jetty.home" defaultvalue="/app/apache-solr-4.7.1/example">Enter Jetty installation directory</input>
+	<input addproperty="input.jetty.i.stop.port" defaultvalue="8078">Enter Jetty I stop port</input>	
+	<input addproperty="input.jetty.s.stop.port" defaultvalue="8077">Enter Jetty S stop port</input>	
+	
+	<input addproperty="input.tomcat.home" defaultvalue="/app/apache-tomcat-6.0.33">Enter Tomcat installation directory</input>
+	<property name="input.tomcat.webapps.dir" value="${input.tomcat.home}/webapps"/>
+	
+	<input addproperty="input.i.host">Enter OseeGenius -I- hostname or IP address</input>
+	<input addproperty="input.i.ssh.port" defaultvalue="22">Enter OseeGenius -I- SSH port</input>	
+	<input addproperty="input.i.http.port" defaultvalue="8977">Enter OseeGenius -I- HTTP port (the port where OseeGenius I will listen on)</input>
+	<input addproperty="input.i.owner.user" defaultvalue="oseegenius">Enter OseeGenius -I- machine user</input>
+	<input addproperty="input.i.owner.group" defaultvalue="oseegenius">Enter OseeGenius -I- machine user group</input>
+	<input addproperty="input.i.hsql.host" defaultvalue="127.0.0.1">Enter HSQLDB host</input>
+	<input addproperty="input.i.hsql.port" defaultvalue="9100">Enter HSLDB port</input>
+	
+	<property name="i.solr.home" value="/home/${input.i.owner.user}/solr-i-home"/>
+	<property name="i.solr.data.dir" value="/var/data/oseegenius-i-${lowercase.customer.code}"/>
+	<property name="s.solr.home" value="/home/${input.s.owner.user}/solr-s-home"/>
+	<property name="s.solr.data.dir" value="/var/data/oseegenius-s-${lowercase.customer.code}"/>	
+
+	<input addproperty="input.s.host">Enter OseeGenius -S- hostname or IP address</input>
+	<input addproperty="input.s.ssh.port" defaultvalue="22">Enter OseeGenius -S- SSH port</input>	
+	<input addproperty="input.s.http.port" defaultvalue="8977">Enter OseeGenius -S- HTTP port (the port where OseeGenius S will listen on)</input>
+	<input addproperty="input.s.owner.user" defaultvalue="oseegenius">Enter OseeGenius -S- machine user</input>
+	<input addproperty="input.s.owner.group" defaultvalue="oseegenius">Enter OseeGenius -S- machine user group</input>
+	
+	<input addproperty="input.pazpar2.host">Enter Pazpar2 hostname or IP address</input>
+	<input addproperty="input.pazpar2.ssh.port" defaultvalue="22">Enter Pazpar2 SSH port</input>	
+	<input addproperty="input.pazpar2.user" defaultvalue="root">Enter Pazpar2 machine user</input>
+	
+	<echo message="OseeGenius project directory set to : ${oseegenius.project.dir}" />
+	<echo message="OseeGenius project working directory is set to ${oseegenius.working.dir}" />
+	<echo message="Customer code is set to ${uppercase.customer.code}" />
+	<echo message="Verbose output of involved subprocesses is stored here: ${install.log}" />
+
+	<input>Press Return key to start...</input>
+
+	<target name="install-release" depends="remove-tmp-files, update-to-latest-revision,create-release-artifacts,transfer-i-artifacts,transfer-s-artifacts,transfer-w-artifacts,transfer-z-artifacts" description="OseeGenius installer">
+	</target>
+
+	<target name="remove-tmp-files">
+		<delete dir="${install.tmp.dir}" includes="**/*"/>
+	</target>
+	
+	<target name="create-i-directories">		
+		<sshexec host="${input.i.host}"
+			username="root"
+			password="${inputi.i.root.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.i.ssh.port}"
+			trust="yes"
+			command="rm -rf $ /home/${input.i.owner.user}/hsqldb" 
+			failonerror="true"/>
+		<sshexec host="${input.i.host}"
+			username="root"
+			password="${inputi.i.root.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.i.ssh.port}"
+			trust="yes"
+			command="mkdir -p /home/${input.i.owner.user}/hsqldb" 
+			failonerror="true"/>
+		<sshexec host="${input.i.host}"
+			username="root"
+			password="${inputi.i.root.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.i.ssh.port}"
+			trust="yes"
+			command="chown ${input.i.owner.user}:${input.i.owner.group} /home/${input.i.owner.user}/hsqldb" 
+			failonerror="true"/>	
+		<sshexec host="${input.i.host}"
+			username="root"
+			password="${inputi.i.root.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.i.ssh.port}"
+			trust="yes"
+			command="chmod 744 /home/${input.i.owner.user}/hsqldb" 
+			failonerror="true"/>	
+		
+		<sshexec host="${input.i.host}"
+			username="root"
+			password="${inputi.i.root.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.i.ssh.port}"
+			trust="yes"
+			command="rm -rf ${i.solr.home}" 
+			failonerror="true"/>
+		<sshexec host="${input.i.host}"
+			username="root"
+			password="${inputi.i.root.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.i.ssh.port}"
+			trust="yes"
+			command="mkdir -p ${i.solr.home}" 
+			failonerror="true"/>
+		<sshexec host="${input.i.host}"
+			username="root"
+			password="${inputi.i.root.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.i.ssh.port}"
+			trust="yes"
+			command="chown ${input.i.owner.user}:${input.i.owner.group} ${i.solr.home}" 
+			failonerror="true"/>	
+		<sshexec host="${input.i.host}"
+			username="root"
+			password="${inputi.i.root.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.i.ssh.port}"
+			trust="yes"
+			command="chmod 744 ${i.solr.home}" 
+			failonerror="true"/>	
+				
+		<sshexec host="${input.i.host}"
+			username="root"
+			password="${inputi.i.root.pwd}"
+			port="${input.i.ssh.port}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			trust="yes"
+			command="rm -rf ${i.solr.data.dir}" 
+			failonerror="true"/>
+	
+		<sshexec
+			host="${input.i.host}"
+			username="root"
+			password="${inputi.i.root.pwd}"
+			port="${input.i.ssh.port}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			trust="yes"
+			command="mkdir -p ${i.solr.data.dir}" 
+			failonerror="true"/>
+		<sshexec host="${input.i.host}"
+			username="root"
+			password="${inputi.i.root.pwd}"
+			port="${input.i.ssh.port}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			trust="yes"
+			command="chown ${input.i.owner.user}:${input.i.owner.group} ${i.solr.data.dir}" 
+			failonerror="true"/>	
+		<sshexec host="${input.i.host}"
+			username="root"
+			password="${inputi.i.root.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.i.ssh.port}"
+			trust="yes"
+			command="chmod 744 ${i.solr.data.dir}" 
+			failonerror="true"/>	
+		
+		<copy file="${install.templates.dir}/sqltool.rc" todir="${install.tmp.dir}" >
+	        <filterchain>
+	           <replacetokens begintoken="*" endtoken="!">
+	                <token key="DB_HOST" value="${input.i.hsql.host}" />
+	                <token key="DB_PORT" value="${input.i.hsql.port}"/>
+	                <token key="CUSTOMER_CODE" value="${lowercase.customer.code}"/>
+	            </replacetokens>
+	        </filterchain>
+	    </copy>
+		
+		<scp
+			remoteTodir="${input.i.owner.user}@${input.i.host}:/home/${input.i.owner.user}" 
+			port="${input.i.ssh.port}"
+			password="${input.i.owner.pwd}"
+			trust="yes"
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true"
+			file="${install.tmp.dir}/sqltool.rc"/>
+		
+		<copy file="${install.templates.dir}/stop-oseegenius-i.sh" todir="${install.tmp.dir}" >
+	        <filterchain>
+	           <replacetokens begintoken="*" endtoken="!">
+	                <token key="JETTY_HOME" value="${input.jetty.home}" />
+	                <token key="JETTY_STOP_PORT" value="${input.jetty.i.stop.port}"/>      	
+	            </replacetokens>
+	        </filterchain>
+	    </copy>
+				
+		<scp
+			remoteTodir="${input.i.owner.user}@${input.i.host}:/home/${input.i.owner.user}/bin" 
+			port="${input.i.ssh.port}"
+			password="${input.i.owner.pwd}"
+			trust="yes"
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true"
+			file="${install.tmp.dir}/stop-oseegenius-i.sh"/>
+		
+		<copy file="${install.templates.dir}/start-oseegenius-i.sh" todir="${install.tmp.dir}" >
+	        <filterchain>
+	           <replacetokens begintoken="*" endtoken="!">
+	                <token key="JETTY_HOME" value="${input.jetty.home}" />
+	                <token key="JETTY_STOP_PORT" value="${input.jetty.i.stop.port}"/>
+		           	<token key="OSEEGENIUS_I_HOST" value="${input.i.host}"/>	           	
+	                <token key="OSEEGENIUS_I_PORT" value="${input.i.http.port}"/>
+					<token key="SOLR_DATA_DIR" value="${i.solr.data.dir}" />
+					<token key="SOLR_HOME" value="${i.solr.home}" />
+	           		<token key="WORKED_OUT_DIR" value="${input.worked.out.dir}" />
+		           	<token key="SOURCE_DIR" value="${input.source.dir}" />
+					<token key="CUSTOMER_CODE" value="${lowercase.customer.code}"/>	     	           	
+	            </replacetokens>
+	        </filterchain>
+	    </copy>
+				
+		<scp
+			remoteTodir="${input.i.owner.user}@${input.i.host}:/home/${input.i.owner.user}/bin" 
+			port="${input.i.ssh.port}"
+			password="${input.i.owner.pwd}"
+			trust="yes"
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true"
+			file="${install.tmp.dir}/start-oseegenius-i.sh"/>			
+
+		<copy file="${install.templates.dir}/start-hsqldb.sh" todir="${install.tmp.dir}" >
+	        <filterchain>
+	           <replacetokens begintoken="*" endtoken="!">
+	                <token key="JETTY_HOME" value="${input.jetty.home}" />
+               		<token key="DB_PORT" value="${input.i.hsql.port}"/>
+					<token key="CUSTOMER_CODE" value="${lowercase.customer.code}"/>	     	           	
+	            </replacetokens>
+	        </filterchain>
+	    </copy>
+				
+		<scp
+			remoteTodir="${input.i.owner.user}@${input.i.host}:/home/${input.i.owner.user}/bin" 
+			port="${input.i.ssh.port}"
+			password="${input.i.owner.pwd}"
+			trust="yes"
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true"
+			file="${install.tmp.dir}/start-hsqldb.sh"/>			
+
+		<copy file="${install.templates.dir}/stop-hsqldb.sh" todir="${install.tmp.dir}" >
+	        <filterchain>
+	           <replacetokens begintoken="*" endtoken="!">
+	                <token key="JETTY_HOME" value="${input.jetty.home}" />
+               		<token key="DB_PORT" value="${input.i.hsql.port}"/>
+					<token key="CUSTOMER_CODE" value="${lowercase.customer.code}"/>	     	           	
+	            </replacetokens>
+	        </filterchain>
+	    </copy>
+				
+		<scp
+			remoteTodir="${input.i.owner.user}@${input.i.host}:/home/${input.i.owner.user}/bin" 
+			port="${input.i.ssh.port}"
+			password="${input.i.owner.pwd}"
+			trust="yes"
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true"
+			file="${install.tmp.dir}/stop-hsqldb.sh"/>			
+		
+		<sshexec host="${input.i.host}"
+			username="root"
+			password="${inputi.i.root.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.i.ssh.port}"
+			trust="yes"
+			command="chmod 744 /home/${input.i.owner.user}/bin/*" 
+			failonerror="true"/>	
+		
+		<copy file="${install.templates.dir}/logging-i.properties" todir="${install.tmp.dir}" >
+	        <filterchain>
+	           <replacetokens begintoken="*" endtoken="!">
+	                <token key="JETTY_HOME" value="${input.jetty.home}" />
+					<token key="CUSTOMER_CODE" value="${lowercase.customer.code}"/>	     	           	
+	            </replacetokens>
+	        </filterchain>
+	    </copy>
+				
+		<scp		
+			remoteTodir="root@${input.i.host}:${input.jetty.home}/etc" 
+			port="${input.i.ssh.port}"
+			trust="yes"
+			password="${inputi.i.root.pwd}"
+			passphrase=""
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true"
+			file="${install.tmp.dir}/logging-i.properties"/>						
+	</target>
+	
+	<target name="create-s-directories">		
+		<sshexec host="${input.s.host}"
+			username="root"
+			password="${inputi.s.root.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.s.ssh.port}"
+			trust="yes"
+			command="rm -rf ${s.solr.home}" 
+			failonerror="true"/>
+		<sshexec host="${input.s.host}"
+			username="root"
+			password="${inputi.s.root.pwd}"			
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.s.ssh.port}"
+			trust="yes"
+			command="mkdir -p ${s.solr.home}" 
+			failonerror="true"/>
+		<sshexec host="${input.s.host}"
+			username="root"
+			password="${inputi.s.root.pwd}"			
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.s.ssh.port}"
+			trust="yes"
+			command="chown ${input.s.owner.user}:${input.s.owner.group} ${s.solr.home}" 
+			failonerror="true"/>	
+		<sshexec host="${input.s.host}"
+			username="root"
+			password="${inputi.s.root.pwd}"			
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.s.ssh.port}"
+			trust="yes"
+			command="chmod 744 ${s.solr.home}" 
+			failonerror="true"/>	
+				
+		<sshexec host="${input.s.host}"
+			username="root"
+			password="${inputi.s.root.pwd}"
+			port="${input.s.ssh.port}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			trust="yes"
+			command="rm -rf ${s.solr.data.dir}" 
+			failonerror="true"/>
+		<sshexec
+			host="${input.s.host}"
+			username="root"
+			password="${inputi.s.root.pwd}"
+			port="${input.s.ssh.port}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			trust="yes"
+			command="mkdir -p ${s.solr.data.dir}" 
+			failonerror="true"/>
+		<sshexec host="${input.s.host}"
+			username="root"
+			password="${inputi.s.root.pwd}"
+			port="${input.s.ssh.port}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			trust="yes"
+			command="chown ${input.s.owner.user}:${input.s.owner.group} ${s.solr.data.dir}" 
+			failonerror="true"/>	
+		<sshexec host="${input.s.host}"
+			username="root"
+			password="${inputi.s.root.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.s.ssh.port}"
+			trust="yes"
+			command="chmod 744 ${s.solr.data.dir}" 
+			failonerror="true"/>	
+				
+		<copy file="${install.templates.dir}/stop-oseegenius-s.sh" todir="${install.tmp.dir}" >
+	        <filterchain>
+	           <replacetokens begintoken="*" endtoken="!">
+	                <token key="JETTY_HOME" value="${input.jetty.home}" />
+	                <token key="JETTY_STOP_PORT" value="${input.jetty.s.stop.port}"/>      	
+	            </replacetokens>
+	        </filterchain>
+	    </copy>
+				
+		<scp
+			remoteTodir="${input.s.owner.user}@${input.s.host}:/home/${input.s.owner.user}/bin" 
+			port="${input.s.ssh.port}"
+			password="${input.s.owner.pwd}"
+			trust="yes"
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true"
+			file="${install.tmp.dir}/stop-oseegenius-s.sh"/>
+		
+		<copy file="${install.templates.dir}/start-oseegenius-s.sh" todir="${install.tmp.dir}" >
+	        <filterchain>
+	           <replacetokens begintoken="*" endtoken="!">
+	                <token key="JETTY_HOME" value="${input.jetty.home}" />
+	                <token key="JETTY_STOP_PORT" value="${input.jetty.s.stop.port}"/>
+		           	<token key="OSEEGENIUS_S_HOST" value="${input.s.host}"/>	           	
+		           	<token key="OSEEGENIUS_S_PORT" value="${input.s.http.port}"/>
+		           	<token key="OSEEGENIUS_I_HOST" value="${input.s.i.internal.host}"/>	           	
+		           	<token key="OSEEGENIUS_I_PORT" value="${input.i.http.port}"/>	           	
+					<token key="SOLR_DATA_DIR" value="${s.solr.data.dir}" />
+					<token key="SOLR_HOME" value="${s.solr.home}" />
+					<token key="CUSTOMER_CODE" value="${lowercase.customer.code}"/>	     	           	
+	            </replacetokens>
+	        </filterchain>
+	    </copy>
+				
+		<scp
+			remoteTodir="${input.s.owner.user}@${input.s.host}:/home/${input.s.owner.user}/bin" 
+			port="${input.s.ssh.port}"
+			password="${input.s.owner.pwd}"
+			trust="yes"
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true"
+			file="${install.tmp.dir}/start-oseegenius-s.sh"/>			
+		
+		<sshexec host="${input.s.host}"
+			username="root"
+			password="${inputi.s.root.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.s.ssh.port}"
+			trust="yes"
+			command="chmod 744 /home/${input.s.owner.user}/bin/*" 
+			failonerror="true"/>	
+
+		<copy file="${install.templates.dir}/logging-s.properties" todir="${install.tmp.dir}" >
+	        <filterchain>
+	           <replacetokens begintoken="*" endtoken="!">
+	                <token key="JETTY_HOME" value="${input.jetty.home}" />
+					<token key="CUSTOMER_CODE" value="${lowercase.customer.code}"/>	     	           	
+	            </replacetokens>
+	        </filterchain>
+	    </copy>
+				
+		<scp
+			remoteTodir="root@${input.s.host}:${input.jetty.home}/etc" 
+			port="${input.s.ssh.port}"
+			password="${inputi.s.root.pwd}"
+			trust="yes"
+			passphrase=""
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true"
+			file="${install.tmp.dir}/logging-s.properties"/>				
+	</target>
+	
+	<target name="transfer-i-artifacts" depends="create-i-directories">
+		<scp
+			remoteTodir="${input.i.owner.user}@${input.i.host}:${i.solr.home}" 
+			port="${input.i.ssh.port}"
+			password="${input.i.owner.pwd}"
+			trust="yes"
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true">
+			<fileset dir="${oseegenius.i.dist.dir}">
+				<include name="**/*"/>
+			</fileset>	
+		</scp>
+		<sshexec host="${input.i.host}"
+			username="${input.i.owner.user}"
+			password="${input.i.owner.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.i.ssh.port}"
+			trust="yes"
+			command="chmod 744 ${i.solr.home}/bin/*" 
+			failonerror="true"/>
+	</target>
+
+	<target name="transfer-p2z-artifacts" unless="skip.p">	
+		<scp
+			remoteTofile="${input.pazpar2.user}@${input.pazpar2.host}:/etc/pazpar2/settings/${lowercase.customer.code}-targets.xml"
+			port="${input.pazpar2.ssh.port}"
+			password="${input.pazpar2.pwd}"
+			trust="yes"
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true"
+			file="${pazpar2.dist.dir}/settings/targets.xml" />
+
+		<scp
+			remoteTofile="${input.pazpar2.user}@${input.pazpar2.host}:/etc/pazpar2/services-available/${lowercase.customer.code}-default.xml"
+			port="${input.pazpar2.ssh.port}"
+			password="${input.pazpar2.pwd}"			
+			trust="yes"
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true"
+			file="${pazpar2.dist.dir}/services-available/default.xml"/>
+	</target>
+	
+	<target name="transfer-s-artifacts" depends="create-s-directories,transfer-p2z-artifacts">	
+		<scp
+			remoteTodir="${input.s.owner.user}@${input.s.host}:${s.solr.home}" 
+			port="${input.s.ssh.port}"
+			password="${input.s.owner.pwd}"
+			trust="yes"
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true">
+			<fileset dir="${oseegenius.s.dist.dir}">
+				<include name="**/*"/>
+			</fileset>	
+		</scp>		
+	</target>
+
+	<target name="transfer-z-artifacts" unless="skip.z">
+		<copy file="${install.templates.dir}/start-oseegenius-z.sh" todir="${install.tmp.dir}" >
+	        <filterchain>
+	           <replacetokens begintoken="*" endtoken="!">
+					<token key="CUSTOMER_CODE" value="${lowercase.customer.code}"/>	     	           	
+	            </replacetokens>
+	        </filterchain>
+	    </copy>	
+		<copy file="${install.templates.dir}/stop-oseegenius-z.sh" todir="${install.tmp.dir}" >
+	        <filterchain>
+	           <replacetokens begintoken="*" endtoken="!">
+					<token key="CUSTOMER_CODE" value="${lowercase.customer.code}"/>	     	           	
+	            </replacetokens>
+	        </filterchain>
+	    </copy>				
+		<scp
+			remoteTodir="${input.z.owner.user}@${input.z.host}:/home/${input.z.owner.user}/bin"
+			port="${input.z.ssh.port}"
+			trust="yes"
+			password="${input.z.owner.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true"
+			file="${install.tmp.dir}/start-oseegenius-z.sh"/>		
+		<scp
+			remoteTodir="${input.z.owner.user}@${input.z.host}:/home/${input.z.owner.user}/bin"
+			port="${input.z.ssh.port}"
+			trust="yes"
+			password="${input.z.owner.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true"
+			file="${install.tmp.dir}/stop-oseegenius-z.sh"/>		
+		
+		<sshexec host="${input.z.host}"
+			username="${input.z.owner.user}"
+			password="${input.z.owner.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.z.ssh.port}"
+			trust="yes"
+			command="chmod 744 /home/${input.z.owner.user}/bin/*" 
+			failonerror="true"/>			
+		
+		<scp
+			remoteTodir="${input.z.owner.user}@${input.z.host}:${input.z.home}/lib"
+			port="${input.z.ssh.port}"
+			trust="yes"
+			password="${input.z.owner.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true">
+			<fileset dir="${oseegenius.working.dir}/osee-genius-zed/target">
+				<include name="**/*.jar"/>
+			</fileset>	
+		</scp>
+		
+		<sshexec host="${input.z.host}"
+			username="${input.z.owner.user}"
+			password="${input.z.owner.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.z.ssh.port}"
+			trust="yes"
+			command="mkdir -p ${input.z.home}/etc-${lowercase.customer.code}" 
+			failonerror="true"/>
+		
+		<scp
+			remoteTodir="${input.z.owner.user}@${input.z.host}:${input.z.home}/etc-${lowercase.customer.code}"
+			port="${input.z.ssh.port}"
+			trust="yes"
+			password="${input.z.owner.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true">
+			<fileset dir="${oseegenius.working.dir}/osee-genius-zed/customers/classic/etc">
+				<include name="**/*"/>
+			</fileset>	
+		</scp>		
+	</target>
+
+	<target name="transfer-w-artifacts">
+		<sshexec host="${input.w.host}"
+			username="${input.w.owner.user}"
+			password="${input.w.owner.pwd}"
+			keyfile="${user.home}/.ssh/id_rsa"
+			port="${input.w.ssh.port}"
+			trust="yes"
+			command="rm -rf ${input.tomcat.webapps.dir}/ROOT/*" 
+			failonerror="true"/>
+		
+		<copy file="${install.templates.dir}/index.jsp" todir="${install.tmp.dir}" >
+	        <filterchain>
+	           <replacetokens begintoken="*" endtoken="!">
+					<token key="CUSTOMER_CODE" value="${lowercase.customer.code}"/>	     	           	
+	            </replacetokens>
+	        </filterchain>
+	    </copy>						
+		<scp
+			remoteTodir="${input.w.owner.user}@${input.w.host}:${input.tomcat.webapps.dir}/ROOT" 
+			port="${input.w.ssh.port}"
+			trust="yes"
+			password="${input.w.owner.pwd}"
+			passphrase=""
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true"
+			file="${install.tmp.dir}/index.jsp"/>		
+		
+		<scp
+			remoteTodir="${input.w.owner.user}@${input.w.host}:${input.tomcat.webapps.dir}" 
+			port="${input.w.ssh.port}"
+			password="${input.w.owner.pwd}"
+			trust="yes"
+			keyfile="${user.home}/.ssh/id_rsa"
+			sftp="true">
+			<fileset dir="${oseegenius.w.dist.dir}"/>
+		</scp>
+	</target>	
+	
+	<target name="update-to-latest-revision" description="Updates software to latest revision">
+		<exec executable="svn" failonerror="true" logerror="true" output="${user.home}/install-logs/${now}-${uppercase.customer.code}.log">
+			<arg value="up" />
+			<arg value="${oseegenius.working.dir}" />
+		</exec>
+		<echo message="OK" />
+	</target>
+
+	<target name="create-release-artifacts" depends="create-i-distribution,create-s-distribution,create-w-distribution,create-z-distribution" description="Creates OseeGenius release artifacts">
+	</target>
+	<target name="create-i-distribution">
+		<exec failonerror="true" executable="mvn" dir="${oseegenius.i.dist.prj}" logerror="true" output="${user.home}/install-logs/${now}-${uppercase.customer.code}.log">
+			<arg value="clean" />
+			<arg value="package" />
+			<arg value="-P ${uppercase.customer.code}" />
+		</exec>
+		<echo message="OK" />
+	</target>
+	<target name="create-s-distribution">
+		<exec failonerror="true" executable="mvn" dir="${oseegenius.s.dist.prj}" logerror="true" output="${user.home}/install-logs/${now}-${uppercase.customer.code}.log">
+			<arg value="clean" />
+			<arg value="package" />
+			<arg value="-P ${uppercase.customer.code}" />
+		</exec>
+		<echo message="OK" />
+	</target>
+	<target name="create-w-distribution">
+		<exec failonerror="true" executable="mvn" dir="${oseegenius.w.dist.prj}" logerror="true" output="${user.home}/install-logs/${now}-${uppercase.customer.code}.log">
+			<arg value="clean" />
+			<arg value="package" />
+			<arg value="-P ${uppercase.customer.code}" />
+		</exec>
+		<echo message="OK" />
+	</target>
+	<target name="create-z-distribution">
+		<exec failonerror="true" executable="mvn" dir="${oseegenius.working.dir}/osee-genius-zed" logerror="true" output="${user.home}/install-logs/${now}-${uppercase.customer.code}.log">
+			<arg value="clean" />
+			<arg value="package" />
+		</exec>
+		<echo message="OK" />
+	</target>
+</project>

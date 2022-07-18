@@ -1,0 +1,29 @@
+#set ($resource = $request.resource)
+<table class="detail_record">
+	<tr>
+		<td colspan="3">
+			<a href="$resource.url" target="_new"><span class="document_title_detail">#if ($request.resource.title_dg)$request.resource.title_dg#else$text.title_na#end</span></a>
+			#spacer(4)
+			<br/>
+			#if($resource.author_dg)
+                <a href='$link.relative('/search')?h=author_dg&q=$esc.q$resource.author_dg$esc.q' class="document_author_detail">$resource.author_dg</a>
+			#else
+                <a class="document_author_detail">$text.author_na</a>
+			#end
+			<br/>
+			<br/>
+		</td>
+	</tr>
+	#parse("customization/hits/${request.resource.category_code}_resource_view_additional_attributes.vm")
+</table>	
+#if ($license.moreLikeThisViewerEnabled && $request.similarItems.results.numFound != 0)
+<br/>
+<br/>
+<table width="100%" id="mlt">
+	<tr>
+		<td>
+			#parse('components/search/mlt.vm')
+		</td>	
+	</tr>
+</table>
+#end

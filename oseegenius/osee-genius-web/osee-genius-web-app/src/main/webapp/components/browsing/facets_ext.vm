@@ -1,0 +1,20 @@
+
+var facet = "<div class='viewlet'>"+
+                    	"<div>"+
+                    		"<div class='viewlet_toggable_head'><h3>$label</h3></div>"+
+                    		"<div class='$bodyClass'>"+
+                    	      "<ul>";		  
+				#foreach( $count in $counts)
+					
+						"<li>"+
+        					"<span >"+
+    								"<a>$value</a>"+
+    								"<span class='count'> ($count.count)</span>"+
+    						"</span>"+	
+        				"</li>";
+				#end
+				
+facet +="</ul>"+
+		"</div>"+
+    "</div>"+
+"</div>";		

@@ -1,0 +1,46 @@
+<settings target="*">
+    <set target="z3950.loc.gov:7090/voyager" name="pz:name" value="Library of Congress"/>
+    <set target="z3950cat.bl.uk:9909/BNB03U" name="pz:name" value="British Library"/>
+    <set target="opac.sbn.it:2100/nopac" name="pz:name" value="Catalogo SBN"/>
+    <!-- <set target="opac.comune.fi.it:2101/w2001" name="pz:name" value="Opac SDIAF"/> -->
+    <!-- <set target="z3950.bnf.fr:2211/TOUT-UTF8" name="pz:name" value="Bn France"/> -->
+
+    <!-- mapping for unqualified search -->
+    <set name="pz:cclmap:term" value="u=1016"/>
+
+    <!-- field-specific mappings -->
+    <set name="pz:cclmap:au" value="u=1004"/>
+    <set name="pz:cclmap:ti" value="u=4 p=3"/>
+    <set name="pz:cclmap:su" value="u=21 p=3"/>
+
+    <!-- Retrieval settings -->
+    <set name="pz:requestsyntax" value="marc21"/>
+    <set name="pz:nativesyntax" value="iso2709"/>
+    <set name="pz:elements" value="F"/>
+
+    <!-- Specific for targets -->
+
+    <set target="z3950.loc.gov:7090/voyager" name="pz:requestsyntax" value="marc21"/>
+    <set target="z3950.loc.gov:7090/voyager" name="pz:nativesyntax" value="iso2709"/>
+    <set target="z3950.loc.gov:7090/voyager" name="pz:xslt" value="marc21.xsl"/>
+
+    <set target="z3950cat.bl.uk:9909/BNB03U" name="pz:requestsyntax" value="marc21"/>
+    <set target="z3950cat.bl.uk:9909/BNB03U" name="pz:nativesyntax" value="iso2709"/>
+    <set target="z3950cat.bl.uk:9909/BNB03U" name="pz:xslt" value="marc21.xsl"/>
+    <set target="z3950cat.bl.uk:9909/BNB03U" name="pz:authentication" value="ATCULT0907/jTpau9+3"/>
+
+    <set target="opac.sbn.it:2100/nopac" name="pz:requestsyntax" value="unimarc"/>
+    <set target="opac.sbn.it:2100/nopac" name="pz:nativesyntax" value="iso2709;utf-8"/>
+    <set target="opac.sbn.it:2100/nopac" name="pz:maxrecs" value="1"/>
+    <set target="opac.sbn.it:2100/nopac" name="pz:xslt" value="unimarc.xsl"/>
+
+    <!-- <set target="opac.comune.fi.it:2101/w2001" name="pz:requestsyntax" value="unimarc"/>
+    <set target="opac.comune.fi.it:2101/w2001" name="pz:nativesyntax" value="iso2709;iso-8859-1"/>
+    <set target="opac.comune.fi.it:2101/w2001" name="pz:piggyback" value="0"/>
+    <set target="opac.comune.fi.it:2101/w2001" name="pz:xslt" value="unimarc.xsl"/> -->
+
+    <!-- <set target="z3950.bnf.fr:2211/TOUT-UTF8" name="pz:requestsyntax" value="unimarc"/>
+    <set target="z3950.bnf.fr:2211/TOUT-UTF8" name="pz:nativesyntax" value="iso2709;utf-8"/>
+    <set target="z3950.bnf.fr:2211/TOUT-UTF8" name="pz:xslt" value="unimarc.xsl"/>
+    <set target="z3950.bnf.fr:2211/TOUT-UTF8" name="pz:authentication" value="Z3950/Z3950_BNF"/> -->
+</settings>

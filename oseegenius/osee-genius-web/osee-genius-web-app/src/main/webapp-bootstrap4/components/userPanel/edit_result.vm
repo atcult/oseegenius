@@ -1,0 +1,18 @@
+<div class="form-signin  p-4">
+	<h1 class="text-center my-5">
+		#if ($request.inError) 
+			$text.failed
+		#else
+			$text.success
+		#end
+	</h1>
+	<div class="bg-white shadow p-4">
+		#if ($request.inError) 
+			<div class="alert alert-danger">$request.errorMessage</div>
+		#else
+			<img alt="" class="mx-auto d-block mb-4" src="img/success.png">	
+			##<div>$text.request_success</div>	
+			<div>$text.get($message)</div>			
+		#end
+	</div>
+</div>

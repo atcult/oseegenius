@@ -1,0 +1,5 @@
+ <div id="resource-details">
+		#parse("components/hits/${request.resource.category_code}_resource_view_mode.vm")
+ </div>
+<br/>
+<br/>	

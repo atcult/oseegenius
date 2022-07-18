@@ -1,0 +1,242 @@
+!-- customization/hits/bc_resource_view_additional_attributes.vm -->
+##set ($imgUrl = $cover.getMediumCoverUrl($resource))
+##set ($isbn = $resource.get($cover.isbnAttributeName).get(0))
+<!--<tr>
+	<td rowspan="100" width="4%" valign="top"><img src="cover?url=${imgUrl}&isbn=${isbn}&size=M" height="$cover.mediumCoverHeight" width="$cover.mediumCoverWidth" class="cover"/></div></td>
+	<td rowspan="100" width="2%">&nbsp;</div></td>
+</tr> -->
+
+##cbt_detail_monovalued_literal_attribute($text.an $resource.id)
+		
+#if ($resource.publisher)
+	#if($resource.collection_code == '12' || $resource.collection_code == '14')
+		#cbt_detail_multivalued_literal_attribute ($text.pub_12 $resource.getFieldValues('publisher'))
+	#else 
+		#cbt_detail_multivalued_literal_attribute ($text.pub $resource.getFieldValues('publisher'))
+	#end	
+#end		
+
+##il 130(main_entry_uniform_title) è stato tolto per essere trattato come intestatzione principale cioè come il 100/110/111 e messo sotto al titolo
+##cbt_detail_monovalued_linked_literal_attribute ($text.main_entry_uniform_title $resource.main_entry_uniform_title 'title_uniform_search')
+#cbt_detail_monovalued_linked_literal_attribute ($text.uniform_title $resource.uniform_title 'title_uniform_search')
+
+##210,222,242
+#cbt_detail_multivalued_literal_attribute ($text.abbreviated_title $resource.getFieldValues('abbreviated_title'))
+#cbt_detail_multivalued_literal_attribute ($text.key_title $resource.getFieldValues('key_title'))
+#cbt_detail_multivalued_literal_attribute ($text.cat_agency_translation_title $resource.getFieldValues('cat_agency_translation_title'))
+
+##246
+#cbt_detail_multivalued_linked_literal_attribute ($text.title_variant $resource.getFieldValues('title_variant') 'title_variant_linked_search')
+#cbt_detail_multivalued_linked_literal_attribute ($text.portion_of_title $resource.getFieldValues('portion_of_title') 'portion_of_title_linked_search')
+#cbt_detail_multivalued_linked_literal_attribute ($text.parallel_title $resource.getFieldValues('parallel_title') 'parallel_title_linked_search')
+#cbt_detail_multivalued_linked_literal_attribute ($text.distinctive_title $resource.getFieldValues('distinctive_title') 'distinctive_title_linked_search')
+#cbt_detail_multivalued_linked_literal_attribute ($text.other_title $resource.getFieldValues('other_title') 'other_title_linked_search')
+#cbt_detail_multivalued_linked_literal_attribute ($text.cover_title $resource.getFieldValues('cover_title') 'cover_title_linked_search')
+#cbt_detail_multivalued_linked_literal_attribute ($text.added_title_page_title $resource.getFieldValues('added_title_page_title') 'added_title_page_title_linked_search')
+#cbt_detail_multivalued_linked_literal_attribute ($text.caption_title $resource.getFieldValues('caption_title') 'caption_title_linked_search')
+#cbt_detail_multivalued_linked_literal_attribute ($text.running_title $resource.getFieldValues('running_title') 'running_title_linked_search')
+#cbt_detail_multivalued_linked_literal_attribute ($text.spine_title $resource.getFieldValues('spine_title') 'spine_title_linked_search')
+
+## Area dell’edizione (250)
+#cbt_detail_monovalued_literal_attribute($text.edition $resource.edition)
+#cbt_detail_multivalued_literal_attribute($text.sequential_designation $resource.sequential_designation)
+
+##255
+#cbt_detail_multivalued_literal_attribute ($text.cart_math_data $resource.getFieldValues('cart_math_data'))
+
+##Area della descrizione fisica (300)
+#set($lang1 = $session.visit.preferredLocale.language)
+#if ($lang1 == "it")
+				#set($lang1 = "ita")
+			#else
+				#set($lang1 = "eng")							
+			#end	
+#cbt_detail_multivalued_literal_attribute ($text.physical_description $resource.getFieldValues("physical_description_${lang1}"))
+
+##310, 321
+#cbt_detail_multivalued_literal_attribute ($text.current_publication_frequency $resource.getFieldValues('current_publication_frequency'))
+#cbt_detail_multivalued_literal_attribute ($text.former_publication_frequency $resource.getFieldValues('former_publication_frequency'))
+
+#cbt_detail_multivalued_literal_attribute ($text.content_type $resource.getFieldValues('content_type'))
+#cbt_detail_multivalued_literal_attribute ($text.media_type $resource.getFieldValues('media_type'))
+#cbt_detail_multivalued_literal_attribute ($text.carrier_type $resource.getFieldValues('carrier_type'))
+#cbt_detail_multivalued_literal_attribute ($text.video_characteristics $resource.getFieldValues('video_characteristics'))
+#cbt_detail_multivalued_literal_attribute ($text.digital_file_characteristics $resource.getFieldValues('digital_file_characteristics'))
+
+##340
+#cbt_detail_multivalued_literal_attribute ($text.condition $resource.getFieldValues('condition'))
+
+##351
+#cbt_detail_multivalued_literal_attribute ($text.level_arrangement $resource.getFieldValues('level_arrangement'))
+
+##Area della serie (490, 8XX)
+#if($resource.collection_code == '12' || $resource.collection_code == '14')
+	#cbt_detail_multivalued_linked_literal_attribute_2 ($text.series_added_entry_uniform_title_12 $resource.getFieldValues('series_added_entry_uniform_title') 'series_added_entry_uniform_title_linked_search')
+#else	
+	#cbt_detail_multivalued_linked_literal_attribute_2 ($text.series_added_entry_uniform_title $resource.getFieldValues('series_added_entry_uniform_title') 'series_added_entry_uniform_title_linked_search')
+#end
+	
+#cbt_detail_multivalued_linked_literal_attribute_2 ($text.series_added_entry_name $resource.getFieldValues('series_added_entry_name') 'series_added_entry_name_linked_search')
+##440
+#cbt_detail_multivalued_linked_literal_attribute_2 ($text.title_series $resource.getFieldValues('title_series') 'title_series_linked_search')
+
+##Area delle note (5XX)
+#cbt_detail_multivalued_literal_attribute ($text.general_note  $resource.general_note)
+#cbt_detail_multivalued_literal_attribute ($text.with_note  $resource.with_note)
+#cbt_detail_multivalued_literal_attribute ($text.dissertation_note $resource.dissertation_note)
+#cbt_detail_multivalued_literal_attribute ($text.bibliography_note $resource.bibliography_note)
+#cbt_detail_multivalued_literal_attribute ($text.formatted_content_note $resource.formatted_content_note)
+#cbt_detail_multivalued_literal_attribute ($text.restrictions_on_access_note $resource.restrictions_on_access_note)
+#cbt_detail_multivalued_literal_attribute ($text.scale_note $resource.scale_note)
+#cbt_detail_multivalued_literal_attribute ($text.creation_credits_note $resource.creation_credits_note)
+#cbt_detail_multivalued_literal_attribute ($text.citation_note $resource.citation_note)
+#cbt_detail_multivalued_literal_attribute ($text.participant_note $resource.participant_note)
+#cbt_detail_multivalued_literal_attribute ($text.type_of_report_note $resource.type_of_report_note)
+#cbt_detail_multivalued_literal_attribute ($text.data_quality_note $resource.data_quality_note)
+#cbt_detail_multivalued_literal_attribute ($text.numbering_peculiarities_note $resource.numbering_peculiarities_note)
+#cbt_detail_multivalued_literal_attribute ($text.computer_type_note $resource.computer_type_note)
+#cbt_detail_multivalued_literal_attribute ($text.date_type_place_note $resource.date_type_place_note)
+#cbt_detail_multivalued_literal_attribute ($text.summary_note $resource.getFieldValues("summary_note_${lang1}"))
+#cbt_detail_multivalued_literal_attribute ($text.target_audience_note $resource.target_audience_note)
+#cbt_detail_multivalued_literal_attribute ($text.geo_coverage_note $resource.geo_coverage_note)
+#cbt_detail_multivalued_literal_attribute ($text.preferred_citation_note $resource.preferred_citation_note)
+#cbt_detail_multivalued_literal_attribute ($text.supplement_note $resource.supplement_note)
+#cbt_detail_multivalued_literal_attribute ($text.study_program_information_note $resource.study_program_information_note)
+#cbt_detail_multivalued_literal_attribute ($text.add_form_note $resource.add_form_note)
+#cbt_detail_multivalued_literal_attribute ($text.reproduction_note $resource.reproduction_note)
+#cbt_detail_multivalued_literal_attribute ($text.original_version_note $resource.original_version_note)
+#cbt_detail_multivalued_literal_attribute ($text.location_dup_note $resource.location_dup_note)
+#cbt_detail_multivalued_literal_attribute ($text.funding_not $resource.funding_not)
+#cbt_detail_multivalued_literal_attribute ($text.system_note $resource.system_note)
+#cbt_detail_multivalued_literal_attribute ($text.use_note $resource.use_note)
+#cbt_detail_multivalued_literal_attribute ($text.source_acq_note $resource.source_acq_note)
+#cbt_detail_multivalued_literal_attribute ($text.location_arc_note $resource.location_arc_note)
+#cbt_detail_multivalued_literal_attribute ($text.bio_note $resource.bio_note)
+#cbt_detail_multivalued_literal_attribute ($text.lang_note $resource.lang_note)
+#cbt_detail_multivalued_literal_attribute ($text.form_title_note $resource.form_title_note)
+#cbt_detail_multivalued_literal_attribute ($text.issuing_note $resource.issuing_note)
+#cbt_detail_multivalued_literal_attribute ($text.entity_note $resource.entity_note)
+#cbt_detail_multivalued_literal_attribute ($text.cumulative_index $resource.cumulative_index)
+#cbt_detail_multivalued_literal_attribute ($text.info_doc_note $resource.info_doc_note)
+#cbt_detail_multivalued_literal_attribute ($text.own_note $resource.own_note)
+#cbt_detail_multivalued_literal_attribute ($text.cpy_version_note $resource.cpy_version_note)
+#cbt_detail_multivalued_literal_attribute ($text.binding_note $resource.binding_note)
+#cbt_detail_multivalued_literal_attribute ($text.casefile_note $resource.casefile_note)
+#cbt_detail_multivalued_literal_attribute ($text.method_note $resource.method_note)
+#cbt_detail_multivalued_literal_attribute ($text.link_entry_complexity_note $resource.link_entry_complexity_note)
+#cbt_detail_multivalued_literal_attribute ($text.pub_mat_note $resource.pub_mat_note)
+#cbt_detail_multivalued_literal_attribute ($text.action_note $resource.action_note)
+#cbt_detail_multivalued_literal_attribute ($text.accumulation_note $resource.accumulation_note)
+#cbt_detail_multivalued_literal_attribute ($text.exhi_note $resource.exhi_note)
+#cbt_detail_multivalued_literal_attribute ($text.awards_note $resource.awards_note)
+
+##Soggetti e classificazione (tag 600/610/611/630/655/084)
+#cbt_detail_multivalued_linked_literal_attribute ($text.get("topical_subject_${lang1}") $resource.getFieldValues("topical_subject_${lang1}") "topical_subject_${lang1}")
+#cbt_detail_multivalued_linked_literal_attribute ($text.subject_person $resource.getFieldValues("subject_person_${lang1}") "subject_person_${lang1}")
+#cbt_detail_multivalued_linked_literal_attribute ($text.subject_corporate $resource.subject_corporate 'subject_corporate')
+#cbt_detail_multivalued_linked_literal_attribute ($text.subject_conference $resource.subject_conference 'subject_conference')
+#cbt_detail_multivalued_linked_literal_attribute ($text.subject_uniform_title $resource.subject_uniform_title 'subject_uniform_title')
+#cbt_detail_multivalued_linked_literal_attribute ($text.geographic_subject $resource.getFieldValues("geographic_subject_${lang1}") "geographic_subject_${lang1}")
+##654
+#cbt_detail_multivalued_linked_literal_attribute ($text.topics $resource.topics 'topics')
+#cbt_detail_multivalued_linked_literal_attribute ($text.genre_form_subject $resource.getFieldValues("genre_form_subject_${lang1}") "genre_form_subject_${lang1}")
+##656
+#cbt_detail_multivalued_linked_literal_attribute ($text.places $resource.places 'places')
+##657
+#cbt_detail_multivalued_linked_literal_attribute ($text.buildings_subject $resource.getFieldValues("buildings_subject_${lang1}") "buildings_subject_${lang1}")
+
+#cbt_detail_multivalued_linked_literal_attribute ($text.chronological_subject $resource.chronological_subject 'chronological_subject')
+#cbt_detail_multivalued_linked_literal_attribute ($text.index_term $resource.getFieldValues("index_term_subject_${lang1}") "index_term_subject_${lang1}")
+
+
+#cbt_detail_multivalued_linked_literal_attribute ($text.other_classification_label $resource.other_classification_label 'other_classification_label')
+#cbt_detail_multivalued_linked_literal_attribute ($text.other_classification_number $resource.other_classification_number 'other_classification_number')
+
+##classificazioni
+#cbt_detail_multivalued_linked_literal_attribute ($text.lccn $resource.getFieldValues('lccn') 'lccn')
+#cbt_detail_multivalued_linked_literal_attribute ($text.udc $resource.getFieldValues('universal_decimal_classification_number') 'universal_decimal_classification_number')
+#cbt_detail_multivalued_linked_literal_attribute ($text.dewey $resource.getFieldValues('dewey') 'dewey')
+#cbt_detail_multivalued_linked_literal_attribute ($text.local_classification $resource.getFieldValues('local_classification') 'local_classification')
+
+##072
+#cbt_detail_monovalued_i18n_attribute ($text.status $resource.status 'status')
+
+##096
+#cbt_detail_multivalued_linked_i18n_attribute ($text.digital_collection  $resource.digital_collection 'digital_collections' 'digital_collection')
+
+##Area del numero standard (020,022)
+#cbt_detail_multivalued_literal_attribute('ISBN'	$resource.isbn)
+#cbt_detail_multivalued_literal_attribute('ISSN'	$resource.issn)
+
+##Livello bibliografico
+#cbt_detail_monovalued_i18n_attribute ($text.bibliographic_level $resource.bibliographic_level 'bibliographic_level' 'bibliographic_level')
+ 
+##Formato
+##cbt_detail_multivalued_i18n_attribute ($text.format $resource.getFieldValues('format') 'format')
+
+##Lingua
+#cbt_detail_multivalued_i18n_attribute ($text.language $resource.getFieldValues('language') 'languages')
+
+##Altri autori (tag 700/710/711/720)
+#if($resource.collection_code == '12' || $resource.collection_code == '14')
+ #cbt_detail_multivalued_linked_literal_attribute ($text.other_author_12 $resource.getFieldValues('other_author_person') 'author_1xx_7xx_search')
+ #cbt_detail_multivalued_linked_literal_attribute ($text.other_author_12 $resource.getFieldValues('other_author_corporate') 'author_1xx_7xx_search')
+ #cbt_detail_multivalued_linked_literal_attribute ($text.other_author_12 $resource.getFieldValues('other_author_conference') 'author_1xx_7xx_search')
+#else
+ #cbt_detail_multivalued_linked_literal_attribute ($text.other_author $resource.getFieldValues('other_author_person') 'author_1xx_7xx_search')
+ #cbt_detail_multivalued_linked_literal_attribute ($text.other_author_corporate $resource.getFieldValues('other_author_corporate') 'author_1xx_7xx_search')
+ #cbt_detail_multivalued_linked_literal_attribute ($text.other_author_conference $resource.getFieldValues('other_author_conference') 'author_1xx_7xx_search')
+#end
+
+#cbt_detail_multivalued_literal_attribute($text.other_author_uncontrolled_name $resource.getFieldValues('other_author_uncontrolled_name'))
+
+## Altri titoli analitici (tag 730/740)
+#cbt_detail_multivalued_linked_literal_attribute ($text.added_uniform_title $resource.getFieldValues('added_uniform_title') 'titles_linked_search')
+#cbt_detail_multivalued_linked_literal_attribute ($text.uncontrolled_related_title $resource.getFieldValues('uncontrolled_related_title') 'titles_linked_search')
+
+##Relazioni (tag 76X-78X)
+#cbt_detail_literal_linked_entry ($text.main_series_entry $resource.main_series_entry $resource.main_series_entry_id)
+#cbt_detail_literal_linked_entry ($text.subseries_entry $resource.subseries_entry $resource.subseries_entry_id)
+#cbt_detail_literal_linked_entry ($text.original_language_entry $resource.original_language_entry $resource.original_language_entry_id)
+#cbt_detail_literal_linked_entry ($text.subseries_entry $resource.subseries_entry $resource.subseries_entry_id)
+#cbt_detail_literal_linked_entry ($text.translation_entry $resource.translation_entry $resource.translation_entry_id)
+#cbt_detail_literal_linked_entry ($text.supplement_entry $resource.supplement_entry $resource.supplement_entry_id)
+#cbt_detail_literal_linked_entry ($text.supplement_parent_entry $resource.supplement_parent_entry $resource.supplement_parent_entry_id)
+#cbt_detail_literal_linked_entry ($text.other_edition_entry $resource.other_edition_entry $resource.other_edition_entry_id)
+#cbt_detail_literal_linked_entry ($text.add_form_entry $resource.add_form_entry $resource.add_form_entry_id)
+#cbt_detail_literal_linked_entry ($text.issued_with_entry $resource.issued_with_entry $resource.issued_with_entry_id)
+#cbt_detail_literal_linked_entry ($text.preceding_entry $resource.preceding_entry $resource.preceding_entry_id)
+#cbt_detail_literal_linked_entry ($text.succeeding_entry $resource.succeeding_entry $resource.succeeding_entry_id)
+#cbt_detail_literal_linked_entry ($text.other_relationship_entry $resource.other_relationship_entry $resource.other_relationship_entry_id)
+#cbt_detail_literal_linked_entry ($text.constituent_unit_entry $resource.constituent_unit_entry $resource.children_id)
+
+#if($resource.collection_code == '12' || $resource.collection_code == '14')
+	#cbt_detail_literal_linked_entry ($text.is_part_of_12 $resource.is_part_of $resource.parent_id)
+#else
+	#cbt_detail_literal_linked_entry ($text.is_part_of $resource.is_part_of $resource.parent_id)
+#end
+
+#cbt_detail_multivalued_linked_literal_attribute ($text.series_added_entry $resource.getFieldValues('series_added_entry') 'series_added_entry')
+
+#cbt_detail_multivalued_literal_attribute ($text.fingerprint $resource.fingerprint)
+
+#set($uri = $resource.getFieldValues("uri_${lang1}"))
+#if ($uri)
+	<span class="attrField">$text.uri</span>
+			#foreach($uri_elem in $uri)
+				<span class="attrValue"><a href='$uri_elem' target="_blank">$uri_elem</a></span>	
+			#end
+#end
+
+##787
+#cbt_detail_literal_linked_entry ($text.described_in $resource.described_in $resource.described_in_id)
+#if($resource.collection_code == '12' || $resource.collection_code == '14')
+	#cbt_detail_literal_linked_entry ($text.related_iconography_12 $resource.related_iconography $resource.related_iconography_id)
+#else
+	#cbt_detail_literal_linked_entry ($text.related_iconography $resource.related_iconography $resource.related_iconography_id)
+#end
+
+##991
+#cbt_detail_multivalued_literal_attribute ($text.national_catalogue $resource.national_catalogue)
+##992
+#cbt_detail_multivalued_literal_attribute ($text.current_inventory $resource.current_inventory)

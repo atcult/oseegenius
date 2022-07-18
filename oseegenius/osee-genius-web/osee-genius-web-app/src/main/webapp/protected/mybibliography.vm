@@ -1,0 +1,57 @@
+#if($request.bibliography)
+    <table width="100%" >
+		<tr>
+    		<td colspan="2">
+    			#parse("protected/toolbar.vm")
+    		</td>
+    	</tr>
+		<tr>
+    		<td>  
+    			<table class="items" cellpadding="0" cellspacing="0">
+    				<tr>					
+    					<th colspan="2">&nbsp;</th>
+    					<th>$text.title</th>
+    					<th>$text.author</th>
+    					<th>$text.publisher</th>
+    				</tr>
+    				#foreach($document in $request.bibliography)
+						#if ($velocityCount % 2 == 0)
+							#set ($rowStyle="bibliography-row-even")
+						#else
+							#set ($rowStyle="bibliography-row-odd")
+						#end	
+						<tr valign="top" class="$rowStyle">
+							<td nowrap="nowrap">
+    							$velocityCount / $request.bibliography.size()
+    						</td>
+							<td>
+								#set ($checked = $session.wsel && $session.wsel.contains($document.id))
+								<a id="check_link" href="javascript:wtoggle('$document.id')"><img id="check_$document.id" src="img/checked_${checked}.png"/></a>
+							</td>
+    						<td><a class="linked_value" href="resource?uri=$document.id">$document.title</a></td>
+        					<td>#if ($document.author)$document.author#end</td>
+        					<td>#if ($document.publisher)$document.publisher.get(0)#end</td>
+						</tr>
+    				#end
+    			</table>
+    		</td>
+    	</tr>
+    </table>
+    <form name="form" method="post" action="workspace">
+    	<input type="hidden" name="action"/>	
+    	<input type="hidden" name="id"/>
+    </form>
+    <script type="text/javascript">
+    	function removeSelected(id)
+    	{
+    		document.form.action.value='remove_from_bibliography';	
+    		document.form.submit();
+    	}
+    </script>	
+#else
+		<br/><br/>
+    <table>
+		<tr class="circulation_container"><td class="loans"></td><td class="circulation_text_no">${text.empty_bibliography}</td></tr>
+		<tr><td colspan="2" height="10px"></td></tr>
+    </table>
+#end	

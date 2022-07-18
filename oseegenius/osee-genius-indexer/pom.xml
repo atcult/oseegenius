@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>osee-genius</artifactId>
+		<groupId>com.atc.osee.genius</groupId>
+		<version>1.2</version>
+	</parent>
+	<groupId>com.atc.osee.genius.indexer</groupId>
+	<artifactId>osee-genius-indexer</artifactId>
+	<packaging>pom</packaging>
+	<name>OseeGenius -I- (Main project)</name>
+	<description>OseeGenius -I- is the miodule of OseeGenius family with indexing capabilities.</description>
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+	</dependencies>
+	<modules>
+		<module>osee-genius-indexer-core</module>
+		<module>osee-genius-indexer-biblio</module>
+		<module>osee-genius-indexer-distribution</module>
+	</modules>
+	<scm>
+		<url>scm:svn:http://192.168.0.5/svn/AtCult</url>
+		<developerConnection>scm:svn:http://192.168.0.5/svn/AtCult</developerConnection>
+		<connection>scm:svn:http://192.168.0.5/svn/AtCult</connection>
+	</scm>
+</project>

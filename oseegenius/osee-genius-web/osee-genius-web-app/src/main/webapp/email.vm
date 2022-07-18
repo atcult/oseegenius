@@ -1,0 +1,61 @@
+<div class="account-form">
+		<form action="$link.relative('email')" method="post">		
+			#if ($request.sctx)<input type="hidden" name="sctx" value="a"/>#end
+			#if ($request.resourceId)<input type="hidden" name="resourceId" value="$request.resourceId"/>#end
+			<table class="login-table" >
+			  <tbody>
+				<tr><td colspan="2"><div class="account-form-sub-title">$text.send_by_email</div></td></tr>
+				<tr>
+					<td colspan="2">
+						#if (!$request.inError) 
+							$text.sendmail_info_message
+						#else
+							<span style="color:red;">$text.sendmail_error_message</span>
+						#end
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><br/><br/></td>
+				</tr>
+				<tr>
+					<td><label class="login-label" for="lname">$text.to</label></td>
+					<td><div class="login-input"><input class="login-input-text" name="recipients" id="lname" type="text" value="#if ($request.recipients)$request.recipients#else#end""/></div></td>
+				</tr>
+				<tr>
+					<td><label class="login-label" for="lname">$text.sendmail_subject</label></td>
+					<td><div class="login-input"><input class="login-input-text" name="subject" id="lname" type="text" value="#if ($request.subject)$request.subject#else#end"/></div></td>
+				</tr>
+				<tr>
+					<td nowrap="nowrap"><label class="login-label" for="lname">$text.attachment</label></td>
+					<td>
+						<div class="login-input">
+							<select id="attachment" value="pdf" name="attachment">
+        						<option value="pdf">PDF</option>
+        						<option value="html">HTML</option>
+        						<option value="xls">Excel</option>
+        						#if($request.getAttribute("from").equals("sbn"))
+									<option value="m21">Unimarc</option>
+								#else	
+									<option value="m21">Marc21</option>
+								#end	
+        						<option value="mxml">MarcXml</option>
+        						<option value="tmarc">Marc Text</option>	
+							</select>					
+						</div>
+					</td>	
+				</tr>
+				<tr>
+				    <td colspan="2">
+						<textarea name="message" style="width:395px;" rows="8">#if ($request.message)$request.message#else#end</textarea>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="submit" class="account-button" value="$text.send" /></td>
+				</tr>	  
+			  </tbody>
+			</table>
+		</form>
+	</div>
+	<script>
+			$('select#attachment').selectmenu({style:'dropdown', width:180,menuWidth:180,maxHeight: 800}); 
+	</script>	

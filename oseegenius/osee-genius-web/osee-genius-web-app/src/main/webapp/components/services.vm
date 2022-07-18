@@ -1,0 +1,16 @@
+<div class="viewlet">
+	<div class="default_viewlet_head">
+		<h3>$text.info</h3>
+	</div>
+	<div class="viewlet_body">
+		<ul>
+			<li><a href="$link.relative('/institution_info.vm')">$institution</a></li>
+<!--			<li><a href="">Le biblioteche</a></li>
+				<li><a href="">Gli archivi</a></li>
+-->			
+			<li><a href="$facebook-page" target="_new">Facebook</a></li>			
+			<li><a href="$link.relative('/contact_us.vm')">$text.contact_us</a></li>			
+		</ul>	
+	</div>
+</div>	
+#vspacer(10)

@@ -1,0 +1,12 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jan 03 12:29:40 CET 2020
+https\://repo1.maven.org/maven2/.lastUpdated=1578050980148
+https\://maven.stardog.com/.lastUpdated=1563980469695
+http\://maven.restlet.com/.lastUpdated=1547564789092
+https\://maven.stardog.com/.error=
+http\://maven.restlet.com/.error=
+http\://151.1.163.3\:8537/archiva/repository/internal/.error=
+https\://repo.maven.apache.org/maven2/.lastUpdated=1534774744271
+https\://repo.maven.apache.org/maven2/.error=
+http\://151.1.163.3\:8537/archiva/repository/internal/.lastUpdated=1534774744229
+https\://repo1.maven.org/maven2/.error=

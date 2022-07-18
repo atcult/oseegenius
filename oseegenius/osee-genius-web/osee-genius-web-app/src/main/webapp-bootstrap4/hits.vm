@@ -1,0 +1,277 @@
+<!-- hits.vm -->
+#set($tab = $session.visit.searchExperience.currentTab)
+#set($howManyRecords = $tab.response.results.numFound)	
+	
+<div class="row m-0">
+	<div class="col-md-6 offset-md-3 col-sm-12 py-2">						
+		#parse("components/search/search_expression.vm")		
+	</div> 
+	<div class="col-md-3 py-1 px-2 d-none d-md-block">
+		<img src="img/trick.png" alt="">
+		<br/>
+		<span class="strSizeOnly">$text.page_info_16</span>		
+	</div>
+</div> 
+<div class="row bg-white py-4 m-0"> 
+	################### left sidebar ##################
+	<div class="col-md-2 col-sm-12">
+		<div class="float-md-right">
+			#parse('components/export-or-download.vm')  
+			<h5 class="my-2 heading_generic">$text.new_search</h5>
+			<form name="searchForm" method="get" action="search">
+				########### input box ##########
+				<div class="input-group">					
+					<label class="sr-only" for="q">$text.simple_search_placeholder</label>	
+					<input type="text" class="form-control search-input strSizeOnly" id="q" name="q" autocomplete="off" placeholder="$text.simple_search_placeholder" aria-label="Search" aria-describedby="search"/>
+					<div class="input-group-append strSizeOnly">
+			       		<span class="input-group-text fa fa-search icon-input">
+			       			<button type="submit" class="magnifier">
+			       				<img src="img/search.png" width="30" height="30">
+			       			</button>
+			       		</span>
+			     	</div>
+				</div>
+				############# where condition ##########
+				<label for="h" class="sr-only" for="h">Cerca in </label>
+				#set ($group = $configuration.searchableMetaAttributes.entrySet().iterator().next())
+				<select  name="h" id="h" class="form-control form-osee mt-3 mb-2">
+					#foreach($attribute in $group.value)
+						<option value="$attribute">$text.get($attribute)</option>
+					#end
+				</select>
+				###### sort and pages ########
+				<div class="col-md-6 col-sm-12 form-row">				
+				<div>
+	        		<label for="s" class="label-search" style="width: max-content">
+	        			$text.result_per_page
+	        		</label>
+	        	</div>
+	        	<div style="margin-right: auto">
+	        		#set ($selectedSize = $params.s)
+        			#if (!$selectedSize) #set ($selectedSize = $configuration.defaultPageSize) #end
+                	<select id="s" name="s" onchange="javascript:requery(this.name,this.value)" class="form-control form-osee mb-2">
+	        			#foreach($pageSize in $configuration.allowedPageSizes)
+	        				<option  value="$pageSize" #if($pageSize == $selectedSize) selected #end>$pageSize</option>
+	        			#end
+            		</select>
+	        	</div>	
+	        	<div>
+	        		<label for="o" class="label-search" style="width: max-content">
+	        			$text.sorting_results_for
+	        		</label>
+	        	</div>	
+	        	<div style="min-width: max-content; margin-right: auto">				
+	        		#set($selectedCriteria = $params.o)	     		
+					<select  name="o" id="rel" onchange="javascript:requery(this.name,this.value)" class="form-control form-osee">						
+						#foreach($criteria in $configuration.orderByMetaAttributes)
+							<option value="$criteria.value" #if(${criteria.value} == ${selectedCriteria}) selected #end>
+								$text.get($criteria.messageKey)
+							</option>
+						#end
+					 </select>	
+				</div>	
+			</div>
+			
+			############### search button #############
+				<button type="submit" class="button-blue uppercase float-right btn-block py-2 my-3 strSizeOnly">$text.search</button>	
+			</form>
+			<form action="targets" method="post" name="form" id="form">
+			######### altri cataloghi ############
+				<h5 class="mt-5 heading_generic mb-1">$text.search_other_catalog</h5>
+				#foreach($target in $targets.targetList)
+                	<div class="form-check strSizeOnly">
+  						<input class="form-check-input" type="checkbox" id="targets_check" onchange="javascript:checkTargets(this)" name="$target" #if($session.targetsEnabled.contains($target))checked#end>
+  						<label class="form-check-label" for="defaultCheck1">
+    						$targets.getName($target)
+  						</label>
+					</div>				
+        		#end
+			</form>
+			#if ($session.targetsEnabled.size()>0)
+				#parse("components/browsing/federated.vm")
+			#end
+		</div>
+	</div>
+	<div class="col-md-7 col-sm-12">
+		######## center column #############	
+		<div class="row" style="flex-flow: row-reverse">
+			#if ($howManyRecords == 0)
+				#if ($tab.didYouMeanTerms )
+					<h5 class="my-2 heading_generic">$text.no_results_cloud</h5>
+				#else
+					<h5 class="my-2 heading_generic">$text.no_results</h5>
+				#end
+			#end
+			######### display view ##########
+			#if ($howManyRecords != 0)
+			<div class="col-md-6 col-sm-12 d-flex flex-row-reverse">
+				<div>
+					#set ($viewType = $params.v)
+					#if (!$viewType) #set($viewType = "l") #end
+					#if ($viewType == 'l')
+						<a href="javascript:changePerspective('v','m21');" title="$text.list_3">
+							<button type="button" class="btn button-blue link-btn mx-1">
+								$text.list_3
+							</button>
+						</a>
+						<a href="javascript:changePerspective('v','t');" title="$text.list_4">
+							<button type="button" class="btn button-blue link-btn mx-1">
+								$text.list_4
+							</button>
+						</a>
+						<a href="history" title="$text.history">
+							<button type="button" class="btn button-blue link-btn mx-1">
+								$text.history
+							</button>
+						</a>
+					#else 
+						#if ($viewType == 't')
+							<a href="javascript:changePerspective('v','m21');" title="$text.list_3">
+								<button type="button" class="btn button-blue link-btn mx-1">
+									$text.list_3
+								</button>
+							</a>
+	    					<a href="javascript:changePerspective('v','l');" title="$text.list_1">
+	    						<button type="button" class="btn button-blue link-btn mx-1">
+	    							$text.list_1
+	    						</button>
+	    					</a>
+	   						<a href="history" title="$text.history">
+	   							<button type="button" class="btn button-blue link-btn mx-1">
+	   								$text.history
+	   							</button>
+	   						</a>
+						#else
+							<a href="javascript:changePerspective('v','t');" title="$text.list_4">
+								<button type="button" class="btn button-blue link-btn mx-1">
+									$text.list_4
+								</button>
+							</a>
+	    					<a href="javascript:changePerspective('v','l');" title="$text.list_1">
+	    						<button type="button" class="btn button-blue link-btn mx-1">
+	    							$text.list_1
+	    						</button>
+	    					</a>
+	    					<a href="history" title="$text.history">
+	    						<button type="button" class="btn button-blue link-btn mx-1">
+	    							$text.history
+	    						</button>
+	    					</a>
+						#end	
+    				#end
+				</div>
+			</div>
+		</div>
+		#end
+		########### lista risultati #########
+		<div class="row mt-3" id="results">
+			#if ($howManyRecords != 0)
+				#if ($request.v && $request.v == 't')
+					#parse("components/hits/table_view_mode.vm")
+				#else 
+					#set ($tokens = $highlighter.createTokensFromQuery($request))
+					<ul class="list-group list-group-flush">
+					
+					
+			#set ($pageSizeParameter = $request.getParameter("s"))
+			#set($Integer = 0)
+			#if ($pageSizeParameter && $pageSizeParameter != '')
+				#set($howManyRecordsPerPage = $Integer.parseInt($request.getParameter("s")))			
+			#else
+				#set($howManyRecordsPerPage = 10)		
+			#end 
+			#set($Integer = 0)		
+						#set($requestPage = $request.getParameter("p"))						
+						#if ($requestPage && $requestPage != '')
+							#set($curPage = $Integer.parseInt($requestPage))							
+						#else 
+							#set($curPage = 1)			
+						#end
+						#foreach($document in $tab.response.results)
+						#numbering_results($howManyRecordsPerPage $curPage $velocityCount)
+							#set($view_component_name= "components/hits/${document.category_code}_list_view_mode.vm")
+							#parse($view_component_name)
+						#end
+					</ul>
+				#end
+			#else
+				#parse('components/search/empty-search.vm')
+			#end
+		</div>
+		
+		################ pagination #################
+		<div id="navigator">	
+			#set($tab = $session.visit.searchExperience.currentTab)
+			#set($howManyRecords = $tab.response.results.numFound)
+			#set ($pageSizeParameter = $request.getParameter("s"))
+			#set($Integer = 0)
+			#set($start = 0)
+			#if ($pageSizeParameter)
+				#set($howManyRecordsPerPage = $Integer.parseInt($request.getParameter("s")))			
+			#else
+				#set($howManyRecordsPerPage = $tab.response.results.size())		
+			#end 	
+			#if ($viewType == 'll')
+				#set($start = $math.add($start, $tab.response.header.params.start))
+			#else
+				#set($start = $math.add($start, $tab.response.results.start))
+			#end	
+			#set($startIndex = $start + 1)
+			#set($endIndex = $start + $howManyRecordsPerPage)
+			#set ($pages = $howManyRecords / $howManyRecordsPerPage)
+			#if ($howManyRecords && $howManyRecords % $howManyRecordsPerPage > 0)
+				#set ($pages = $pages + 1)
+			#end
+			#if ($tab.query && $pages > 1)	
+				#set($curPage = $start / $howManyRecordsPerPage + 1)
+				#if ($viewType == 'll')
+					#set($curPage = $Integer.parseInt($request.getParameter("p")))
+				#end	
+				#set ($onsides = 6)
+				#set ($tmp = $curPage - $onsides)
+				#if ($tmp > 0) 
+					#set ($firstClkbl = $tmp)
+				#else	
+					#set ($firstClkbl = 1)
+				#end
+				#set ($tmpIndex = $firstClkbl + (2 * $onsides))
+				#if ($tmpIndex < $pages)
+					#set ($lastClkbl = $tmpIndex)
+				#else
+					#set ($lastClkbl = $pages)				
+				#end				
+				#if( $curPage > 1)
+    				<a href='search?$parameters&p=1' ><img src="img/fastRewindDisabled.png" alt="$text.rwFirstStep" class="fast-navigation-button"/></a>			
+				#end	
+				#if ($curPage > 1)
+    				#set ($previousPage = $curPage - 1)
+    				<a href='search?$parameters&p=$previousPage'><img src="img/stepRewindDisabled.png" alt="$text.rwOneStep" class="fast-navigation-button"/></a>							
+				#end	
+				#if ($firstClkbl > 1) <span class="page mx-1"> ... </span> #end	
+				#foreach($pageIndex in [$firstClkbl..$lastClkbl])
+					#if ($pageIndex == $curPage)
+						<span class="current-page-number page mx-1">$curPage</span>
+					#else
+						<a href='search?$parameters&p=$pageIndex' title="$pageIndex" class="page mx-1 underline">$pageIndex</a>			
+					#end	
+				#end 
+				#if ($lastClkbl < $pages) <span class="page mx-1"> ... </span> #end
+				#if ($pages - $curPage > 0)
+					#set ($nextPage = $curPage + 1)
+					<a href='search?$parameters&p=$nextPage'><img src="img/stepForwardEnabled.png" alt="$text.fwOneStep" class="fast-navigation-button"/></a>								
+				#end 
+				#if ($pages - $curPage > 0)		
+    			 	<a href='search?$parameters&p=$pages'><img src="img/fastForwardEnabled.png" alt="$text.fwLastStep" class="fast-navigation-button"/></a>    		
+				#end
+			#end
+		</div>
+	</div>
+	########## facets ###########
+	#if ($howManyRecords != 0)
+	<div class="col-md-3 py-3 side-bar d-none d-md-block">
+		#parse("components/browsing/facets.vm")       	
+	</div>
+	#end
+</div>
+<div class="linedotted bg-white pt-5"/>
+#parse("email.vm")

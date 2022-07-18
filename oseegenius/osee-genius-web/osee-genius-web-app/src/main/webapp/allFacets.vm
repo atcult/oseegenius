@@ -1,0 +1,126 @@
+<b>$text.all_filter_of_your_search</b><br/><br/>
+#set($queryResponse = $request.unlimitedFacetQueryResponse)
+#set($tab = $session.visit.searchExperience.currentTab)
+#set($currentlyAppliedFilterQueries = $tab.query.filterQueries)
+
+#set($currentlyAppliedFiltersContainSelectedFilter = false)
+#foreach($appliedFilter in $currentlyAppliedFilterQueries)
+	#if ($appliedFilter.startsWith($facetField.name))
+		#set($currentlyAppliedFiltersContainSelectedFilter = true)		
+	#end
+#end	
+#if ($currentlyAppliedFiltersContainSelectedFilter && $currentlyAppliedFilterQueries)
+	#set($howManyFilterQueries = $currentlyAppliedFilterQueries.length)
+#else
+	#set($howManyFilterQueries = 0)
+#end	
+<table width="100%" cellpadding="2" cellspacing="0">
+	<tr >
+		#foreach($ff in $queryResponse.facetFields)
+			#if(!$session.lv == 'NRA'  && $ff.name == 'user_category_rag' )
+			#else	
+    			#if ($ff.name != $request.f && $ff.valueCount > 0)
+    				#if ($$ff.name != 'subject' && $ff.name!= 'name' && $ff.name!='series_statement_facet')
+    					#set ($urlPostfix = '&ignoreSort=true&o=count')
+    				#else
+    					#set ($urlPostfix = '')
+    				#end	
+    			<td align="center" style="border-right:1px solid;">
+    				<a class="atc_head_link" href="${request.contextPath}/showAll?f=${ff.name}${urlPostfix}">$breadcrumbTool.getHumanReadableLabel($request, $ff.name)</a>
+    			</td>
+    			#end 
+			#end	
+		#end
+	</tr>
+</table>
+<hr/>
+#set ($maxColumns = 5)
+#set ($module = $facetField.valueCount % $maxColumns)
+#if (($module) == 0)
+	#set( $howManyRowsPerColumn = $facetField.valueCount / $maxColumns ) 
+#else 
+	#set ($howManyRowsPerColumn = ($facetField.valueCount / $maxColumns) + $module )
+#end
+<b>$text.get($facetField.name)</b>  
+#if ($facetField.name.startsWith('author') || $facetField.name.startsWith('name')  || $facetField.name.startsWith('subject'))
+(
+#if (!$params.o || $params.o == 'count')
+	<a class="atc_head_link" href="javascript:manipulateQueryString('o', 'index')">$text.order_by_alpha</a>	
+#else
+	<a class="atc_head_link" href="javascript:manipulateQueryString('o','count')">$text.order_by_occurrence</a>
+#end
+)
+#end
+</br></br>
+
+<center>
+#if ($request.back)
+	<a class="atc_head_link" href="javascript:manipulateQueryString('offset', '$request.backOffset')">&lt;&lt; $text.back</a>
+	&nbsp;	
+#end	
+#if ($request.next)
+	<a class="atc_head_link" href="javascript:manipulateQueryString('offset', '$request.nextOffset')">$text.forward &gt;&gt;</a>
+#end
+</center>
+<table cellspacing="5">
+	#set ($currentRowIndex = 0)		
+	#foreach($facet in $facetField.values)
+			#*
+			#if ($velocityCount == $facetField.values.size())
+				#break
+			#end	
+			*#
+			#if ($currentRowIndex == 0 )
+				<tr nowrap="nowrap" valign="top">
+				<td>
+					<ul type = none>
+			#elseif ($currentRowIndex == $howManyRowsPerColumn)
+					#set ($currentRowIndex = 0)	
+					</ul>
+					<td>
+					<ul type = none>
+			#end
+			 <li>		
+    		#if($request.bundle)
+				#if ($facetField.name != 'library')
+					#set ( $value = $breadcrumbTool.getI18nLabel($request.bundle, $facet.name))
+				#else
+					#set ( $value = $request.bundle.get($facet.name) )					
+				#end	
+    		#else
+    			#set ( $value = $facet.name)
+			#end
+			#set($prova=false)
+			#if ($currentlyAppliedFiltersContainSelectedFilter)	
+				#foreach($appliedFilter in $currentlyAppliedFilterQueries)
+                	#if ($appliedFilter.startsWith($facetField.name))
+						 #set($indexOfQuotes = $facetField.name.length() + 1)
+						 #if ($indexOfQuotes != -1)
+							#set ($startIndex = $indexOfQuotes + 1)
+							#set ($endIndex = $appliedFilter.length() - 1)
+							#set($appliedFilterValue = $appliedFilter.substring($startIndex, $endIndex))
+							#if ($appliedFilterValue == $facet.name)
+								#set($prova=true)
+								#break;
+							#end	
+						#end	
+					#end	
+				#end ##foreach
+				#if ($prova==false)
+								<a class="atc_head_link" href='${request.contextPath}/search?${tab.queryParameters}&f=${facetField.name}:${esc.q}$esc.url($facet.name)${esc.q}'>$esc.html($value)</a> ($facet.count)<br/>
+							#else
+								<a class="atc_head_link" style="text-decoration:none;">$esc.html($value)</a> ($facet.count)
+								<a  class="atc_head_link" href='${request.contextPath}/showAll?a=remove&f=$facetField.name&fv=$esc.url($facet.name)'><img src="${request.contextPath}/img/cancel.png" style="vertical-align:middle;"/></a>
+				#end	
+			#else
+				#set($filterValue = $facet.name.replaceAll("\"", "\\""))
+				<a class="atc_head_link" href='${request.contextPath}/search?${tab.queryParameters}&f=${facetField.name}:${esc.q}$esc.url($filterValue)${esc.q}'>$esc.html($value)</a> ($facet.count)<br/>
+			#end
+			#set ($currentRowIndex = $currentRowIndex + 1)
+    		</li>	
+	#end
+	</ul>
+	</td>
+	</tr>
+</table>
+<br/><br/><br/>

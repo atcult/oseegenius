@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:AxwSoapWebServiceIntf-IAxwSoapWebService">
+<soapenv:Header>
+   <urn:TSecurityHeader xsi:type="urn:TSecurityHeader" xmlns:urn="urn:AxwSoapWebServiceImpl">
+      <SOAPUserName xsi:type="xsd:string">%&lt;W3bS0apAppUs3rNam3Fr0mCl13nt&gt;%</SOAPUserName>
+      <SOAPPassword xsi:type="xsd:string">!&lt;tn31lCm0rFdr0wy3KppApa0Sb3W&gt;!</SOAPPassword>
+   </urn:TSecurityHeader>
+</soapenv:Header>
+<soapenv:Body>
+   <urn:HandleUserByCFU soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">         
+      <Name xsi:type="xsd:string"></Name>
+      <Surname xsi:type="xsd:string"></Surname>
+	  <CFU xsi:type="xsd:string"></CFU>
+      <DB_UserName xsi:type="xsd:string">Weboperator</DB_UserName>
+      <DB_Password xsi:type="xsd:string">Weboperator</DB_Password>
+   </urn:HandleUserByCFU>
+</soapenv:Body>
+</soapenv:Envelope>

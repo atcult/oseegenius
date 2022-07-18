@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="exportMarc21" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="com.atc.osee.web.servlets.report.messages">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="274"/>
+	<parameter name="TITLE" class="java.lang.String"/>
+	<parameter name="RECORD_TITLE" class="java.lang.String"/>
+	<parameter name="LOGO_URI" class="java.lang.String"/>
+	<parameter name="PUBLISHER" class="java.lang.String"/>
+	<parameter name="AUTHOR" class="java.lang.String"/>
+	<parameter name="EDITION" class="java.lang.String"/>
+	<parameter name="LANGUAGE" class="java.lang.String"/>
+	<parameter name="FORMAT" class="java.lang.String"/>
+	<parameter name="BIBLIOGRAPHIC_LEVEL" class="java.lang.String"/>
+	<parameter name="DEWEY" class="java.lang.String"/>
+	<parameter name="CONTENT_TYPE" class="java.lang.String"/>
+	<parameter name="OTHER_AUTHOR" class="java.lang.String"/>
+	<parameter name="AMICUS_NUMBER" class="java.lang.String"/>
+	<parameter name="ADDITIONAL_TITLE" class="java.lang.String"/>
+	<parameter name="PHYSICAL_DESCRIPTION" class="java.lang.String"/>
+	<parameter name="ISBN" class="java.lang.String"/>
+	<parameter name="ISSN" class="java.lang.String"/>
+	<parameter name="SUBJECT" class="java.lang.String"/>
+	<parameter name="PART_OF" class="java.lang.String"/>
+	<parameter name="FORMATTED_CONTENT_NOTES_ENG" class="java.lang.String"/>
+	<parameter name="NOTES_ENG" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="71" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="17"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("export_title")]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="455" y="0" width="100" height="61"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{LOGO_URI}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="544" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="17" width="555" height="58" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{RECORD_TITLE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="95" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font size="10" isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PUBLISHER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="75" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{AUTHOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="115" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{EDITION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="135" width="462" height="26" isRemoveLineWhenBlank="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{LANGUAGE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="161" width="462" height="26" isRemoveLineWhenBlank="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{FORMAT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="49" width="462" height="26" isRemoveLineWhenBlank="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("an")+$P{AMICUS_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="291" width="93" height="26"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("other_author")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="93" y="291" width="462" height="26"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{OTHER_AUTHOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="317" width="93" height="26"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("additional_title")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="93" y="317" width="462" height="26"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ADDITIONAL_TITLE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="343" width="93" height="26"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("physical_description")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="93" y="343" width="462" height="26"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PHYSICAL_DESCRIPTION}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="93" y="369" width="462" height="26"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ISBN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="369" width="93" height="26"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("ISBN")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="395" width="93" height="26"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("ISSN")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="93" y="395" width="462" height="26"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ISSN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="421" width="93" height="26"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("subject")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="93" y="421" width="462" height="26"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{SUBJECT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="93" y="473" width="462" height="26"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{FORMATTED_CONTENT_NOTES_ENG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="473" width="93" height="26"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("formatted_content_notes_eng")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="499" width="93" height="26"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("notes_eng")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="93" y="499" width="462" height="26"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NOTES_ENG}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="0" y="27" width="555" height="23"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("footer_msg")]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,16 @@
+#if ($license.holdingDataViewerEnabled)	
+	<!-- bncf2/componets/circulation/holdings.vm -->
+	##<div id="holdings"></div>
+	#if (!$request.copies)
+		#set ($format = $request.resource.format)		
+		#if (!($format == 'CO' || $format == 'TD' || $request.resource.piece_level_linking_entry))			
+			$text.holding_data_not_available
+		#end
+	#else
+		#if($request.isPeriodic)
+			#parse("components/circulation/periodic_holdings.vm")
+		#else
+			#parse("components/circulation/monograph_holdings.vm")
+		#end		
+	#end
+#end

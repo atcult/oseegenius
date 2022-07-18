@@ -1,0 +1,64 @@
+#set($loggedUser = $session.visit.folioAccount)
+#if($loggedUser.isAdmin())
+<!-- components/userPanel/block_form.vm -->
+	<div class="row m-0">
+		<div class="col-md-6 offset-md-3 col-sm-12 py-4">
+			<h2>$text.block_user</h2>
+		</div>
+	</div>		
+	<div class="bg-white p-5 m-0"> 		
+		<div class="row"> 
+			<div class="col-12">	
+				#if ($request.inError) 
+					<div class="alert alert-danger">$request.errorMessage</div>
+				#end
+				#if ($request.message)
+					<div class="alert alert-success" role="alert">$text.get($message)</div>
+				#end 
+				#if($user)    				
+    				#if ($request.isLoanEnabled)
+    					<form  action="blockUser" method="post" class="form-inline my-5">
+    						<input name="userId" type="hidden"  value="$user.id" />
+    						
+    						<div class="form-group mx-3">
+								<label class="close-label mr-3" for="date">Fino al (${text.date_placeholder})</label>
+								<input name="date" id="date" placeholder="${text.date_placeholder}" type="text" class="form-control form-osee" required/>	
+							</div>	
+								
+							<button class="button-blue mx-3 p-2" type="submit">$text.block_user</button>							
+									
+    					</form>
+    				#else 
+    					### if it is not changed now
+    					#if(!$request.message)
+    						<div class="alert alert-danger">$text.already_blocked</div>
+    					#end	
+    				#end
+    				
+    				####### riepilogo utente ########
+    				<table class="table"> 
+            			<thead>
+                			<th>$text.name</th>
+                			<th>Username</th>
+                			<th>$text.dateOfBirth</th>
+                			<th>$text.barcode</th>
+                			<th>Email</th>            						
+                            <th>Categoria</th>	
+						</thead>
+            			<tbody>                       			
+                    		<tr>        						
+                    			<td>#if($user.firstName)$user.firstName #end  #if($user.lastName)$user.lastName #end</td>
+                    			<td>#if($user.username)$user.username #end</td>
+                    			<td>#if($user.dateOfBirth)$string.showSimpleDate($user.dateOfBirth)#end</td>
+                    			<td>#if($user.barcode)$user.barcode #end</td>
+                    			<td>#if($user.email)$user.email #end</td>            								
+								<td>#if($user.patronGroupName)$user.patronGroupName #end</td>   
+								
+                    		</tr>            						
+            			</tbody>
+            		</table>
+    			#end
+			</div>	
+		</div>
+	</div>	
+#end	

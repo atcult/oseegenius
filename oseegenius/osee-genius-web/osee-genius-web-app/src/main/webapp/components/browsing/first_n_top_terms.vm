@@ -1,0 +1,23 @@
+#if ($application.topConcepts)
+<div class="viewlet">
+	<div class="default_viewlet_head">
+		<h3>$text.first_top_terms</h3>
+	</div>
+	<div class="viewlet_body">	
+    		<table>
+    			#foreach($topConcept in $application.topConcepts)
+    			<tr>
+    				<td>
+						<span id="top_term">
+        					<a id="tt" href='thresource?uri=$esc.url($topConcept.id)' class="pref-label searchLabel">$topConcept.prefLabel</a>
+        					<br/>
+        					<a id="uri" href='$topConcept.id' class="concept-uri" target="_new">$topConcept.id</a>
+						</span>	
+    				</td>
+    			</tr>	
+    			#end	
+    		</table>
+	</div>	
+</div>						
+#vspacer(10)
+#end

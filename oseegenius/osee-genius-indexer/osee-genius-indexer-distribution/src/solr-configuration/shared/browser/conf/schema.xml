@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="Osee Genius Schema - Browsing Index for title attribute" version="1.2">
+	<types>
+		<fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+		<fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0" omitNorms="true"/>
+	</types>
+	<fields>
+		<field name="term" type="string" indexed="true" stored="true" required="true" multiValued="false"/> 
+		<field name="isPreferredForm" type="boolean" indexed="false" stored="true" multiValued="false" default="n"/> 
+		<field name="sortKey" type="string" indexed="true" stored="true" required="true" multiValued="false"/> 
+		
+		<field name="seeAlso" type="string" indexed="true" stored="true" required="false" multiValued="true"/> 
+		<field name="seenAlsoFrom" type="string" indexed="true" stored="true" required="false" multiValued="true"/> 
+		
+		<field name="seeInstead" type="string" indexed="true" stored="true" required="false" multiValued="true"/> 
+		<field name="seenInsteadFrom" type="string" indexed="true" stored="true" required="false" multiValued="true"/> 
+				
+		<field name="sameAs" type="string" indexed="true" stored="true" required="false" multiValued="true"/> 		
+		
+		<field name="note" type="string" indexed="false" stored="true" required="false" multiValued="false"/>
+        <field name="logical_view" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="hdg-nbr" type="int" indexed="true" stored="true" required="false" multiValued="false"/>
+    </fields>
+ 	<uniqueKey>sortKey</uniqueKey>
+ 	<defaultSearchField>sortKey</defaultSearchField>
+ 	<solrQueryParser defaultOperator="OR"/>
+</schema>

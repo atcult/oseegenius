@@ -1,0 +1,20 @@
+<br/><br/>
+<font class="tab-caption">$text.emptyTabTitle</font>
+<br/><br/><br/>
+<table style="margin: 0px;  border-spacing:5px; border-collapse: separate;" width="650px;">
+	<tr >
+		<td nowrap="nowrap"><span class="tab-section-title">$text.reopenTitle</span></td>
+		<td valign="top" nowrap="nowrap"><span class="tab-section-title">$text.simple_search</span></td>
+		<td valign="top" nowrap="nowrap"><span class="tab-section-title">$text.advancedSearchTitle</span></td>
+	</tr>
+	<tr >
+		#if ($session.visit.historyNotEmpty)
+		<td><a class="linked_value" href="history">$text.reopenMsg</a></td>
+		#else
+			<td>$text.reopenMsg</td>
+		#end	
+		<td valign="top">$text.searchMsg</td>
+		<td valign="top"><a class="linked_value" href="advanced?a=reset">$text.advancedSearchMsg</a></td>
+	</tr>
+</table>
+<br/><br/><br/><br/><br/>

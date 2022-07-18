@@ -1,0 +1,59 @@
+div.jqcloud {
+  font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif;
+  color: #09f;
+  overflow: hidden;
+  position: relative;
+}
+div.jqcloud a {
+  color: inherit;
+  text-decoration: none;
+}
+div.jqcloud a:hover {
+  color: #246594;
+}
+div.jqcloud a:hover {
+  color: #246594;
+}
+div.jqcloud span {
+  padding: 0;
+}
+div.jqcloud span.w10 a{
+  font-size: 275%;
+  color: #246594;
+}
+div.jqcloud span.w9 a{
+  font-size: 250%;
+  color: #246594;
+}
+div.jqcloud span.w8 a{
+  font-size: 225%;
+  color: #246594;
+}
+div.jqcloud span.w7 a{
+  font-size: 200%;
+  color: #427caa;
+}
+div.jqcloud span.w6 a{
+  font-size: 175%;
+  color: #427caa;
+}
+div.jqcloud span.w5 a{
+  font-size: 150%;
+  color: #427caa;
+}
+div.jqcloud span.w4 a{
+  font-size: 125%;
+  color: #5c94c1;
+}
+div#dum .jqcloud span.w3 a{
+  font-size: 100%;
+  color: #5c94c1;
+}
+div.jqcloud span.w2 a{
+  font-size: 80%;
+  color: #76acd8;
+}
+div.jqcloud span.w1 a{
+  font-size: 70%;
+  color: #90c5f0;
+}

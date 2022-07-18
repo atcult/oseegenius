@@ -1,0 +1,5 @@
+<div id="breadcrumb">
+	#set($tab = $session.visit.thSearchExperience.currentTab)		
+    <a href="$request.home"><img src='$link.relative("/img/bd_${request.searcher}.png")'/></a>	
+	#if ($tab.response)<a href="$link.relative('/threturn')">($text.return_to_search)</a>#else<a href="$link.relative('/thexplorer')">($text.return_home)</a>#end
+</div>

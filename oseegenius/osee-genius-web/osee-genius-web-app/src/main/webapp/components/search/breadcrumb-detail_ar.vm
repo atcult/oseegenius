@@ -1,0 +1,9 @@
+<style>
+	#breadcrumb a:hover {border:none;text-decoration: none;}
+</style>
+<div id="breadcrumb">	
+		#set($tab = $session.visit.searchExperience.currentTab)	
+		##set($noHomeLink = $request.nohomelink)
+		#if (!$visit.searchExperience.empty)<a class="linked_value" href='search?${session.visit.searchExperience.currentTab.queryParameters}'>($text.return_to_search) </a>
+		#end 
+</div>

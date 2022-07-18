@@ -1,0 +1,13 @@
+<div id="toolbar" class="box">
+	<div id="navigator">
+		#if (!$tab.new)			
+			#if ($headings && $tab.response.responseHeader.back-allowed)
+				<a href='browse?from=$esc.url($firstHeadingInList)&i=$params.i&pos=$selectedSize&s=$selectedSize&sk=true'>$text.back</a>
+    		#end
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			#if ($headings && $tab.response.responseHeader.forward-allowed)
+				<a href='browse?from=$esc.url($lastHeadingInList)&i=$params.i&pos=1&s=$selectedSize&sk=true'>$text.forward</a>
+			#end
+		#end	
+	</div>		
+</div>

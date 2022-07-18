@@ -1,0 +1,31 @@
+#set($tab = $session.visit.thSearchExperience.currentTab)
+	<ul id="up">
+		#foreach($searchTab in $session.visit.thSearchExperience.tabs)
+			#if ($searchTab == $tab)
+				<li class="c">
+					<span style="float:left;margin-top:2px;">$searchTab.title </span>
+					#spacer(5)
+					<a href="$link.relative('closeThTab')"/><img src="$link.relative('/img/close-tab.png')" height="16" width="16" style="vertical-align:top; margin-left:7px;"/></a></li>
+			#else
+    			<li>	<a href="$link.relative('thsearch')?$searchTab.queryParameters">$searchTab.title</a></li>	
+			#end	
+		#end
+		<li><a href="$link.relative('newThTab')" style="text-decoration:none;">+</a></li>
+	</ul>								
+	<div id="document-details">
+		#if ($tab.new)
+			<br/>
+			<span>
+				#parse('components/search/history_thexp.vm')
+			</span>
+		#else
+			#if ($tab.response.results.numFound == 0)
+				#parse('components/search/empty-search.vm')
+			#else
+    			#foreach($document in $tab.response.results)
+    				#parse('components/hits/list_view_mode_thexp.vm')
+				#end
+			#end	
+		#end
+	</div>
+	<div style="clear:both;"></div>

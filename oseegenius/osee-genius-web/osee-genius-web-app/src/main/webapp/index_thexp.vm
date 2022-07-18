@@ -1,0 +1,16 @@
+<br/><br/>
+<center><img src="$link.relative('/img/th-genius-logo.png')" class="logoBig"/></center>	
+<table cellspacing="10">
+	<tr>
+		<td>
+			<font class="homepage-column-title">$text.search</font><br/>$text.thgenius_column1_hp_msg
+		</td>
+		<td valign="top">
+			<font class="homepage-column-title">$text.browsing</font><br/>$text.thgenius_column2_hp_msg
+		</td>
+		<td valign="top">
+			<font class="homepage-column-title">$text.controlled_search</font><br/>$text.thgenius_column3_hp_msg
+		</td>
+	</tr>
+	</table>
+	<center id="a"><div id="tlcloud" ></div></center>

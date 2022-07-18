@@ -1,0 +1,28 @@
+.selection-table {
+    border-collapse: collapse;
+    font-family: "Trebuchet MS",Arial,Helvetica,sans-serif;
+    width: 100%;
+}
+
+.selection-table td, .selection-table th {
+    border: 1px solid gray;;
+    font-size: 1.0em;
+    padding: 3px 7px 2px;
+}
+
+.selection-table th {
+    background-color: #cecece;
+    color: #000;
+    font-size: 1.0em;
+    padding-bottom: 4px;
+    padding-top: 5px;
+    text-align: left;
+}
+
+.selection-row-even {background-color: #ECE5B6;}
+.selection-row-odd {background-color: #FFFFD6;}
+
+.selection-title {}
+.selection-author {font-style:italic;}
+.selection-publisher {}
+.selection-isbn {}

@@ -1,0 +1,32 @@
+<!-- history/fedeteted_searches.vm -->
+<div class="table-responsive container-fluid">
+<table class="table">
+	<thead>
+	<tr class="d-flex">
+		<th class="col-1">$text.date</th>			
+        <th class="col-3 col-md-1">$text.terms</th>
+        <th class="col-1 d-none d-md-block">$text.index</th>
+		<th class="col-1 d-none d-lg-block">$text.order_by</th>
+		<th class="col-1 d-none d-lg-block">$text.filters</th>
+		<td class="col-3 col-md-1">&nbsp;</td>
+    </tr>
+    </thead>
+    <tbody>
+	#foreach($entry in $request.entries)	
+    <tr class="d-flex">
+		<td class="col-1 my-0" valign="middle"><a class="landingLink strSizeOnly my-0" href='$entry.searchUri'>$date.format("dd MM yyyy HH:mm",$entry.date, $session.visit.preferredLocale)</td>
+        <td class="col-3 col-md-1 strSizeColor my-0">$entry.query</td>
+        <td class="col-1 strSizeColor my-0 d-none d-md-block" >#if ($entry.targetMetaAttribute)$text.get($entry.targetMetaAttribute)#else$text.any_bc#end</td>
+        <td class="col-1 strSizeColor my-0 d-none  d-lg-block">$text.get($entry.orderByCriteria.replaceFirst(":","_"))</td>
+		<td class="col-1 strSizeColor my-0 d-none d-lg-block">
+			#if ($entry.filters)
+				#foreach($filter in $entry.filters)
+					- $breadcrumbTool.getHumanReadableFederatedLabel($request, $filter)<br/>
+				#end	
+			#end
+		</td>
+		<td class="col-3 col-md-1 my-0" valign="middle"><a class="landingLink strSizeOnly my-0" href="javascript:removeSearchEntry('$entry.id')"><img src="img/minus.png" alt="">&nbsp;$text.remove</a></td> 				
+	</tr>
+	#end
+    </tbody>
+</table>

@@ -1,0 +1,11 @@
+#set($selectionSize = $session.visit.searchExperience.currentTab.howManySelectedForExport())
+#set($selectionSizeSend = $session.visit.searchExperience.currentTab.howManySelectedForSend())
+<div class="viewlet" style="#if ($selectionSize != 0 || $selectionSizeSend != 0) display:none; #end" id="info">
+	<div class="viewlet_toggable_head"><h3><img src="img/trick.png" style="vertical-align:middle;">&nbsp; Info</h3></div>	
+	<div class="viewlet_body">$text.exp_dwnd_info</div>
+</div>	
+<div class="viewlet" style="#if ($selectionSize == 0 || $selectionSizeSend == 0) display:none; #end" id="deselect-info">
+	<div class="viewlet_toggable_head"><h3><img src="img/trick.png" style="vertical-align:middle;">&nbsp; Info</h3></div>	
+	<div class="viewlet_body">$text.deselect_text_part1 <a style="cursor:pointer;" onclick="javascript:clearSelection();">$text.this_link</a> $text.deselect_text_part2</div>
+</div>
+#vspacer(10)

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>    
+		<title>Osee Genius - Search and Discovery</title>
+		<link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+		<link href="style/og.css" rel="stylesheet" type="text/css" />
+		<link href="style/jquery.ui.theme.css" rel="stylesheet" type="text/css" />
+		<link href="style/customer.css" rel="stylesheet" type="text/css" />
+		<link href="style/xtree.css" rel="stylesheet" type="text/css" />
+		<link href="style/prettyPhoto.css" rel="stylesheet" type="text/css" />				
+		<link href="style/jquery.ui.selectmenu.css" rel="stylesheet" type="text/css" />	
+        <script type="text/javascript" src="js/jquery.min.1.4.4.js"></script> 
+		<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+        <script type="text/javascript" src="js/xtree.js"></script>
+		<script type="text/javascript" src="js/jquery.ui.core.js"></script>
+		<script type="text/javascript" src="js/jquery.ui.widget.js"></script>
+		<script type="text/javascript" src="js/jquery.ui.position.js"></script>
+		<script type="text/javascript" src="js/jquery.ui.selectmenu.js"></script>
+		<script type="text/javascript" src="js/jquery.ui.button.js"></script>
+		<script type="text/javascript" src="js/oseegenius.js"></script>
+		<script type="text/javascript" src="js/jquery.xslt.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function()
+			{
+				$("[rel^='prettyPhoto']").prettyPhoto({social_tools: false});
+				$('select#send').selectmenu({style:'dropdown', width:150,menuWidth:150,maxHeight: 800}); 
+				$('select#export').selectmenu({style:'dropdown', width:150,menuWidth:150,maxHeight: 800}); 
+				$('select#download').selectmenu({style:'dropdown', width:150,menuWidth:150,maxHeight: 800}); 
+				
+			});		
+		</script>
+	</head>
+	<body>
+    	<div id="container"> 
+			#parse('components/links.vm')
+			<div id="top-toolbar">
+				#parse('components/page/top-toolbar-ext.vm')	
+				#parse('components/search/breadcrumb-ext.vm')	
+			</div>
+            <div id="header"></div> 
+            <div id="navigation"> 	
+				#parse('components/export-or-download-info.vm')
+				#parse('components/desiderata.vm')	
+				#parse('components/export-or-download.vm')
+				#parse('components/send-by-email.vm')
+            </div> 
+            <div id="extra"></div> 
+            <div id="content">$screen_content</div>
+			<br/>
+			<br/>
+			<br/>			<br/>
+			<br/>
+    		#parse('components/search/bottom-toolbar-ext.vm')	
+		</div>
+			#set($pageSize = $params.num)
+			#if (!$pageSize || $pageSize == 0) #set($pageSize = 5) #end
+		<script type="text/javascript" src="js/ext_list_view.jsp?num=$pageSize"></script>		
+	</body>
+</html>

@@ -1,0 +1,231 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<maven2-moduleset>
+  <actions/>
+  <description>OseeGenius Indexer</description>
+  <logRotator>
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>4</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <createdBy>agazzarini</createdBy>
+  <creationTime>1328166650423</creationTime>
+  <properties/>
+  <scm class="hudson.scm.SubversionSCM">
+    <locations>
+      <hudson.scm.SubversionSCM_-ModuleLocation>
+        <remote>http://192.168.0.5/svn/AtCult/MvnProjects/ByProduct/OseeGenius/trunk/osee-genius</remote>
+        <local>.</local>
+        <depthOption>infinity</depthOption>
+        <ignoreExternalsOption>false</ignoreExternalsOption>
+      </hudson.scm.SubversionSCM_-ModuleLocation>
+    </locations>
+    <excludedRegions></excludedRegions>
+    <includedRegions></includedRegions>
+    <excludedUsers></excludedUsers>
+    <excludedRevprop></excludedRevprop>
+    <excludedCommitMessages></excludedCommitMessages>
+    <workspaceUpdater class="hudson.scm.subversion.UpdateUpdater"/>
+  </scm>
+  <advancedAffinityChooser>false</advancedAffinityChooser>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <authToken>ATC</authToken>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <cleanWorkspaceRequired>false</cleanWorkspaceRequired>
+  <rootModule>
+    <groupId>com.atc.osee.genius.indexer</groupId>
+    <artifactId>osee-genius-distribution</artifactId>
+  </rootModule>
+  <rootPOM>osee-genius-indexer/osee-genius-indexer-distribution/pom.xml</rootPOM>
+  <goals>package -P PUG,CRO</goals>
+  <aggregatorStyleBuild>true</aggregatorStyleBuild>
+  <incrementalBuild>false</incrementalBuild>
+  <usePrivateRepository>false</usePrivateRepository>
+  <ignoreUpstremChanges>false</ignoreUpstremChanges>
+  <archivingDisabled>false</archivingDisabled>
+  <resolveDependencies>false</resolveDependencies>
+  <processPlugins>false</processPlugins>
+  <mavenValidationLevel>-1</mavenValidationLevel>
+  <reporters>
+    <hudson.plugins.checkstyle.CheckStyleReporter>
+      <healthy></healthy>
+      <unHealthy></unHealthy>
+      <pluginName>[CHECKSTYLE] </pluginName>
+      <thresholdLimit>low</thresholdLimit>
+      <canRunOnFailed>false</canRunOnFailed>
+      <useDeltaValues>false</useDeltaValues>
+      <thresholds>
+        <unstableTotalAll></unstableTotalAll>
+        <unstableTotalHigh></unstableTotalHigh>
+        <unstableTotalNormal></unstableTotalNormal>
+        <unstableTotalLow></unstableTotalLow>
+        <unstableNewAll></unstableNewAll>
+        <unstableNewHigh></unstableNewHigh>
+        <unstableNewNormal></unstableNewNormal>
+        <unstableNewLow></unstableNewLow>
+        <failedTotalAll></failedTotalAll>
+        <failedTotalHigh></failedTotalHigh>
+        <failedTotalNormal></failedTotalNormal>
+        <failedTotalLow></failedTotalLow>
+        <failedNewAll></failedNewAll>
+        <failedNewHigh></failedNewHigh>
+        <failedNewNormal></failedNewNormal>
+        <failedNewLow></failedNewLow>
+      </thresholds>
+    </hudson.plugins.checkstyle.CheckStyleReporter>
+    <hudson.maven.reporters.MavenMailer>
+      <recipients>andrea.gazzarini@atcult.it maura.braddi@atcult.it</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>true</sendToIndividuals>
+    </hudson.maven.reporters.MavenMailer>
+    <hudson.plugins.javancss.JavaNCSSMavenPublisher>
+      <targets>
+        <hudson.plugins.javancss.JavaNCSSHealthTarget>
+          <metric class="hudson.plugins.javancss.JavaNCSSHealthMetrics">COMMENT_RATIO</metric>
+          <healthy>50.0</healthy>
+          <unhealthy>10.0</unhealthy>
+        </hudson.plugins.javancss.JavaNCSSHealthTarget>
+        <hudson.plugins.javancss.JavaNCSSHealthTarget>
+          <metric class="hudson.plugins.javancss.JavaNCSSHealthMetrics">JAVADOC_RATIO</metric>
+          <healthy>95.0</healthy>
+          <unhealthy>80.0</unhealthy>
+        </hudson.plugins.javancss.JavaNCSSHealthTarget>
+      </targets>
+    </hudson.plugins.javancss.JavaNCSSMavenPublisher>
+  </reporters>
+  <publishers>
+    <hudson.tasks.BuildTrigger>
+      <childProjects>OseeGenius-S-</childProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+      </threshold>
+    </hudson.tasks.BuildTrigger>
+    <hudson.plugins.jdepend.JDependRecorder>
+      <configuredJDependFile></configuredJDependFile>
+    </hudson.plugins.jdepend.JDependRecorder>
+    <hudson.plugins.postbuildtask.PostbuildTask>
+      <tasks>
+        <hudson.plugins.postbuildtask.TaskProperties>
+          <logTexts>
+            <hudson.plugins.postbuildtask.LogProperties>
+              <logText></logText>
+              <operator>AND</operator>
+            </hudson.plugins.postbuildtask.LogProperties>
+          </logTexts>
+          <EscalateStatus>true</EscalateStatus>
+          <RunIfJobSuccessful>true</RunIfJobSuccessful>
+          <script>post-build-oseegenius-i.sh</script>
+        </hudson.plugins.postbuildtask.TaskProperties>
+      </tasks>
+    </hudson.plugins.postbuildtask.PostbuildTask>
+    <hudson.plugins.emailext.ExtendedEmailPublisher>
+      <recipientList>andrea.gazzarini@atcult.it,maura.braddi@atcult.it</recipientList>
+      <configuredTriggers>
+        <hudson.plugins.emailext.plugins.trigger.UnstableTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <sendToDevelopers>true</sendToDevelopers>
+            <includeCulprits>false</includeCulprits>
+            <sendToRecipientList>true</sendToRecipientList>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.UnstableTrigger>
+        <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <sendToDevelopers>true</sendToDevelopers>
+            <includeCulprits>false</includeCulprits>
+            <sendToRecipientList>true</sendToRecipientList>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+        <hudson.plugins.emailext.plugins.trigger.StillFailingTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <sendToDevelopers>true</sendToDevelopers>
+            <includeCulprits>false</includeCulprits>
+            <sendToRecipientList>true</sendToRecipientList>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.StillFailingTrigger>
+        <hudson.plugins.emailext.plugins.trigger.SuccessTrigger>
+          <email>
+            <recipientList>andrea.gazzarini@atcult.it,maura.braddi@atcult.it</recipientList>
+            <subject>OseeGenius -I-  (Build Nr. $BUILD_NUMBER) successfully installed.</subject>
+            <body>Hi, &lt;br/&gt;
+I&apos;m pleased to announce the successfull deployment of OseeGenius -I- in our test environment. 
+&lt;br/&gt;
+&lt;br/&gt;
+*** TECHNICAL INFO  ***
+&lt;ul&gt;
+&lt;li&gt;Build number: $BUILD_NUMBER&lt;/li&gt;
+&lt;li&gt;Build URL : &lt;a href=&quot;$BUILD_URL&quot;&gt;$BUILD_URL&lt;/a&gt; (only @Cult intranet) &lt;/li&gt;
+&lt;/ul&gt;
+
+Regards,&lt;br/&gt;
+Mr. Hudson</body>
+            <sendToDevelopers>true</sendToDevelopers>
+            <includeCulprits>false</includeCulprits>
+            <sendToRecipientList>true</sendToRecipientList>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.SuccessTrigger>
+        <hudson.plugins.emailext.plugins.trigger.StillUnstableTrigger>
+          <email>
+            <recipientList></recipientList>
+            <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+            <body>$PROJECT_DEFAULT_CONTENT</body>
+            <sendToDevelopers>true</sendToDevelopers>
+            <includeCulprits>false</includeCulprits>
+            <sendToRecipientList>true</sendToRecipientList>
+          </email>
+        </hudson.plugins.emailext.plugins.trigger.StillUnstableTrigger>
+      </configuredTriggers>
+      <contentType>text/html</contentType>
+      <defaultSubject>$DEFAULT_SUBJECT</defaultSubject>
+      <defaultContent>$DEFAULT_CONTENT</defaultContent>
+    </hudson.plugins.emailext.ExtendedEmailPublisher>
+  </publishers>
+  <buildWrappers>
+    <org.jvnet.hudson.plugins.SSHBuildWrapper>
+      <siteName>192.168.0.33</siteName>
+      <preScript>cp /home/maura/work/data/worked-out/pug.mrc /home/maura/work/data/biblio; cp /home/maura/work/data/worked-out/pmarek.mrc /home/maura/work/data/biblio</preScript>
+      <postScript>curl &quot;http://localhost:8976/solr/main/update?stream.body=&lt;delete&gt;&lt;query&gt;*:*&lt;/query&gt;&lt;/delete&gt;&quot;&#xd;
+curl &quot;http://localhost:8976/solr/autocomplete/update?stream.body=&lt;delete&gt;&lt;query&gt;*:*&lt;/query&gt;&lt;/delete&gt;&quot;&#xd;
+curl &quot;http://localhost:8976/solr/title_browse/update?stream.body=&lt;delete&gt;&lt;query&gt;*:*&lt;/query&gt;&lt;/delete&gt;&quot;&#xd;
+curl &quot;http://localhost:8976/solr/author_browse/update?stream.body=&lt;delete&gt;&lt;query&gt;*:*&lt;/query&gt;&lt;/delete&gt;&quot;&#xd;
+curl &quot;http://localhost:8976/solr/subject_browse/update?stream.body=&lt;delete&gt;&lt;query&gt;*:*&lt;/query&gt;&lt;/delete&gt;&quot;&#xd;
+curl &quot;http://localhost:8976/solr/classification_browse/update?stream.body=&lt;delete&gt;&lt;query&gt;*:*&lt;/query&gt;&lt;/delete&gt;&quot;&#xd;
+curl &quot;http://localhost:8976/solr/publisher_browse/update?stream.body=&lt;delete&gt;&lt;query&gt;*:*&lt;/query&gt;&lt;/delete&gt;&quot;&#xd;
+curl &quot;http://localhost:8976/solr/publication_place_browse/update?stream.body=&lt;delete&gt;&lt;query&gt;*:*&lt;/query&gt;&lt;/delete&gt;&quot;&#xd;
+curl &quot;http://localhost:8976/solr/isbn_browse/update?stream.body=&lt;delete&gt;&lt;query&gt;*:*&lt;/query&gt;&lt;/delete&gt;&quot;&#xd;
+curl &quot;http://localhost:8976/solr/issn_browse/update?stream.body=&lt;delete&gt;&lt;query&gt;*:*&lt;/query&gt;&lt;/delete&gt;&quot;&#xd;
+curl &quot;http://localhost:8976/solr/nt_name_browse/update?stream.body=&lt;delete&gt;&lt;query&gt;*:*&lt;/query&gt;&lt;/delete&gt;&quot;&#xd;
+curl &quot;http://localhost:8976/solr/nt_title_browse/update?stream.body=&lt;delete&gt;&lt;query&gt;*:*&lt;/query&gt;&lt;/delete&gt;&quot;&#xd;
+&#xd;
+curl &quot;http://localhost:8976/solr/main/update?commit=true&quot;&#xd;
+&#xd;
+curl &quot;http://localhost:8976/solr/admin/cores?action=UNLOAD&amp;core=main&amp;deleteIndex=true&quot;&#xd;
+curl &quot;http://localhost:8976/solr/admin/cores?action=UNLOAD&amp;core=autocomplete&amp;deleteIndex=true&quot;&#xd;
+curl &quot;http://localhost:8976/solr/admin/cores?action=UNLOAD&amp;core=title_browse&amp;deleteIndex=true&quot;&#xd;
+curl &quot;http://localhost:8976/solr/admin/cores?action=UNLOAD&amp;core=author_browse&amp;deleteIndex=true&quot;&#xd;
+curl &quot;http://localhost:8976/solr/admin/cores?action=UNLOAD&amp;core=subject_browse&amp;deleteIndex=true&quot;&#xd;
+curl &quot;http://localhost:8976/solr/admin/cores?action=UNLOAD&amp;core=classification_browse&amp;deleteIndex=true&quot;&#xd;
+curl &quot;http://localhost:8976/solr/admin/cores?action=UNLOAD&amp;core=publisher_browse&amp;deleteIndex=true&quot;&#xd;
+curl &quot;http://localhost:8976/solr/admin/cores?action=UNLOAD&amp;core=publication_place_browse&amp;deleteIndex=true&quot;&#xd;
+curl &quot;http://localhost:8976/solr/admin/cores?action=UNLOAD&amp;core=isbn_browse&amp;deleteIndex=true&quot;&#xd;
+curl &quot;http://localhost:8976/solr/admin/cores?action=UNLOAD&amp;core=issn_browse&amp;deleteIndex=true&quot;&#xd;
+curl &quot;http://localhost:8976/solr/admin/cores?action=UNLOAD&amp;core=nt_name_browse&amp;deleteIndex=true&quot;&#xd;
+curl &quot;http://localhost:8976/solr/admin/cores?action=UNLOAD&amp;core=nt_title_browse&amp;deleteIndex=true&quot;</postScript>
+    </org.jvnet.hudson.plugins.SSHBuildWrapper>
+  </buildWrappers>
+</maven2-moduleset>

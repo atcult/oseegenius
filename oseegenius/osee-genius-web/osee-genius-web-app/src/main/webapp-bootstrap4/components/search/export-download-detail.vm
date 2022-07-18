@@ -1,0 +1,63 @@
+<!-- components/search/export-download-deatail.vm -->
+#if ($resource)
+	<div class="row export-row d-flex justify-content-md-end">
+		<div class="col-4 m-0 p-0">
+			#if ($configuration.emailSenderAddress)				
+				<div>
+					<a class="export" href="#" data-toggle="modal" data-target="#emailModal">
+						<span><img src="$link.relative('/img/email.png')" style="margin-top:6px; margin-bottom:6px;" alt=""></span>
+						<span class="ml-2">Email</span>
+					</a>	
+				</div>
+			#end
+			<div class="my-3">
+				<a class="export" href="download?format=m21&id=$resource.id" title="$text.export_to_m21">
+					<span><img src="img/export-m21-detail.png" alt=""></span>
+					<span class="ml-2">UNIMARC</span>
+				</a>
+			</div>
+		</div>
+		<div class="col-4 m-0 p-0">
+			<div>
+				<a class="export" href="export?target=refworks&id=$resource.id" target="_new" title="$text.export_to_refworks">
+					<span><img src="$link.relative('/img/refworks.png')" alt=""></span>
+					<span class="ml-2">Refworks</span>
+				</a>
+			</div>
+			<div class="my-3">
+				<a class="export" href="download?format=mxml&id=$resource.id" title="$text.export_to_mxml">
+					<span><img src="img/export-xml-detail.png" alt=""></span>
+					<span class="ml-2">MARCXML</span>
+				</a>
+			</div>
+		</div>
+		<div class="col-4 m-0 p-0">
+			<div>
+				<a class="export" href="download?format=zotero&id=$resource.id" title="$text.export_to_zotero">
+					<span><img src="$link.relative('/img/export-zotero.png')" alt=""></span>
+					<span class="ml-2">Zotero</span>
+				</a>
+			</div>
+			<div class="my-3">
+				<a class="export" href="download?format=tmarc&id=$resource.id" title="$text.export_to_tmarc">
+					<span><img src="img/export-txt-detail.png" alt=""></span>
+					<span class="ml-2">UNIMARC</span>
+				</a>
+			</div>
+		</div>
+		<div class="export_pdf_xls">
+			<div>
+				<a class="export" href="download?format=xls&id=$resource.id" title="$text.export_to_excel">
+					<span><img src="$link.relative('/img/export-excel-detail.png')" alt=""></span>
+					<span class="ml-2">EXCEL</span>
+				</a>
+			</div>
+			<div class="mx-4">
+				<a class="export" href="download?format=pdf&id=$resource.id" title="$text.export_to_pdf">
+					<span><img src="img/export-pdf-detail.png" alt=""></span>
+					<span class="ml-2">PDF</span>
+				</a>
+			</div>
+	</div>
+	</div>
+#end

@@ -1,0 +1,53 @@
+<!-- components/userPanel/sign_up.vm -->
+#set($isAdmin = $session.visit.folioAccount.isAdmin())
+#if ($request.inError) 
+	<div class="row p-5">		
+		<div class="col-12 alert alert-danger">$esc.html($text.get($request.errorMessage))</div>
+	</div>
+#end
+<div class="bg-grey py-5">
+	<div class="form-signin">
+		<h2 class="text-center my-5">
+			### user make his own sign up
+			#if(!$isAdmin)			
+				$text.sign_up		
+			#else 
+				### admin create a new user
+				#if(!$request.userId)
+					$text.register
+				### admin edit old user
+				#else
+					$request.user.firstName $request.user.lastName
+					#set($editView = true)
+				#end
+			#end
+		</h2>
+		<!-- progressbar -->
+	    <ul id="progressbar">
+	    	<li #if($request.step == 1) class="active" #end></li>
+	        <li #if($request.step == 2) class="active" #end></li>
+	        <li #if($request.step == 3) class="active" #end></li>
+	        <li #if($request.step == 4) class="active" #end></li>
+	    </ul>
+		#if($editView)
+			<form class="bg-white shadow p-4" action="updateFolioUser" method="post">
+			<input type="hidden" name="userId" value="$request.userId"/>
+		#else
+			<form class="bg-white shadow p-4" action="signUp" method="post">
+		#end
+			<p>$text.already_user_notice <a href="${configuration.getFolioUrlFrontend()}/forgot-password">$text.reset_password</a></p>
+			#parse("components/userPanel/sign_up_${request.step}.vm")
+			<button id="signup_button" class="button-blue btn-block py-2 strSizeOnly" type="submit">
+				#if($request.step == 4)
+					#if($isAdmin)
+						$text.admin_send_data_sign_up
+					#else 
+						$text.send_data_sign_up
+					#end
+				#else
+					$text.save_proceed
+				#end
+			</button>	
+		</form>
+	</div>
+</div>

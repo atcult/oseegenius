@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bncf_request" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty"  >
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="240"/>
+	<style name="barcode" fill="Solid" scaleImage="FillFrame" hAlign="Center" markup="none" fontSize="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<parameter name="username" class="java.lang.String"/>
+	<parameter name="shelflist" class="java.lang.String"/>
+	<parameter name="author" class="java.lang.String"/>
+	<parameter name="publisher" class="java.lang.String"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="barcode" class="java.lang.String"/>
+	<parameter name="date_request" class="java.lang.String"/>
+	<parameter name="service_point" class="java.lang.String"/>
+	<parameter name="user_barcode" class="java.lang.String"/>
+	<parameter name="user_category" class="java.lang.String"/>
+	<parameter name="enumeration" class="java.lang.String"/>
+	<parameter name="note" class="java.lang.String"/>
+	<parameter name="new_collocation" class="java.lang.String"/>
+	<parameter name="request_type" class="java.lang.String"/>
+	<parameter name="edition" class="java.lang.String"/>
+	<parameter name="holding" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="256" splitType="Stretch">
+			<textField>
+				<reportElement x="12" y="1" width="198" height="17"  />
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{username}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="barcode" isPrintRepeatedValues="false" x="355" y="71" width="175" height="39"  />
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" moduleWidth="1.0" textPosition="bottom" quietZone="1.0">
+					<jr:codeExpression><![CDATA[$P{barcode}]]></jr:codeExpression>
+				</jr:Code39>
+			</componentElement>
+			<staticText>
+				<reportElement x="12" y="59" width="177" height="11"  />
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Biblioteca Nazionale Centrale Firenze]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="223" y="11" width="327" height="45"  />
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{shelflist}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="110" width="39" height="15"  >
+					<printWhenExpression><![CDATA[!$P{author}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Autore: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="52" y="110" width="306" height="15"  >
+					<printWhenExpression><![CDATA[!$P{author}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{author}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="157" width="40" height="15"  >
+					<printWhenExpression><![CDATA[!$P{edition}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Ediz.: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="53" y="157" width="307" height="15"  >
+					<printWhenExpression><![CDATA[!$P{edition}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{edition}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="191" width="58" height="15"  >
+					<printWhenExpression><![CDATA[!$P{holding}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Ann. poss.: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="71" y="191" width="289" height="15"  >
+					<printWhenExpression><![CDATA[!$P{holding}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{holding}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="125" width="39" height="18"  />
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Titolo: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="52" y="125" width="306" height="30"  />
+				<textElement>
+					<font fontName="SansSerif" size="11" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="176" width="40" height="15"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Pubbl.:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="53" y="176" width="307" height="15"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{publisher}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="379" y="217" width="77" height="15"  />
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Data richiesta:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="378" y="232" width="170" height="15"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date_request}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="152" width="170" height="20"  />
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{service_point}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="barcode" isPrintRepeatedValues="false" x="12" y="71" width="175" height="39"  />
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" moduleWidth="1.0" textPosition="bottom" quietZone="1.0">
+					<jr:codeExpression><![CDATA[$P{user_barcode}]]></jr:codeExpression>
+				</jr:Code39>
+			</componentElement>
+			<textField>
+				<reportElement x="12" y="18" width="198" height="41"  />
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{user_category}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="389" y="132" width="103" height="20"  />
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Punto di ritiro:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="223" y="56" width="327" height="15"  >
+					<printWhenExpression><![CDATA[!$P{enumeration}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{enumeration}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="51" y="206" width="304" height="30"  >
+					<printWhenExpression><![CDATA[!$P{note}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{note}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="206" width="38" height="15"  >
+					<printWhenExpression><![CDATA[!$P{note}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Note:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="87" y="236" width="268" height="15"  >
+					<printWhenExpression><![CDATA[!$P{new_collocation}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{new_collocation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="236" width="77" height="15"  >
+					<printWhenExpression><![CDATA[!$P{new_collocation}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nuova coll. MS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="379" y="182" width="131" height="20"  />
+				<textElement>
+					<font size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{request_type}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="291">
+			<componentElement>
+				<reportElement style="barcode" isPrintRepeatedValues="false" x="354" y="79" width="175" height="42"  />
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" moduleWidth="1.0" textPosition="bottom" quietZone="1.0">
+					<jr:codeExpression><![CDATA[$P{barcode}]]></jr:codeExpression>
+				</jr:Code39>
+			</componentElement>
+			<textField>
+				<reportElement x="228" y="19" width="327" height="45"  />
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{shelflist}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="379" y="209" width="77" height="20"  />
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Data richiesta:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="379" y="229" width="169" height="20"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date_request}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="156" width="170" height="20"  />
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{service_point}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="379" y="136" width="103" height="20"  />
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Punto di ritiro:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="228" y="64" width="327" height="15"  >
+					<printWhenExpression><![CDATA[!$P{enumeration}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{enumeration}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="86" y="242" width="268" height="15"  >
+					<printWhenExpression><![CDATA[!$P{new_collocation}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{new_collocation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="9" y="242" width="77" height="15"  >
+					<printWhenExpression><![CDATA[!$P{new_collocation}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nuova coll. MS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="379" y="183" width="131" height="20"  />
+				<textElement>
+					<font size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{request_type}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="71" y="198" width="289" height="15"  >
+					<printWhenExpression><![CDATA[!$P{holding}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{holding}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="10" width="198" height="17"  />
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{username}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="11" y="27" width="198" height="41"  />
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{user_category}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="50" y="213" width="304" height="30"  >
+					<printWhenExpression><![CDATA[!$P{note}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{note}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="52" y="168" width="307" height="15"  >
+					<printWhenExpression><![CDATA[!$P{edition}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{edition}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="121" width="39" height="15"  >
+					<printWhenExpression><![CDATA[!$P{author}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Autore: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="50" y="121" width="306" height="15"  >
+					<printWhenExpression><![CDATA[!$P{author}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{author}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="barcode" isPrintRepeatedValues="false" x="11" y="79" width="175" height="42"  />
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" moduleWidth="1.0" textPosition="bottom" quietZone="1.0">
+					<jr:codeExpression><![CDATA[$P{user_barcode}]]></jr:codeExpression>
+				</jr:Code39>
+			</componentElement>
+			<textField>
+				<reportElement x="50" y="136" width="306" height="30"  />
+				<textElement>
+					<font fontName="SansSerif" size="11" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="136" width="39" height="18"  />
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Titolo: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="68" width="177" height="11"  />
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Biblioteca Nazionale Centrale Firenze]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="198" width="58" height="15"  >
+					<printWhenExpression><![CDATA[!$P{holding}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Ann. poss.: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="183" width="40" height="15"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Pubbl.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="213" width="38" height="15"  >
+					<printWhenExpression><![CDATA[!$P{note}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Note:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="168" width="40" height="15"  >
+					<printWhenExpression><![CDATA[!$P{edition}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Ediz.: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="52" y="183" width="307" height="15"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{publisher}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="550" height="1"  />
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+		<band height="250">
+			<textField>
+				<reportElement x="223" y="14" width="327" height="40"  />
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{shelflist}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="barcode" x="359" y="71" width="175" height="37"  />
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" moduleWidth="1.0" textPosition="bottom" quietZone="1.0">
+					<jr:codeExpression><![CDATA[$P{barcode}]]></jr:codeExpression>
+				</jr:Code39>
+			</componentElement>
+			<staticText>
+				<reportElement x="11" y="123" width="40" height="15"  />
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Titolo: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="380" y="196" width="170" height="20"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date_request}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="380" y="176" width="77" height="20"  />
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Data richiesta:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="51" y="123" width="307" height="30"  />
+				<textElement>
+					<font fontName="SansSerif" size="10" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="108" width="40" height="15"  >
+					<printWhenExpression><![CDATA[!$P{author}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Autore: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="51" y="108" width="307" height="15"  >
+					<printWhenExpression><![CDATA[!$P{author}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{author}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="9" y="171" width="40" height="15"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Pubbl.:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="49" y="171" width="307" height="15"  />
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{publisher}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="380" y="119" width="141" height="30"  />
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="11" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[da collocare in magazzino al posto del libro]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="223" y="54" width="327" height="15"  >
+					<printWhenExpression><![CDATA[!$P{enumeration}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{enumeration}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="9" y="231" width="77" height="15"  >
+					<printWhenExpression><![CDATA[!$P{new_collocation}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nuova coll. MS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="201" width="38" height="15"  >
+					<printWhenExpression><![CDATA[!$P{note}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Note:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="86" y="231" width="268" height="15"  >
+					<printWhenExpression><![CDATA[!$P{new_collocation}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{new_collocation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="201" width="307" height="30"  >
+					<printWhenExpression><![CDATA[!$P{note}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{note}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="149" width="131" height="20"  />
+				<textElement>
+					<font size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{request_type}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="9" y="60" width="177" height="11"  />
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Biblioteca Nazionale Centrale Firenze]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="9" y="11" width="199" height="16"  />
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{username}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="barcode" isPrintRepeatedValues="false" x="9" y="71" width="175" height="37"  />
+				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" moduleWidth="1.0" textPosition="bottom" quietZone="1.0">
+					<jr:codeExpression><![CDATA[$P{user_barcode}]]></jr:codeExpression>
+				</jr:Code39>
+			</componentElement>
+			<textField>
+				<reportElement x="9" y="27" width="198" height="33"  />
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{user_category}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="550" height="1"  />
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="9" y="154" width="40" height="15"  >
+					<printWhenExpression><![CDATA[!$P{edition}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Ediz.: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="49" y="154" width="307" height="15"  >
+					<printWhenExpression><![CDATA[!$P{edition}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{edition}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="186" width="58" height="15"  >
+					<printWhenExpression><![CDATA[!$P{holding}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Ann. poss.: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="65" y="186" width="289" height="15"  >
+					<printWhenExpression><![CDATA[!$P{holding}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{holding}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

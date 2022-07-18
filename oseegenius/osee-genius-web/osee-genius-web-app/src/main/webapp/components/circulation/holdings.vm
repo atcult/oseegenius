@@ -1,0 +1,186 @@
+#if ($license.holdingDataViewerEnabled)
+<link href="$link.relative('/style/workspace.css')" rel="stylesheet" type="text/css" />
+<div id="holdings"></div>
+<table class="detail_record" width="100%" >
+	<tr>
+		#if ($request.copies)
+			<td colspan="2"><span class="detail-section-title">$text.holding_data</span></td>
+		#else			
+			#set ($format = $request.resource.format)				
+			<td colspan="2">
+				<span class="details" style="font-size: 10pt; font-weight:bold;color:#808080;">
+					#if ($format != 're' && $format != 'sw')
+						$text.holding_data_not_available
+					#end
+				</span>
+			</td>
+		#end
+	</tr>			
+	<tr>
+		#if ($request.copies)			
+			<td>
+				<table cellpadding="2" cellspacing="0" width="100%" border="0">
+					#set ($actMainLibrary = -1)	
+					#set ($actBranch = -1)		
+					#set ($mlSwitch = -1)					
+					#foreach($copyEntry in $request.copies)
+						
+						#if ($velocityCount == 1)
+								<tr id="availability-row-${styleClassTitle}">
+									<td id="availability-ml-entry-$styleClassLogo" width="1px"></td>
+									<td style="padding:5px;" colspan="8">
+										<table class="copies" width="100%">
+    										<tr>
+												<th width="1">&nbsp;</th>
+        										<th>Barcode</th>
+        										<th>$text.inventory</th>												
+												<th>$text.copy_statement</th>
+                								<th>$text.copy_number</th>
+                								<th>$text.location</th>
+                								<th>$text.collocation</th>
+                								<th>$text.state</th>
+												<th>$text.remark_notes</th>		
+                								<th>$text.holding_notes</th>
+												#if ($license.circulationPluginEnabled)
+													<th>$text.circulation</th>
+												#end
+    										</tr>
+							#end
+						
+						#set ($copyId = $copyEntry.getKey())
+						#set ($copyData = $copyEntry.getValue())
+						#if ($actMainLibrary != $copyData.institution-id)
+							#set ($actMainLibrary =$copyData.institution-id)
+							#set ($mlSwitch = $mlSwitch + 1)			
+							#set ($styleClassTitle = $mlSwitch  % 2)
+							#set ($styleClassLogo = $mlSwitch  % 10)	
+							<tr><td colspan="9" style="border-bottom:1px dashed #cccccc;"></td></tr>				
+							<tr id="availability-row-${styleClassTitle}">
+								<td id="availability-ml-entry-$styleClassLogo" width="1px"></td>
+								<td nowrap="nowrap" valign="top">
+									#spacer(2)
+									<b><span>$copyData.institution-name</span></b>
+								</td>
+								<td colspan="7"></td>
+								<td colspan="7"></td>
+							</tr>
+						#end
+						#if ($actBranch != $copyData.sub-institution-id)
+							#set ($actBranch = $copyData.sub-institution-id)		
+							<tr id="availability-row-${styleClassTitle}" width="1px">
+								<td id="availability-ml-entry-$styleClassLogo"></td>
+								<td nowrap="nowrap" valign="middle">		
+									#spacer(2)
+									<i>
+										<span>$copyData.sub-institution-name</span>
+									</i>									
+								</td>
+								<td colspan="7"></td>
+								<td colspan="7"></td>
+							</tr>
+						#end					
+							
+										<tr>
+											<td>$velocityCount.</td>
+											<td>#if($copyData.barcode)$copyData.barcode#end</td>
+											<td>#if($copyData.inventory)$copyData.inventory#end</td>												
+											<td>
+												#if($copyData.copy-statement)
+														#foreach($statement in $copyData.copy-statement)
+															$statement <br/>
+														#end
+												#end
+											</td>
+											<td>#if($copyData.copy-number)$copyData.copy-number#end</td>										
+											<td>#if($copyData.location)$copyData.location#end</td>
+											<td>#if($copyData.shelf-list)$copyData.shelf-list#end</td>
+											<td align="left" nowrap="nowrap">									
+												#if (!$copyData.on-order && !$copyData.due-date)
+													$text.available
+												#elseif ($copyData.on-order)
+													$text.on_order										
+												#elseif ($copyData.due-date)
+													#set($userHasThisCopy = false)
+													#if ($copyData.borrowed-to == $configuration.dummyAccountId)
+														$text.na_daily_loan
+													#elseif ($session.visit.authenticated)
+														#if ($session.visit.account.id == $copyData.borrowed-to)
+															#set ($userHasThisCopy = true)
+															$text.loan_to_you_til $date.format("dd/MM/yyyy",$copyData.due-date, $session.visit.preferredLocale)
+														#else
+															$text.not_available $date.format("dd/MM/yyyy",$copyData.due-date, $session.visit.preferredLocale)
+														#end	
+													#else 
+														$text.not_available $date.format("dd/MM/yyyy",$copyData.due-date, $session.visit.preferredLocale)
+													#end	
+												#end
+												#spacer(2)
+												#if ($copyData.holds-count == 1)
+													(1 $text.hold)						 				
+												#elseif ( $copyData.holds-count == 1)
+													($copyData.holds-count) $text.holds)
+												#end	
+											</td>			
+											<td>
+												#if($copyData.remark-notes)
+													#foreach($remarkNote in $copyData.remark-notes)
+														$remarkNote<br/>			
+													#end	
+												#end
+											</td>	
+            								<td style="font-size:smaller;" valign="middle">
+            									#if ($copyData.notes)
+    												<table cellpadding="0" cellspacing="0" width="100%" border="0">
+            											#foreach($noteGroupEntry in $copyData.notes)
+            												<tr>
+            													<td style="border:0;">
+            														<b>$text.bundleGetWithOverride('holding_notes',$noteGroupEntry.getKey())</b><br/>
+            														#foreach($note in $noteGroupEntry.getValue())
+            															$note<br/>
+            														#end
+            														<br/>
+            													</td>
+            												</tr>
+            											#end
+                									</table>
+												#end
+            								</td>
+											#if ($license.circulationPluginEnabled)
+												#if(!$configuration.isLoanNotAllowedCode($copyData.loan-period-type-code))
+    												<td valign="top" align="middle">
+    													<div id="place-or-renew">
+    														#if($userHasThisCopy)
+    															#if ($session.renews.containsKey($copyId))
+    																#set($returnCode = $session.renews.get($copyId))
+    																#if ($returnCode == 1)
+    																	$text.renew_already_done
+    																#else 
+    																	<span style="color:red;">$text.get($returnCode)</span>
+    																#end	
+    															#else		
+    																<input class="action_button" type="button" onclick='document.location="renew?copy=$copyId&uri=$resource.id"' value="$text.place_a_renew">
+    															#end
+    														#elseif ($copyData.borrowed-to != $configuration.dummyAccountId && $copyData.due-date)
+    															<input class="action_button" type="button" onclick='document.location="hold?copy=$copyId&uri=$resource.id"' value="$text.place_a_hold">
+    														#end
+     		 		  									</div>
+        											</td>	
+    											#else
+    												<td>
+    													$text.loan_not_allowed
+    												</td>
+    											#end	
+											#end 	
+										</tr>	
+								#if($velocityCount == $copies.size())		
+								</table>	
+        					</td>
+						</tr>	
+							#end
+						#end
+				</table>
+			</td>			
+			#end
+		</tr>
+	</table>
+#end		

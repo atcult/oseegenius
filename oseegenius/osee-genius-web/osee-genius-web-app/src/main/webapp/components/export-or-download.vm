@@ -1,0 +1,33 @@
+#set($selectionSize = $session.visit.searchExperience.currentTab.howManySelectedForExport())
+<div class="viewlet" style="#if ($selectionSize == 0) display:none; #end" id="export-or-download">
+	<div class="viewlet_toggable_head">
+		<h3>${text.exp_dwnd} (<span id="selected-export-count">$selectionSize</span>)</h3>
+	</div>
+	<div class="viewlet_body">
+		<table width="100%">
+			<tr>
+                <td>
+					<select id="export" value="refworks">
+						<option value="refworks">Esporta su RefWorks</option>
+					</select>
+					<a style="cursor:pointer;" onclick="javascript:export2();"><img src="$link.relative('/img')/play.png" style="vertical-align:middle;"/></a>
+				</td>
+			</tr>
+			<tr>
+                <td>
+					<select id="download" value="">
+						<option value="pdf">Download (PDF)</option>
+						<option value="html">Download (HTML)</option>
+						<option value="xls">Download (Excel)</option>
+						
+						<option value="m21">Download (Marc21)</option>
+						<option value="mxml">Download (MarcXml)</option>
+						<option value="tmarc">Download (Marc Text)</option>
+					</select>
+					<a href="javascript:ogdownload();"><img src="$link.relative('/img')/play.png" style="vertical-align:middle;"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	#vspacer(10)
+</div>

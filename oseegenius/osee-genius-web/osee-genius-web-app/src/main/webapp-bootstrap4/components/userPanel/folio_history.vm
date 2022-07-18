@@ -1,0 +1,287 @@
+<!-- components/userPanel/folio_history.vm -->
+#set($deleteEnabled = false)
+#if ($session.visit.isFolioAuthenticated())	
+	#set($loggedUser = $session.visit.folioAccount)
+	<div class="row m-0 py-4 bg-grey">
+		<div class="col-md-6 offset-md-3 col-sm-12 py-4">
+			<h2>$text.folio_history</h2>
+		</div>
+	</div>	
+	<div class="bg-white p-5 m-0 strSizeOnly"> 	
+	
+	############# OPEN request #################
+		#if ($request.inError) 
+			<div class="alert alert-danger">$text.get($request.errorMessage)</div>
+		#else
+		
+			<h3 class="bold-text strSizeOnlyNotReduce">$text.open_request</h3>
+			<div class="row my-3">
+				<div class="col-12 strSizeOnly">
+					<table class="table"> 
+					<thead>
+						<tr class="d-flex">
+		                	<th class="col-1">$text.date</th>  
+		                	<th class="col-2">$text.title</th>   
+		                	<th class="col-1"></th>      
+		                	<th class="col-1">$text.barcode</td>  
+		                	<th class="col-1">$text.position</td>
+		                	<th class="col-2">$text.status</td>
+		                	<th class="col-1">$text.service_point_label</td>  		                	
+		                	#if($deleteEnabled)
+		                		<th class="col-1"></th>	
+		                	#end	
+		                </tr>
+	            	</thead>
+	         		<tbody>
+		         		#foreach ($openReq in $openRequests)
+							<tr class="d-flex">
+								<td class="col-1">$openReq.getRequestDate().substring(0, 10)</td>	
+								<td class="col-2">
+									#set($itemBarcode = $openReq.getItemBarcode().replaceAll(" ", "%20"))
+									#if(!$string.isNotCatalogItem($itemBarcode))
+										<a href='search?f=barcode:"$itemBarcode"'>
+											$openReq.getTitle()
+										</a>
+									#else
+										$openReq.getTitle()
+									#end
+								</td>
+								<td class="col-1">
+									#if($openReq.getEnumeration())
+										$openReq.getEnumeration()
+									#end
+								</td>
+								<td class="col-1">$openReq.getItemBarcode()</td>	
+								<td class="col-1">#if($openReq.getPosition())$openReq.getPosition()#end</td>
+								<td class="col-2">$openReq.getStatus()</td>
+								<td class="col-1">$openReq.getServicePointName()</td>														
+								#if($deleteEnabled)
+									<td class="col-1">
+										#if($openReq.getStatus() == $status_open)
+											<form action="folioHistory" method="post">
+												<input type="hidden" value="$openReq.getId()" name="requestId">
+												<input class="btn" type="submit" value="$text.clear">
+											</form>
+										#end
+									</td>	
+								#end							
+							</tr>
+						#end
+					</tbody>
+				</table>
+				<!-- pagination parameter -->
+				#set($howManyRecords = $math.toInteger($openRequestNumFound))
+				#set ($pageSizeParameter = $request.getParameter("openRequestLimit"))
+				#set ($startOffset = $request.getParameter("openRequestOffset"))
+				#set ($url = "folioHistory?")
+				#set ($offsetParameterName = "openRequestOffset")
+				<!-- end pagination parameter -->
+				#pagination_macro($howManyRecords $pageSizeParameter $startOffset $url $offsetParameterName)		
+			</div>	
+		</div>
+		
+		############# CLOSE request #################
+			<h3 class="bold-text strSizeOnlyNotReduce">$text.close_request</h3>
+			<div class="row my-3">
+				<div class="col-12 strSizeOnly">
+					<table class="table"> 
+					<thead>
+						<tr class="d-flex">
+		                	<th class="col-1">$text.date</th>  
+		                	<th class="col-2">$text.title</th>   
+		                	<th class="col-1"></th>      
+		                	<th class="col-1">$text.barcode</td>  
+		                	<th class="col-1">$text.position</td>
+		                	<th class="col-2">$text.status</td>   
+		                	<th class="col-1">$text.service_point_label</td>		                	
+		                	#if($deleteEnabled)
+		                		<th class="col-1"></th>	
+		                	#end	
+		                </tr>
+	            	</thead>
+	         		<tbody>
+		         		#foreach ($closeReq in $closeRequests)
+							<tr class="d-flex">
+								<td class="col-1">$closeReq.getRequestDate().substring(0, 10)</td>	
+								<td class="col-2">
+									#set($itemBarcode = $closeReq.getItemBarcode().replaceAll(" ", "%20"))
+									#if(!$string.isNotCatalogItem($itemBarcode))
+										<a href='search?f=barcode:"$itemBarcode"'>
+											$closeReq.getTitle()
+										</a>
+									#else
+										$closeReq.getTitle()
+									#end
+								</td>
+								<td class="col-1">
+									#if($closeReq.getEnumeration())
+										$closeReq.getEnumeration()
+									#end
+								</td>
+								<td class="col-1">$closeReq.getItemBarcode()</td>	
+								<td class="col-1">#if($closeReq.getPosition())$closeReq.getPosition()#end</td>
+								<td class="col-2">$closeReq.getStatus()</td>
+								<td class="col-1">$closeReq.getServicePointName()</td>
+														
+								#if($deleteEnabled)
+									<td class="col-1">
+										#if($closeReq.getStatus() == $status_open)
+											<form action="folioHistory" method="post">
+												<input type="hidden" value="$closeReq.getId()" name="requestId">
+												<input class="btn" type="submit" value="$text.clear">
+											</form>
+										#end
+									</td>	
+								#end							
+							</tr>
+						#end
+					</tbody>
+				</table>
+				<!-- pagination parameter -->
+				#set($howManyRecords = $math.toInteger($closeRequestNumFound))
+				#set ($pageSizeParameter = $request.getParameter("closeRequestLimit"))
+				#set ($startOffset = $request.getParameter("closeRequestOffset"))
+				#set ($url = "folioHistory?")
+				#set ($offsetParameterName = "closeRequestOffset")
+				<!-- end pagination parameter -->
+				#pagination_macro($howManyRecords $pageSizeParameter $startOffset $url $offsetParameterName)		
+			</div>	
+		</div>
+		############## OPEN loan #############
+		<h3 class="bold-text strSizeOnlyNotReduce">$text.open_loan</h3>
+		<div class="row my-3">
+			<div class="col-12 strSizeOnly">
+				<table class="table"> 
+				<thead>
+					<tr class="d-flex">
+		            	<th class="col-1">$text.request_date</th>  
+		                <th class="col-1">$text.due_date</th>  
+		                <th class="col-2">$text.title</th>   
+		                <th class="col-1"></th>
+		                <th class="col-1">$text.barcode</th>  
+		                <th class="col-2">$text.status</th>  
+		                <th class="col-1">$text.service_point_label</td> 		                
+		                <th class="col-2"></th>  
+		            </tr>  		
+	            </thead>
+	         	<tbody>
+	         		#foreach ($openLoan in $openLoans)
+						<tr class="d-flex">
+							<td class="col-1">$openLoan.getRequestDate().substring(0, 10)</td>
+							<td class="col-1">$openLoan.getDueDate().substring(0, 10)</td>	
+							<td class="col-2">	
+								#set($itemBarcode = $openLoan.getItemBarcode().replaceAll(" ", "%20"))
+								#if(!$string.isNotCatalogItem($itemBarcode))
+									<a href='search?f=barcode:"$itemBarcode"'>
+										$openLoan.getTitle()
+									</a>
+								#else
+									$openLoan.getTitle()
+								#end
+							</td>
+							<td class="col-1">
+								#if($openLoan.getEnumeration())
+									$openLoan.getEnumeration()
+								#end
+							</td>
+							<td class="col-1">$openLoan.getItemBarcode()</td>	
+							<td class="col-2">$openLoan.getStatus()</td>	
+							<td class="col-1">$openLoan.getServicePointName()</td>
+								
+							<td class="col-2">								
+								#if($openLoan.isRenewable())
+									<form action="folioRenew" method="post">
+										<input type="hidden" value="$esc.javascript($esc.html($openLoan.itemId))" name="itemId">
+										<input class="button-blue float-right px-3 py-2" type="submit" value="${text.place_a_renew}">
+									</form>
+								#end
+							</td>												
+						</tr>
+					#end
+				</tbody>
+			</table>
+			<!-- pagination parameter -->
+			#set($howManyRecords = $math.toInteger($openLoanNumFound))
+			#set($howManyRecords = $math.toInteger($openLoanNumFound))
+			#set ($pageSizeParameter = $request.getParameter("openLoanLimit"))							
+			#set ($startOffset = $request.getParameter("openLoanOffset"))
+			#set ($url = "folioHistory?")
+			#set ($offsetParameterName = "openLoanOffset")
+			#set($defaultLimit = $defaultLimit)						
+			<!-- end pagination parameter -->
+			#pagination_macro($howManyRecords $pageSizeParameter $startOffset $url $offsetParameterName $defaultLimit)
+				
+		</div>	
+	</div>	
+	
+		############## CLOSE loan #############
+		<h3 class="bold-text strSizeOnlyNotReduce">$text.close_loan</h3>
+		<div class="row my-3">
+			<div class="col-12 strSizeOnly">
+				<table class="table"> 
+				<thead>
+					<tr class="d-flex">
+		            	<th class="col-1">$text.request_date</th>  
+		                <th class="col-1">$text.due_date</th>  
+		                <th class="col-2">$text.title</th>   
+		                <th class="col-1"></th>
+		                <th class="col-1">$text.barcode</th>  
+		                <th class="col-2">$text.status</th>  
+		                <th class="col-1">$text.service_point_label</td>    		                
+		                <th class="col-2"></th>  
+		            </tr>  		
+	            </thead>
+	         	<tbody>
+	         		#foreach ($closeLoan in $closeLoans)
+						<tr class="d-flex">
+							<td class="col-1">$closeLoan.getRequestDate().substring(0, 10)</td>
+							<td class="col-1">$closeLoan.getDueDate().substring(0, 10)</td>	
+							<td class="col-2">	
+								#set($itemBarcode = $closeLoan.getItemBarcode().replaceAll(" ", "%20"))
+								#if(!$string.isNotCatalogItem($itemBarcode))
+									<a href='search?f=barcode:"$itemBarcode"'>
+										$closeLoan.getTitle()
+									</a>
+								#else
+									$closeLoan.getTitle()
+								#end
+							</td>
+							<td class="col-1">
+								#if($closeLoan.getEnumeration())
+									$closeLoan.getEnumeration()
+								#end
+							</td>	
+							<td class="col-1">$closeLoan.getItemBarcode()</td>	
+							<td class="col-2">$closeLoan.getStatus()</td>	
+							<td class="col-1">$closeLoan.getServicePointName()</td>							
+							<td class="col-2">								
+								#if($closeLoan.isRenewable())
+									<form action="folioRenew" method="post">
+										<input type="hidden" value="$esc.javascript($esc.html($closeLoan.itemId))" name="itemId">
+										<input class="button-blue float-right px-3 py-2" type="submit" value="${text.place_a_renew}">
+									</form>
+								#end
+							</td>												
+						</tr>
+					#end
+				</tbody>
+			</table>
+			<!-- pagination parameter -->
+			#set($howManyRecords = $math.toInteger($closeLoanNumFound))
+			#set($howManyRecords = $math.toInteger($closeLoanNumFound))
+			#set ($pageSizeParameter = $request.getParameter("closeLoanLimit"))							
+			#set ($startOffset = $request.getParameter("closeLoanOffset"))
+			#set ($url = "folioHistory?")
+			#set ($offsetParameterName = "closeLoanOffset")
+			#set($defaultLimit = $defaultLimit)						
+			<!-- end pagination parameter -->
+			#pagination_macro($howManyRecords $pageSizeParameter $startOffset $url $offsetParameterName $defaultLimit)
+				
+		</div>	
+	</div>
+	#end
+
+</div>
+	
+				
+#end

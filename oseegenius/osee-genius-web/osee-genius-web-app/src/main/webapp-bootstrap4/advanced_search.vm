@@ -1,0 +1,215 @@
+<!-- advanced_search.vm -->
+<div class="row">
+	<div class="col-md-6 offset-md-3 col-sm-12">	
+		#set($searchType = 'advanced')
+		############################# menu di ricerca #################################
+		#parse('components/page/menu-navigator.vm')  
+	</div> 
+</div>
+<div class="row">
+	#set($attributes = $configuration.advancedSearchableMetaAttributes.values().iterator().next())
+	<div class="col-md-6 offset-md-3 col-sm-12">			
+		############################# form #################################  
+		<form name="form" action="${request.contextPath}/advanced" method="post" id="advancedSearch">
+			######################## input lunga  ##########################
+			<div class="mt-3">
+				<div class="form-row">	
+					<div class="form-group col-md-3 my-0">						
+						
+						<label class="sr-only"  for="where_0" aria-label="$text.search_for">$text.search_for</label>
+						<select  name="where_0" id="where_0" class="form-control form-control-lg form-osee shadow">
+							#foreach($attribute in $attributes)
+								<option value="$attribute">$text.get($attribute)</option>
+							#end
+						</select>
+					</div>
+					<div class="form-group col-md-9 my-0">	
+						<div class="input-group shadow">					
+							<input type="text" class="form-control search-input" id="what_0" name="what_0" autocomplete="off" placeholder="$text.simple_search_placeholder" aria-label="Search"/>
+							<div class="input-group-append">
+					        	<span class="input-group-text fa fa-search icon-input">
+					        		<button class="magnifier" type="submit"><img src="img/search.png" alt=""></button>
+					        	</span>
+					      	</div>
+						</div>	
+					</div>	
+				</div>
+			</div>	
+			##################### select  #################################
+			<div class="mt-2 mb-5 pt-2 bg-white shadow">
+				############### boolean additional condition ################				
+				#foreach( $advancedfield in $session.visit.advancedSearchExperience.searchFields)
+	    			#if ($velocityCount > 1)	
+	    				<div class="p-2 form-row">		        			
+		        			<div class="form-group col-md-2">
+		        				#set($booleanIndex = $advancedfield.index - 1 )
+		        				<label id="boolean_label" class="sr-only" aria-label="$text.aria_form_adv_boolean">$text.aria_form_adv_boolean</label>
+			        			<select title="$text.aria_form_adv_boolean" name="booleanOperator_$booleanIndex" value="$advancedfield.booleanOperator" class="form-control form-osee" aria-labelledby="boolean_label">
+			        				<option value="OR" #if ($firstField.booleanOperator == "OR") selected #end>$text.or</option>
+			        				<option value="AND" #if ($firstField.booleanOperator == "AND") selected #end>$text.and</option>
+			        				<option value="ORNOT" #if ($firstField.booleanOperator == "ORNOT") selected #end>$text.or_not</option>
+			        				<option value="ANDNOT" #if ($firstField.booleanOperator == "ANDNOT") selected #end>$text.and_not</option>
+			        			</select>
+			        		</div>
+			        		<div class="form-group col-md-4">			        			
+	        					
+	        					<label id="index_label" class="sr-only" aria-label="$text.aria_form_adv_index">$text.aria_form_adv_index</label>
+	        					<select title="$text.aria_form_adv_index" name="where_$advancedfield.index" value="$advancedfield.where" class="form-control form-osee" aria-labelledby="index_label">    								
+	        						#foreach($attribute in $attributes)
+	        							<option value="$attribute" #if ($rowIndex > 5) #if($velocityCount == 1) selected #end #elseif($advancedfield.where == $attribute) selected #end>
+	        								$text.get($attribute)
+	        							</option>
+	        						#end
+	        					</select>
+			        		</div>
+			        		<div class="form-group col-md-5">
+			        			#set($whatDisplayValue = $advancedfield.what.replaceAll("\\\"","\""))
+			        			<label id="querytext_label" class="sr-only" aria-label="$text.aria_form_adv_querytext">$text.aria_form_adv_querytext</label>		
+	        					<input title="$text.aria_form_adv_querytext" class="form-control form-osee" autocomplete="off" type="text" name="what_$advancedfield.index" value="$esc.html($whatDisplayValue)" aria-labelledby="querytext_label"/>
+			        		</div>
+			        		<div class="form-group col-md-1">
+			        			<a class="linkable" href="advanced?a=remove&index=$advancedfield.index">
+									<img src="${request.contextPath}/img/cancel.png" alt="cancel"/>
+								</a>
+			        		</div>
+			        	</div>
+	        		#end
+	        	#end
+	        	################### button add additional condition ###################
+	        	<div class="p-2 form-row">
+	        		<div class="col-md-1 offset-md-11">
+	        			<a href="advanced?a=add" sr-only="$text.add_search_field" title="$text.add_search_field" class="link-add-field">
+	        				<img src="${request.contextPath}/img/add.png" alt="add"/>
+	        			</a>	        			
+	        		</div>
+	        	</div>
+	        	<hr class="m-3" />
+	        	##################### publication date form #################
+	        	<div class="p-2 form-row">
+	        		<div id="pubblication_date_label" class="form-group col-md-3 label-search">
+	        				$text.publication_date
+	        		</div>
+	        		<div class="form-group col-md-1">
+	        			<label for="start_year" class="label-search">
+	        				<img src="img/horizon_arrow.png" alt="">	        			
+	        				<div class="label-search advanced-label px-2">$text.from</div>
+	        			</label>
+	        		</div>
+	        		<div class="form-group col-md-2">
+	        			#set ($startYear = $session.visit.advancedSearchExperience.startYear)
+		    			#if (!$startYear)
+		    				#set($startYear='')
+		    			#end
+	        			<input name="start_year" id="start_year" type="text" value="$startYear" maxlength="4" class="form-control form-osee" aria-labelledby="pubblication_date_label"/>
+	        		</div>
+	        		<div class="form-group col-md-1">
+	        			<label for="end_year" class="label-search">	        				       			
+	        				<div class="label-search advanced-label px-2">$text.to</div>
+	        			</label>
+	        		</div>
+	        		<div class="form-group col-md-2">
+		        		#set ($endYear = $session.visit.advancedSearchExperience.endYear)
+			    		#if (!$endYear)
+			    			#set($endYear='')
+			    		#end
+			    		<input name="end_year" id="end_year" type="text" value="$endYear" maxlength="4" class="form-control form-osee" aria-labelledby="pubblication_date_label"/>
+			    	</div>
+	        	</div>
+	        	################### paging and sorting form ################
+	        	<div class="p-2 form-row">
+	        		<div id="result_per_page_label" class="form-group col-md-3 label-search form-compress-height">
+	        				$text.result_per_page
+	        		</div>
+	        		<div class="form-group col-md-1">
+	        			<label for="s" class="label-search">
+	        				<img src="img/horizon_arrow.png" alt="">	        			
+	        				<div class="label-search advanced-label px-2">N°</div>
+	        			</label>
+	        		</div>
+	        		<div class="form-group col-md-2 form-compress-height">
+	        			#set ($selectedSize = $params.s)
+        				#if (!$selectedSize) #set ($selectedSize = $configuration.defaultPageSize) #end
+                		<select id="s" name="pageSize" class="form-control form-osee" aria-labelledby="result_per_page_label">
+	        				#foreach($pageSize in $configuration.allowedPageSizes)
+	        					<option  value="$pageSize" #if($pageSize == $selectedSize) selected #end>$pageSize</option>
+	        				#end
+            			</select>
+	        		</div>
+	        		<div class="form-group col-md-1">
+	        			<label for="o" class="label-search">	        				       			
+	        				<div class="label-search advanced-label px-2">$text.sorting_order</div>
+	        			</label>
+	        		</div>
+	        		<div class="form-group col-md-2">
+						#set ($group = $configuration.searchableMetaAttributes.entrySet().iterator().next())
+						<select  name="orderBy" id="o" class="form-control form-osee">
+							#foreach($attribute in $group.value)
+								<option value="$attribute">$text.get($attribute)</option>
+							#end
+						</select>
+					</div>
+	        	</div>
+	        	############# search button ############
+				<div class="row mt-5">
+					<div class="col-md-4 offset-md-8 nopadding-left">
+						<button type="submit" class="button-blue uppercase float-right btn-block py-2">$text.search</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="pb-5">
+			$text.advanced_search_info.
+			<br/>
+			$text.heading_search_text 
+		</div>
+	</div>
+	<div class="col-md-3 py-3 side-bar">
+		<h5 class="mb-5">$text.additional_filter</h5>
+		<ul class="list-group">	
+			#set ($resources = $session.visit.advancedSearchExperience)
+			#side_link_with_bundle_bootstrap($text.library $resources.getLimit('library') 'library')
+			#side_link_with_bundle_bootstrap($text.format $resources.getLimit('format_for') 'format_for')	
+			#side_link_with_bundle_bootstrap($text.language $resources.getLimit('language') 'languages')	
+			#side_link_with_bundle_bootstrap($text.publication_country $resources.getLimit('publication_country') 'publication_countries')
+			#side_link_with_bundle_bootstrap($text.dewey $resources.getLimit('other_classification_number') 'list_ed_deweys')	
+			#side_link_with_bundle_bootstrap($text.classification $resources.getLimit('dewey_facet'))
+		</ul>		
+	</div>
+</div>
+
+
+############# filters modal ##############
+<div class="modal fade" id="filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-xl" role="document">
+    	<div class="modal-content">
+    		<div class="modal-header year-modal pb-0">       
+        		<button type="button" class="close" data-dismiss="modal" aria-label="$text.close">
+          			<span aria-hidden="true"><img src="img/closeBtn.png"></span>
+       			</button>
+      		</div>
+      		<div class="modal-body px-1">
+      		
+      			<div class="embed-responsive embed-responsive-16by9">
+      				<iframe class="embed-responsive-item" style="overflow-x: hidden; overflow-y:auto; "></iframe>
+      			</div>
+      		</div>
+      		
+      	</div>
+    </div>
+</div>
+
+<script>
+$('#filter-modal').on('show.bs.modal', function (event) {	
+  var facetButton = $(event.relatedTarget);
+  var facetName = facetButton.data("facet");
+  var bundleName = facetButton.data("bundle"); 
+  var url = "showAllLimit?f=" + facetName;
+  if (typeof bundleName !== 'undefined') {
+  url = url + "&bundle=" + bundleName;
+  }
+  $(this).find('iframe').attr('src',url);  
+})
+	
+</script>
+
+      	

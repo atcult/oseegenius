@@ -1,0 +1,21 @@
+#if ($license.accountPluginEnabled)
+<div class="viewlet">
+	<div class="default_viewlet_head">
+		<h3>$text.user</h3>
+	</div>
+	<div class="viewlet_body">
+		<ul>
+			<li><a href="">Il mio profilo</a></li>
+			#if ($license.communityPluginEnabled)
+			<li><a href="">Il mio workspace</a></li>
+			#end
+			#if ($license.circulationPluginEnabled)			
+			<li><a href="">I miei prestiti</a></li>
+			<li><a href="">Le mie prenotazioni</a></li>			
+			<li><a href="">Le mie multe</a></li>			
+			#end
+		</ul>	
+	</div>
+</div>
+#vspacer(10)
+#end

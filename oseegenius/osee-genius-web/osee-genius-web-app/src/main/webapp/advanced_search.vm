@@ -1,0 +1,85 @@
+<form action="$link.relative('/advanced')" method="post">
+    <div id="advanced-search-form">
+		<div class="viewlets">
+        	<div class="default_viewlet_heads"><h3>$text.advanced_search</h3></div>
+        	<div class="viewlet_bodys">
+            	<table width="100%">
+            		<tr><td>$text.what</td><td>$text.where</td><td>&nbsp;</td></tr>
+            		#foreach( $advancedfield in $session.visit.advancedSearchExperience.searchFields)
+            		<tr>
+						#set($whatDisplayValue = $advancedfield.what.replaceAll("\\\"","\""))		
+            			<td><input autocomplete="off" type="text" class="search-field" style="width:80%;" name="what_$advancedfield.index" value="$esc.html($whatDisplayValue)"/></td>
+            			<td width="1%">
+                			<select name="where_$advancedfield.index" id="h" value="$advancedfield.where">
+								#set ($groups = $configuration.advancedSearchableMetaAttributes.entrySet())
+								#if ($groups.size() > 1)
+									<option value="any">$text.any</option>
+                    				#foreach($group in $groups)
+                    				<optgroup label="$text.get($group.key)">
+                    					#foreach($attribute in $group.value)
+                    					<option value="$attribute" #if ($advancedfield.where == $attribute) selected #end>$text.get($attribute)</option>
+                    					#end
+                    				</optgroup>
+									#end
+								#else
+									#set ($group = $groups.iterator().next())
+									#foreach($attribute in $group.value)
+										<option value="$attribute" #if ($advancedfield.where == $attribute) selected #end>$text.get($attribute)</option>
+                    				#end
+					            #end
+                			</select>
+            			</td>
+            			<td width="1%">
+            				<select name="booleanOperator_$advancedfield.index" id="b" value="$advancedfield.booleanOperator">
+            					<option value="OR" #if ($advancedfield.booleanOperator == "OR") selected #end>$text.or</option>
+            					<option value="AND" #if ($advancedfield.booleanOperator == "AND") selected #end>$text.and</option>
+            					<option value="ORNOT" #if ($advancedfield.booleanOperator == "ORNOT") selected #end>$text.or_not</option>
+            					<option value="ANDNOT" #if ($advancedfield.booleanOperator == "ANDNOT") selected #end>$text.and_not</option>
+            				</select>
+            			</td>
+            			<td width="1%">
+            				#if ($velocityCount >1)
+            					<a href="$link.relative('/advanced')?a=remove&index=$advancedfield.index">
+            						<img src="$link.relative('/img/minus.gif')" style="vertical-align:middle;"/>
+            					</a>
+            				#end	
+            			</td>
+            		</tr>
+					#end
+					#parse("components/search/date_range_search.vm")
+            		<tr><td colspan="4"><a href="$link.relative('/advanced')?a=add" style="text-decoration:none; color: #000000;">
+            			<img src="$link.relative('/img/add.gif')" style="vertical-align:middle;"/>&nbsp; $text.add_search_field</a></td></tr>
+            		<tr><td colspan="4" style="border-bottom: 1px solid #e4e4e4;padding-bottom: 20px;"><a href="$link.relative('/advanced')?a=reset" style="text-decoration:none; color: #000000;"><img src="$link.relative('/img/reset_form.gif')" style="vertical-align:middle;"/>&nbsp; $text.reset</a></td></tr>
+            		<tr>
+            			<td colspan="4">
+            				<table>
+            					<tr>
+            						<td>$text.shows</td>
+            						<td>
+                            			<select name="pageSize" id="s" value="$session.visit.advancedSearchExperience.pageSize">
+                            				#foreach($availablePageSize in $configuration.allowedPageSizes)
+                            				<option value="$availablePageSize">$availablePageSize</option>
+                            				#end
+                            			</select>
+            						</td>
+            						<td>${text.results_per_page} $text.sort_by</td>
+            						<td>
+            								<select id="o" name="orderBy" value="$session.visit.advancedSearchExperience.orderBy">
+                                            	#foreach($criteria in $configuration.orderByMetaAttributes)
+                                					<option value="$criteria.value">$text.get($criteria.messageKey)</option>
+                                				#end
+                                        </select>	
+            						</td>
+									<td><input type="submit" class="do_search_button" value="$text.search" style="margin-top:3px;"/></td>
+            					</tr>
+            				</table>	
+            			</td>	
+            		</tr>
+            	</table>
+    		</div>
+    	</div>
+    </div>
+    <div id="limit-to-form"> 
+    	#parse('components/search/limit_to.vm')			
+    </div> 
+</form>

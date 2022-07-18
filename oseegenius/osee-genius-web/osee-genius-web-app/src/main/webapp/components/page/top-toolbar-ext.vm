@@ -1,0 +1,76 @@
+	<div style="float:left;"><a href="$link.relative('/home')"><img src="$link.relative($corporate-logo-url)" #if($corporate-logo-url-height) height="${corporate-logo-url-height}" #end/></a></div>		
+	<div style="float: left; margin-left:0px;margin-right:6px; padding-bottom:2px; height:50px;">		
+		<form name="searchForm" method="get" action="$link.relative('/metasearch')">
+			#parse("components/page/h-banner.vm")
+			<div style="float:left;">
+			<table width="" cellpadding="" cellspacing="0" border="0">
+			<tr>
+			<td style="padding-right: 5px;">			
+				<input type="text" class="search-field" id="q" name="q" autocomplete="off" style="float:left;"/>
+				&nbsp;
+				<select  style="display:none;" name="h" id="h" onchange="javascript:reSubmitSearch()">
+                    <option value="term">$text.any</option>
+                    <option value="ti">$text.title</option>
+                    <option value="au">$text.author</option>
+                </select>
+				&nbsp;${text.showing}&nbsp;
+    			<select style="display: none;" name="num" id="num" onchange="javascript:reSubmitSearch()">
+    				#foreach($pageSize in $configuration.allowedPageSizes)<option value="$pageSize">$pageSize</option>#end
+    			</select>					
+				&nbsp;${text.top_toolbar_message}&nbsp;					
+                <select name="sort" id="sort" onchange="javascript:reSubmitSearch()">
+                    <option selected="selected" value="relevance">$text.score</option>
+                    <option value="title:1">$text.title</option>
+                    <option value="date:0">$text.newest</option>
+                    <option value="date:1">$text.oldest</option>
+                </select>
+				
+			</td>
+			<td>
+				<input type="submit" class="do_search_button" value="$text.search"//>
+			</td>
+			</tr>
+			<tr><td><b>$text.ext_search_legend<b></td></tr>
+			</table>
+            </div>
+			<div id="functions">
+				<table cellpadding="5" cellspacing="0">
+					<tr>
+						<td>
+							<a href="$link.relative('/home')">$text.simple_search</a>
+						</td>
+						<td>
+							<a href="$link.relative('/advanced')">$text.advanced_search</a>
+						</td>
+			
+						
+						#if ($configuration.browsingEnabled)
+							<td>
+								<a href="browse?${session.visit.browsingExperience.currentTab.queryParameters}">$text.browsing</a>
+							</td>	
+						#end
+						
+						#if ($session.visit.historyNotEmpty)
+                			<td>
+                				<a href="history">$text.history</a>
+                			</td>	
+						#end				
+					</tr>
+			</table>
+		</div>			
+		</form>
+	</div>	
+	<script>
+		screenW = screen.width;
+		if (screenW <= 1100)
+		{ 
+			$(".search-field").css("width",160);
+		} else if (screenW < 1300)
+		{
+			$(".search-field").css("width",200);			
+		} else if (screenW <= 1600)
+		{
+			$(".search-field").css("width",500);
+		}		
+		
+	</script>

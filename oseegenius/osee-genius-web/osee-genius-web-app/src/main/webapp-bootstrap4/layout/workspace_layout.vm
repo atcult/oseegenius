@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="it">
+	<head>
+		<title>OPAC - $institution</title>
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		#default_head
+	</head>
+	<body>
+		<!-- layout/workspace_layout.vm -->
+		<nav class="navbar navbar-light navbar-expand-md p-0 bg-white">
+			#parse('components/page/default-search-header.vm')
+		</nav>	
+		<div class="main">
+			<div class="container-fluid px-0">	
+				<div class="row m-0">
+					<div class="col-md-2 col-12 py-5" id="user-menu">
+						<nav class="nav flex-column">
+  							<a class="nav-link" href="folioHistory">
+  								<img class="mr-1" alt="" src="img/requests.png">
+  								$text.folio_history
+  							</a>
+  							#*
+  							<a class="nav-link" href="folioResearchHistory">
+  								<img class="mr-1" alt="" src="img/requests.png">
+  								$text.folio_research_history
+  							</a>
+  							*#
+  							<a class="nav-link" href="folioCatalog">
+  								<img class="mr-1" alt="" src="img/requests.png">
+  								$text.request_not_catalog
+  							</a>
+  							#set($loggedUser = $session.visit.folioAccount)
+  							#if($loggedUser.isAdmin())
+  								<a class="nav-link" href="searchFolio">
+  								<img class="mr-1" alt="" src="img/users.png">
+  									$text.users
+  								</a>
+  								<a class="nav-link" href="signUp">
+  									<img class="mr-1" alt="" src="img/users.png">
+  									$text.register
+  								</a>
+  								<a class="nav-link" href="userReport">
+  									<img class="mr-1" alt="" src="img/users.png">
+  									Report user di Firenze sintetico
+  								</a>
+  								<a class="nav-link" href="userReport?withNotes=true">
+  									<img class="mr-1" alt="" src="img/users.png">
+  									Report user di Firenze esteso
+  								</a>
+  							#end
+						</nav>
+					</div>
+					<div class="col-md-10 col-12 bg-white px-0">
+						$screen_content
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="linedotted bg-white pt-1"/>
+		<footer class="pt-md-5">
+			<div class="container-fluid">
+				#parse('components/page/footer.vm')
+			</div>
+		</footer>		
+	</body>
+</html>

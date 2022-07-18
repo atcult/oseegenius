@@ -1,0 +1,2016 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<struts-config>
+	<form-beans>
+	    <form-bean name="logonForm" type="librisuite.form.logon.LogonForm">
+	      	<form-property name="locale" type="java.lang.String"/>
+	      	<form-property name="changeLocaleButton" type="java.lang.String"/>
+			<form-property name="changeCssButton" type="java.lang.String"/>
+	      	<form-property name="name" type="java.lang.String"/>
+	     	<form-property name="password" type="java.lang.String"/>
+	      	<form-property name="changePassword" type="java.lang.Boolean"/>
+	      	<form-property name="enterLibriSuiteButton" type="java.lang.String"/>
+	    </form-bean>
+	 
+	    <form-bean name="changePasswordForm" type="librisuite.form.logon.ChangePasswordForm">
+	      <form-property name="newPassword" type="java.lang.String"/>
+	      <form-property name="confirmPassword" type="java.lang.String"/>
+	      <form-property name="passwordsDoNotMatch" type="java.lang.Boolean"/>
+	      <form-property name="connectException" type="java.lang.Boolean"/>
+	      <form-property name="improperPasswordFormat" type="java.lang.Boolean"/>
+	      <form-property name="newPasswordSameAsOlderPassword" type="java.lang.Boolean"/>
+	      <form-property name="authenticationException" type="java.lang.Boolean"/>
+	    </form-bean>
+	
+	    <form-bean name="searchForm" type="librisuite.form.searching.SearchForm">
+	      <form-property name="simpleSearchButton" type="java.lang.String"/>
+	      <form-property name="advancedSearchButton" type="java.lang.String"/>
+	      <form-property name="expertSearchButton" type="java.lang.String"/>
+	      <form-property name="browseIndexesButton" type="java.lang.String"/>
+	    </form-bean>
+	
+	    <form-bean name="SimpleSearchForm" type="librisuite.form.searching.SimpleSearchForm">
+	      <form-property name="query" type="java.lang.String"/>
+	      <form-property name="searchAvailable" type="java.lang.String"/>
+	      <form-property name="searchIndex" type="java.lang.String"/>
+	      <form-property name="keywordIndexList" type="java.lang.List"/>
+	      <form-property name="initSimpleSearch" type="java.lang.Boolean"/>
+	    </form-bean>
+	
+		<form-bean name="AdvancedSearchForm" type="librisuite.form.searching.AdvancedSearchForm">
+	      <form-property name="termList" type="java.lang.List"/>
+	      <form-property name="formAction" type="java.lang.String"/>
+	      <form-property name="removeElement" type="java.lang.Integer"/>
+	      <form-property name="relationList" type="java.lang.List"/>
+	      <form-property name="useList" type="java.lang.List"/>
+	      <form-property name="operatorList" type="java.lang.List"/>
+	      <form-property name="searchAvailable" type="java.lang.String"/>
+	      <form-property name="initAdvancedSearch" type="java.lang.Boolean"/>
+	      <form-property name="indexList" type="java.lang.List"/>
+	    </form-bean>
+	    
+	    <form-bean name="CodeTablesForm" type="librisuite.form.searching.CodeTablesForm">
+	    	<form-property name="term" type="java.lang.String"/>
+	    	<form-property name="index" type="java.lang.Integer"/>
+	    </form-bean>
+	
+	    <form-bean name="CrossReferencesForm" type="librisuite.form.cataloguing.crossReferences.CrossReferencesForm"/>
+	    <form-bean name="ReportForm" type="librisuite.form.reports.ReportForm"/>
+	
+	    <form-bean name="resultSummaryForm" type="librisuite.form.searching.ResultSummaryForm">
+	        <form-property name="cclQuery" type="java.lang.String"/>
+	        <form-property name="newSearchButton" type="java.lang.String"/>
+	        <form-property name="showNumberOfRecordsButton" type="java.lang.String"/>
+	        <form-property name="showNumberOfRecords" type="java.lang.Integer"/>
+	        <form-property name="printResultsButton" type="java.lang.String"/>
+	        <form-property name="briefViewButton" type="java.lang.String"/>
+	        <form-property name="fullViewButton" type="java.lang.String"/>
+	        <form-property name="previousPageButton" type="java.lang.String"/>
+	        <form-property name="pageNumberButton" type="java.lang.Integer"/>
+	        <form-property name="nextPageButton" type="java.lang.String"/>
+	        <form-property name="selectedRecordId" type="java.lang.String"/>
+	    </form-bean>
+	    
+	    <form-bean name="ResolverForm" type="librisuite.form.searching.ResolverForm"/>
+	    <form-bean name="notesThesaurusForm" type="librisuite.form.cataloguing.thesaurus.NotesThesaurusForm"/>
+	    <form-bean name="noteThesaurusForm" type="librisuite.form.cataloguing.thesaurus.NoteThesaurusForm"/>
+	    <form-bean name="MarcRecordServiceForm" type="librisuite.form.searching.MarcRecordServiceForm"/>
+	    <form-bean name="searchHistoryForm" type="librisuite.form.searching.SearchHistoryForm"/>
+	    <form-bean name="NewCrossReferenceForm" type="librisuite.form.cataloguing.crossReferences.NewCrossReferenceForm"/>
+	    <form-bean name="BrowseForm" type="librisuite.form.searching.BrowseForm"/>
+		<form-bean name="SelectionForm" type="librisuite.form.cataloguing.copy.SelectionForm" />   
+		<form-bean name="SelectionAndCopyForm" type="librisuite.form.cataloguing.copy.SelectionAndCopyForm" />
+	    <form-bean name="ExpertSearchForm" type="librisuite.form.searching.ExpertSearchForm" />
+		<form-bean name="FixedFieldForm" type="librisuite.form.cataloguing.bibliographic.FixedFieldForm"/>
+		<form-bean name="EvaluatorsForm" type="librisuite.form.cataloguing.evaluator.EvaluatorsForm"/>
+		<form-bean name="EvaluatorForm" type="librisuite.form.cataloguing.evaluator.EvaluatorForm"/>
+	
+		<!-- BIBLIOBRAPHIC ITEM CATALOGUING -->
+	    <form-bean name="BibitemNbrForm" type="librisuite.form.cataloguing.bibliographic.BibliographicItemNumberForm"/>
+	    <form-bean name="EditTagForm" type="librisuite.form.cataloguing.bibliographic.EditTagForm"/>
+	    <form-bean name="EditPublisherTagForm" type="librisuite.form.cataloguing.bibliographic.EditPublisherTagForm"/>
+	    <form-bean name="EditSubfieldWForm" type="librisuite.form.cataloguing.authority.EditSubfieldWForm"/>
+		<form-bean name="newCatalogItemForm" type="librisuite.form.cataloguing.common.NewCatalogItemForm"/>
+		<form-bean name="OrderTagsForm" type="librisuite.form.cataloguing.bibliographic.OrderTagsForm"/>
+		<form-bean name="EditNoteTagForm" type="librisuite.form.cataloguing.bibliographic.EditNoteTagForm"/>
+	
+		<form-bean name="modelsForm" type="librisuite.form.cataloguing.common.ModelsForm"/>
+		<form-bean name="modelForm" type="librisuite.form.cataloguing.common.ModelForm"/>
+		<form-bean name="LanguageForm" type="librisuite.form.searching.LanguageForm"/>
+	
+		<!-- COPIES -->
+		<form-bean name="copyForm" type="librisuite.form.cataloguing.copy.CopyForm"/>
+		<form-bean name="copiesForm" type="librisuite.form.cataloguing.copy.CopiesForm"/>
+		<form-bean name="noteForm" type="librisuite.form.cataloguing.copy.NoteForm"/>
+		<form-bean name="notesForm" type="librisuite.form.cataloguing.copy.NotesForm"/>
+		<form-bean name="inventoryForm" type="librisuite.form.cataloguing.copy.InventoryForm"/>
+	
+	    <!-- HEADING CATALOGUING -->
+	    <form-bean name="TitleHeadingForm" type="librisuite.form.cataloguing.heading.TitleHeadingForm"/>
+		<form-bean name="SubjectHeadingForm" type="librisuite.form.cataloguing.heading.SubjectHeadingForm"/>
+		<form-bean name="PublisherHeadingForm" type="librisuite.form.cataloguing.heading.PublisherHeadingForm"/>	
+		<form-bean name="NameHeadingForm" type="librisuite.form.cataloguing.heading.NameHeadingForm"/>	
+		<form-bean name="NameTitleHeadingForm" type="librisuite.form.cataloguing.heading.NameTitleHeadingForm"/>	
+		<form-bean name="ClassificationHeadingForm" type="librisuite.form.cataloguing.heading.ClassificationHeadingForm"/>	
+		<form-bean name="ControlNumberHeadingForm" type="librisuite.form.cataloguing.heading.ControlNumberHeadingForm"/>	
+	    <form-bean name="ShelfListHeadingForm" type="librisuite.form.cataloguing.heading.ShelfListHeadingForm"/>	
+	    <form-bean name="SelectionHeadingForm" type="librisuite.form.cataloguing.heading.SelectionForm"/>
+	    <form-bean name="ThesaurusHeadingForm" type="librisuite.form.cataloguing.heading.ThesaurusHeadingForm"/>	
+		
+		<!-- MISCELLANEOUS -->
+		<form-bean name="LoadFromFileForm" type="librisuite.form.cataloguing.bibliographic.LoadFromFileForm"/>
+		<form-bean name="CollectionsForm" type="librisuite.form.cataloguing.bibliographic.CollectionsForm"/>
+		<form-bean name="TransferItemsForm" type="librisuite.form.cataloguing.heading.TransferItemsForm"/>
+		<form-bean name="BackRegistryForm" type="librisuite.form.BackRegistryForm"/>
+		<form-bean name="MarcHelperForm" type="librisuite.form.cataloguing.marchelper.MarcHelperForm"/>
+	
+		<!-- CIRCULATION -->
+	
+	    <form-bean name="CirculationCounterForm" type="librisuite.form.circulation.counter.CirculationCounterForm"/>
+	    <form-bean name="DateCheckInForm" type="librisuite.form.circulation.counter.DateCheckInForm"/>
+	    <form-bean name="BorrowerSemiDataForm" type="librisuite.form.circulation.BorrowerSemiDataForm"/>
+	    <form-bean name="BorrowerGeneralDataForm" type="librisuite.form.circulation.borrower.BorrowerGeneralDataForm"/>
+	    <form-bean name="BorrowerCirculationForm" type="librisuite.form.circulation.borrower.BorrowerCirculationForm"/>
+	    <form-bean name="BorrowerSearchingForm" type="librisuite.form.circulation.borrower.BorrowerSearchingForm"/>
+	    <form-bean name="BorrowerNotesForm" type="librisuite.form.circulation.borrower.BorrowerNotesForm"/>
+	    <form-bean name="CirculationPoliciesForm" type="librisuite.form.circulation.policy.CirculationPoliciesForm"/>
+	    <form-bean name="PoliciesTypeBorrowerForm" type="librisuite.form.circulation.policy.PoliciesTypeBorrowerForm"/>
+	    <form-bean name="PolicyElementForm" type="librisuite.form.circulation.policy.PolicyElementForm"/>
+	    <form-bean name="CirculationPoliciesTimeForm" type="librisuite.form.circulation.policy.CirculationPoliciesTimeForm"/>
+	    <form-bean name="CirculationOverduePoliciesForm" type="librisuite.form.circulation.policy.CirculationOverduePoliciesForm"/>
+	    <form-bean name="CirculationHoldPoliciesForm" type="librisuite.form.circulation.policy.CirculationHoldPoliciesForm"/>
+	    <form-bean name="CirculationFinesPoliciesForm" type="librisuite.form.circulation.policy.CirculationFinesPoliciesForm"/>
+	    <form-bean name="LoadBorrowerFunctionForm" type="librisuite.form.circulation.borrower.LoadBorrowerFunctionForm"/>
+	    <form-bean name="BorrowerLibriVisionForm" type="librisuite.form.circulation.borrower.BorrowerLibriVisionForm"/>
+	    <form-bean name="BorrowerStatusForm" type="librisuite.form.circulation.borrower.BorrowerStatusForm"/>
+	    <form-bean name="BorrowerFinesForm" type="librisuite.form.circulation.borrower.BorrowerFinesForm"/>
+	    <form-bean name="BorrowerHoldsForm" type="librisuite.form.circulation.borrower.BorrowerHoldsForm"/>
+	    <form-bean name="BorrowerSendEmailForm" type="librisuite.form.circulation.borrower.BorrowerSendEmailForm"/>
+	    <form-bean name="CirculationLibraryHourForm" type="librisuite.form.circulation.library.CirculationLibraryHourForm"/>
+	    <form-bean name="CirculationLibraryInterBranchForm" type="librisuite.form.circulation.library.CirculationLibraryInterBranchForm"/>
+	    <form-bean name="CirculationInterLibraryLoanRequestForm" type="librisuite.form.circulation.interlibraryloan.CirculationInterLibraryLoanRequestForm"/>
+	    <form-bean name="CirculationInterLibraryLoanResultForm" type="librisuite.form.circulation.interlibraryloan.CirculationInterLibraryLoanResultForm"/>
+	    <form-bean name="CirculationInterLibraryILLRequestForm" type="librisuite.form.circulation.interlibraryloan.CirculationInterLibraryILLRequestForm"/>
+	    <form-bean name="CirculationInterLibraryILLRequestedCopiesForm" type="librisuite.form.circulation.interlibraryloan.CirculationInterLibraryILLRequestedCopiesForm"/>
+	    <form-bean name="CirculationInterLibraryILLTransferedCopiesForm" type="librisuite.form.circulation.interlibraryloan.CirculationInterLibraryILLTransferedCopiesForm"/>
+	    
+	    <form-bean name="BorrowerSendEmailForm" type="librisuite.form.circulation.borrower.BorrowerSendEmailForm"/>
+	    <form-bean name="LoadStatusFunctionForm" type="librisuite.form.circulation.status.LoadStatusFunctionForm"/>
+	    <form-bean name="StatusSearchingForm" type="librisuite.form.circulation.status.StatusSearchingForm"/>
+	    <form-bean name="SummaryItemStatusForm" type="librisuite.form.circulation.status.SummaryItemStatusForm"/>
+	    <form-bean name="ItemStatusForm" type="librisuite.form.circulation.status.ItemStatusForm"/>
+	    <form-bean name="LibraryDatesClosedForm" type="librisuite.form.circulation.settings.LibraryDatesClosedForm"/>
+	    <form-bean name="CirculationMaintenanceCopyReplaceForm" type="librisuite.form.circulation.maintenance.CirculationMaintenanceCopyReplaceForm"/>
+	    <form-bean name="CirculationMaintenanceBrwrReplaceForm" type="librisuite.form.circulation.maintenance.CirculationMaintenanceBrwrReplaceForm"/>
+	    <form-bean name="CirculationMaintenanceLocationForm" type="librisuite.form.circulation.maintenance.CirculationMaintenanceLocationForm"/>
+	    <form-bean name="CirculationMaintenanceLoanTypeForm" type="librisuite.form.circulation.maintenance.CirculationMaintenanceLoanTypeForm"/>
+	    <form-bean name="CirculationMaintenanceBranchForm" type="librisuite.form.circulation.maintenance.CirculationMaintenanceBranchForm"/>
+	    <form-bean name="CirculationLibrarySetupForm" type="librisuite.form.circulation.library.CirculationLibrarySetupForm"/>
+	    <form-bean name="CirculationMaintenanceWithoutBarcodeForm" type="librisuite.form.circulation.maintenance.CirculationMaintenanceWithoutBarcodeForm"/>
+	    <form-bean name="CirculationMaintenancePhysicalInventoryForm" type="librisuite.form.circulation.maintenance.CirculationMaintenancePhysicalInventoryForm"/>
+	    <form-bean name="CirculationMaintenanceLogicalInventoryForm" type="librisuite.form.circulation.maintenance.CirculationMaintenanceLogicalInventoryForm"/>
+		<form-bean name="CirculationMaintenanceInventoryListForm" type="librisuite.form.circulation.maintenance.CirculationMaintenanceInventoryListForm"/>
+		<form-bean name="CirculationMaintenanceDiscrepancyBookcaseForm" type="librisuite.form.circulation.maintenance.CirculationMaintenanceDiscrepancyBookcaseForm"/>
+		<form-bean name="CirculationMaintenanceDiscrepancyCircForm" type="librisuite.form.circulation.maintenance.CirculationMaintenanceDiscrepancyCircForm"/>
+		<form-bean name="CirculationMaintenanceOverdueProcessForm" type="librisuite.form.circulation.maintenance.CirculationMaintenanceOverdueProcessForm"/>
+	    <form-bean name="DeleteFinesForm" type="librisuite.form.circulation.settings.DeleteFinesForm"/>
+	    <form-bean name="CirculationActivatedHoldsForm" type="librisuite.form.circulation.holds.CirculationActivatedHoldsForm"/>
+	    <form-bean name="CirculationActivatedTimeHoldsForm" type="librisuite.form.circulation.holds.CirculationActivatedTimeHoldsForm"/>
+		<form-bean name="HoldSummaryForm" type="librisuite.form.circulation.status.HoldSummaryForm"/>
+		<form-bean name="ViewBorrowerInfoForm" type="librisuite.form.circulation.borrower.ViewBorrowerInfoForm"/>
+		<form-bean name="CirculationStatisticsMoreTitleForm" type="librisuite.form.circulation.statistics.CirculationStatisticsMoreTitleForm"/>
+		<form-bean name="CirculationBorrowerNotAuthorizedForm" type="librisuite.form.circulation.borrower.CirculationBorrowerNotAuthorizedForm"/>
+		<form-bean name="HoldBorrowerSearchingForm" type="librisuite.form.circulation.status.HoldBorrowerSearchingForm"/>
+	    
+	    <form-bean name="CodeTableForm" type="librisuite.form.searching.CodeTableForm" />
+		<form-bean name="FileManagerDoForm" type="com.casalini.digital.form.FileManagerDoForm" />
+		<form-bean name="UploadFileForm" type="com.casalini.digital.form.UploadFileForm"/>
+		<form-bean name="CopyFileForm" type="com.casalini.digital.form.CopyFileForm"/>
+	</form-beans>
+	
+	<action-mappings>
+	
+		<action path="/logon/logon" name="logonForm" type="librisuite.action.logon.LogonAction">
+	      	<forward name="welcome" path="/logon/initialApplication.do"/>
+	      	<forward name="authorised" path="/logon/initialApplication.do"/>
+	      	<forward name="changePassword" path="/logon/changePassword.jsp"/>
+	      	<forward name="expiredPassword" path="/logon/changePassword.jsp"/>
+	      	<forward name="fail" path="/logon/logon.jsp"/>
+	    </action>
+	    
+		<action path="/logonDispatcher" name="logonForm" type="librisuite.action.logon.LogonActionDispatcher">
+			<forward name="welcome" path="/logon/logonDispatcher.jsp"/>
+			<forward name="authorised" path="/logon/dispatcher.do"/>
+			<forward name="changePassword" path="/logon/changePasswordDispatcher.jsp"/>
+			<forward name="expiredPassword" path="/logon/changePasswordDispatcher.jsp"/>
+			<forward name="fail" path="/logon/logonDispatcher.jsp"/>
+	    </action>
+	
+		<action path="/logout/logout" type="librisuite.action.logout.LogoutAction">
+	    	<forward name="success" path="/logon/logon.do"/>
+	    </action>
+	
+	    <action name="changePasswordForm" path="/logon/changePassword" type="librisuite.action.logon.ChangePasswordAction">
+	      	<forward name="passwordChanged" path="/searching/advancedSearch.jsp"/>
+	      	<forward name="cancel" path="/logon/logon.jsp"/>
+	      	<forward name="fail" path="/logon/changePassword.jsp"/>
+	    </action>
+	    
+	    <action name="changePasswordForm" path="/logon/changePasswordDispatcher" type="librisuite.action.logon.ChangePasswordAction">
+	    	<forward name="passwordChanged" path="/dispatcher.do"/>
+	      	<forward name="cancel" path="/logon/logonDispatcher.jsp"/>
+	      	<forward name="fail" path="/logon/changePasswordDispatcher.jsp"/>
+	    </action>
+	    
+		<action name="logonForm" path="/logon/initialApplication" type="librisuite.action.logon.InitialApplicationAction">
+		  	<!-- <forward name="cat" path="/searching/advancedSearch.jsp"/> -->
+		  	<forward name="cat" path="/browse.do?method=refreshFromForm"/>
+		  	<forward name="cir" path="/circulation/circulationCounter.do"/>
+		  	<forward name="fail" path="/logon/logon.jsp"/>
+		</action>
+		
+		<action name="logonForm" path="/logon/dispatcher" type="dispatcher.action.logon.InitialApplicationAction">
+		  	<forward name="cat" path="/casalini/dispatcher.jsp"/>
+		  	<forward name="cir" path="/circulation/circulationCounter.do"/>
+		  	<forward name="fail" path="/logon/logon.jsp"/>
+		</action>
+		
+	    <action name="searchForm" path="/searching/search" type="librisuite.action.searching.SearchAction">
+	      	<forward name="simpleSearchSelected" path="/searching/simpleSearch.jsp"/>
+	      	<forward name="advancedSearchSelected" path="/searching/advancedSearch.do?initAdvancedSearch=true"/>
+	      	<forward name="expertSearchSelected" path="/searching/expertSearch.jsp"/>
+	      	<forward name="browseIndexesSelected" path="/searching/browse.jsp"/>
+	    </action>
+	   
+	    <action name="searchForm" path="/searching/toggleRecordType" type="librisuite.action.searching.ToggleRecordTypeAction">
+	      	<forward name="success" path="/searching/search.do"/>
+	    </action>
+	    
+	    <action name="SimpleSearchForm" path="/searching/simpleSearch" type="librisuite.action.searching.SimpleSearchAction">
+	      	<forward name="resultSetAvailable" path="/searching/resultSummary.jsp"/>
+	      	<forward name="fail" path="/searching/simpleSearch.jsp"/>    
+	      	<forward name="init" path="/searching/simpleSearch.jsp"/>
+	    </action>
+	 
+		<action name="AdvancedSearchForm" path="/searching/advancedSearch" type="librisuite.action.searching.AdvancedSearchAction">
+	      	<forward name="resultSetAvailable" path="/searching/resultSummary.jsp"/>
+	      	<forward name="fail" path="/searching/advancedSearch.jsp"/>    
+	      	<forward name="init" path="/searching/advancedSearch.jsp"/>
+	      	<forward name="selectTerm" path="/searching/advancedSearch.jsp"/>
+	    </action>
+	    
+	    <action name="ExpertSearchForm" path="/searching/expertSearch" type="librisuite.action.searching.ExpertSearchAction">
+			<forward name="fail" path="/searching/expertSearch.jsp"/>
+			<forward name="resultSetAvailable" path="/searching/resultSummary.jsp"/>
+		</action>
+	 
+	    <action path="/searching/simpleSearch" name="SimpleSearchForm" type="librisuite.action.searching.SimpleSearchAction">
+	      	<forward name="resultSetAvailable" path="/searching/resultSummary.jsp"/>
+	      	<forward name="fail" path="/searching/simpleSearch.jsp"/>
+	    </action>
+	    
+	    <action path="/resolve" name="ResolverForm"	type="librisuite.action.searching.ResolverAction">
+	    	<forward name="success" path="/searching/resolver.jsp"/>
+	    </action>
+	    
+	    <action path="/marcSlim" name="ResolverForm" type="librisuite.action.searching.MarcSlimAction"></action>
+	    
+	    <action path="/marcRecordService" name="MarcRecordServiceForm" type="librisuite.action.searching.MarcRecordServiceAction"></action>
+	    
+	    <action name="CodeTablesForm" path="/searching/codeTables" type="librisuite.action.searching.codeTablesAction">
+	    	<forward name="fail" path="/searching/codeTables.jsp"/>
+	    	<forward name="success" path="/searching/advancedSearch.do?initAdvancedSearch=false"/>
+	    </action>
+	
+		<action path="/searching/resultSummary" name="resultSummaryForm" type="librisuite.action.searching.ResultSummaryAction">
+			<forward name="resultSetAvailable" path="/searching/resultSummary.jsp"/>
+			<forward name="resultSetCollAvailable" path="/searching/resultSummaryFromCollection.jsp"/>
+			<forward name="copiesSelected" path="/backRegistry.do?forward=copies"/>
+			<forward name="bibliographicItemSelected" path="/cataloguing/bibliographic/editBibliographicItem.do" redirect="true"/> 
+			<forward name="editItemView" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+			<forward name="editCollection" path="/cataloguing/bibliographic/collections.do"/>
+			<forward name="editCollectionCMP" path="/cataloguing/bibliographic/collectionsCMP.do"/>
+			<forward name="relationSelected" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+			<forward name="motherSelected" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+			<forward name="cancel" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+			<forward name="recordDeleted" path="/searching/search.do"/>
+			<forward name="copySelected" path="/cataloguing/copy/copy.jsp"/>
+			<forward name="fail" path="/searching/resultSummary.jsp"/>
+			<forward name="close" path="/searching/browse.jsp"/> 
+			<forward name="quality" path="/casalini/searching/resultSummary.do"/>
+			<forward name="filesHierarchy" path="/casalini/hierarchy/filesHierarchy.jsp"/>
+			<forward name="managementDig" path="/casalini/digital/management.do"/>
+			<forward name="management" path="/casalini/management.do"/>
+			<forward name="evaluation" path="/cataloguing/evaluator/evaluators.do"/>
+		</action>
+		
+		<action path="/searching/searchHistory" name="searchHistoryForm" type="librisuite.action.searching.SearchHistoryAction">
+			<forward name="init" path="/searching/searchHistory.jsp"/>
+			<forward name="fail" path="/searching/simpleSearch.jsp"/>
+	        <forward name="resultSetAvailable" path="/searching/resultSummary.jsp"/>
+	        <forward name="expertSearch" path="/searching/expertSearch.jsp"/>
+	        <forward name="advancedSearch" path="/searching/advancedSearch.jsp"/>
+	        <forward name="simpleSearch" path="/searching/simpleSearch.jsp"/>
+		</action>
+	
+		<action path="/backRegistry" name="BackRegistryForm" type="librisuite.action.BackRegistryAction">
+			<forward name="collections" path="/cataloguing/bibliographic/collections.do"/>
+			<forward name="copies" path="/cataloguing/copy/copies.jsp"/>
+		</action>
+	
+		<action path="/back" type="org.mwolff.struts.actions.BackAction"/>
+	
+	    <action path="/crossReferences" name="CrossReferencesForm" type="librisuite.action.cataloguing.crossReferences.CrossReferencesAction">
+	      	<forward name="deleted" path="/cataloguing/crossReferences/crossReferences.jsp"/>
+	      	<forward name="new" path="/cataloguing/crossReferences/newCrossReference.jsp"/>
+	      	<forward name="close" path="/browse.do?method=refresh"/>
+	      	<forward name="fail" path="/cataloguing/crossReferences/crossReferences.jsp"/>
+	    </action>
+	    
+	    <!-- <action path="/cataloguing/crossReferences/newCrossReference" name="NewCrossReferenceForm" type="librisuite.action.cataloguing.crossReferences.NewCrossReferenceAction">
+	      	<forward name="save" path="/cataloguing/crossReferences/crossReferences.jsp"/>
+	      	<forward name="browse" path="/searching/browse.jsp"/>
+	      	<forward name="close" path="/cataloguing/crossReferences/crossReferences.jsp"/>
+	      	<forward name="checkDual" path="/cataloguing/crossReferences/newCrossReference.jsp"/>
+	      	<forward name="fail" path="/cataloguing/crossReferences/newCrossReference.jsp"/>
+	    </action>  -->
+	   
+	    <action path="/browse" name="BrowseForm" type="librisuite.action.searching.BrowseAction" parameter="method">
+	      	<forward name="showXrefs" path="/cataloguing/crossReferences/crossReferences.jsp"/>
+	      	<forward name="showAuths" path="/authority/authorityCard.jsp"/>
+	      	<forward name="pickXref" path="/cataloguing/crossReferences/newCrossReference.jsp"/>
+	      	<forward name="pickedHdg" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="pickedShelf" path="/cataloguing/copy/copy.jsp"/>
+	      	<forward name="pickedClass" path="/cataloguing/copy/copy.jsp"/>
+	      	<forward name="pickedNameTitle" path="/cataloguing/heading/nameTitleHeading.jsp"/>
+	      	<forward name="pickedThs" path="/cataloguing/heading/subjectHeading.jsp"/>
+	      	<forward name="pickedPublisher" path="/cataloguing/bibliographic/editPublisherTag.jsp"/>
+	      	<forward name="pickedTransferItem" path="/cataloguing/heading/transferItems.jsp"/>
+			<forward name="pickedSuggest" path="/back.do" />
+			<forward name="showNote" path="/cataloguing/thesaurus/notes.do"/>
+			<forward name="search" path="/searching/resultSummaryBrowse.jsp"/>
+			<forward name="searchMades" path="/searching/resultSummarySimple.jsp"/>
+			<forward name="refresh" path="/searching/browse.jsp"/>
+			<forward name="initBean" path="/searching/browse.jsp"/>
+			<forward name="next" path="/searching/browse.jsp"/>
+			<forward name="previous" path="/searching/browse.jsp"/>
+			<forward name="cancelNameTitle" path="/cataloguing/heading/nameTitleHeading.jsp"/>
+			<forward name="cancelPick" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+			<forward name="cancelPublisher" path="/cataloguing/bibliographic/editPublisherTag.jsp"/>
+			<forward name="cancelXref" path="/cataloguing/crossReferences/newCrossReference.jsp"/>
+			<forward name="cancelShelf" path="/cataloguing/copy/copy.jsp"/>
+			<forward name="cancelTransferItem" path="/cataloguing/heading/transferItems.jsp"/>
+			<forward name="cancelThesaurus" path="/cataloguing/heading/subjectHeading.jsp"/>
+			<forward name="noMatch" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+			<forward name="fail" path="/searching/browse.jsp"/>
+	    </action>
+	
+		<action name="copyForm" path="/cataloguing/copy/copy" type="librisuite.action.cataloguing.copy.CopyAction">
+			<forward name="copySelected" path="/cataloguing/copy/copy.jsp"/>
+			<forward name="copySaved" path="/cataloguing/copy/copy.jsp"/>
+			<forward name="copiesSelected" path="/cataloguing/copy/copies.jsp"/> 
+			<forward name="scanShelfSelected" path="/searching/browse.jsp"/> 
+			<forward name="scanClassSelected" path="/searching/browse.jsp"/> 
+			<forward name="fail" path="/cataloguing/copy/copy.jsp"/>
+		</action>
+		
+		<action name="copiesForm" path="/cataloguing/copy/copies" type="librisuite.action.cataloguing.copy.CopiesAction">
+			<forward name="noteSelected" path="/cataloguing/copy/note.jsp"/>
+			<forward name="viewCopy" path="/cataloguing/copy/viewCopy.jsp"/>
+			<forward name="notesSelected" path="/cataloguing/copy/notes.jsp"/>
+			<forward name="copySelected" path="/cataloguing/copy/copy.jsp"/>
+			<forward name="copiesSelected" path="/cataloguing/copy/copies.jsp"/> 
+			<forward name="inventory" path="/cataloguing/copy/inventory.jsp"/> 
+			<forward name="fail" path="/cataloguing/copy/copies.jsp"/>
+		</action>
+		
+		<action name="noteForm" path="/cataloguing/copy/note" type="librisuite.action.cataloguing.copy.NoteAction">
+			<forward name="notesSelected" path="/cataloguing/copy/notes.jsp"/>
+			<forward name="copiesSelected" path="/cataloguing/copy/copies.jsp"/>
+			<forward name="fail" path="/cataloguing/copy/note.jsp"/>
+		</action>
+		
+		<action name="notesForm" path="/cataloguing/copy/notes" type="librisuite.action.cataloguing.copy.NotesAction">
+			<forward name="noteSelected" path="/cataloguing/copy/note.jsp"/>
+			<forward name="notesSelected" path="/cataloguing/copy/notes.jsp"/>
+			<forward name="copySelected" path="/cataloguing/copy/copy.jsp"/>
+			<forward name="copiesSelected" path="/cataloguing/copy/copies.jsp"/>
+			<forward name="fail" path="/cataloguing/copy/notes.jsp"/>
+		</action>
+		
+		<action name="inventoryForm" path="/cataloguing/copy/inventory" type="librisuite.action.cataloguing.copy.InventoryAction">
+			<forward name="update" path="/cataloguing/copy/inventory.jsp"/>
+			<forward name="done" path="/cataloguing/copy/copies.jsp"/>
+			<forward name="fail" path="/cataloguing/copy/inventory.jsp"/>
+		</action>
+		
+	    <!-- thesaurus note -->
+	    <action name="noteThesaurusForm" path="/cataloguing/thesaurus/note" type="librisuite.action.cataloguing.thesaurus.NoteThesaurusAction">
+			<forward name="notesSelected" path="/cataloguing/thesaurus/notesThesaurus.jsp"/>
+			<forward name="fail" path="/cataloguing/thesaurus/noteThesaurus.jsp"/>
+		</action>
+		
+		<action name="notesThesaurusForm" path="/cataloguing/thesaurus/notes" type="librisuite.action.cataloguing.thesaurus.NotesThesaurusAction">
+			<forward name="noteSelected" path="/cataloguing/thesaurus/noteThesaurus.jsp"/>
+			<forward name="notesDeleted" path="/cataloguing/thesaurus/notesThesaurus.jsp"/>
+			<forward name="notesSelected" path="/searching/browse.jsp"/>
+			<forward name="fail" path="/cataloguing/thesaurus/notesThesaurus.jsp"/>
+		</action>
+	   
+		<!-- BIBLIOBRAPHIC ITEM CATALOGUING -->
+		<action name="EditTagForm" path="/cataloguing/bibliographic/showOrEditItem" type="librisuite.action.FindForwardAction" parameter="method">
+			<forward name="show" path="/cataloguing/bibliographic/showItem.do"/> 
+			<forward name="edit" path="/cataloguing/bibliographic/editItem.do"/> 
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/showItem" type="librisuite.action.FindForwardAction">
+			<forward name="browse" path="/cataloguing/bibliographic/browse.do"/> 
+			<forward name="changeValues" path="/cataloguing/bibliographic/changeValues.do"/>
+			<forward name="changeValuesIndicator" path="/cataloguing/bibliographic/changeValuesIndicator.do"/>
+			<forward name="changeValuesGroup" path="/cataloguing/bibliographic/changeValuesGroupTag.do"/>
+			<forward name="changeValuesTable" path="/cataloguing/bibliographic/changeValuesTable.do"/> 
+			<forward name="changeReciprocal" path="/cataloguing/bibliographic/changeReciprocal.do"/>
+			<forward name="changeCategory" path="/cataloguing/bibliographic/changeCategory.do"/> 
+			<forward name="changeHeadingType" path="/cataloguing/authority/changeHeadingType.do"/> 
+			<forward name="changeText" path="/cataloguing/bibliographic/changeText.do"/> 
+			<forward name="changeValidation" path="/cataloguing/bibliographic/changeValidation.do"/>
+			<forward name="skipSearch" path="/cataloguing/bibliographic/shipSearch.do"/>
+			<forward name="changeSubfield" path="/cataloguing/bibliographic/changeSubfield.do"/>
+			<forward name="marcHelper" path="/cataloguing/marchelper.do?"/>
+			<forward name="checkQuality" path="/casalini/quality/qualityCheck.do?"/>
+			<forward name="editCodeTable" path="/edit/codeTableList.do?method=editTable" />
+			<forward name="verification" path="/cataloguing/bibliographic/fixedField000Save.do" />
+			<forward name="changeLevel" path="/cataloguing/bibliographic/changeLevelDigital.do" />
+			<forward name="changeMdrFgl" path="/cataloguing/bibliographic/changeMdrFgl.do" />
+			<forward name="changeCheck" path="/cataloguing/bibliographic/changeCheckDigital.do" />
+			<forward name="changeCheckOnline" path="/cataloguing/bibliographic/changeCheckOnline.do" />
+			<forward name="changeCheckContinuaz" path="/cataloguing/bibliographic/changeCheckContinuaz.do" />
+			<forward name="changeProgressiveType" path="/cataloguing/bibliographic/changeProgressiveType.do" />
+			<forward name="digital" path="/casalini/digital/explorerDigitalRepository.do" />
+			<forward name="collections" path="/cataloguing/bibliographic/collections.jsp"/> 
+			<forward name="editCodes" path="/cataloguing/bibliographic/editFixedFields.do"/> 
+			<forward name="editPublisher" path="/cataloguing/bibliographic/editPublisherTag.do?operation=init"/> 
+			<forward name="editSubfieldW" path="/cataloguing/authority/editSubfieldW.jsp"/> 
+			<forward name="newTag" path="/cataloguing/bibliographic/newTag.do"/> 
+			<forward name="deleteTag" path="/cataloguing/bibliographic/deleteTag.do"/> 
+			<forward name="deleteRecord" path="/cataloguing/bibliographic/deleteRecord.do"/> 
+			<forward name="saveRecord" path="/cataloguing/bibliographic/saveRecord.do"/>
+			<forward name="addModel" path="/cataloguing/bibliographic/addModel.do"/> 
+			<forward name="tag097Save" path="/cataloguing/bibliographic/tag097Save.do"/>
+			<forward name="tag097Annull" path="/cataloguing/bibliographic/tag097Annull.do"/>
+			<forward name="tag097Duplicate" path="/cataloguing/bibliographic/tag097Duplicate.do"/>
+			<forward name="tag097Hierarchy" path="/cataloguing/bibliographic/tag097Hierarchy.do"/>
+			<forward name="sendDoi" path="/cataloguing/bibliographic/sendDoi.do"/>
+			<forward name="showCopies" path="/cataloguing/bibliographic/showCopies.do"/> 
+			<forward name="undo" path="/cataloguing/bibliographic/undo.do"/> 
+			<forward name="redo" path="/cataloguing/bibliographic/redo.do"/> 
+			<forward name="useAsModel" path="/cataloguing/common/useAsModel.do"/> 
+			<forward name="deletedTags" path="/cataloguing/bibliographic/deletedTags.do"/> 
+			<forward name="search" path="/searching/expertSearch.jsp"/> 
+			<forward name="searchRelationship" path="/cataloguing/bibliographic/search.do"/>
+			<forward name="searchMother" path="/cataloguing/bibliographic/searchMother.do"/>
+			<forward name="editNote" path="/cataloguing/bibliographic/editNoteTag.jsp"/>
+			<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+			<forward name="failure" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+			<forward name="createT260" path="/cataloguing/bibliographic/createTag260.do"/>
+			<forward name="changeERPCheck" path="/cataloguing/bibliographic/changeERPCheck.do"/>
+		</action>
+	
+		<action name="EditTagForm" path="/cataloguing/bibliographic/createTag260" type="librisuite.action.cataloguing.bibliographic.CreateTag260Action">
+			<forward name="done" path="/cataloguing/bibliographic/editPublisherTag.do?operation=init"/>
+			<forward name="selectEditor" path="/casalini/searching/chooseEditor.jsp"/>
+			<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+			<forward name="chooseHdg" path="/casalini/searching/chooseHdg.do"/>		
+		</action>	
+	
+		<action name="FileManagerDoForm" path="/casalini/digital/explorerDigitalRepository" type="com.casalini.digital.action.ExplorerDigitalRepositoryAction" scope="session">
+	      	<forward name="success" path="/casalini/digital/digitalRepository.jsp"/>     	
+	      	<forward name="upload" path="/casalini/digital/uploadFile.do"/>      	
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="deleteError" path="/casalini/digital/digitalRepository.jsp"/>
+	      	<forward name="close" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>      	
+		</action>
+	
+		<action name="UploadFileForm" path="/casalini/digital/uploadFile" type="com.casalini.digital.action.DigitalUploadFileAction">
+	      	<forward name="init" path="/casalini/digital/digitalUpload.jsp"/>
+	      	<forward name="close" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>      	
+			<forward name="load" path="/casalini/digital/digitalUpload.jsp"/>
+			<forward name="annul" path="/casalini/digital/digitalRepository.jsp"/>  
+			<forward name="fail" path="/casalini/digital/digitalUpload.jsp"/>
+			<forward name="uploadOk" path="/casalini/digital/digitalUploadOk.jsp"/>
+		</action>
+	
+	    <action name="EditTagForm" path="/cataloguing/bibliographic/changeSubfield" type="librisuite.action.cataloguing.bibliographic.ChangeSubifieldsAction" scope="session">
+			<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+			<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+		</action>  
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/editItem" type="librisuite.action.cataloguing.bibliographic.EditItemAction">
+			<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.do" redirect="true"/> 
+			<forward name="failure" path="/searching/search.do"/> 
+		</action>
+	
+		<action name="EditTagForm" path="/cataloguing/bibliographic/editBibliographicItem" type="librisuite.action.cataloguing.bibliographic.EditTagAction">
+			<forward name="editItemView" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+			<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+		</action>
+	
+		<action name="EditTagForm" path="/cataloguing/common/stringText" type="librisuite.action.cataloguing.common.NewLongStringTextAction">
+			<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+			<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+		</action>
+	
+		<action name="EditTagForm" path="/cataloguing/bibliographic/browse" type="librisuite.action.cataloguing.bibliographic.BrowseAction">
+			<forward name="browse" path="/searching/browse.jsp"/> 
+			<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/search" type="librisuite.action.cataloguing.bibliographic.SearchAction">
+			<forward name="done" path="/searching/search.do"/>
+		</action>	
+	
+		<action name="EditTagForm" path="/cataloguing/bibliographic/searchMother" type="librisuite.action.cataloguing.bibliographic.SearchMotherAction">
+			<forward name="done" path="/searching/search.do"/>
+			<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>	
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/changeValues" type="librisuite.action.cataloguing.bibliographic.ChangeValuesAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+	
+		<action name="EditTagForm" path="/cataloguing/bibliographic/changeValuesIndicator" type="librisuite.action.cataloguing.bibliographic.ChangeValuesIndicatorAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/changeValuesGroupTag" type="librisuite.action.cataloguing.bibliographic.ChangeValuesGroupTagAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/changeValuesTable" type="librisuite.action.cataloguing.bibliographic.ChangeValuesTableAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+
+		<action name="EditTagForm" path="/cataloguing/bibliographic/changeLevelDigital" type="librisuite.action.cataloguing.bibliographic.ChangeLevelDigitalAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/changeMdrFgl" type="librisuite.action.cataloguing.bibliographic.ChangeMdrFglAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/changeCheckDigital" type="librisuite.action.cataloguing.bibliographic.ChangeCheckDigitalAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/changeCheckOnline" type="librisuite.action.cataloguing.bibliographic.ChangeCheckOnlineAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/changeERPCheck" type="librisuite.action.cataloguing.bibliographic.ChangeERPCheckAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/changeCheckContinuaz" type="librisuite.action.cataloguing.bibliographic.ChangeCheckContinuazAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/changeProgressiveType" type="librisuite.action.cataloguing.bibliographic.ChangeProgressiveTypeAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+			
+		<action name="EditTagForm" path="/cataloguing/bibliographic/search" type="librisuite.action.cataloguing.bibliographic.SearchAction">
+			<forward name="done" path="/searching/search.do"/>
+		</action>	
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/changeText" type="librisuite.action.cataloguing.bibliographic.ChangeTextAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+			<forward name="basic" path="/cataloguing/marchelper/basic.jsp"/> 
+	      	<forward name="openForm" path="/cataloguing/bibliographic/newStringText.jsp"/> 
+	      	<forward name="editCodeTable" path="/edit/codeTableList.do?method=editTable" />
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>	
+
+		<action name="EditTagForm" path="/cataloguing/bibliographic/changeValidation" type="librisuite.action.cataloguing.bibliographic.ChangeValidationAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		<action name="EditTagForm" path="/cataloguing/bibliographic/shipSearch" type="librisuite.action.cataloguing.bibliographic.SkipSearchAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/changeCategory" type="librisuite.action.cataloguing.bibliographic.ChangeCategoryAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>	
+		
+		<action name="EditTagForm" path="/cataloguing/authority/changeHeadingType" type="librisuite.action.cataloguing.authority.ChangeHeadingTypeAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>	
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/changeReciprocal" type="librisuite.action.cataloguing.bibliographic.ChangeReciprocalAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>	
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/newTag" type="librisuite.action.cataloguing.bibliographic.NewTagAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/newDigitalTag" type="librisuite.action.cataloguing.bibliographic.NewDigitalTagAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	    	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+	
+		<action name="EditTagForm" path="/cataloguing/bibliographic/deleteTag" type="librisuite.action.cataloguing.bibliographic.DeleteTagAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>	
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/deleteRecord" type="librisuite.action.cataloguing.bibliographic.DeleteRecordAction">
+	      	<!-- modifica barbara 07/06/2007 una volta cancellato il record vado sulla pagina di ricerca avanzata -->
+	      	<forward name="success" path="/searching/advancedSearch.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>	
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/saveRecord" type="librisuite.action.cataloguing.bibliographic.SaveRecordAction">
+	      	<forward name="success" path="/searching/resultSummary.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/addModel" type="librisuite.action.cataloguing.common.AddCatalogItemAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/tag097Save" type="librisuite.action.cataloguing.bibliographic.Tag097SaveAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/tag097Duplicate" type="librisuite.action.cataloguing.bibliographic.Tag097DuplicateAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/tag097Hierarchy" type="librisuite.action.cataloguing.bibliographic.Tag097HierarchyAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/tag097Annull" type="librisuite.action.cataloguing.bibliographic.Tag097AnnullAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+	
+		<action name="EditTagForm" path="/cataloguing/bibliographic/sendDoi" type="librisuite.action.cataloguing.bibliographic.SendDoiAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/showCopies" type="librisuite.action.cataloguing.bibliographic.ShowCopiesAction">
+	      	<forward name="success" path="/backRegistry.do?forward=copies"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>	
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/undo" type="librisuite.action.cataloguing.bibliographic.UndoAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>	
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/redo" type="librisuite.action.cataloguing.bibliographic.RedoAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="EditTagForm" path="/cataloguing/bibliographic/deletedTags" type="librisuite.action.cataloguing.bibliographic.DeleteTagsAction">
+	      	<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>	
+		
+		<action name="EditTagForm" path="/cataloguing/common/useAsModel" type="librisuite.action.cataloguing.common.UseAsModelAction">
+			<forward name="success" path="/cataloguing/bibliographic/bibliographicModel.jsp"/>
+			<forward name="fail" path="/cataloguing/bibliographic/bibliographicModel.jsp"/>
+		</action>	
+	    
+		<action name="modelForm" path="/cataloguing/common/model" type="librisuite.action.cataloguing.common.ModelAction">
+			<forward name="modelSelected" path="/cataloguing/bibliographic/bibliographicModel.jsp"/>
+			<forward name="success" path="/cataloguing/bibliographic/bibliographicModel.jsp"/>
+			<forward name="openForm" path="/cataloguing/bibliographic/newStringTextModel.jsp"/>
+			<forward name="fail" path="/cataloguing/bibliographic/bibliographicModel.jsp"/>
+		</action>
+	
+		<action name="modelForm" path="/cataloguing/common/stringTextModel" type="librisuite.action.cataloguing.common.NewLongStringTextModelAction">
+			<forward name="success" path="/cataloguing/bibliographic/bibliographicModel.jsp"/> 
+			<forward name="fail" path="/cataloguing/bibliographic/bibliographicModel.jsp"/> 
+		</action>
+		
+		<action name="modelsForm" path="/cataloguing/common/models" type="librisuite.action.cataloguing.common.ModelsAction">
+			<forward name="modelSelected" path="/cataloguing/bibliographic/bibliographicModel.jsp"/>
+			<forward name="modelsSelected" path="/cataloguing/bibliographic/bibliographicModels.jsp"/>
+			<forward name="fail" path="/cataloguing/bibliographic/bibliographicModels.jsp"/>
+	    </action>
+	    
+		<action name="EditPublisherTagForm" path="/cataloguing/bibliographic/editPublisherTag" type="librisuite.action.cataloguing.bibliographic.EditPublisherTagAction">
+	      	<forward name="close" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="save" path="/cataloguing/bibliographic/changeText.do?operation=save"/>
+	      	<forward name="update" path="/cataloguing/bibliographic/editPublisherTag.jsp"/>
+			<forward name="browse" path="/searching/browse.jsp"/> 
+	      	<forward name="fail" path="/cataloguing/bibliographic/editPublisherTag.jsp"/>
+		</action>
+		
+		<action name="EditSubfieldWForm" path="/cataloguing/authority/editSubfieldW" type="librisuite.action.cataloguing.authority.EditSubfieldWAction">
+	      	<forward name="close" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	      	<forward name="save" path="/cataloguing/authority/editSubfieldW.jsp"/>
+	      	<forward name="fail" path="/cataloguing/authority/editSubfieldW.jsp"/>
+		</action>
+		
+		<action name="EditNoteTagForm" path="/cataloguing/bibliographic/editNoteTag" type="librisuite.action.cataloguing.bibliographic.EditNoteTagAction">
+			<forward name="cancel" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+	
+		<action name="newCatalogItemForm" path="/cataloguing/common/newCatalogItem" type="librisuite.action.cataloguing.common.NewCatalogItemAction">
+			<forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+			<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+	
+		<!-- HEADING CATALOGUING -->
+		<!-- edit from browse screen -->
+	   	<action name="SelectionHeadingForm" path="/cataloguing/heading/editHeading" type="librisuite.action.FindForwardAction" scope="request" parameter="marcCategory">
+	   		<forward name="5" path="/cataloguing/heading/editControlNumberHeading.do"/>  
+	   		<forward name="19" path="/cataloguing/heading/editControlNumberHeading.do"/>  
+	   		<forward name="6" path="/cataloguing/heading/editClassificationHeading.do"/>  
+	   		<forward name="20" path="/cataloguing/heading/editClassificationHeading.do"/>  
+	   		<forward name="22" path="/cataloguing/heading/editTitleHeading.do"/>  
+	   		<forward name="2" path="/cataloguing/heading/editNameHeading.do"/>
+			<forward name="17" path="/cataloguing/heading/editNameHeading.do"/>
+			<forward name="4" path="/cataloguing/heading/editSubjectHeading.do"/> 
+			<forward name="18" path="/cataloguing/heading/editSubjectHeading.do"/> 
+			<forward name="21" path="/cataloguing/heading/editPublisherHeading.do"/> 
+			<forward name="11" path="/cataloguing/heading/editNameTitleHeading.do"/> 
+			<forward name="14" path="/cataloguing/heading/editShelfListHeading.do"/> 
+			<forward name="23" path="/cataloguing/heading/editThesaurusHeading.do"/> 
+		</action>
+		
+	   	<action name="SelectionHeadingForm" path="/cataloguing/heading/addHeading" type="librisuite.action.FindForwardAction" scope="request" parameter="marcCategory">
+	   		<forward name="5" path="/cataloguing/heading/addControlNumberHeading.do"/>  
+	   		<forward name="19" path="/cataloguing/heading/addControlNumberHeading.do"/>  
+	   		<forward name="6" path="/cataloguing/heading/addClassificationHeading.do"/>  
+	   		<forward name="20" path="/cataloguing/heading/addClassificationHeading.do"/>  
+	   		<forward name="22" path="/cataloguing/heading/addTitleHeading.do"/>  
+	   		<forward name="2" path="/cataloguing/heading/addNameHeading.do"/>
+			<forward name="17" path="/cataloguing/heading/addNameHeading.do"/>
+			<forward name="4" path="/cataloguing/heading/addSubjectHeading.do"/> 
+			<forward name="18" path="/cataloguing/heading/addSubjectHeading.do"/> 
+			<forward name="21" path="/cataloguing/heading/addPublisherHeading.do"/> 
+			<forward name="11" path="/cataloguing/heading/addNameTitleHeading.do"/> 
+			<forward name="14" path="/cataloguing/heading/addShelfListHeading.do"/>
+			<forward name="14" path="/cataloguing/heading/addShelfListHeading.do"/>
+			<forward name="23" path="/cataloguing/heading/addThesaurusHeading.do"/>
+		</action>
+		
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/copyHeading" type="librisuite.action.FindForwardAction" scope="request" parameter="marcCategory">
+	   		<forward name="5" path="/cataloguing/heading/copyControlNumberHeading.do"/>  
+	   		<forward name="19" path="/cataloguing/heading/copyControlNumberHeading.do"/>  
+	   		<forward name="6" path="/cataloguing/heading/copyClassificationHeading.do"/>  
+	   		<forward name="20" path="/cataloguing/heading/copyClassificationHeading.do"/>  
+	   		<forward name="22" path="/cataloguing/heading/copyTitleHeading.do"/>  
+	   		<forward name="2" path="/cataloguing/heading/copyNameHeading.do"/>
+			<forward name="17" path="/cataloguing/heading/copyNameHeading.do"/>
+			<forward name="4" path="/cataloguing/heading/copySubjectHeading.do"/> 
+			<forward name="18" path="/cataloguing/heading/copySubjectHeading.do"/> 
+			<forward name="21" path="/cataloguing/heading/copyPublisherHeading.do"/> 
+			<forward name="11" path="/cataloguing/heading/copyNameTitleHeading.do"/> 
+			<forward name="14" path="/cataloguing/heading/copyShelfListHeading.do"/>
+			<forward name="14" path="/cataloguing/heading/copyShelfListHeading.do"/>
+			<forward name="23" path="/cataloguing/heading/copyThesaurusHeading.do"/>
+		</action>
+		
+		<!-- these are forwards from edit/add  -->
+		<!-- classification -->
+	   	<action name="SelectionHeadingForm" path="/cataloguing/heading/editClassificationHeading" type="librisuite.action.cataloguing.heading.LoadHeadingAction" scope="request">
+	   		<forward name="edit" path="/cataloguing/heading/classificationHeading.jsp"/>  
+			<forward name="fail" path="/searching/browse.jsp"/>
+		</action>
+		
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/addClassificationHeading" type="librisuite.action.cataloguing.heading.NewHeadingAction" scope="request">
+	   		<forward name="add" path="/cataloguing/heading/classificationHeading.jsp"/>  
+		</action>
+		
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/copyClassificationHeading" type="librisuite.action.cataloguing.heading.CopyHeadingAction" scope="request">
+	   		<forward name="copy" path="/cataloguing/heading/classificationHeading.jsp"/>  
+		</action>
+		
+		<!-- control numbers -->
+	   	<action name="SelectionHeadingForm" path="/cataloguing/heading/editControlNumberHeading" type="librisuite.action.cataloguing.heading.LoadHeadingAction" scope="request">
+	   		<forward name="edit" path="/cataloguing/heading/controlNumberHeading.jsp"/>  
+			<forward name="fail" path="/searching/browse.jsp"/>
+		</action>
+		
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/addControlNumberHeading" type="librisuite.action.cataloguing.heading.NewHeadingAction" scope="request">
+	   		<forward name="add" path="/cataloguing/heading/controlNumberHeading.jsp"/>  
+		</action>
+		
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/copyControlNumberHeading" type="librisuite.action.cataloguing.heading.CopyHeadingAction" scope="request">
+	   		<forward name="copy" path="/cataloguing/heading/controlNumberHeading.jsp"/>  
+		</action>
+	
+		<!-- names -->
+	   	<action name="SelectionHeadingForm" path="/cataloguing/heading/editNameHeading" type="librisuite.action.cataloguing.heading.LoadHeadingAction" scope="request">
+	   		<forward name="edit" path="/cataloguing/heading/nameHeading.jsp"/>  
+			<forward name="fail" path="/searching/browse.jsp"/>
+		</action>
+		
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/addNameHeading" type="librisuite.action.cataloguing.heading.NewHeadingAction" scope="request">
+	   		<forward name="add" path="/cataloguing/heading/nameHeading.jsp"/>  
+		</action>
+		
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/copyNameHeading" type="librisuite.action.cataloguing.heading.CopyHeadingAction" scope="request">
+	   		<forward name="copy" path="/cataloguing/heading/nameHeading.jsp"/>  
+		</action>
+		
+		<!-- name/titles -->
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/addNameTitleHeading" type="librisuite.action.cataloguing.heading.NewHeadingAction" scope="request">
+	   		<forward name="add" path="/cataloguing/heading/nameTitleHeading.jsp"/>  
+	    </action>
+	        
+	    <action name="SelectionHeadingForm" path="/cataloguing/heading/copyNameTitleHeading" type="librisuite.action.cataloguing.heading.CopyHeadingAction" scope="request">
+	   		<forward name="copy" path="/cataloguing/heading/nameTitleHeading.jsp"/>  
+	    </action>
+	       
+	   	<action name="SelectionHeadingForm" path="/cataloguing/heading/editNameTitleHeading" type="librisuite.action.cataloguing.heading.LoadHeadingAction" scope="request">
+	   		<forward name="edit" path="/cataloguing/heading/nameTitleHeading.jsp"/>  
+			<forward name="fail" path="/searching/browse.jsp"/>
+	    </action>    
+		
+		<!-- publishers -->
+	   	<action name="SelectionHeadingForm" path="/cataloguing/heading/editPublisherHeading" type="librisuite.action.cataloguing.heading.LoadHeadingAction" scope="request">
+	   		<forward name="edit" path="/cataloguing/heading/publisherHeading.jsp"/>  
+			<forward name="fail" path="/searching/browse.jsp"/>
+		</action>
+		
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/addPublisherHeading" type="librisuite.action.cataloguing.heading.NewHeadingAction" scope="request">
+	   		<forward name="add" path="/cataloguing/heading/publisherHeading.jsp"/>  
+		</action>
+		
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/copyPublisherHeading" type="librisuite.action.cataloguing.heading.CopyHeadingAction" scope="request">
+	   		<forward name="copy" path="/cataloguing/heading/publisherHeading.jsp"/>  
+		</action>
+		
+		<!-- subjects -->
+	   	<action name="SelectionHeadingForm" path="/cataloguing/heading/editSubjectHeading" type="librisuite.action.cataloguing.heading.LoadHeadingAction" scope="request">
+	   		<forward name="edit" path="/cataloguing/heading/subjectHeading.jsp"/>  
+			<forward name="fail" path="/searching/browse.jsp"/>
+		</action>
+		
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/addSubjectHeading" type="librisuite.action.cataloguing.heading.NewHeadingAction" scope="request">
+	   		<forward name="add" path="/cataloguing/heading/subjectHeading.jsp"/>  
+		</action>
+		
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/copySubjectHeading" type="librisuite.action.cataloguing.heading.CopyHeadingAction" scope="request">
+	   		<forward name="copy" path="/cataloguing/heading/subjectHeading.jsp"/>  
+		</action>
+		
+		<!-- shelf lists -->
+	   	<action name="SelectionHeadingForm" path="/cataloguing/heading/editShelfListHeading" type="librisuite.action.cataloguing.heading.LoadHeadingAction" scope="request">
+	   		<forward name="edit" path="/cataloguing/heading/shelfListHeading.jsp"/>  
+			<forward name="fail" path="/searching/browse.jsp"/>
+		</action>
+		
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/addShelfListHeading" type="librisuite.action.cataloguing.heading.NewHeadingAction" scope="request">
+	   		<forward name="add" path="/cataloguing/heading/shelfListHeading.jsp"/>  
+		</action>
+		
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/copyShelfListHeading" type="librisuite.action.cataloguing.heading.CopyHeadingAction" scope="request">
+	   		<forward name="copy" path="/cataloguing/heading/shelfListHeading.jsp"/>  
+		</action>
+		
+		<!-- titles -->
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/addTitleHeading" type="librisuite.action.cataloguing.heading.NewHeadingAction" scope="request">
+	   		<forward name="add" path="/cataloguing/heading/titleHeading.jsp"/>  
+	    </action>  
+	    
+	    <action name="SelectionHeadingForm" path="/cataloguing/heading/copyTitleHeading" type="librisuite.action.cataloguing.heading.CopyHeadingAction" scope="request">
+	   		<forward name="copy" path="/cataloguing/heading/titleHeading.jsp"/>  
+	    </action>
+	      
+	    <action name="SelectionHeadingForm" path="/cataloguing/heading/editTitleHeading" type="librisuite.action.cataloguing.heading.LoadHeadingAction" scope="request">
+	   		<forward name="edit" path="/cataloguing/heading/titleHeading.jsp"/>  
+			<forward name="fail" path="/searching/browse.jsp"/>
+	    </action>
+	    
+	    <!-- thesaurus -->
+	    <action name="SelectionHeadingForm" path="/cataloguing/heading/addThesaurusHeading" type="librisuite.action.cataloguing.heading.NewHeadingAction" scope="request">
+	   		<forward name="add" path="/cataloguing/heading/thesaurusHeading.jsp"/>  
+		</action>
+		
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/copyThesaurusHeading" type="librisuite.action.cataloguing.heading.CopyHeadingAction" scope="request">
+	   		<forward name="copy" path="/cataloguing/heading/thesaurusHeading.jsp"/>  
+		</action>
+		
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/editThesaurusHeading" type="librisuite.action.cataloguing.heading.LoadHeadingAction" scope="request">
+	   		<forward name="edit" path="/cataloguing/heading/thesaurusHeading.jsp"/>  
+			<forward name="fail" path="/searching/browse.jsp"/>
+	    </action>   
+	    
+	    <!-- thesaurus -->	    
+		<!-- this is on the edit screen -->
+		
+		<!-- classification -->
+	 	<action name="ClassificationHeadingForm" path="/cataloguing/heading/classificationHeading" type="librisuite.action.cataloguing.heading.EditHeadingAction" scope="request">
+	 	    <forward name="editCodeTable" path="/edit/codeTableList.do?method=editTable" />
+	 	    <forward name="loadHeading" path="/cataloguing/heading/classificationHeading.jsp"/>  
+	   		<forward name="save" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="close" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="delete" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="edit" path="/cataloguing/heading/classificationHeading.jsp"/>
+	   		<forward name="saveCode" path="/cataloguing/heading/classificationHeading.jsp"/>
+	   		<forward name="pickedHdg" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	   		<forward name="fail" path="/cataloguing/heading/classificationHeading.jsp"/>  
+		</action>
+		
+		<!-- control numbers -->
+	 	<action name="ControlNumberHeadingForm" path="/cataloguing/heading/controlNumberHeading" type="librisuite.action.cataloguing.heading.EditHeadingAction" scope="request">
+	   		<forward name="loadHeading" path="/cataloguing/heading/controlNumberHeading.jsp"/>  
+	   		<forward name="save" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="close" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="delete" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="edit" path="/cataloguing/heading/controlNumberHeading.jsp"/>
+	   		<forward name="pickedHdg" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+	   		<forward name="fail" path="/cataloguing/heading/controlNumberHeading.jsp"/>  
+		</action>
+		
+		<!-- names -->
+	 	<action name="NameHeadingForm" path="/cataloguing/heading/nameHeading" type="librisuite.action.cataloguing.heading.EditHeadingAction" scope="request">
+	   		<forward name="loadHeading" path="/cataloguing/heading/nameHeading.jsp"/>  
+	   		<forward name="save" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="close" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="delete" path="/searching/browse.do?method=refresh"/>  
+			<forward name="basic" path="/cataloguing/marchelper/basic.jsp"/> 
+	        <forward name="pickedHdg" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	        <forward name="edit" path="/cataloguing/heading/nameHeading.jsp"/> 
+	   		<forward name="fail" path="/cataloguing/heading/nameHeading.jsp"/>  
+		</action>
+		
+		<!-- name/Titles -->
+	 	<action name="NameTitleHeadingForm" path="/cataloguing/heading/nameTitleHeading" type="librisuite.action.cataloguing.heading.EditHeadingAction" scope="request">
+	   		<forward name="loadHeading" path="/cataloguing/heading/nameTitleHeading.jsp"/>  
+	   		<forward name="save" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="close" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="delete" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="browse" path="/searching/browse.jsp"/>  
+	   		<forward name="edit" path="/cataloguing/heading/nameTitleHeading.jsp"/>
+	   		<forward name="fail" path="/cataloguing/heading/nameTitleHeading.jsp"/>  
+		</action>
+		
+		<!-- publisher -->
+	 	<action name="PublisherHeadingForm" path="/cataloguing/heading/publisherHeading" type="librisuite.action.cataloguing.heading.EditHeadingAction" scope="request">
+	   		<forward name="loadHeading" path="/cataloguing/heading/publisherHeading.jsp"/>  
+	   		<forward name="save" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="close" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="delete" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="edit" path="/cataloguing/heading/publisherHeading.jsp"/>  
+	   		<forward name="pickedHdg" path="/cataloguing/bibliographic/editPublisherTag.jsp"/>
+	   		<forward name="fail" path="/cataloguing/heading/publisherHeading.jsp"/>  
+		</action>
+		
+		<!-- shelf lists -->
+	 	<action name="ShelfListHeadingForm" path="/cataloguing/heading/shelfListHeading" type="librisuite.action.cataloguing.heading.EditHeadingAction" scope="request">
+	   		<forward name="loadHeading" path="/cataloguing/heading/shelfListHeading.jsp"/>  
+	   		<forward name="save" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="close" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="delete" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="edit" path="/cataloguing/heading/shelfListHeading.jsp"/>
+	   		<forward name="fail" path="/cataloguing/heading/shelfListHeading.jsp"/>  
+		</action>
+		
+		<!-- subjects -->
+	 	<action name="SubjectHeadingForm" path="/cataloguing/heading/subjectHeading" type="librisuite.action.cataloguing.heading.EditHeadingAction" scope="request">
+	   		<forward name="loadHeading" path="/cataloguing/heading/subjectHeading.jsp"/>  
+	   		<forward name="save" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="close" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="delete" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="edit" path="/cataloguing/heading/subjectHeading.jsp"/>
+	   		<forward name="browse" path="/searching/browse.jsp"/>  
+	   		<forward name="pickedHdg" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	   		<forward name="fail" path="/cataloguing/heading/subjectHeading.jsp"/>  
+		</action>
+	 	
+	 	<!-- titles -->
+	 	<action name="TitleHeadingForm" path="/cataloguing/heading/titleHeading" type="librisuite.action.cataloguing.heading.EditHeadingAction" scope="request">
+	   		<forward name="loadHeading" path="/cataloguing/heading/titleHeading.jsp"/>  
+	   		<forward name="save" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="close" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="delete" path="/searching/browse.do?method=refresh"/> 
+			<forward name="basic" path="/cataloguing/marchelper/basic.jsp"/> 
+	        <forward name="pickedHdg" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+	        <forward name="edit" path="/cataloguing/heading/titleHeading.jsp"/>
+	   		<forward name="fail" path="/cataloguing/heading/titleHeading.jsp"/>  
+		</action>
+		
+		<!-- Thesaurus -->
+		<action name="ThesaurusHeadingForm" path="/cataloguing/heading/thesaurusHeading" type="librisuite.action.cataloguing.heading.EditHeadingAction" scope="request">
+	   		<forward name="loadHeading" path="/cataloguing/heading/thesaurusHeading.jsp"/>  
+	   		<forward name="save" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="close" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="delete" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="edit" path="/cataloguing/heading/thesaurusHeading.jsp"/>
+	   		<forward name="browse" path="/searching/browse.jsp"/>  
+	   		<forward name="fail" path="/cataloguing/heading/thesaurusHeading.jsp"/>  
+		</action>
+		
+		<!-- FIXED FIELDS -->
+	    <action name="FixedFieldForm" path="/cataloguing/bibliographic/editFixedFields" type="librisuite.action.cataloguing.bibliographic.EditFixedFieldsAction">
+			<forward name="000A" path="/cataloguing/authority/authorityLeader.jsp"/>
+			<forward name="000B" path="/cataloguing/bibliographic/fixedField000.jsp"/>
+			<forward name="006B" path="/cataloguing/bibliographic/fixedField008.jsp"/>
+			<forward name="007B" path="/cataloguing/bibliographic/fixedField007.jsp"/>
+			<forward name="008A" path="/cataloguing/authority/authority008.jsp"/>
+			<forward name="008B" path="/cataloguing/bibliographic/fixedField008.jsp"/>
+		</action>
+		
+		<!-- FIXED FIELDS -->
+	    <action name="FixedFieldForm" path="/cataloguing/bibliographic/closeFixedFields" type="librisuite.action.cataloguing.bibliographic.EditFixedFieldsAction">
+			<forward name="000B" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+			<forward name="006B" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+			<forward name="007B" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+			<forward name="008B" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+		
+		<action name="FixedFieldForm" path="/cataloguing/authority/leaderSave" type="librisuite.action.cataloguing.authority.LeaderSaveAction">
+			<forward name="done" path="/cataloguing/bibliographic/editFixedFields.do"/>
+			<forward name="fail" path="/cataloguing/bibliographic/editFixedFields.do"/>
+		</action>
+		
+		<action name="FixedFieldForm" path="/cataloguing/authority/save008" type="librisuite.action.cataloguing.authority.Save008Action">
+			<forward name="done" path="/cataloguing/bibliographic/editFixedFields.do"/>
+			<forward name="fail" path="/cataloguing/bibliographic/editFixedFields.do"/>
+		</action>
+		
+		<action name="FixedFieldForm" path="/cataloguing/bibliographic/fixedField000Save" type="librisuite.action.cataloguing.bibliographic.FixedField000SaveAction">
+			<forward name="done" path="/cataloguing/bibliographic/changeText.do?operation=save"/>
+			<forward name="fail" path="/cataloguing/bibliographic/editFixedFields.do"/>
+		</action>
+		
+		<action name="FixedFieldForm" path="/cataloguing/bibliographic/fixedField007Save" type="librisuite.action.cataloguing.bibliographic.FixedField007SaveAction">
+			<forward name="done" path="/cataloguing/bibliographic/changeText.do?operation=save"/>
+			<forward name="fail" path="/cataloguing/bibliographic/editFixedFields.do"/>
+		</action>
+		
+		<action name="FixedFieldForm" path="/cataloguing/bibliographic/fixedField008Save" type="librisuite.action.cataloguing.bibliographic.FixedField008SaveAction">
+			<forward name="done" path="/cataloguing/bibliographic/changeText.do?operation=save"/>
+			<forward name="fail" path="/cataloguing/bibliographic/editFixedFields.do"/>
+		</action>
+		
+		<action name="OrderTagsForm" path="/cataloguing/bibliographic/orderTags" type="librisuite.action.cataloguing.bibliographic.OrderTagsAction">
+			<forward name="done" path="/cataloguing/bibliographic/orderTags.jsp"/>
+			<forward name="cancel" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+			<forward name="saved" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+			<forward name="fail" path="/cataloguing/bibliographic/orderTags.jsp"/>
+		</action>
+	
+		<action path="/cataloguing/bibliographic/attachEquivalentSubjects" type="librisuite.action.cataloguing.bibliographic.AttachEquivalentSubjectsAction">
+			<forward name="done" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+			<forward name="fail" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+		</action>
+	
+		<!-- MISCELLANEOUS -->
+
+		<action name="LoadFromFileForm" path="/cataloguing/bibliographic/loadFromFile" type="librisuite.action.cataloguing.bibliographic.LoadFromFileAction">
+			<forward name="close" path="/searching/search.do"/>
+			<forward name="view" path="/searching/resultSummary.jsp"/>
+			<forward name="init" path="/cataloguing/bibliographic/loadFromFile.jsp"/>
+			<forward name="load" path="/cataloguing/bibliographic/loadFromFile.jsp"/>
+			<forward name="fail" path="/cataloguing/bibliographic/loadFromFile.jsp"/>
+		</action>
+	
+		<action name="CollectionsForm" path="/cataloguing/bibliographic/collections" type="librisuite.action.cataloguing.bibliographic.CollectionsAction">
+			<forward name="show" path="/cataloguing/bibliographic/collections.jsp"/>
+			<forward name="fail" path="/cataloguing/bibliographic/collections.jsp"/>
+			<!-- modifica barbara per bottone chiudi -->
+			<forward name="close" path="/searching/resultSummary.jsp"/>
+		</action>
+	
+	    <action path="/cataloguing/heading/transferItems" name="TransferItemsForm" type="librisuite.action.cataloguing.heading.TransferItemsAction">
+	      <forward name="save" path="/searching/browse.do?method=refresh"/>
+	      <forward name="browse" path="/searching/browse.jsp"/>
+	      <forward name="show" path="/cataloguing/heading/transferItems.jsp"/>
+	      <forward name="fail" path="/cataloguing/heading/transferItems.jsp"/>
+	   	  <forward name="close" path="/searching/browse.do?method=refresh"/>  
+	    </action>
+	
+		<!-- CIRCULATION -->
+		
+		<action name="CirculationCounterForm" path="/circulation/circulationCounter" type="librisuite.action.circulation.counter.CirculationCounterAction">
+			<forward name="success" path="/circulation/circulationCounter.jsp"/> 
+		</action>
+		
+		<action name="CirculationCounterForm" path="/circulation/circulationCounterForm" type="librisuite.action.FindForwardAction">
+			<forward name="AddBarcode" path="/circulation/addBrwrBarcodeChargeOut.do"/>
+			<forward name="clearBorrower" path="/circulation/clearBorrower.do"/>
+			<forward name="changeChargeOut" path="/circulation/changeCirculationCounter.do"/>
+			<forward name="changeCheckIn" path="/circulation/changeCirculationCounter.do"/>
+			<forward name="clearCheckIn" path="/circulation/clearCheckIn.do"/>
+			<forward name="brwrSummary" path="/circulation/brwrSummary.do"/>
+		</action>
+	
+		<action path="/circulation/changeCirculationCounter" type="librisuite.action.circulation.counter.ChangeCirculationCounterAction">
+			<forward name="success" path="/circulation/circulationCounter.jsp"/> 
+		</action>
+		
+		<action name="DateCheckInForm" path="/circulation/changeDate" type="librisuite.action.circulation.counter.checkIn.ChangeDateAction">
+			<forward name="success" path="/circulation/circulationCounter.jsp"/> 
+		</action>
+		
+		<action name="CirculationCounterForm" path="/circulation/checkIn" type="librisuite.action.circulation.counter.checkIn.CheckInAction">
+			<forward name="success" path="/circulation/circulationCounter.jsp"/> 
+		</action>
+		
+		<action name="CirculationCounterForm" path="/circulation/brwrSummary" type="librisuite.action.circulation.counter.BrwrSummaryAction">
+			<forward name="success" path="/circulation/borrowers/viewBorrowerInfo.jsp"/> 
+		</action>
+	
+		<action name="ItemBarCodeCheckInForm" path="/circulation/clearCheckIn" type="librisuite.action.circulation.counter.checkIn.ClearCheckInAction">
+			<forward name="success" path="/circulation/circulationCounter.jsp"/> 
+		</action>
+		
+		<action name="CirculationCounterForm" path="/circulation/addBrwrBarcodeChargeOut" type="librisuite.action.circulation.counter.chargeOut.AddBrwrBarcodeAction">
+			<forward name="success" path="/circulation/circulationCounter.jsp"/> 
+		</action>
+		
+		<action name="CirculationCounterForm" path="/circulation/clearBorrower" type="librisuite.action.circulation.counter.chargeOut.ClearBorrowerAction">
+			<forward name="success" path="/circulation/circulationCounter.jsp"/>
+		</action>
+		
+		<action name="CirculationCounterForm" path="/circulation/brwrSurnameLoad" type="librisuite.action.circulation.counter.chargeOut.BrwrSurnameLoadAction">
+			<forward name="success" path="/circulation/circulationCounter.jsp"/>
+			<forward name="list" path="/circulation/borrowerList.jsp"/>
+		</action>
+		
+		<action name="CirculationCounterForm" path="/circulation/brwrBarcodeLoad" type="librisuite.action.circulation.counter.chargeOut.BrwrBarcodeLoadAction">
+			<forward name="success" path="/circulation/circulationCounter.jsp"/>
+		</action>
+		
+		<action name="CirculationCounterForm" path="/circulation/circulationChargeOut" type="librisuite.action.circulation.counter.chargeOut.ChargeOutAction">
+			<forward name="success" path="/circulation/circulationCounter.jsp"/>
+		</action>
+		
+		<action name="BorrowerCirculationForm" path="/circulation/borrower/circulation"	type="librisuite.action.circulation.borrower.BorrowerCirculationAction">
+			<forward name="success" path="/circulation/borrowers/borrowerCirculation.jsp"/>
+			<forward name="error" path="/circulation/borrowers/borrowerCirculation.jsp"/>
+		</action>
+		
+		<action name="BorrowerGeneralDataForm" path="/circulation/borrower/generalData"	type="librisuite.action.circulation.borrower.BorrowerGeneralDataAction">
+			<forward name="success" path="/circulation/borrowers/borrowerGeneralData.jsp"/>
+			<forward name="error" path="/circulation/borrowers/borrowerGeneralData.jsp"/>
+		</action>
+		
+		<action name="CirculationPoliciesForm" path="/circulation/policy" type="librisuite.action.circulation.policy.CirculationPolicyLimitsAction">
+			<forward name="success" path="/circulation/policy/circulationPolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationPoliciesForm" path="/circulation/policyLimits"	type="librisuite.action.FindForwardAction">
+			<forward name="changeBox" path="/circulation/policyLimitsBoxChange.do"/>
+			<forward name="loadValues" path="/circulation/policyLimitsLoadValues.do"/>
+			<forward name="saveValues" path="/circulation/policyLimitsSaveValues.do"/>
+			<forward name="radioBottonClick" path="/circulation/policyLimitsRadioBottonClick.do"/>
+		</action>
+		
+		<action name="CirculationPoliciesForm" path="/circulation/policyLimitsBoxChange" type="librisuite.action.circulation.policy.CirculationPolicyLimitsBoxChangeAction">
+			<forward name="success" path="/circulation/policy/circulationPolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationPoliciesForm" path="/circulation/policyLimitsLoadValues" type="librisuite.action.circulation.policy.CirculationPolicyLimitsLoadValuesAction">
+			<forward name="success" path="/circulation/policy/circulationPolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationPoliciesForm" path="/circulation/policyLimitsSaveValues" type="librisuite.action.circulation.policy.CirculationPolicyLimitsSaveValuesAction">
+			<forward name="success" path="/circulation/policy/circulationPolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationPoliciesForm" path="/circulation/policyLimitsRadioBottonClick" type="librisuite.action.circulation.policy.CirculationPolicyLimitsRadioBottonClickAction">
+			<forward name="success" path="/circulation/policy/circulationPolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationPoliciesTimeForm" path="/circulation/policyTimeLimits" type="librisuite.action.circulation.policy.CirculationPolicyTimeLimitsAction">
+			<forward name="success" path="/circulation/policy/circulationTimePolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationPoliciesTimeForm" path="/circulation/policyTimeLimitsForm"	type="librisuite.action.FindForwardAction">
+			<forward name="radioBottonClick" path="/circulation/policyTimeLimitsRadioBottonClick.do"/>
+			<forward name="changeBox" path="/circulation/policyTimeLimitsBoxChange.do"/>
+			<forward name="loadValues" path="/circulation/policyTimeLimitsLoadValues.do"/>
+			<forward name="saveValues" path="/circulation/policyTimeLimitsSaveValues.do"/>
+		</action>   
+		
+		<action name="CirculationPoliciesTimeForm" path="/circulation/policyTimeLimitsBoxChange" type="librisuite.action.circulation.policy.CirculationPolicyTimeLimitsBoxChangeAction">
+			<forward name="success" path="/circulation/policy/circulationTimePolicies.jsp"/>
+		</action>       
+		
+		<action name="CirculationPoliciesTimeForm" path="/circulation/policyTimeLimitsRadioBottonClick"	type="librisuite.action.circulation.policy.CirculationPolicyTimeRadioClickAction">
+			<forward name="success" path="/circulation/policy/circulationTimePolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationPoliciesTimeForm" path="/circulation/policyTimeLimitsLoadValues" type="librisuite.action.circulation.policy.CirculationPolicyTimeLimitsLoadValuesAction">
+			<forward name="success" path="/circulation/policy/circulationTimePolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationPoliciesTimeForm" path="/circulation/policyTimeLimitsSaveValues" type="librisuite.action.circulation.policy.CirculationPolicyTimeLimitsSaveValuesAction">
+			<forward name="success" path="/circulation/policy/circulationTimePolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationOverduePoliciesForm" path="/circulation/overduePolicy"	type="librisuite.action.circulation.policy.CirculationOverduePolicyAction">
+			<forward name="success" path="/circulation/policy/circulationOverduePolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationOverduePoliciesForm" path="/circulation/OverduePolicyForm" type="librisuite.action.FindForwardAction">
+			<forward name="changeBox" path="/circulation/policyOverdueBoxChange.do"/>
+			<forward name="loadValues" path="/circulation/policyOverdueLoadValues.do"/>
+			<forward name="saveValues" path="/circulation/policyOverdueSaveValues.do"/>
+		</action>
+		
+		<action name="CirculationOverduePoliciesForm" path="/circulation/policyOverdueBoxChange" type="librisuite.action.circulation.policy.CirculationOverdueBoxChangeAction">
+			<forward name="success" path="/circulation/policy/circulationOverduePolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationOverduePoliciesForm" path="/circulation/policyOverdueLoadValues" type="librisuite.action.circulation.policy.CirculationOverdueLoadValuesAction">
+			<forward name="success" path="/circulation/policy/circulationOverduePolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationOverduePoliciesForm" path="/circulation/policyOverdueSaveValues" type="librisuite.action.circulation.policy.CirculationOverdueSaveValuesAction">
+			<forward name="success" path="/circulation/policy/circulationOverduePolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationHoldPoliciesForm" path="/circulation/holdPolicy" type="librisuite.action.circulation.policy.CirculationHoldPolicyAction">
+			<forward name="success" path="/circulation/policy/circulationHoldPolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationHoldPoliciesForm" 
+				path="/circulation/holdPolicyForm" 
+				type="librisuite.action.FindForwardAction">
+			<forward name="changeBox" path="/circulation/policyHoldBoxChange.do"/>
+			<forward name="loadValues" path="/circulation/policyHoldLoadValues.do"/>
+			<forward name="saveValues" path="/circulation/policyHoldSaveValues.do"/>
+			<forward name="radioClick" path="/circulation/policyHoldRadioClick.do"/>
+		</action>
+		
+		<action name="CirculationHoldPoliciesForm"
+				path="/circulation/policyHoldBoxChange" 
+				type="librisuite.action.circulation.policy.CirculationHoldBoxChangeAction">
+			<forward name="success" path="/circulation/policy/circulationHoldPolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationHoldPoliciesForm"
+				path="/circulation/policyHoldLoadValues" 
+				type="librisuite.action.circulation.policy.CirculationHoldLoadValuesAction">
+			<forward name="success" path="/circulation/policy/circulationHoldPolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationHoldPoliciesForm" 
+				path="/circulation/policyHoldRadioClick" 
+				type="librisuite.action.circulation.policy.CirculationHoldRadioClickAction">
+			<forward name="success" path="/circulation/policy/circulationHoldPolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationHoldPoliciesForm" 
+				path="/circulation/policyHoldSaveValues" 
+				type="librisuite.action.circulation.policy.CirculationHoldSaveValuesAction">
+			<forward name="success" path="/circulation/policy/circulationHoldPolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationFinesPoliciesForm" 
+				path="/circulation/finesPolicy" 
+				type="librisuite.action.circulation.policy.CirculationFinesPolicyAction">
+			<forward name="success" path="/circulation/policy/circulationFinesPolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationFinesPoliciesForm" 
+				path="/circulation/finesPolicyForm" 
+				type="librisuite.action.FindForwardAction">
+			<forward name="changeBox" path="/circulation/policyFinesBoxChange.do"/>
+			<forward name="loadValues" path="/circulation/policyFinesLoadValues.do"/>
+			<forward name="saveValues" path="/circulation/policyFinesSaveValues.do"/>
+		</action>
+		
+		<action name="CirculationFinesPoliciesForm"
+				path="/circulation/policyFinesBoxChange" 
+				type="librisuite.action.circulation.policy.CirculationFinesBoxChangeAction">
+			<forward name="success" path="/circulation/policy/circulationFinesPolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationFinesPoliciesForm"
+				path="/circulation/policyFinesLoadValues" 
+				type="librisuite.action.circulation.policy.CirculationFinesLoadValuesAction">
+			<forward name="success" path="/circulation/policy/circulationFinesPolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationFinesPoliciesForm" 
+				path="/circulation/policyFinesSaveValues" 
+				type="librisuite.action.circulation.policy.CirculationFinesSaveValuesAction">
+			<forward name="success" path="/circulation/policy/circulationFinesPolicies.jsp"/>
+		</action>
+		
+		<action name="CirculationLibraryHourForm" 
+				path="/circulation/libraryHours" 
+				type="librisuite.action.circulation.library.CirculationLibraryHourAction">
+			<forward name="success" path="/circulation/library/circulationLibraryHour.jsp"/>
+		</action>
+		
+		<action name="CirculationLibraryInterBranchForm" 
+				path="/circulation/libraryInterBranch" 
+				type="librisuite.action.circulation.library.CirculationLibraryInterBranchAction">
+			<forward name="success" path="/circulation/library/circulationLibraryInterBranch.jsp"/>
+		</action>
+		
+		<action name="CirculationLibraryHourForm" 
+				path="/circulation/libraryHoursForm" 
+				type="librisuite.action.FindForwardAction">
+			<forward name="changeBox" path="/circulation/libraryHourBoxChange.do"/>
+			<forward name="loadValues" path="/circulation/libraryHourLoadValues.do"/>
+			<forward name="saveValues" path="/circulation/libraryHourSaveValues.do"/>
+		</action>
+		
+		<action name="CirculationLibraryInterBranchForm" 
+				path="/circulation/libraryInterBranchForm" 
+				type="librisuite.action.FindForwardAction">
+			<forward name="saveValues" path="/circulation/libraryInterBranchSaveValues.do"/>
+			<forward name="loadValues" path="/circulation/libraryInterBranchLoadValues.do"/>
+			<forward name="changeValue" path="/circulation/libraryInterBranchChangeValues.do"/>
+		</action>
+		
+		<action name="CirculationLibraryInterBranchForm" 
+				path="/circulation/libraryInterBranchChangeValues" 
+				type="librisuite.action.circulation.library.CirculationLibraryInterBranchChangeAction">
+			<forward name="success" path="/circulation/library/circulationLibraryInterBranch.jsp"/>
+		</action>
+		
+		<action name="CirculationLibraryInterBranchForm" 
+				path="/circulation/libraryInterBranchLoadValues" 
+				type="librisuite.action.circulation.library.CirculationLibraryInterBranchAction">
+			<forward name="success" path="/circulation/library/circulationLibraryInterBranch.jsp"/>
+		</action>
+		
+		<action name="CirculationLibraryInterBranchForm" 
+				path="/circulation/libraryInterBranchSaveValues" 
+				type="librisuite.action.circulation.library.CirculationLibInterBranchSaveValuesAction">
+			<forward name="success" path="/circulation/library/circulationLibraryInterBranch.jsp"/>
+		</action>
+		
+		<action name="CirculationLibraryHourForm" 
+				path="/circulation/libraryHourBoxChange" 
+				type="librisuite.action.circulation.library.CirculationLibHourBoxChangeAction">
+			<forward name="success" path="/circulation/library/circulationLibraryHour.jsp"/>
+		</action>
+		
+		<action name="CirculationLibraryHourForm" 
+				path="/circulation/libraryHourLoadValues" 
+				type="librisuite.action.circulation.library.CirculationLibHourLoadValuesAction">
+			<forward name="success" path="/circulation/library/circulationLibraryHour.jsp"/>
+		</action>
+		
+		<action name="CirculationLibraryHourForm" 
+				path="/circulation/libraryHourSaveValues" 
+				type="librisuite.action.circulation.library.CirculationLibHourSaveValuesAction">
+			<forward name="success" path="/circulation/library/circulationLibraryHour.jsp"/>
+		</action>
+		
+		<action name="CirculationInterLibraryLoanRequestForm" 
+				path="/circulation/interlibrary/request" 
+				type="librisuite.action.circulation.interlibraryloan.CirculationInterLibraryRequestAction">
+			<forward name="success" path="/circulation/interlibraryloan/circulationInterLibraryRequest.jsp"/>
+		</action>
+		
+		<action name="CirculationInterLibraryLoanRequestForm" 
+				path="/circulation/interlibrary/requestForm"
+	    		type="librisuite.action.circulation.interlibraryloan.CirculationInterLibraryRequestAction">
+			<forward name="success" path="/circulation/interlibraryloan/circulationInterLibraryRequest.jsp"/>
+			<forward name="fail" path="/circulation/interlibraryloan/circulationInterLibraryRequest.jsp"/>
+			<forward name="resultSetAvailable" path="/circulation/interlibraryloan/circulationInterLibraryResult.jsp"/> 
+			<forward name="ILLRequest" path="/circulation/interlibraryloan/circulationInterLibraryILLRequest.jsp"/> 
+		</action>
+		
+		<action name="CirculationInterLibraryLoanResultForm" 
+				path="/circulation/interlibrary/resultForm"
+	    		type="librisuite.action.circulation.interlibraryloan.CirculationInterLibraryResultAction">
+			<forward name="success" path="/circulation/interlibraryloan/circulationInterLibraryResult.jsp"/>
+			<forward name="itemSelect" path="/circulation/interlibraryloan/circulationInterLibraryILLRequest.jsp"/>
+		</action>
+		
+		<action name="CirculationInterLibraryILLRequestForm" 
+				path="/circulation/interlibrary/IllRequestForm"
+	    		type="librisuite.action.circulation.interlibraryloan.CirculationInterLibraryILLRequestAction">
+			<forward name="error" path="/circulation/interlibraryloan/circulationInterLibraryILLRequest.jsp"/>
+			<forward name="success" path="/circulation/interlibraryloan/circulationInterLibraryILLRequest.jsp"/>
+			<forward name="showILLoan" path="/circulation/interlibrary/requestedCopies.do"/>
+		</action>
+		
+		<action name="CirculationInterLibraryILLRequestedCopiesForm" 
+				path="/circulation/interlibrary/requestedCopies"
+	    		type="librisuite.action.circulation.interlibraryloan.CirculationInterLibraryILLRequestedCopiesAction">
+			<forward name="success" path="/circulation/interlibraryloan/circulationInterLibraryILLRequestedCopies.jsp"/>
+		</action>
+		
+		<action name="CirculationInterLibraryILLRequestedCopiesForm" 
+				path="/circulation/interlibrary/requestedCopiesForm"
+	    		type="librisuite.action.circulation.interlibraryloan.CirculationInterLibraryILLRequestedCopiesButtonAction">
+			<forward name="success" path="/circulation/interlibraryloan/circulationInterLibraryILLRequestedCopies.jsp"/>
+		</action>
+		
+		<action name="CirculationInterLibraryILLTransferedCopiesForm" 
+				path="/circulation/interlibrary/transferedCopies"
+	    		type="librisuite.action.circulation.interlibraryloan.CirculationInterLibraryILLTransferedCopiesAction">
+			<forward name="success" path="/circulation/interlibraryloan/circulationInterLibraryILLTransferedCopies.jsp"/>
+		</action>
+		
+		<action name="CirculationInterLibraryILLTransferedCopiesForm" 
+				path="/circulation/interlibrary/transferedCopiesForm"
+	    		type="librisuite.action.circulation.interlibraryloan.CirculationInterLibraryILLTransferedCopiesButtonAction">
+			<forward name="success" path="/circulation/interlibraryloan/circulationInterLibraryILLTransferedCopies.jsp"/>
+		</action>
+		
+		
+		<action name="CirculationLibrarySetupForm" 
+				path="/circulation/librarySetup" 
+				type="librisuite.action.circulation.library.CirculationLibSetupAction">
+			<forward name="success" path="/circulation/library/circulationLibrarySetup.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceCopyReplaceForm" 
+				path="/circulation/maintenance/copyReplace" 
+				type="librisuite.action.circulation.maintenance.CirculationMaintenanceCopyReplaceAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceCopyReplace.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceCopyReplaceForm" 
+				path="/circulation/maintenance/copyReplaceForm"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenanceCopyReplaceAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceCopyReplace.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceCopyReplaceForm" 
+				path="/circulation/maintenance/copyReplaceLoad"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenanceCopyReplaceLoadAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceCopyReplace.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceBrwrReplaceForm" 
+				path="/circulation/maintenance/brwrReplace" 
+				type="librisuite.action.circulation.maintenance.CirculationMaintenanceBrwrReplaceAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceBrwrReplace.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceBrwrReplaceForm" 
+				path="/circulation/maintenance/brwrReplaceForm"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenanceBrwrReplaceAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceBrwrReplace.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceBrwrReplaceForm" 
+				path="/circulation/maintenance/brwrReplaceLoad"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenanceBrwrReplaceLoadAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceBrwrReplace.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceLocationForm" 
+				path="/circulation/maintenance/replaceLocation" 
+				type="librisuite.action.circulation.maintenance.CirculationMaintenanceLocationAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceLocation.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceLocationForm" 
+				path="/circulation/maintenance/replaceLocationForm"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenanceLocationAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceLocation.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceLocationForm" 
+				path="/circulation/maintenance/replaceLocationLoad"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenanceLocationLoadAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceLocation.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceLoanTypeForm" 
+				path="/circulation/maintenance/replaceLoanType" 
+				type="librisuite.action.circulation.maintenance.CirculationMaintenanceLoanTypeAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceLoanType.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceLoanTypeForm" 
+				path="/circulation/maintenance/replaceLoanTypeForm"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenanceLoanTypeAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceLoanType.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceLoanTypeForm" 
+				path="/circulation/maintenance/replaceLoanTypeLoad"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenanceLoanTypeLoadAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceLoanType.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceBranchForm" 
+				path="/circulation/maintenance/replaceBranch" 
+				type="librisuite.action.circulation.maintenance.CirculationMaintenanceBranchAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceBranch.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceBranchForm" 
+				path="/circulation/maintenance/replaceBranchForm"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenanceBranchAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceBranch.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceBranchForm" 
+				path="/circulation/maintenance/replaceBranchLoad"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenanceBranchLoadAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceBranch.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceWithoutBarcodeForm" 
+				path="/circulation/maintenance/withoutBarcode"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenanceWithoutBarcodeAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceWithoutBarcode.jsp"/>
+			<forward name="back" path="/circulation/circulationCounter.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceLogicalInventoryForm" 
+				path="/circulation/maintenance/logicalInventory"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenanceLogicalInventoryAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceLogicalInventory.jsp"/>
+			<forward name="viewInventory" path="/circulation/maintenance/circulationMaintenanceInventoryList.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenancePhysicalInventoryForm" 
+				path="/circulation/maintenance/physicalInventory"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenancePhysicalInventoryAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenancePhysicalInventory.jsp"/>
+			<forward name="viewInventory" path="/circulation/maintenance/circulationMaintenanceInventoryList.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenancePhysicalInventoryForm" 
+				path="/circulation/maintenance/physicalInventoryInForm"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenancePhysicalInventoryInBarcodeAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenancePhysicalInventory.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceInventoryListForm" 
+				path="/circulation/maintenance/InventoryList"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenanceInventoryListAction">
+			<forward name="physical" path="/circulation/maintenance/circulationMaintenancePhysicalInventory.jsp"/>
+			<forward name="logical" path="/circulation/maintenance/circulationMaintenanceLogicalInventory.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenancePhysicalInventoryForm" 
+				path="/circulation/maintenance/physicalInventoryRemoveForm"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenancePhysicalInventoryRemoveAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenancePhysicalInventory.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceDiscrepancyBookcaseForm" 
+				path="/circulation/maintenance/discrepancyBookcase"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenanceDiscrepancyBookcaseAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceDiscrepancyBookcase.jsp"/>
+		</action>
+		
+		<action name="CirculationMaintenanceDiscrepancyCircForm" 
+				path="/circulation/maintenance/discrepancyCirc"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenanceDiscrepancyCircAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceDiscrepancyCirc.jsp"/>
+		</action>
+		
+		
+		<action name="CirculationMaintenanceOverdueProcessForm" 
+				path="/circulation/overdueProcess"
+	    		type="librisuite.action.circulation.maintenance.CirculationMaintenanceOverdueProcessAction">
+			<forward name="success" path="/circulation/maintenance/circulationMaintenanceOverdueProcess.jsp"/>
+		</action>
+		
+		<action name="CirculationActivatedHoldsForm" 
+				path="/circulation/activatedHolds"
+	    		type="librisuite.action.circulation.holds.CirculationActivatedHoldsAction">
+			<forward name="success" path="/circulation/holds/circulationActivatedHolds.jsp"/>
+		</action>
+		
+		<action name="CirculationActivatedTimeHoldsForm" 
+				path="/circulation/activatedTimeHolds"
+	    		type="librisuite.action.circulation.holds.CirculationActivatedTimeHoldsAction">
+			<forward name="success" path="/circulation/holds/circulationActivatedTimeHolds.jsp"/>
+		</action>
+		
+		<action name="CirculationStatisticsMoreTitleForm" 
+				path="/circulation/statistics/moreTitle"
+	    		type="librisuite.action.circulation.statistics.CirculationStatisticsMoreTitleAction">
+			<forward name="success" path="/circulation/statistics/circulationStatisticsMoreTitle.jsp"/>
+		</action>
+		
+		<action name="CirculationBorrowerNotAuthorizedForm" 
+				path="/circulation/borrower/notAuthorizedBrwr"
+	    		type="librisuite.action.circulation.borrower.CirculationBorrowerNotAuthorizedAction">
+			<forward name="success" path="/circulation/borrowers/circulationBorrowerNotAuthorized.jsp"/>
+		</action>
+		
+		<action name="BorrowerNotesForm" 
+				path="/circulation/borrower/notes" 
+				type="librisuite.action.circulation.borrower.BorrowerNotesAction">
+			<forward name="success" path="/circulation/borrowers/borrowerNote.jsp"/>
+			<forward name="error" path="/circulation/borrowers/borrowerNote.jsp"/>
+		</action>
+		
+		<action name="LoadBorrowerFunctionForm" 
+				path="/circulation/borrower/loadBorrowerFunction" 
+				type="librisuite.action.circulation.borrower.LoadBorrowerFunctionAction">
+			<forward name="search" path="/circulation/borrowers/borrowerSearching.jsp"/>
+			<forward name="notes" path="/circulation/borrowers/borrowerNote.jsp"/>
+			<forward name="new" path="/circulation/borrowers/borrowerGeneralData.jsp"/>
+			<forward name="libriVision" path="/circulation/borrowers/borrowerLibriVision.jsp"/>
+			<forward name="circulation" path="/circulation/borrowers/borrowerCirculation.jsp"/>
+			<forward name="generalData" path="/circulation/borrowers/borrowerGeneralData.jsp"/>
+			<forward name="delete" path="/circulation/borrowers/borrowerSearching.jsp"/>
+			<forward name="status" path="/circulation/borrowers/borrowerStatus.jsp"/>
+			<forward name="fines" path="/circulation/borrowers/borrowerFines.jsp"/>
+			<forward name="holds" path="/circulation/borrowers/borrowerHolds.jsp"/>
+			<forward name="sendEmail" path="/circulation/borrowers/borrowerSendEmail.jsp"/>
+		</action>
+		
+		<action name="BorrowerSearchingForm" 
+				path="/circulation/search" 
+				type="librisuite.action.circulation.borrower.BorrowerSearchingAction">
+			<forward name="success" path="/circulation/borrowers/borrowerCirculation.jsp"/>
+			<forward name="more" path="/circulation/borrowers/borrowerSearchingResults.jsp"/>
+			<forward name="error" path="/circulation/borrowers/borrowerSearching.jsp"/>
+			<forward name="change" path="/circulation/borrowers/borrowerSearching.jsp"/>
+			<forward name="shared" path="/circulation/enConstruccion.jsp"/>
+			<forward name="holdSummary" path="/circulation/status/holdSummary.jsp"/>
+		</action>
+
+		<action name="BorrowerLibriVisionForm" 
+				path="/circulation/borrower/libriVision" 
+				type="librisuite.action.circulation.borrower.BorrowerLibriVisionAction">
+			<forward name="success" path="/circulation/borrowers/borrowerLibriVision.jsp"/>
+			<forward name="error" path="/circulation/borrowers/borrowerLibriVision.jsp"/>
+		</action>
+
+		<action name="BorrowerStatusForm" 
+				path="/circulation/borrower/status" 
+				type="librisuite.action.circulation.borrower.BorrowerStatusAction">
+			<forward name="holdSummary" path="/circulation/status/holdSummary.jsp"/>
+			<forward name="error" path="/circulation/borrowers/borrowerStatus.jsp"/>
+			<forward name="itemSuccess" path="/circulation/status/itemStatus.jsp"/>
+			<forward name="renewal" path="/circulation/borrowers/borrowerStatus.jsp"/>
+		</action>
+
+		<action name="BorrowerFinesForm" 
+				path="/circulation/borrower/fines" 
+				type="librisuite.action.circulation.borrower.BorrowerFinesAction">
+			<forward name="success" path="/circulation/borrowers/borrowerFines.jsp"/>
+			<forward name="error" path="/circulation/borrowers/borrowerFines.jsp"/>
+			<forward name="itemDisplay" path="/circulation/status/itemStatus.jsp"/>
+		</action>
+
+		<action name="BorrowerHoldsForm" 
+				path="/circulation/borrower/holds" 
+				type="librisuite.action.circulation.borrower.BorrowerHoldsAction">
+			<forward name="success" path="/circulation/borrowers/borrowerHolds.jsp"/>
+			<forward name="error" path="/circulation/borrowers/borrowerHolds.jsp"/>
+			<forward name="itemDisplay" path="/circulation/status/itemStatus.jsp"/>
+			<forward name="search" path="/circulation/enConstruccion.jsp"/>
+		</action>
+
+		<action name="BorrowerSendEmailForm" 
+				path="/circulation/borrower/sendEmail" 
+				type="librisuite.action.circulation.borrower.BorrowerSendEmailAction">
+			<forward name="success" path="/circulation/borrowers/borrowerSendEmail.jsp"/>
+			<forward name="error" path="/circulation/borrowers/borrowerSendEmail.jsp"/>
+		</action>
+
+	    <action path="/circulation/orderBy" type="librisuite.action.circulation.borrower.OrderByAction">
+	         <forward name="success" path="/circulation/borrowers/borrowerSearchingResults.jsp"/>
+	    </action>
+
+		<action name="LoadStatusFunctionForm" 
+				path="/circulation/status/loadStatusFunction" 
+				type="librisuite.action.circulation.status.LoadStatusFunctionAction">
+			<forward name="search" path="/circulation/status/statusSearching.jsp"/>
+		</action>
+
+		<action name="StatusSearchingForm" 
+				path="/circulation/status/search" 
+				type="librisuite.action.circulation.status.StatusSearchingAction">
+			<forward name="borrowerSuccess" path="/circulation/status/itemStatus.jsp"/>
+			<forward name="itemSuccess" path="/circulation/status/itemStatus.jsp"/>
+			<forward name="borrowerSuccessMore" path="/circulation/borrowers/borrowerStatus.jsp"/>
+			<forward name="amicusNumberSuccessMore" path="/circulation/status/amicusNumberStatus.jsp"/>
+			<forward name="shelfListSuccessMore" path="/circulation/status/shelfListStatus.jsp"/>
+			<forward name="more" path="/circulation/status/statusSearchingResults.jsp"/>
+			<forward name="error" path="/circulation/status/statusSearching.jsp"/>
+			<forward name="change" path="/circulation/status/statusSearching.jsp"/>
+			<forward name="shared" path="/circulation/enConstruccion.jsp"/>
+		</action>
+
+		<action name="SummaryItemStatusForm" 
+				path="/circulation/status/summaryStatus" 
+				type="librisuite.action.circulation.status.SummaryItemStatusAction">
+			<forward name="success" path="/circulation/enConstruccion.jsp"/>
+			<forward name="shelfList" path="/circulation/status/shelfListStatus.jsp"/>
+			<forward name="amicus" path="/circulation/status/amicusNumberStatus.jsp"/>
+			<forward name="itemSuccess" path="/circulation/status/itemStatus.jsp"/>
+			<forward name="borrower" path="/circulation/borrowers/viewBorrowerInfo.jsp"/>
+			<forward name="holdSummary" path="/circulation/status/holdSummary.jsp"/>
+		</action>
+
+		<action name="ItemStatusForm" 
+				path="/circulation/status/itemStatus" 
+				type="librisuite.action.circulation.status.ItemStatusAction">
+			<forward name="success" path="/circulation/enConstruccion.jsp"/>
+			<forward name="amicus" path="/circulation/status/amicusNumberStatus.jsp"/>
+			<forward name="borrower" path="/circulation/borrowers/borrowerStatus.jsp"/>
+			<forward name="shelfList" path="/circulation/status/shelfListStatus.jsp"/>
+			<forward name="renew" path="/circulation/status/itemStatus.jsp"/>
+			<forward name="holdsBorrower" path="/circulation/borrowers/borrowerHolds.jsp"/>
+			<forward name="finesBorrower" path="/circulation/borrowers/borrowerFines.jsp"/>
+			<forward name="holdSummary" path="/circulation/status/holdSummary.jsp"/>
+		</action>
+	
+		<action name="LibraryDatesClosedForm"
+				path="/circulation/settings/loadLibraryDatesClosed" 
+				type="librisuite.action.circulation.settings.LoadLibraryDatesClosedAction">
+			<forward name="success" path="/circulation/settings/libraryDatesClosed.jsp"/>
+		</action>
+		
+		<action name="DeleteFinesForm"
+				path="/circulation/deletePaidFines" 
+				type="librisuite.action.circulation.settings.DeletePaidFinesAction">
+			<forward name="success" path="/circulation/settings/deletePaidFines.jsp"/>
+			<forward name="error" path="/circulation/settings/deletePaidFines.jsp"/>
+		</action>
+		
+		<action name="DeleteFinesForm"
+				path="/circulation/deleteAllFines" 
+				type="librisuite.action.circulation.settings.DeleteAllFinesAction">
+			<forward name="success" path="/circulation/settings/deleteAllFines.jsp"/>
+			<forward name="error" path="/circulation/settings/deleteAllFines.jsp"/>
+		</action>
+		
+		<action name="HoldSummaryForm"
+				path="/circulation/status/holdSummary" 
+				type="librisuite.action.circulation.status.HoldSummaryAction">
+			<forward name="success" path="/circulation/status/holdSummary.jsp"/>
+			<forward name="error" path="/circulation/status/holdSummary.jsp"/>
+			<forward name="itemDisplay" path="/circulation/status/itemStatus.jsp"/>
+			<forward name="borrowerStatus" path="/circulation/borrowers/borrowerStatus.jsp"/>
+			<forward name="amicus" path="/circulation/status/amicusNumberStatus.jsp"/>
+			<forward name="shelfList" path="/circulation/status/shelfListStatus.jsp"/>
+			<forward name="borrower" path="/circulation/borrowers/viewBorrowerInfo.jsp"/>
+			<forward name="search" path="/circulation/status/holdBorrowerSearching.jsp"/>
+		</action>
+		
+		<action name="ViewBorrowerInfoForm"
+				path="/circulation/borrower/viewBorrowerInfo" 
+				type="librisuite.action.circulation.borrower.ViewBorrowerInfoAction">
+			<forward name="amicus" path="/circulation/status/amicusNumberStatus.jsp"/>
+			<forward name="shelfList" path="/circulation/status/shelfListStatus.jsp"/>
+			<forward name="chargeOut" path="/circulation/circulationCounter.jsp"/>
+			<forward name="holdSummary" path="/circulation/status/holdSummary.jsp"/>
+		</action>
+		
+		<action name="HoldBorrowerSearchingForm"
+				path="/circulation/status/searchBorrower" 
+				type="librisuite.action.circulation.status.HoldBorrowerSearchingAction">
+			<forward name="success" path="/circulation/status/holdSummary.jsp"/>
+			<forward name="error" path="/circulation/status/holdBorrowerSearching.jsp"/>
+			<forward name="holdSummary" path="/circulation/status/holdSummary.jsp"/>
+			<forward name="more" path="/circulation/status/holdBorrowerSearchingResults.jsp"/>
+		</action>
+		
+		<action name="AdvancedSearchForm" path="/searching/browse/search" type="librisuite.action.searching.ExtendedBrowseAction" parameter="method" scope="session">
+			<description>Dalla pagina di di ricerca con inizializzazione del bean</description>
+			<forward name="initBrowse" path="/searching/browse/search.do?method=browseText"/> 
+			<forward name="results" path="/searching/browse.jsp"/> 
+			<forward name="fail" path="/searching/advancedSearch.jsp"/> 
+		</action>
+		
+		<action name="MarcHelperForm" path="/cataloguing/marchelper" type="librisuite.action.cataloguing.marchelper.MarcHelperAction" scope="session">
+			<description>MarchHelper</description>
+			<forward name="edit" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>
+			<forward name="basic" path="/cataloguing/marchelper/basic.jsp"/> 
+			<forward name="advanced" path="/cataloguing/marchelper/basic.jsp"/> 
+			<forward name="close" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+			<forward name="22" path="/cataloguing/heading/titleHeading.jsp"/>
+	        <forward name="2" path="/cataloguing/heading/nameHeading.jsp"/>
+	        <forward name="17" path="/cataloguing/heading/nameHeading.jsp"/>
+			<forward name="fail" path="/cataloguing/marchelper/basic.jsp"/> 
+		</action>
+		
+		<action name="MarcHelperForm" path="/cataloguing/editMarchelper" type="librisuite.action.cataloguing.marchelper.MarcHelperEditAction" scope="session">
+			<description>MarchHelper</description>
+			<forward name="edit" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+			<forward name="close" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+			<forward name="22" path="/cataloguing/heading/titleHeading.jsp"/>
+	        <forward name="2" path="/cataloguing/heading/nameHeading.jsp"/>
+	        <forward name="17" path="/cataloguing/heading/nameHeading.jsp"/>
+			<forward name="fail" path="/cataloguing/marchelper/basic.jsp"/> 
+		</action>
+		
+		<action path="/searching/print/results" type="librisuite.action.FindForwardAction" scope="request" parameter="method">
+			<forward name="print" path="/searching/PrintResultSummary.jsp" />
+		</action>
+		
+		<action name="CodeTablesForm" path="/searching/codeTables" type="librisuite.action.searching.codeTablesAction">
+	    	<forward name="fail" path="/searching/codeTables.jsp"/>
+	    	<forward name="success" path="/searching/codeTables.jsp"/>
+	    </action>
+		
+		<action name="CodeTablesForm" path="/edit/codeTableList" type="librisuite.action.searching.EditEquivalentTableAction" parameter="method" >
+	    	<forward name="listed" path="/tools/codeTableList.jsp"/>
+	    	<forward name="tableLoaded" path="/tools/codeTable.jsp"/>
+	   		<forward name="failList" path="/tools/codeTableList.jsp"/>
+	   		<forward name="failAccess" path="/errors/back.jsp"/>
+	    </action>
+		
+		<action name="CodeTableForm" path="/edit/codeTable" type="librisuite.action.searching.EditEquivalentTableAction" parameter="method" scope="session">
+	   		<forward name="saved" path="/tools/codeTable.jsp"/>
+	   		<forward name="addTemp" path="/tools/codeTable.jsp"/>
+	   		<forward name="cleaned" path="/tools/codeTable.jsp"/>
+	   		<forward name="deleted" path="/tools/codeTable.jsp"/>
+	   		<forward name="confirmed" path="/tools/codeTable.jsp"/>
+	   		<forward name="selected" path="/tools/codeTable.jsp"/>
+	   		<forward name="unchanged" path="/tools/codeTable.jsp"/>
+	   		<forward name="sorted" path="/tools/codeTable.jsp"/>
+	   		<forward name="found" path="/tools/codeTable.jsp"/>
+	   		<forward name="clear" path="/tools/codeTable.jsp"/>
+	   		<forward name="closed" path="/close/codeTable.do"/>
+	   		<forward name="fail" path="/tools/codeTable.jsp"/>
+	    </action>
+	      
+	    <action name="CodeTableForm"  path="/close/codeTable" type="librisuite.action.FindForwardAction" scope="request" parameter="marcCategory">
+	   		<forward name="6" path="/cataloguing/heading/classificationHeading.jsp"/>  
+	   		<forward name="20" path="/cataloguing/heading/classificationHeading.jsp"/>  
+			<forward name="10" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/>  
+			<forward name="30" path="/casalini/collection/newMSTCollection.jsp"/>
+			<forward name="40" path="/casalini/collection/newCSTCollection.jsp"/>
+			<forward name="50" path="/casalini/collection/newPUBCollection.jsp"/>
+			<forward name="99" path="/casalini/digital/digitalAmmin.jsp"/>
+			<forward name="fail" path="/tools/codeTable.jsp"/>
+		</action>
+		
+		<action name="Dispatcher" path="/dispatcher" type="com.casalini.common.action.DispatcherAction">
+	  		<forward name="success" path="/casalini/dispatcher.jsp"/>
+	    </action>
+	     
+	    <action path="/searching/help" type="librisuite.action.FindForwardAction" scope="request" parameter="method">
+			<forward name="help" path="/searching/help.jsp" />
+	    </action>
+	     
+	    <action path="/searching/toResults/results" type="librisuite.action.FindForwardAction" scope="request" parameter="method">
+			<forward name="show" path="/searching/resultSummary.jsp" />
+     	</action>
+     	 
+     	<action name="EditTagForm" path="/cataloguing/bibliographic/help" type="librisuite.action.FindForwardAction" scope="request" parameter="method">
+			<forward name="success" path="/casalini/cataloguing/help.jsp"/> 
+        </action>
+	         
+        <action name="EditTagForm" path="/cataloguing/bibliographic/indici" type="librisuite.action.cataloguing.common.IndexListAction">
+		    <forward name="success" path="/casalini/cataloguing/indici.jsp"/>
+		    <forward name="fail" path="/casalini/cataloguing/indici.jsp"/> 
+		    <forward name="find" path="/casalini/cataloguing/indici.jsp"/> 
+        </action>
+         
+        <action name="EditTagForm" path="/cataloguing/diacritici" type="librisuite.action.searching.EditDiacritiTableAction" scope="request" parameter="method">
+           <forward name="find" path="/tools/diacriticiTable.jsp"/> 
+		   <forward name="success" path="/tools/diacriticiTable.jsp"/> 
+		   <forward name="clear" path="/tools/diacriticiTable.jsp"/> 
+        </action>
+
+        <action name="EditTagForm" path="/casalini/digital/uploadOk" type="librisuite.action.FindForwardAction" scope="request" parameter="method">
+		    <forward name="success" path="/cataloguing/bibliographic/editBibliographicItem.jsp"/> 
+        </action>
+	         
+		<!-- BEGIN CASALINI -->
+		<action path="/changeModule" type="org.apache.struts.actions.SwitchAction">
+			<description>Switch to another module (see also /logon/initialApplication)</description>
+		</action>
+		
+		<action name="DispatchServiceForm" path="/amicus/protocol" type="librisuite.action.AmicusServiceAction" >
+	   		<forward name="eqrec" path="/casalini/webservice/equivalents.do" />  
+	   		<forward name="verify" path="/casalini/webservice/verify.do" />  
+	   		<forward name="notAvailable" path="/errors/serviceErrors.jsp" />  
+	   		<forward name="fail" path="/errors/serviceErrors.jsp" />  
+	   	</action>
+		<!-- END CASALINI -->
+			
+	    <action name="EditTagForm" path="/searching/collection" type="librisuite.action.FindForwardAction" scope="request" parameter="method">
+			<forward name="showMST" path="/casalini/collection/mstCollections.jsp"/>
+		    <forward name="showCST" path="/casalini/collection/cstCollections.jsp"/> 
+        </action>	
+	    
+	    <action name="ReportForm" path="/reports/list" type="librisuite.action.reports.ReportListAction" scope="request">
+	   		<forward name="loaded" path="/reports/reportList.jsp"/>  
+	   		<forward name="generate" path="/reports/reportList.jsp"/>  
+	   		<forward name="close" path="/searching/mixedSearch.jsp"/>  
+	   		<forward name="fail" path="/reports/reportList.jsp"/>  
+	   		<forward name="failTarget" path="/errors/error.jsp"/> 
+		</action>	
+		
+		<action name="SelectionHeadingForm" path="/cataloguing/heading/editSuggestHeading" type="librisuite.action.cataloguing.heading.LoadSuggestHeadingAction" scope="request">
+	   		<forward name="edit" path="/searching/browse.jsp"/>  
+			<forward name="fail" path="/searching/browse.jsp"/>
+			<forward name="loadSuggest" path="/cataloguing/heading/suggestHeading.do?operation=browseSuggest"/>
+		</action>
+		
+		<action name="SubjectHeadingForm" path="/cataloguing/heading/suggestHeading" type="librisuite.action.cataloguing.heading.EditSuggestHeadingAction" scope="request">
+	   		<forward name="loadHeading" path="/searching/browse.jsp"/>  
+	   		<forward name="save" path="/searching/browse.jsp"/>  
+	   		<forward name="close" path="/searching/browse.do?method=refresh"/>  
+	   		<forward name="delete" path="/searching/browse.do?method=refresh"/>
+	   		<forward name="browse" path="/searching/browse.jsp"/> 
+	   		<forward name="fail" path="/searching/browse.jsp"/>  
+		</action>
+		<action name="EvaluatorsForm" path="/cataloguing/evaluator/evaluators" type="librisuite.action.cataloguing.evaluator.EvaluatorsRecordAction" scope="request">
+			<forward name="success" path="/cataloguing/evaluator/docEvaluations.jsp"/>
+			<forward name="newEvaluation" path="/cataloguing/evaluator/editEvaluator.do"/>
+			<forward name="deleteEvaluation" path="/cataloguing/evaluator/docEvaluations.jsp"/>
+			<forward name="editEvaluation" path="/cataloguing/evaluator/docEvaluation.jsp"/>
+		    <forward name="fail" path="/cataloguing/evaluator/docEvaluations.jsp"/>
+		</action>
+		<action name="EvaluatorForm" path="/cataloguing/evaluator/editEvaluator" type="librisuite.action.cataloguing.evaluator.EditEvaluatorsRecordAction" scope="request">
+			<forward name="new" path="/cataloguing/evaluator/docEvaluation.jsp"/>
+			<forward name="save" path="/cataloguing/evaluator/evaluators.do"/>
+			<forward name="close" path="/cataloguing/evaluator/evaluators.do"/>
+		    <forward name="fail" path="/cataloguing/evaluator/docEvaluation.jsp"/>
+		</action>
+		
+		<action name="BrowseForm" path="/changeLocale" type="librisuite.action.LocaleAction" parameter="method">
+			<forward name="browse" path="/searching/browse.jsp"/>
+			<forward name="crossReference" path="/cataloguing/crossReferences/crossReferences.jsp"/>
+		</action>
+		<action name="BrowseForm" path="/lifeSession" type="librisuite.action.LifeSessionAction">
+			<forward name="lifeSession" path="/searching/browse.jsp"/>
+			
+		</action>
+	</action-mappings>
+	
+	<message-resources parameter="ApplicationResources"/>
+	<message-resources key="mainMenu" parameter="resources.mainMenu.mainMenu" null="false"/>
+	<message-resources key="advancedSearch" parameter="resources.searching.advancedSearch" null="false"/>
+	<message-resources key="browse" parameter="resources.searching.browse" null="false"/>
+	<message-resources key="authorities" parameter="resources.searching.authorities" null="false"/>
+	<message-resources key="copies" parameter="resources.cataloguing.copy.copies" null="false"/>
+	<message-resources key="copy" parameter="resources.cataloguing.copy.copy" null="false"/>
+	<message-resources key="crossReference" parameter="resources.cataloguing.crossReferences.crossReferences" null="false"/>
+	<message-resources key="editCollections" parameter="resources.cataloguing.bibliographic.editCollections" null="false"/>
+	<message-resources key="editItem" parameter="resources.cataloguing.bibliographic.editItem" null="false"/>
+	<message-resources key="editLeader" parameter="resources.cataloguing.bibliographic.editLeader" null="false"/>
+	<message-resources key="editModels" parameter="resources.cataloguing.bibliographic.editModels" null="false"/>
+	<message-resources key="editPublisher" parameter="resources.cataloguing.bibliographic.editPublisher" null="false"/>
+	<message-resources key="editSubfieldW" parameter="resources.cataloguing.authority.editSubfieldW" null="false"/>
+	<message-resources key="edit007" parameter="resources.cataloguing.bibliographic.edit007" null="false"/>
+	<message-resources key="edit008" parameter="resources.cataloguing.bibliographic.edit008" null="false"/>
+	<message-resources key="editAuth008" parameter="resources.cataloguing.authority.edit008" null="false"/>
+	<message-resources key="expertSearch" parameter="resources.searching.expertSearch" null="false"/>
+	<message-resources key="heading" parameter="resources.cataloguing.heading.heading" null="false"/>
+	<message-resources key="inventory" parameter="resources.cataloguing.copy.inventory" null="false"/>
+	<message-resources key="loadFromFile" parameter="resources.cataloguing.bibliographic.loadFromFile" null="false"/>
+	<message-resources key="logon" parameter="resources.other.logon" null="false"/>
+	<message-resources key="note" parameter="resources.cataloguing.copy.note" null="false"/>
+	<message-resources key="notes" parameter="resources.cataloguing.copy.notes" null="false"/>
+	<message-resources key="orderTags" parameter="resources.cataloguing.bibliographic.orderTags" null="false"/>
+	<message-resources key="optionsMenu" parameter="resources.other.optionsMenu" null="false"/>
+	<message-resources key="resolver" parameter="resources.searching.resolver" null="false"/>
+	<message-resources key="resultSummary" parameter="resources.searching.resultSummary" null="false"/>
+	<message-resources key="simpleSearch" parameter="resources.searching.simpleSearch" null="false"/>
+	<message-resources key="searchHistory" parameter="resources.searching.searchHistory" null="false"/>
+	<message-resources key="marcHelper" parameter="resources.cataloguing.marchelper.marcHelper" null="false"/>
+	<message-resources key="diacritici" parameter="resources.cataloguing.bibliographic.diacritici" null="false"/>
+	<message-resources key="reports" parameter="resources.reports.reportList" null="false"/>
+	<message-resources key="evaluator" parameter="resources.cataloguing.bibliographic.evaluator" null="false"/>
+	
+	<message-resources key="circulation.optionsMenu.circulationCounter" parameter="resources.circulation.optionsMenu.circulationCounter" null="false"/>
+	<message-resources key="circulation.circulationCounter" parameter="resources.circulation.circulationCounter" null="false"/>
+	<message-resources key="circulation.borrowers" parameter="resources.circulation.borrowers" null="false"/>
+	<message-resources key="circulation.optionsMenu.borrowers" parameter="resources.circulation.optionsMenu.borrowers" null="false"/>
+	<message-resources key="circulation.settings" parameter="resources.circulation.settings" null="false"/>
+	<message-resources key="circulation.optionsMenu.settings" parameter="resources.circulation.optionsMenu.settings" null="false"/>
+	<message-resources key="circulation.policies" parameter="resources.circulation.policies" null="false"/>
+	<message-resources key="circulation.library" parameter="resources.circulation.library" null="false"/>
+	<message-resources key="circulation.status" parameter="resources.circulation.status" null="false"/>
+	<message-resources key="circulation.optionsMenu.status" parameter="resources.circulation.optionsMenu.status" null="false"/>
+	<message-resources key="circulation.leftMenu" parameter="resources.circulation.leftMenu" null="false"/>
+	<message-resources key="circulation.interlibrary" parameter="resources.circulation.interlibrary" null="false"/>
+	<message-resources key="circulation.maintenance" parameter="resources.circulation.maintenance" null="false"/>
+	<message-resources key="circulation.holds" parameter="resources.circulation.holds" null="false"/>
+	<message-resources key="circulation.statistics" parameter="resources.circulation.statistics" null="false"/>
+
+</struts-config>

@@ -1,0 +1,6 @@
+In order to function properly, scripts withing this directory need the following environment variables:
+
+$OSEEGENIUS_I_HOST = The hostname (or ip address) where OseeGenius -I- service is listening; 
+$OSEEGENIUS_I_PORT = The port number where where OseeGenius -I- service is listening;
+
+In addition, keep in mind that scripts simply invoke the REST interface of OseeGenius so "curl" is supposed to be installed on this machine. 

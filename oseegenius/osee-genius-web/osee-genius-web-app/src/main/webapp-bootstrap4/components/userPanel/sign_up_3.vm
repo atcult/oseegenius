@@ -1,0 +1,85 @@
+<!-- components/userPanel/sign_up_3.vm -->
+<input type="hidden" type="text" name="current_step" value="3">
+
+<h3 class="bold-text strSizeOnlyNotReduce">$text.residenceAddress</h3>		
+
+<div class="form-group">
+	<label class="close-label" for="address">$text.address</label>
+	<input name="address" id="address" type="text" class="form-control form-osee" placeholder="$text.insert_address_residence" #if($request.user.getResidenceAddress().addressLine) value="$esc.html($request.user.getResidenceAddress().addressLine)"#end required />
+</div>
+<div class="form-group">
+	<label class="close-label" for="postalCode">$text.postalCode</label>
+	<input name="postalCode" id="postalCode" type="text" placeholder="$text.insert_cap"  class="form-control form-osee" #if($request.user.getResidenceAddress().postalCode) value="$esc.html($request.user.getResidenceAddress().postalCode)"#end required />
+</div>
+
+<div class="form-group">
+	<label class="close-label" for="city">$text.city</label>
+	<input name="city" id="city" type="text" placeholder="$text.city" class="form-control form-osee" #if($request.user.getResidenceAddress().city) value="$esc.html($request.user.getResidenceAddress().city)"#end required />
+</div>
+<div class="form-group">
+	<label class="close-label" for="province">$text.prov</label>	
+	<input name="province" id="province" type="text" placeholder="$text.prov" class="form-control form-osee" #if($request.user.getResidenceAddress().region) value="$esc.html($request.user.getResidenceAddress().region)"#end required />
+</div>
+
+
+<div class="form-group">
+	<label class="close-label" for="countryId">$text.nation</label>
+	<select name="countryId" id="countryId" class="form-control form-osee" required> 
+	<option value="">$text.select</option>
+		#foreach($el in $request.mapCountryAddress.keySet())
+			<option value="$el" #if ($request.user.getResidenceAddress().countryId == $el)selected#end  >$request.mapCountryAddress.get($el)</option>
+		#end
+	</select>
+</div>
+
+
+
+<div class="form-group">
+	<label class="close-label sr-only" for="mainAddress">$text.mainAddress</label>
+	
+	<div class="form-check form-check-inline">
+		<input class="form-check-input" name="mainAddress" id="mainAddress" type="radio" value="0" #if($request.user.getResidenceAddress().isMainAddress())checked #end>
+		<label class="form-check-label" for="mainAddress">$text.mainAddress</label>
+	</div>
+</div>
+
+<h3 class="bold-text strSizeOnlyNotReduce">$text.domicileAddress</h3> 
+$text.addressText 
+
+<div class="form-group">
+	<label class="close-label" for="address2">$text.address</label>
+	<input name="address2" id="address2" type="text" class="form-control form-osee" placeholder="$text.insert_address_domicile" #if($request.user.getDomicileAddress().addressLine) value="$esc.html($request.user.getDomicileAddress().addressLine)"#end />
+</div>
+<div class="form-group">
+	<label class="close-label" for="postalCode2">$text.postalCode</label>
+	<input name="postalCode2" id="postalCode2" type="text" placeholder="$text.insert_cap"  class="form-control form-osee" #if($request.user.getDomicileAddress().postalCode) value="$esc.html($request.user.getDomicileAddress().postalCode)"#end />
+</div>
+
+<div class="form-group">
+	<label class="close-label" for="city2">$text.city</label>
+	<input name="city2" id="city2" type="text" placeholder="$text.city" class="form-control form-osee" #if($request.user.getDomicileAddress().city) value="$esc.html($request.user.getDomicileAddress().city)"#end />
+</div>
+<div class="form-group">
+	<label class="close-label" for="province2">$text.prov</label>	
+	<input name="province2" id="province2" type="text" placeholder="$text.prov" class="form-control form-osee" #if($request.user.getDomicileAddress().region) value="$esc.html($request.user.getDomicileAddress().region)"#end />
+</div>
+
+
+<div class="form-group">
+	<label class="close-label" for="countryId2">$text.nation</label>
+	<select name="countryId2" id="countryId2" class="form-control form-osee"> 
+	<option value="">$text.select</option>
+		#foreach($el in $request.mapCountryAddress.keySet())
+			<option value="$el" #if ($request.user.getDomicileAddress().countryId == $el)selected#end  >$request.mapCountryAddress.get($el)</option>
+		#end
+	</select>
+</div>
+
+<div class="form-group">
+	<label class="close-label sr-only" for="mainAddress">$text.nation</label>
+	
+	<div class="form-check form-check-inline">
+		<input class="form-check-input" name="mainAddress" id="domicileMain" type="radio" value="1" #if($request.user.getDomicileAddress().isMainAddress())checked #end>
+		<label class="form-check-label" for="domicileMain">$text.mainAddress</label>
+	</div>
+</div>

@@ -1,0 +1,51 @@
+<!-- components/page/heading_searcj_home.vm -->
+<div class="row m-0">
+	<div class="col-md-6 offset-md-3 col-sm-12">			
+		#set($searchType = 'subject')
+		############################# menu di ricerca #################################
+		#parse('components/page/menu-navigator.vm')    
+	</div>	
+</div>
+<div class="row m-0">
+	<div class="col-md-6 offset-md-3 col-sm-12">				
+			############################# form #################################  
+			<form name="searchForm" method="get" action="heading">
+				######################## input lunga  ##########################
+				<div class="my-3 bg-white shadow">	
+					<input type="hidden" name="s" id="s" value="20" />	
+					<div class="row">
+						<div class="col-md-8 nopadding-right">
+							<div class="input-group">		
+								<label class="sr-only" for="q">$text.subject_search_placeholder</label>			
+								<input type="text" class="form-control search-input" id="q" name="q" autocomplete="off" placeholder="$text.subject_search_placeholder" aria-label="Search"/>
+							</div>
+						</div>
+						<div class="col-md-4 nopadding-left d-flex">		
+							<button type="submit" class="button-blue uppercase float-right btn-block py-2">$text.search</button>	
+						</div>
+												
+					</div>		
+				</div>	
+			</form>
+			<br/>
+			<div>
+				$text.only_one_term <a href="advanced?a=reset">$text.advanced_search_link</a>.
+			</div>
+		
+	</div>
+	<div class="col-md-3 py-3 side-bar">
+		<h5 class="mb-5">$text.useful_link</h5>
+		<ul class="list-group">
+			<li class="list-group-item my-2">
+				<a href="https://thes.bncf.firenze.sbn.it/ricerca.php" target="_blank">
+			<div class="float-left">
+				Thesaurus Nuovo soggettario
+			</div>
+			<div class="float-right">
+				<img src="img/arrow.png" class="ml-3" alt="">
+			</div>			
+		</a>
+	</li>
+		</ul>
+	</div>
+</div>

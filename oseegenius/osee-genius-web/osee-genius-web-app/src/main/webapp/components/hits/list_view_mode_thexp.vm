@@ -1,0 +1,18 @@
+<div class="hit">
+	<table width="100%">
+		<tr>
+			<td width="4%" valign="top"><img src="$link.relative('/img')/thexp/top_concept_${document.is_top_concept}.png"/></td>
+			<td width="96%" valign="top">
+				<div id="document_header">	
+					<a class="pref-label searchLabel" href='$link.relative('/thresource')?uri=$esc.url($document.id)'>$document.prefLabel</a> 
+					<br/>
+					<a href='$document.id' class="concept-uri" target="_new">$document.id</a>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td width="4%" valign="top">&nbsp;</td>
+			<td>#if($document.note_rewes)<span class="attribute_name">$document.note_rewes.get(0)#else&nbsp;#end</span></td>
+		</tr>
+	</table>
+</div>

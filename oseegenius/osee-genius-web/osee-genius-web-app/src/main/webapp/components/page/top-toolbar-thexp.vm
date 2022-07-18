@@ -1,0 +1,67 @@
+	<div style="float:left;"><a href="$link.relative('/home')"><img src="$link.relative($corporate-logo-url)" #if($corporate-logo-url-height) height="${corporate-logo-url-height}" #end/></a></div>
+	<div style="float: left; margin-left:0px;margin-right:6px; padding-bottom:2px; height:50px;">		
+		<form name="searchForm" method="get" action="$link.relative('/thsearch')">
+			<div style="text-align: center; height: 70px;"><img src="$link.relative('/img/blank.png')"></div>
+				
+			<input type="text" class="search-field" id="q" name="q" autocomplete="off" style="float:left;"/>
+			<div style="float:left;">#spacer(5)</div>
+			<div style="float:left;">
+    			<select style="display:none;" name="h" id="h" onchange="javascript:reSubmitSearch()">
+    				<option value="any">$text.any</option>
+    				<option value="pl">$text.preferred_labels</option>
+    				<option value="al">$text.alternate_labels</option>
+					<optgroup label="$text.notes">
+						<option value="aln">$text.all_notes</option>
+						<option value="n">$text.general_notes</option>
+						<option value="sn">$text.scope_notes</option>
+						<option value="hn">$text.history_notes</option>
+						<option value="en">$text.editorial_notes</option>
+					</optgroup>
+    			</select>		
+			</div>
+			<div style="float:left; margin-top: 10px; margin-left:5px;">&nbsp;${text.showing}&nbsp;</div>
+			<div style="float:left;">
+    			<select style="display: none;" name="s" id="s" onchange="javascript:reSubmitSearch()">
+    				#foreach($pageSize in $configuration.allowedPageSizes)<option value="$pageSize">$pageSize</option>#end
+    			</select>					
+			</div>
+			<div style="float:left; margin-top: 10px; margin-left:5px;">&nbsp;${text.top_toolbar_message}&nbsp;</div>
+			<div style="float:left;">
+    			<select style="display: none; " name="o" id="o" onchange="javascript:reSubmitSearch()">
+					#foreach($orderByAttribute in $configuration.thGeniusOrderByMetaAttributes)
+						<option value="$orderByAttribute">$text.get($orderByAttribute)</option>
+					#end
+    			</select>		
+			</div>	
+			<div style="float:left; margin-top: 3px; margin-left:3px;">
+				<input type="submit" value="$text.search" class="do_search_button"/>
+			</div>
+		</form>
+	</div>
+		<script>
+		screenW = screen.width;
+	
+		if (screenW <= 1100)
+		{ 
+			$(".search-field").css("width",160);
+		} else if (screenW < 1300)
+		{
+			$(".search-field").css("width",200);			
+		} else if (screenW <= 1600)
+		{
+			$(".search-field").css("width",500);
+		}		
+		
+		var acType = $("#h").val();
+	
+		var a = $('#q').autocomplete({ 
+			serviceUrl:'suggest',
+			minChars:2, 
+			maxHeight:500,
+			width:300,
+			zIndex: 9999,
+			deferRequestBy: 0, 
+			noCache: true, 
+			onSelect: function(value, data){ reSubmitSearch(); }
+		});
+	</script>	

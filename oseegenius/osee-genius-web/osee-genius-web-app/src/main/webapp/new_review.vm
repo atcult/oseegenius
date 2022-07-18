@@ -1,0 +1,38 @@
+#set ($resource = $request.resource)
+<form action="$link.relative('newReview')" method="post">
+   <input type="hidden" name="uri" value="$resource.id"/>
+   <input type="hidden" name="outcome" value="$request.outcome"/>
+	<table class="detail_record">
+    	<tr>
+    		<td colspan="2">
+    			<span class="document_title_detail">
+    				$request.resource.title
+    			</span>
+    			#spacer(4)
+    			<br/>
+    			#if($resource.author_person)
+                    <a href='$link.relative('/search')?h=def&q=*:*&f=author_person:$esc.q$resource.author_person$esc.q' class="document_author_detail">$resource.author_person</a><br/><br/>
+    			#elseif($resource.author_corporate)
+                    <a href='$link.relative('/search')?h=def&q=*:*&f=author_corporate:$esc.q$resource.author_corporate$esc.q' class="document_author_detail">$resource.author_corporate</a><br/><br/>
+    			#elseif($resource.author_conference)
+                    <a href='$link.relative('/search')?h=def&q=*:*&f=author_conference:$esc.q$resource.author_conference$esc.q' class="document_author_detail">$resource.author_conference</a><br/><br/>
+    			#end
+    			#if ($resource.publisher)
+    				#foreach($publisher in $resource.publisher)
+    				<span class="publisher_detail">$publisher</span><br/>
+    				#end
+    			#end
+    			<br/>
+    		</td>
+    	</tr>
+		<tr><td colspan="2">#if ($request.inError)<span style="color:red;">$text.add_review_error_message</span>#else $text.add_new_review_info #end</td></tr>
+		<tr>
+			<td colspan="2">
+				<textarea name="reviewText" style="width:400px;" rows="8">#if ($request.reviewText)$request.reviewText#else#end</textarea>
+			</td>			
+		</tr>
+		<tr>
+			<td><input type="submit" value="$text.save" />&nbsp;<input type="button" onclick='document.location="$request.outcome"' value="$text.back" /></td>
+		</tr>
+    </table>
+</form>

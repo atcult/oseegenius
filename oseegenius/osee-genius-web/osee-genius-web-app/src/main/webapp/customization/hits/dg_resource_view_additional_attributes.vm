@@ -1,0 +1,71 @@
+#if ($resource.inferred_untokenized_keywords)
+<tr>
+	<td>$text.keywords</td>
+	<td>
+		#foreach ($topic in $resource.inferred_untokenized_keywords)
+			#if ($velocityCount > 1), #end
+			<a href='$link.relative('search')?q=*:*&h=def&f=inferred_untokenized_keyword:$esc.q$topic$esc.q'>$topic</a>
+		#end
+	</td>
+</tr>
+#end
+#if ($resource.project)
+<tr>
+	<td>$text.project</td>
+	<td><a href='$link.relative('search')?q=*:*&h=def&f=project:$esc.q$resource.project$esc.q'>$resource.project</a></td>
+</tr>
+#end
+#if ($resource.completion_date)
+<tr>
+	<td>$text.completion_date</td>
+	<td>$resource.completion_date</td>
+</tr>
+#end
+#if ($resource.mime_type)
+<tr>
+	<td>$text.mime_type</td>
+	<td><a href='$link.relative('search')?q=*:*&h=def&f=mime_type:$esc.q$resource.mime_type$esc.q'>$resource.mime_type</a></td>
+</tr>
+#end
+#if ($resource.company)
+<tr>
+	<td>$text.company</td>
+	<td><a href='$link.relative('search')?q=*:*&h=def&f=company:$esc.q$resource.company$esc.q'>$resource.company</a></td>
+</tr>
+#end
+#if ($resource.company_svg)
+<tr>
+	<td>$text.company_svg</td>
+	<td><a href='$link.relative('search')?q=*:*&h=def&f=company_svg:$esc.q$resource.company_svg$esc.q'>$resource.company_svg</a></td>
+</tr>
+#end
+#if ($resource.created_by)
+<tr>
+	<td>$text.created_by</td>
+	<td><a href='$link.relative('search')?q=*:*&h=def&f=created_by:$esc.q$resource.created_by$esc.q'>$resource.created_by</a></td>
+</tr>
+#end
+#if ($resource.revision_number)
+<tr>
+	<td>$text.revision_number</td>
+	<td>$resource.revision_number</td>
+</tr>
+#end
+#if ($resource.template)
+<tr>
+	<td>$text.template</td>
+	<td>$resource.template</td>
+</tr>
+#end
+#if ($resource.functionality)
+<tr>
+	<td>$text.functionality</td>
+	<td>$resource.functionality</td>
+</tr>
+#end
+#if ($resource.version)
+<tr>
+	<td>$text.version</td>
+	<td><a href='$link.relative('search')?q=*:*&h=def&f=version:$esc.q$resource.version$esc.q'>$resource.version</a></td>
+</tr>
+#end

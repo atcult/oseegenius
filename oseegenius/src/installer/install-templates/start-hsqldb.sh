@@ -1,0 +1,1 @@
+java -cp *JETTY_HOME!/lib/hsqldb-2.2.8.jar org.hsqldb.Server -port *DB_PORT! -database.0 file:$HOME/hsqldb/browsing -dbname.0 *CUSTOMER_CODE!_browsing > $HOME/hsqldb/db.log &

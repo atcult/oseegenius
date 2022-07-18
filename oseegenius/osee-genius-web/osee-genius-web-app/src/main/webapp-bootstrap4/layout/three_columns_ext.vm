@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it">
+	<head>
+		<title>OPAC - $institution</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="Content-language" content="it-IT" />
+		#default_head
+		<script type="text/javascript" src="$link.relative('/js/jquery.xslt.js')"></script>
+		#ga
+	</head>
+	<body>
+		<nav class="navbar navbar-light navbar-expand-md p-0 bg-white">
+			#parse('components/page/federated-search-header.vm')
+		</nav>
+		<div class="main pt-2">
+			<div class="container-fluid px-0">							
+					$screen_content		
+			</div>
+		</div>
+		<footer class="pt-md-5">
+			<div class="container-fluid">
+				#parse('components/page/footer.vm')
+			</div>
+		</footer>
+	</body>
+</html>

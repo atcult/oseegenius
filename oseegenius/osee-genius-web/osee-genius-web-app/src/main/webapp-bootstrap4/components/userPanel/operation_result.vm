@@ -1,0 +1,17 @@
+<!-- components/userPanel/foperation_result.vm -->
+<div class="form-signin">
+	<h2 class="text-center my-5">
+		#if ($request.inError) 
+			$text.failed
+		#else
+			$text.success
+		#end
+	</h2>
+	<div class="bg-white shadow p-4">
+		#if ($request.inError) 
+			<div class="alert alert-danger">$request.errorMessage</div>
+		#else
+			<img alt="" class="mx-auto d-block mb-4" src="img/success.png">	
+		#end
+	</div>
+</div>

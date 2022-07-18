@@ -1,0 +1,51 @@
+<div id="toolbar" class="box">
+	<span style="float:left;">#spacer(10)</span>
+	#if ($resource)
+		#if ($configuration.emailSenderAddress)
+		<span style="float:left;"><a rel="prettyPhoto" href="$link.relative('email')?resourceId=${request.resource.id}&iframe=true&height=440&width=420"><img src="$link.relative('/img/email.png')"></a></span>
+		<span style="float:left;margin-bottom:5px;">#spacer(10)</span>
+		#end
+		<span style="float:left;"><a href="export?target=refworks&id=$resource.id" target="_new"><img src="$link.relative('/img/refworks.gif')" height="24" width="24"></a></span>
+		<span style="float:left;margin-bottom:5px;">#spacer(10)</span>
+		<span style="float:left;"><a href="download?format=pdf&id=$resource.id"><img src="img/export-pdf-detail.png" height="24" width="24"></a></span>
+		<span style="float:left;margin-bottom:5px;">#spacer(5)</span>
+		<span style="float:left;"><a href="download?format=xls&id=$resource.id"><img src="img/export-excel-detail.png" height="24" width="24"></a></span>	
+		<span style="float:left;margin-bottom:5px;">#spacer(5)</span>
+		<span style="float:left;"><a href="download?format=html&id=$resource.id"><img src="img/export-html-detail.png" height="24" width="24"></a></span>			
+		<span style="float:left;margin-bottom:5px;">#spacer(5)</span>
+		<span style="float:left;"><a href="download?format=m21&id=$resource.id"><img src="img/export-m21-detail.png" height="24" width="24"></a></span>
+		<span style="float:left;margin-bottom:5px;">#spacer(5)</span>
+		<span style="float:left;"><a href="download?format=mxml&id=$resource.id"><img src="img/export-xml-detail.png" height="24" width="24"></a></span>
+		<span style="float:left;margin-bottom:5px;">#spacer(10)</span>
+		<span style="float:left;"><a href="download?format=tmarc&id=$resource.id"><img src="img/export-txt-detail.png" height="24" width="24"></a></span>
+		#if ($license.desiderataEnabled)
+		<span style="float:left;margin-bottom:5px;">#spacer(10)</span>
+		<span style="float:left;margin-bottom:5px;">#spacer(10)</span>
+			<span style="float:left;"><a href="desiderata?id=$resource.id"><img alt="Desiderata" src="img/desiderata.png" height="24" width="24"></a></span>
+		#end	
+		<span style="float:left;margin-bottom:5px;">#spacer(10)</span>
+		<span style="float:left;margin-bottom:5px;">#spacer(10)</span>
+    		#foreach($provider in $configuration.searchProviders)
+            	<span style="float:left; margin-top:0px;"><a href='${provider.url}$esc.url($request.resource.title)' target="_new"><img src='$provider.icon' height="24" width="24"></a></span>
+            	<span style="float:left; ">#spacer(10)</span>
+    		#end
+	#end
+	<div id="navigator" style="padding-top:3px;">
+		#if ($resource)
+		<a class="bottom-toolbar-link" href="javascript:goTo('resource-details')">$text.card</a>
+		#end
+		#if ($request.copies)
+			<a class="bottom-toolbar-link" href="javascript:goTo('holdings')">$text.holding_data</a>
+		#end		
+		#if($mlt)
+			<a class="bottom-toolbar-link" href="javascript:goTo('mlt')">$text.mlt</a>
+		#end
+		#if ($request.reviews)
+			<a class="bottom-toolbar-link" href="javascript:goTo('reviews')">$text.reviews</a>
+		#end
+		#if ($license.communityPluginEnabled && $session.visit.authenticated)
+			<a class="bottom-toolbar-link" href="javascript:goTo('workspace')">Workspace</a>
+		#end
+	#i18nToolbar			 
+	</div>	
+</div>	

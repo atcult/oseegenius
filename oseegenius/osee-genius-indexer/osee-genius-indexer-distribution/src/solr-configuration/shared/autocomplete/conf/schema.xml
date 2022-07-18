@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="Osee Genius Schema - Autocomplete" version="1.2">
+	<types>
+		<fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+		<fieldType name="suggestion-ngram" class="solr.TextField" positionIncrementGap="100" omitNorms="true">
+			<analyzer type="index">
+				<charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>
+				<tokenizer class="solr.WhitespaceTokenizerFactory"/>
+				<filter class="solr.LowerCaseFilterFactory" />
+				<filter class="solr.WordDelimiterFilterFactory" generateWordParts="0" generateNumberParts="0" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="0" />
+				<filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="20" side="front"/>
+			</analyzer>
+			<analyzer type="query">
+				<charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>
+				<tokenizer class="solr.WhitespaceTokenizerFactory"/>
+				<filter class="solr.LowerCaseFilterFactory" />
+			</analyzer>
+		</fieldType>
+	</types>
+	<fields>
+		<field name="label" type="string" indexed="true" stored="true" required="true" multiValued="false"/> 
+		<field name="search" type="suggestion-ngram" indexed="true" stored="false" required="true" multiValued="false"/> 
+		<copyField source="label" dest="search" />
+		<field name="type" type="string" indexed="true" stored="true" required="true" multiValued="false"/> 
+	 </fields>
+ 	<uniqueKey>label</uniqueKey>
+ 	<defaultSearchField>search</defaultSearchField>
+ 	<solrQueryParser defaultOperator="AND"/>
+</schema>

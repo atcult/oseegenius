@@ -1,0 +1,16 @@
+<div id="toolbar" class="box">
+	<span style="float:left;">#spacer(10)</span>
+	<div id="navigator" style="padding-top:4px;">
+		#set ($firstLetter = "-")
+		#if($request.hidePerspectiveButton)
+    		#foreach($city in $request.mainLibrariesByCityMap.keySet())
+    			#set ($firstLetterOfCity = $city.substring(0,1))
+            	#if ($firstLetterOfCity != $firstLetter)
+    				#set ($firstLetter = $firstLetterOfCity)
+            		<a class="bottom-toolbar-link" href="javascript:goTo('$firstLetterOfCity')">$firstLetterOfCity</a>
+            	#end
+    		#end	
+		#end	
+		#i18nToolbar			 
+	</div>	
+</div>	

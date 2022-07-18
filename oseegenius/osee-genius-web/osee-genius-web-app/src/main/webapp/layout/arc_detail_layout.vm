@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>    
+		<title>Osee Genius - Search and Discovery</title>
+		<link rel="icon" type="image/x-icon" href="$link.relative('/img/favicon.ico')" />
+		<link href="$link.relative('/style/jquery.ui.theme.css')" rel="stylesheet" type="text/css" />				
+		<link href="$link.relative('/style/jquery.ui.selectmenu.css')" rel="stylesheet" type="text/css" />	
+		<link href="$link.relative('/style/og.css')" rel="stylesheet" type="text/css" />
+		<link href="$link.relative('/style/customer.css')" rel="stylesheet" type="text/css" />
+		<link href="$link.relative('/style/jquery.autocomplete.css')" rel="stylesheet" type="text/css" />				
+        <script type="text/javascript" src="$link.relative('/js/jquery.min.1.4.4.js')"></script> 
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.core.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.widget.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.position.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.selectmenu.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.button.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.autocomplete.js')"></script>
+		<style>
+div#content {
+    border-style: none;
+    border-width: 0 0;
+    margin: 0 0px;
+    padding: 1em 10px;
+}
+			
+		</style>	
+	</head>
+	<body>
+    	<div id="container"> 
+			#parse('components/links.vm')
+			<div id="top-toolbar" style="float:left;">
+				#parse('components/page/top-toolbar.vm')	
+				#parse('components/search/breadcrumb-detail_ar.vm')	
+			</div>
+            <div id="header"></div> 
+            <div id="navigation"></div> 
+            <div id="extra"></div> 
+            <div id="content">$screen_content</div>
+			<div id="toolbar" class="box"><div id="navigator">#i18nToolbar</div></div>
+    		#parse('components/page/footer.vm')
+		</div>
+		<script type="text/javascript" src="$link.relative('/js/oseegenius.js')"></script>
+	</body>
+</html>

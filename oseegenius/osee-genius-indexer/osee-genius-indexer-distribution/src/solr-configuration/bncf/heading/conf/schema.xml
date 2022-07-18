@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="Osee Genius Schema - Heading" version="1.2">
+	<types>
+		<fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+		<fieldType name="light-stemmed-text-field" class="solr.TextField" omitNorms="true">
+			<analyzer>
+				<charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>	
+				<tokenizer class="solr.WhitespaceTokenizerFactory"/>
+				<filter class="solr.LowerCaseFilterFactory" />
+				<filter class="solr.WordDelimiterFilterFactory" 
+						generateWordParts="1" 
+						generateNumberParts="1" 
+						catenateWords="0" 
+						catenateNumbers="0" 
+						catenateAll="0" 
+						splitOnCaseChange="0" />
+				<filter class="solr.ItalianLightStemFilterFactory" />
+			</analyzer>
+		</fieldType>	
+		<fieldtype name="unstemmed-name-text-field" class="solr.TextField" positionIncrementGap="100" omitNorms="true">
+	      	<analyzer>
+				<charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>
+	        	<tokenizer class="solr.WhitespaceTokenizerFactory" />
+		        	<filter class="solr.LowerCaseFilterFactory" />			        	
+					<filter class="solr.WordDelimiterFilterFactory" 
+						generateWordParts="1" 
+						generateNumberParts="1" 
+						catenateWords="0" 
+						catenateNumbers="0" 
+						catenateAll="0" 
+						splitOnCaseChange="0" />	
+	      	</analyzer>
+		</fieldtype>	
+	</types>
+	<fields>
+		<field name="label" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
+		<field name="heading_part" type="string" indexed="true" stored="true" required="true" multiValued="true"/> 
+		<field name="search" type="unstemmed-name-text-field" indexed="true" stored="false" required="true" multiValued="true"/> 
+		<copyField source="heading_part" dest="search" />		
+		<field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false"/> 
+	 </fields>
+ 	<uniqueKey>id</uniqueKey>
+ 	<defaultSearchField>search</defaultSearchField>
+ 	<solrQueryParser defaultOperator="AND"/>
+</schema>

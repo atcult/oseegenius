@@ -1,0 +1,15 @@
+#set ($layout="homepage.vm")
+<!-- 404.vm -->
+<div class="container alert alert-danger" role="alert">
+	<h5>$text.msg_404</h5>
+	<br/>
+	$text.msg_404_reason_intro
+	<ol>
+		<li>$text.msg_404_reason_1</li>
+		<li>$text.msg_404_reason_2</li>
+	</ol>
+	<br/>
+	#if ($configuration.emailReceiverAddress)
+		$text.error_footer_1 <a href="mailto:$configuration.emailReceiverAddress">e-mail</a>$text.error_footer_2 
+	#end
+</div>

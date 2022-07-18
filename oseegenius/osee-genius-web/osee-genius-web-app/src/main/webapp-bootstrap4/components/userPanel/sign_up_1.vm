@@ -1,0 +1,193 @@
+<!-- components/userPanel/sign_up_1.vm -->
+<script>
+	$(document).ready(function(){
+		### initial settings
+		showHideTutorForm(); 
+	
+		$('#dateOfBirth').on('input', function(e) {
+			showHideTutorForm();
+		});
+		
+		$('#dateOfBirth').keyup(function() {
+			if($(this).val() != '') {
+				var check = dateFormatCheck($(this).val());
+				if (!check) {
+					$('#signup_button').prop("disabled", true);
+					$(this).css("border", "2px solid #d40e0e");
+					$('#wrong_format').show();
+				}
+				else {
+					$('#signup_button').prop("disabled", false);
+					$('#wrong_format').hide();
+					$(this).css("border", "");
+				}
+			}
+		});
+	});
+	
+	function showHideTutorForm() {		
+		var birthday = $('#dateOfBirth').val();
+		if (birthday != null) {
+			var age = getAge(birthday);
+			if (age < 18 ) {
+				$('#tutor-form').show("slow");
+  				$('.tutor').attr('required', true);
+			}
+			else {
+				$('#tutor-form').hide("slow");  			
+		  		$('.tutor').attr('required', false);
+		  		$('.tutor').val("");
+			}			
+		} 
+	}
+	
+	function getAge(birthday) {
+	    var today = new Date();	    
+	    var birthDate = new Date(birthday);
+	    var age = today.getFullYear() - birthDate.getFullYear();
+	    var m = today.getMonth() - birthDate.getMonth();
+	    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+	        age--;
+	    }    
+	    return age;
+	}
+	
+	
+	function dateFormatCheck(date) {		
+		var reg = /^\d\d\d\d-\d\d-\d\d$/;		
+		return reg.test(date);
+	}
+</script>
+
+<h3 class="bold-text strSizeOnlyNotReduce">$text.personal_data</h3>
+	<div class="strSizeOnly">
+		<input type="hidden" type="text" name="current_step" value="1">
+
+		<div class="form-group">
+			<label class="close-label" for="name">$text.name</label>
+			<input name="name" id="name" type="text" class="form-control form-osee" placeholder="$text.insert_your_name" #if($request.user.firstName) value="$esc.html($request.user.firstName)"#end required/>	
+		</div>	
+		<div class="form-group">
+			<label class="close-label" for="surname">$text.surname</label>
+			<input name="surname" id="surname" type="text" class="form-control form-osee" placeholder="$text.insert_your_surname" #if($request.user.lastName) value="$esc.html($request.user.lastName)"#end required/>	
+		</div>
+		#if($editView)
+		<div class="form-group">
+			<label class="close-label" for="barcode">$text.barcode</label>
+			<input name="barcode" id="barcode" type="text" class="form-control form-osee" #if($request.user.barcode) value="$esc.html($request.user.barcode)"#end disabled/>	
+		</div>	
+		#end	
+		<div class="form-group">
+			<label class="close-label" for="email">Email</label>
+			<input name="email" id="email" type="email" class="form-control form-osee" placeholder="$text.insert_your_email" #if($request.user.email) value="$esc.html($request.user.email)"#end required/>	
+		</div>
+		<div class="form-group">
+			<div id="wrong_format" class="p-1 mb-1 mt-4 alert alert-danger" style="display: none">$text.wrong_format</div>
+			<label class="close-label" for="dateOfBirth">$text.birthday (${text.date_placeholder})</label>
+			<input name="dateOfBirth" id="dateOfBirth" type="text" class="form-control form-osee" placeholder="$text.date_placeholder" #if($request.user.dateOfBirth) value="$esc.html($string.showSimpleDate($request.user.dateOfBirth))"#end required/>	
+		</div>	
+		<div class="form-group">
+			<label class="close-label" for="phone">$text.telephone</label>
+			<input name="phone" id="phone" type="tel" class="form-control form-osee" placeholder="$text.insert_your_telephone" #if($request.user.telephone) value="$esc.html($request.user.telephone)"#end />	
+		</div>	
+		<div class="form-group">
+			<label class="close-label" for="mobile">$text.mobile</label>
+			<input name="mobile" id="mobile" type="tel" class="form-control form-osee" placeholder="$text.insert_your_mobile" #if($request.user.mobile) value="$esc.html($request.user.mobile)"#end />	
+		</div>
+		<div class="form-group">
+			<label class="close-label" for="job">$text.job</label>
+			<select name="job" id="job" class="form-control form-osee" required> 
+				<option value="">$text.select</option>
+				<option value="$text.bundleGet('additional_resources', 'job_housekeeper', 'it')" #if("$text.bundleGet('additional_resources', 'job_housekeeper', 'it')" == $request.user.getJob())selected#end >$text.job_housekeeper</option>
+				<option value="$text.bundleGet('additional_resources', 'job_civilServant', 'it')" #if("$text.bundleGet('additional_resources', 'job_civilServant', 'it')" == $request.user.getJob())selected#end >$text.job_civilServant</option>
+				<option value="$text.bundleGet('additional_resources', 'job_manager', 'it')" #if("$text.bundleGet('additional_resources', 'job_manager', 'it')" == $request.user.getJob())selected#end >$text.job_manager</option>
+				<option value="$text.bundleGet('additional_resources', 'job_teacher', 'it')" #if("$text.bundleGet('additional_resources', 'job_teacher', 'it')" == $request.user.getJob())selected#end >$text.job_teacher</option>
+				<option value="$text.bundleGet('additional_resources', 'job_phd', 'it')" #if("$text.bundleGet('additional_resources', 'job_phd', 'it')" == $request.user.getJob())selected#end >$text.job_phd</option>
+				<option value="$text.bundleGet('additional_resources', 'job_employer', 'it')" #if("$text.bundleGet('additional_resources', 'job_employer', 'it')" == $request.user.getJob())selected#end  >$text.job_employer</option>
+				<option value="$text.bundleGet('additional_resources', 'job_seeking', 'it')" #if("$text.bundleGet('additional_resources', 'job_seeking', 'it')" == $request.user.getJob())selected#end >$text.job_seeking</option>
+				<option value="$text.bundleGet('additional_resources', 'job_graduating', 'it')" #if("$text.bundleGet('additional_resources', 'job_graduating', 'it')" == $request.user.getJob())selected#end >$text.job_graduating</option>
+				<option value="$text.bundleGet('additional_resources', 'job_freelance', 'it')" #if("$text.bundleGet('additional_resources', 'job_freelance', 'it')" == $request.user.getJob())selected#end >$text.job_freelance</option>
+				<option value="$text.bundleGet('additional_resources', 'job_cultural', 'it')" #if("$text.bundleGet('additional_resources', 'job_cultural', 'it')" == $request.user.getJob())selected#end >$text.job_cultural</option>
+				<option value="$text.bundleGet('additional_resources', 'job_researcher', 'it')" #if("$text.bundleGet('additional_resources', 'job_researcher', 'it')" == $request.user.getJob())selected#end >$text.job_researcher</option>
+				<option value="$text.bundleGet('additional_resources', 'job_student', 'it')" #if("$text.bundleGet('additional_resources', 'job_student', 'it')" == $request.user.getJob())selected#end >$text.job_student</option>
+				<option value="$text.bundleGet('additional_resources', 'job_retired', 'it')" #if("$text.bundleGet('additional_resources', 'job_retired', 'it')" == $request.user.getJob())selected#end >$text.job_retired</option>
+				<option value="$text.bundleGet('additional_resources', 'job_not_declared', 'it')" #if("$text.bundleGet('additional_resources', 'job_not_declared', 'it')" == $request.user.getJob())selected#end >$text.job_not_declared</option>
+			</select>	
+		</div>
+		
+		<div class="form-group">
+			<label class="close-label" for="gender">$text.gender</label>
+			<br/>			
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" name="gender" id="male" type="radio" value="M" #if(! $request.user.getGender() || $request.user.getGender() == "M")checked#end>
+				<label class="form-check-label" for="male">$text.male</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" name="gender" id="female" type="radio" value="F" #if($request.user.getGender() == "F")checked#end>
+				<label class="form-check-label" for="female">$text.female</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" name="gender" id="other" type="radio" value="A" #if($request.user.getGender() == "A")checked#end>
+				<label class="form-check-label" for="other">$text.other</label>
+			</div>
+		</div>
+	</div>		
+		
+		
+		
+				
+		<div id="tutor-form" style="display: none">
+			<h3 class="bold-text strSizeOnlyNotReduce">$text.tutor_document</h3>
+			<div class="form-group">
+				<label class="close-label" for="tutorName">$text.name</label>
+				<input id="tutorName" name="tutorName" type="text" placeholder="$text.name" class="form-control form-osee tutor" #if($request.request.user.getTutorName()) value="$esc.html($request.request.user.getTutorName())"#end >
+			</div>
+			<div class="form-group">
+				<label class="close-label" for="tutorSurname">$text.surname</label>
+				<input id="tutorSurname" name="tutorSurname" type="text"  placeholder="$text.surname" class="form-control form-osee tutor" #if($request.request.user.getTutorSurname()) value="$esc.html($request.request.user.getTutorSurname())"#end />
+			</div>
+			<div class="form-group">
+				<label class="close-label" for="tutorDocumentType">${text.document_type_bncf}</label>
+				
+				<select id="tutorDocumentType" name="tutorDocumentType" class="form-control form-osee">
+					<option value="">$text.select</option>
+					<option value="$text.bundleGet('additional_resources', 'document_identity', 'it')" #if($string.compareNormalization($request.request.user.getTutorDocumentType(),$text.bundleGet('additional_resources', 'document_identity', 'it')))selected#end>
+						$text.document_identity
+					</option>
+					<option value="$text.bundleGet('additional_resources', 'document_pens', 'it')" #if($request.request.user.getTutorDocumentType()  == $text.bundleGet('additional_resources', 'document_pens', 'it'))selected#end>
+						$text.document_pens
+					</option>
+					<option value="$text.bundleGet('additional_resources', 'document_passport', 'it')" #if($request.request.user.getTutorDocumentType()  == $text.bundleGet('additional_resources', 'document_passport', 'it'))selected#end> 
+						$text.document_passport
+					</option>
+					<option value="$text.bundleGet('additional_resources', 'document_drive', 'it')" #if($request.request.user.getTutorDocumentType() == $text.bundleGet('additional_resources', 'document_drive', 'it'))selected#end>
+						$text.document_drive
+					</option>
+					<option value="$text.bundleGet('additional_resources', 'document_naut', 'it')" #if($request.request.user.getTutorDocumentType() == $text.bundleGet('additional_resources', 'document_naut', 'it'))selected#end>
+						$text.document_naut
+					</option>
+					<option value="$text.bundleGet('additional_resources', 'document_imp', 'it')" #if($request.request.user.getTutorDocumentType() == $text.bundleGet('additional_resources', 'document_imp', 'it'))selected#end>
+						$text.document_imp
+					</option>
+					<option value="$text.bundleGet('additional_resources', 'document_weapon', 'it')" #if($string.compareNormalization($request.request.user.getTutorDocumentType(), $text.bundleGet('additional_resources', 'document_weapon', 'it')))selected#end>
+						$text.document_weapon
+					</option>
+					<option value="$text.bundleGet('additional_resources', 'document_state', 'it')" #if($request.request.user.getTutorDocumentType() == $text.bundleGet('additional_resources', 'document_state', 'it'))selected#end>
+						$text.document_state
+					</option>					
+				</select>
+			</div>
+			<div class="form-group">
+				<label class="close-label" for="tutorDocumentNumber">${text.documentNumber}</label>
+				<input id="tutorDocumentNumber" name="tutorDocumentNumber" type="text" placeholder="$text.documentNumber" class="form-control form-osee tutor" #if($request.request.user.getTutorDocumentNumber()) value="$esc.html($request.request.user.getTutorDocumentNumber())"#end/>
+			</div>	
+			<div class="form-group">
+				<label class="close-label" for="tutorDocumentProvenance">${text.documentProvenance}</label>			
+				<input name="tutorDocumentProvenance" id="tutorDocumentProvenance" type="text" placeholder="$text.documentProvenance" class="form-control form-osee tutor" #if($request.request.user.getTutorDocumentReleasedBy()) value="$esc.html($request.request.user.getTutorDocumentReleasedBy())"#end/>
+			</div>
+			<div class="form-group">
+				<label class="close-label" for="tutorDocumentExpire">${text.documentExpire}</label>
+				<input name="tutorDocumentExpire" id="tutorDocumentExpire" type="text" placeholder="$text.documentExpire es. 1956-03-22" class="form-control form-osee tutor" #if($request.request.user.getTutorDocumentExpiration()) value="$esc.html($request.request.user.getTutorDocumentExpiration())"#end/>
+			</div>
+		</div>
+		

@@ -1,0 +1,30 @@
+<style>
+.viewlet_toggable_head:before {content: url(img/blank.png);}
+</style>
+#set($tab = $session.visit.searchExperience.currentTab)
+	<ul id="up">
+		#foreach($searchTab in $session.visit.searchExperience.tabs)
+			#if ($searchTab == $tab)
+				<li class="c">
+					<span style="float:left;margin-top:2px;">$searchTab.title </span>
+					#spacer(5)
+					#if (!$session.visit.searchExperience.currentTab.empty)
+						#if ($tab.rssQueryString)
+    						#set ($server = "$request.scheme://$request.serverName:$request.serverPort")
+    							<a href='http://www.addtoany.com/subscribe?linkname=&linkurl=$server$link.relative('/rss')?$tab.rssQueryString' class="a2a_dd"><img src="$link.relative('/img/rss.png')" height="16" width="16" style="vertical-align:bottom; margin-left:5px;"/></a>
+    							<script type="text/javascript">a2a_linkurl="$server$link.relative('/rss')?$tab.rssQueryString";</script><script src="http://static.addtoany.com/menu/feed.js" type="text/javascript"></script>
+    					#end
+					#end	
+					<a href="$link.relative('closeTab')"/><img id="tabstate" src="$link.relative('/img/wait.gif')" height="16" width="16" style="vertical-align:top; margin-left:7px;"/></a></li>
+			#else
+				#if (!$searchTab.externalSearchTab)
+					<li>	<a href='$link.relative('search')?$searchTab.queryParameters'>$searchTab.title</a></li>	
+				#else
+					<li>	<a href='$link.relative('metasearch')?$searchTab.queryParameters'>$searchTab.title</a></li>						
+				#end 
+			#end	
+		#end
+		<li><a href="$link.relative('newTab')" style="text-decoration:none;"><img src="$link.relative('/img/add_small.png')" height="9" width="9" style="vertical-align:middle;"/></a></li>
+	</ul>								
+	<div id="documents"></div>
+	<div style="clear:both;"></div>

@@ -1,0 +1,127 @@
+<!-- allFacets.vm -->
+#set($queryResponse = $request.unlimitedFacetQueryResponse)
+#set($tab = $session.visit.searchExperience.currentTab)
+#set($currentlyAppliedFilterQueries = $tab.query.filterQueries)
+
+#set($currentlyAppliedFiltersContainSelectedFilter = false)
+#foreach($appliedFilter in $currentlyAppliedFilterQueries)
+	#if ($appliedFilter.startsWith($facetField.name))
+		#set($currentlyAppliedFiltersContainSelectedFilter = true)		
+	#end
+#end	
+#if ($currentlyAppliedFiltersContainSelectedFilter && $currentlyAppliedFilterQueries)
+	#set($howManyFilterQueries = $currentlyAppliedFilterQueries.length)
+#else
+	#set($howManyFilterQueries = 0)
+#end
+
+#set($lang1 = $session.visit.preferredLocale.language)
+#if ($lang1 == "it")
+	#set($lang1 = "ita")
+#else
+	#set($lang1 = "eng")							
+#end	
+
+<div class="row bg-white p-3">
+	<div class="col-md-12">
+		<div class="row top-bar d-none d-lg-block">
+			<ul class="list-group list-group-horizontal">
+				#set ($resources = $tab.response)	
+				#if ($facetField.name != "library") #facet_link_with_bundle_bootstrap($text.library $resources.getFacetField('library') 'library') #end
+				#if ($facetField.name != "format_for") #facet_link_with_bundle_bootstrap($text.format $resources.getFacetField('format_for') 'format_for') #end	
+				#if ($facetField.name != "bibliographic_level") #facet_link_with_bundle_bootstrap($text.bibliographic_level $resources.getFacetField('bibliographic_level') 'bibliographic_levels') #end	
+				#if ($facetField.name != "author_person_facet") #facet_link_bootstrap($text.author_person_facet $resources.getFacetField('author_person_facet')) #end
+				#if ($facetField.name != "author_corporate_facet") #facet_link_bootstrap($text.author_corporate_facet $resources.getFacetField('author_corporate_facet')) #end	
+				#if ($facetField.name != "author_conference_facet") #facet_link_bootstrap($text.author_conference_facet $resources.getFacetField('author_conference_facet')) #end
+				#if ($facetField.name != "publisher_name") #facet_link_bootstrap($text.publisher $resources.getFacetField('publisher_name')) #end
+				#if ($facetField.name != "language") #facet_link_with_bundle_bootstrap($text.language $resources.getFacetField('language') 'languages') #end	
+				#if ($facetField.name != "publication_date_interval") #facet_link_with_bundle_bootstrap($text.publication_date_interval $resources.getFacetField('publication_date_interval') 'pub_intervals') #end	
+				#if ($facetField.name != "publication_date") #facet_link_bootstrap($text.publication_date $resources.getFacetField('publication_date'))	#end
+				#if ($facetField.name != "dewey_facet") #facet_link_bootstrap($text.classification $resources.getFacetField('dewey_facet'))	#end
+			</ul>
+		</div>
+	</div>
+</div>
+
+#set ($maxColumns = 5)
+#set ($module = $facetField.valueCount % $maxColumns)
+#if (($module) == 0)
+	#set( $howManyRowsPerColumn = $facetField.valueCount / $maxColumns ) 
+#else 
+	#set ($howManyRowsPerColumn = ($facetField.valueCount / $maxColumns) + $module )
+#end
+
+#if ($facetField.name.startsWith('author') || $facetField.name.startsWith('name') || $facetField.name.contains('subject'))
+(
+#if (!$params.o || $params.o == 'count')
+	<a class="landingLink strSizeOnly semibold-text" href="javascript:manipulateQueryString('o', 'index')">$text.order_by_alpha</a>	
+#else
+	<a class="landingLink strSizeOnly semibold-text" href="javascript:manipulateQueryString('o','count')">$text.order_by_occurrence</a>
+#end
+)
+#end
+<br/><br/>
+
+<div class="d-flex justify-content-center">
+#if ($request.back)
+	<a class="landingLink strSizeOnly semibold-text" href="javascript:manipulateQueryString('offset', '$request.backOffset')">&lt;&lt; $text.back</a>
+	&nbsp;	
+#end	
+#if ($request.next)
+	<a class="landingLink strSizeOnly semibold-text" href="javascript:manipulateQueryString('offset', '$request.nextOffset')">$text.forward &gt;&gt;</a>
+#end
+</div>
+<br/>
+
+<div class="row">
+	#set ($currentRowIndex = 0)
+	#foreach($facet in $facetField.values)
+			#if ($currentRowIndex == 0 )
+				<div class="col">
+				<ul type = none>
+			#elseif ($currentRowIndex == $howManyRowsPerColumn)
+				#set ($currentRowIndex = 0)
+				</ul>
+				</div>	
+				<div class="col">
+				<ul type = none>
+			#end
+			 <li>		
+    		#if($request.bundle)
+				#set ( $value = $breadcrumbTool.getI18nLabel($request.bundle, $facet.name))				
+    		#else
+    			#set ( $value = $facet.name)
+			#end
+			#set($prova=false)
+			#if ($currentlyAppliedFiltersContainSelectedFilter)	
+				#foreach($appliedFilter in $currentlyAppliedFilterQueries)
+                	#if ($appliedFilter.startsWith($facetField.name))
+						 #set($indexOfQuotes = $facetField.name.length() + 1)
+						 #if ($indexOfQuotes != -1)
+							#set ($startIndex = $indexOfQuotes + 1)
+							#set ($endIndex = $appliedFilter.length() - 1)
+							#set($appliedFilterValue = $appliedFilter.substring($startIndex, $endIndex))
+							#if ($appliedFilterValue == $facet.name)
+								#set($prova=true)
+								#break;
+							#end	
+						#end	
+					#end	
+				#end ##foreach
+				#if ($prova==false)
+								<a class="links_list_facets" href='${request.contextPath}/search?${tab.queryParameters}&f=${facetField.name}:${esc.q}$esc.url($facet.name)${esc.q}'>$value</a> <span class="text_list_facets">($facet.count)</span><br/>
+							#else
+								<a class="links_list_facets" style="text-decoration:none;">$value</a> <span class="text_list_facets">($facet.count)</span>
+								<a  class="links_list_facets" href='${request.contextPath}/showAll?a=remove&f=$facetField.name&fv=$esc.url($facet.name)'><img src="${request.contextPath}/img/cancel.png" style="vertical-align:middle;"/></a>
+				#end	
+			#else
+				#set($filterValue = $facet.name.replaceAll("\"", "\\""))
+				<a class="links_list_facets" href='${request.contextPath}/search?${tab.queryParameters}&f=${facetField.name}:${esc.q}$esc.url($filterValue)${esc.q}'>$value</a> <span class="text_list_facets">($facet.count)</span><br/>
+			#end
+			#set ($currentRowIndex = $currentRowIndex + 1)
+    		</li>	
+	#end
+	</ul>
+	</div>
+</div>
+<br/><br/><br/>

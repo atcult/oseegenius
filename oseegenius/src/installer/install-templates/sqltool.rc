@@ -1,0 +1,4 @@
+urlid *CUSTOMER_CODE!_browsing
+url jdbc:hsqldb:hsql://*DB_HOST!:*DB_PORT!/*CUSTOMER_CODE!_browsing
+username sa
+password 

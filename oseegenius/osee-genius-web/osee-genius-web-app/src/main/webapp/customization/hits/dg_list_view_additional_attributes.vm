@@ -1,0 +1,14 @@
+<table width="100%" cellpadding="0" cellspacing="0" style="border-bottom:1px solid gray;">
+	<tr><td colspan="2">&nbsp;</td></tr>
+	#if ($document.highlighting)
+		<tr><td colspan="2"><div class="post-it">#foreach($htline in $document.highlighting)...${htline}...<br/>#end</div></td></tr>
+	#else
+		<tr><td colspan="2">&nbsp;</td></tr>	
+	#end
+	<tr>
+		<td colspan="2" align="left"valign="top">
+			#parse("components/hits/share-document-toolbar.vm")
+		</td>	
+	</tr>
+	<tr><td colspan="2">&nbsp;</td></tr>
+</table>

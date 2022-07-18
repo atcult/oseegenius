@@ -1,0 +1,8 @@
+<!-- components/userPanel/sign_up_success.vm -->
+<div class="form-signin  p-4">
+	<h2 class="text-center my-5">$text.already_registered</h2>
+	<div class="bg-white shadow p-4">		
+		
+			$text.already_registered_message_1 <a href="${configuration.getFolioUrlFrontend()}/forgot-password">password</a> $text.already_registered_message_2 <a href="mailto:$configuration.emailReceiverAddress">$configuration.emailReceiverAddress</a>  				
+	</div>
+</div>

@@ -1,0 +1,30 @@
+#if($request.accessibility =="true")
+	#set ($layout="accessibility_one_column.vm")
+#else #set ($layout="one_column.vm")
+#end	
+<table style="font-size:15px;">
+	<tr>
+		<td><img src="${request.contextPath}/img/error_page_icon.png"/></td>
+        <td align="left"><span style="font-size:1.8em; color:black; text-decoration:none; font-weight:bold;">$text.msg_404</span></td>
+	</tr>
+    <tr>
+		<td colspan="2">
+			$text.msg_404_reason_intro
+			<ol>
+				<li>
+					$text.msg_404_reason_1
+                </li>
+				<li>
+					$text.msg_404_reason_2
+                </li>
+			</ol>
+		</td>
+	</tr>
+	#if ($configuration.emailReceiverAddress)
+	<tr>
+		<td colspan="2">
+			$text.error_footer_1 <a href="mailto:$configuration.emailReceiverAddress">e-mail</a>$text.error_footer_2 
+		</td>
+	</tr>
+	#end
+</table>

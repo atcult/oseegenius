@@ -1,0 +1,143 @@
+<table style="font-size:12px;" width="100%">
+	<tr>
+		<td valign="top" rowspan="2"  width="1%"><img src="img/mailbox.png"/></td>
+	</tr>
+	<tr>
+		<td valign="top" width="400">
+			<form  action="desiderata" method="post">
+    			<table>
+    				<tr>
+    					<td valign="top"><b><span style="font-size:15px;">$text.desiderata_form_title</span></b></td>
+    				</tr>
+    				<tr>
+    					<td>
+							#if ($request.errorMessage)
+								<span style="color:red;">$text.get($request.errorMessage)</span>
+							#else
+        						$text.desiderata_form_info
+							#end
+    					</td>
+    				</tr>	
+    			</table>
+    			<br/>
+        			<table cellspacing="0" cellpadding="2">
+            		  <tbody>
+						<tr>
+    						<td>$text.library</td>
+                            <td>
+    							<select name="libraryId">
+    								#foreach($sub in $session.visit.account.subscriptions)
+										<option value="$sub.libraryId">$application.mlbyid.get($sub.libraryId)</option>
+									#end
+    							</select>
+    						</td>						
+                        </tr>	
+						#if(!$session.selection || $session.selection.isEmpty())
+        					<tr>
+        						<td>$text.title *</td>
+        						<td>
+									<input type="hidden" name="mode" value="manual">
+									<input type="text" name="title" size="70">
+								</td>						
+                            </tr>	
+        					<tr>
+        						<td>$text.author</td>
+        						<td><input type="text" name="author" size="70"></td>						
+                            </tr>	
+        					<tr>
+        						<td>$text.publication_year</td>
+        						<td><input type="text" name="publication_year"></td>						
+                            </tr>	
+        					<tr>
+        						<td>$text.title_series</td>
+        						<td><input type="text" name="series" size="70"></td>						
+                            </tr>	
+        					<tr>
+        						<td>Volume</td>
+        						<td><input type="text" name="volume"></td>						
+                            </tr>	
+        					<tr>
+        						<td>$text.notes</td>
+        						<td><input type="text" name="notes" size="70"></td>						
+                            </tr>	
+        					<tr>
+        						<td>$text.publication_place</td>
+        						<td><input type="text" name="publication_place"></td>						
+                            </tr>	
+        					<tr>
+        						<td>$text.publisher</td>
+        						<td><input type="text" name="publisher"size="30"></td>						
+                            </tr>	
+        					<tr>
+        						<td>$text.isbn</td>
+        						<td><input type="text" name="isbn"></td>						
+                            </tr>	
+        					<tr>
+        						<td>$text.bibliographic_level</td>
+        						<td>
+                                    <select name="bibliographic_level">
+										<option value="m">Monografia</option>
+										<option value="s">Periodico</option>
+									</select>
+								</td>						
+                            </tr>						
+            				<tr >
+                			    <td colspan="2" align="left">&nbsp;</td>
+                			</tr>
+						#end	
+            			<tr>
+            				<td colspan="2">
+        						<input type="submit" value="$text.send"  style="padding:3px;"/>
+        						&nbsp;&nbsp;&nbsp;
+        						<input type="button" value="$text.cancel"  onclick="goback()" style="padding:3px;"/>
+    						</td>
+            			</tr>	  
+						<tr><td colspan="2"><br/></td></tr>
+						<tr><td colspan="2"><em>Campo obbligatorio</em></td></tr>
+            		  </tbody>
+            		</table> 	
+    		</form>
+		</td>
+		<td rowspan="2" valign="top">
+				#if($session.selection && !$session.selection.isEmpty())
+					<table class="selection-table">
+						<tr><th colspan="2">$text.selected_data</th></tr>
+						#foreach($selectedItem in $session.selection)
+        					#if ($velocityCount % 2 == 0)
+        						#set ($rowStyle="selection-row-even")
+        					#else
+        						#set ($rowStyle="selection-row-odd")
+        					#end					
+    						<tr class="$rowStyle">
+            					<td valign="top" width="1">
+            		                ${velocityCount}.
+            					</td>
+            					<td class="pari">
+            						<span class="selection-title">$selectedItem.title</span>
+            						#if ($selectedItem.author)<br/><span class="selection-author">$selectedItem.author</span>#end
+    								#if ($selectedItem.publisher)<br/><span class="selection-publisher">$selectedItem.publisher.get(0)</span>#end
+        							#if ($selectedItem.isbn)<br/><span style="selection-isbn">$selectedItem.isbn.get(0)</span>#end
+            					</td>
+    						</tr>
+						#end
+					</table>		
+				#end
+		</td>
+	</tr>
+</table>		
+<br/><br/><br/><br/><br/><br/><br/><br/>
+<script>
+	function goback()
+	{
+		#if (!$visit.searchExperience.empty)
+			#if ($visit.searchExperience.currentTab.externalSearchTab) 
+				document.location = 'metasearch?${session.visit.searchExperience.currentTab.queryParameters}'
+			#else
+				document.location = 'search?${session.visit.searchExperience.currentTab.queryParameters}&dls=ik'
+			#end
+		#else
+			document.location = 'home';
+		#end
+	
+	}
+</script>	

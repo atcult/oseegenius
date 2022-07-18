@@ -1,0 +1,143 @@
+<profile code="bath" profileName="BATH Profile">
+  <Or>  		
+ 		<!-- Any Search : Keyword -->
+    	<And>
+    	  	<Regexp type="AccessPoint">bib-1\.1\.1016</Regexp>
+    	  	<Regexp type="Relation">bib-1\.2\.3</Regexp>   	
+    	  	<Regexp type="Position">bib-1\.3\.3</Regexp>   	
+    	  	<Regexp type="Structure">bib-1\.4\.2</Regexp>	
+    	  	<Regexp type="Truncation">bib-1\.5\.100</Regexp>
+    	  	<Regexp type="Completeness">bib-1\.6\.1</Regexp> 		
+    	 </And> 	     	     	    	  		
+  		
+  		<!-- Author Search : Keyword -->
+    	<And>
+    	  	<Regexp type="AccessPoint">bib-1\.1\.1003</Regexp>
+    	  	<Regexp type="Relation">bib-1\.2\.3</Regexp>   	
+    	  	<Regexp type="Position">bib-1\.3\.3</Regexp>   	
+    	  	<Regexp type="Structure">bib-1\.4\.2</Regexp>	
+    	  	<Regexp type="Truncation">bib-1\.5\.100</Regexp>
+    	  	<Regexp type="Completeness">bib-1\.6\.1</Regexp> 		
+    	 </And> 	 
+    	 
+    	<!-- Author Search : Starts with (BATH : First chars in field) -->
+    	<And>
+    	  	<Regexp type="AccessPoint">bib-1\.1\.1003</Regexp>
+    	  	<Regexp type="Relation">bib-1\.2\.3</Regexp>   	
+    	  	<Regexp type="Position">bib-1\.3\.1</Regexp>   	
+    	  	<Regexp type="Structure">bib-1\.4\.1</Regexp>	
+    	  	<Regexp type="Truncation">bib-1\.5\.1</Regexp>
+    	  	<Regexp type="Completeness">bib-1\.6\.1</Regexp> 		
+    	 </And> 
+    	 
+		<!-- Title Search : Keyword -->
+    	<And>
+    	  	<Regexp type="AccessPoint">bib-1\.1\.4</Regexp>
+    	  	<Regexp type="Relation">bib-1\.2\.3</Regexp>   	
+    	  	<Regexp type="Position">bib-1\.3\.3</Regexp>   	
+    	  	<Regexp type="Structure">bib-1\.4\.2</Regexp>	
+    	  	<Regexp type="Truncation">bib-1\.5\.100</Regexp>
+    	  	<Regexp type="Completeness">bib-1\.6\.1</Regexp> 		
+    	 </And> 	 
+    	 
+    	 <!-- Title Search : Starts with (BATH : First chars in field) -->
+    	<And>
+    	  	<Regexp type="AccessPoint">bib-1\.1\.4</Regexp>
+    	  	<Regexp type="Relation">bib-1\.2\.3</Regexp>   	
+    	  	<Regexp type="Position">bib-1\.3\.1</Regexp>   	
+    	  	<Regexp type="Structure">bib-1\.4\.1</Regexp>	
+    	  	<Regexp type="Truncation">bib-1\.5\.1</Regexp>
+    	  	<Regexp type="Completeness">bib-1\.6\.1</Regexp> 		
+    	 </And> 
+    	 
+		<!-- Subject Search : Keyword -->
+    	<And>
+    	  	<Regexp type="AccessPoint">bib-1\.1\.21</Regexp>
+    	  	<Regexp type="Relation">bib-1\.2\.3</Regexp>   	
+    	  	<Regexp type="Position">bib-1\.3\.3</Regexp>   	
+    	  	<Regexp type="Structure">bib-1\.4\.2</Regexp>	
+    	  	<Regexp type="Truncation">bib-1\.5\.100</Regexp>
+    	  	<Regexp type="Completeness">bib-1\.6\.1</Regexp> 		
+    	 </And> 	  
+
+    	 <!-- Subject Search : Starts with (BATH : First chars in field) -->
+    	<And>
+    	  	<Regexp type="AccessPoint">bib-1\.1\.21</Regexp>
+    	  	<Regexp type="Relation">bib-1\.2\.3</Regexp>   	
+    	  	<Regexp type="Position">bib-1\.3\.1</Regexp>   	
+    	  	<Regexp type="Structure">bib-1\.4\.1</Regexp>	
+    	  	<Regexp type="Truncation">bib-1\.5\.1</Regexp>
+    	  	<Regexp type="Completeness">bib-1\.6\.1</Regexp> 		
+    	 </And> 
+
+		<!-- Publisher Search : Keyword -->
+    	<And>
+    	  	<Regexp type="AccessPoint">bib-1\.1\.1018</Regexp>
+    	  	<Regexp type="Relation">bib-1\.2\.3</Regexp>   	
+    	  	<Regexp type="Position">bib-1\.3\.3</Regexp>   	
+    	  	<Regexp type="Structure">bib-1\.4\.2</Regexp>	
+    	  	<Regexp type="Truncation">bib-1\.5\.100</Regexp>
+    	  	<Regexp type="Completeness">bib-1\.6\.1</Regexp> 		
+    	 </And> 	 
+    	 
+    	<!-- Publisher Search : Starts with (BATH : First chars in field) -->
+    	<And>
+    	  	<Regexp type="AccessPoint">bib-1\.1\.1018</Regexp>
+    	  	<Regexp type="Relation">bib-1\.2\.3</Regexp>   	
+    	  	<Regexp type="Position">bib-1\.3\.1</Regexp>   	
+    	  	<Regexp type="Structure">bib-1\.4\.1</Regexp>	
+    	  	<Regexp type="Truncation">bib-1\.5\.1</Regexp>
+    	  	<Regexp type="Completeness">bib-1\.6\.1</Regexp> 		
+    	 </And> 
+
+		<!-- Other Classification : Exact match -->
+		<And>
+    	  	<Regexp type="AccessPoint">bib-1\.1\.20</Regexp>
+    	  	<Regexp type="Relation">bib-1\.2\.3</Regexp>   	
+    	  	<Regexp type="Position">bib-1\.3\.1</Regexp>   	
+    	  	<Regexp type="Structure">bib-1\.4\.1</Regexp>	
+    	  	<Regexp type="Truncation">bib-1\.5\.100</Regexp>
+    	  	<Regexp type="Completeness">bib-1\.6\.3</Regexp> 		
+    	 </And> 	
+  		
+		<!-- Language code : Exact match -->
+		<And>
+    	  	<Regexp type="AccessPoint">bib-1\.1\.54</Regexp>
+    	  	<Regexp type="Relation">bib-1\.2\.3</Regexp>   	
+    	  	<Regexp type="Position">bib-1\.3\.1</Regexp>   	
+    	  	<Regexp type="Structure">bib-1\.4\.1</Regexp>	
+    	  	<Regexp type="Truncation">bib-1\.5\.100</Regexp>
+    	  	<Regexp type="Completeness">bib-1\.6\.3</Regexp> 		
+    	 </And> 	
+    	 
+		<!-- ISBN : Exact match -->
+		<And>
+    	  	<Regexp type="AccessPoint">bib-1\.1\.7</Regexp>
+    	  	<Regexp type="Relation">bib-1\.2\.3</Regexp>   	
+    	  	<Regexp type="Position">bib-1\.3\.1</Regexp>   	
+    	  	<Regexp type="Structure">bib-1\.4\.1</Regexp>	
+    	  	<Regexp type="Truncation">bib-1\.5\.100</Regexp>
+    	  	<Regexp type="Completeness">bib-1\.6\.3</Regexp> 		
+    	 </And>
+
+		<!-- ISSN : Exact match -->
+		<And>
+    	  	<Regexp type="AccessPoint">bib-1\.1\.8</Regexp>
+    	  	<Regexp type="Relation">bib-1\.2\.3</Regexp>   	
+    	  	<Regexp type="Position">bib-1\.3\.1</Regexp>   	
+    	  	<Regexp type="Structure">bib-1\.4\.1</Regexp>	
+    	  	<Regexp type="Truncation">bib-1\.5\.100</Regexp>
+    	  	<Regexp type="Completeness">bib-1\.6\.3</Regexp> 		
+    	 </And>
+
+		<!-- Identifier (Amicus Number) : Exact match -->
+		<And>
+    	  	<Regexp type="AccessPoint">bib-1\.1\.1032</Regexp>
+    	  	<Regexp type="Relation">bib-1\.2\.3</Regexp>   	
+    	  	<Regexp type="Position">bib-1\.3\.1</Regexp>   	
+    	  	<Regexp type="Structure">bib-1\.4\.1</Regexp>	
+    	  	<Regexp type="Truncation">bib-1\.5\.100</Regexp>
+    	  	<Regexp type="Completeness">bib-1\.6\.3</Regexp> 		
+    	 </And>
+   </Or>
+</profile>

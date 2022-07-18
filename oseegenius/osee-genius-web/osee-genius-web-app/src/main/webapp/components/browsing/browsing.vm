@@ -1,0 +1,32 @@
+#if ($application.browsing)
+#if (!$apf)
+	#set($apf = "")
+#end	
+<div class="viewlet">
+	<div class="viewlet_toggable_head">
+		<h3>$text.deweys</h3>
+	</div>
+	<div class="viewlet_body">	
+        	<script type="text/javascript">
+        		var tree = new WebFXTree('Dewey Decimal Classification');
+                #foreach( $mainClass in $application.browsing)
+        			var mainClassNode = new WebFXTreeItem('$esc.javascript($text.bundleGet("dewey", $mainClass.messageKey))');
+        			mainClassNode.action="dewey?q=${mainClass}$esc.javascript(${apf})";
+        			#foreach( $secondLevelClass in $mainClass.children)
+        					var secondLevelClassNode = new WebFXTreeItem('$esc.javascript($text.bundleGet("dewey", $secondLevelClass.messageKey))');
+    						secondLevelClassNode.action="dewey?q=${secondLevelClass}$esc.javascript(${apf})";
+        					#foreach( $thirdLevelClass in $secondLevelClass.children)
+        						var thirdLevelClassNode = new WebFXTreeItem('$esc.javascript($text.bundleGet("dewey",$thirdLevelClass.messageKey))');
+    							thirdLevelClassNode.action="dewey?q=${thirdLevelClass}$esc.javascript(${apf})";        						
+    							secondLevelClassNode.add(thirdLevelClassNode);
+        					#end 
+        					mainClassNode.add(secondLevelClassNode);
+        			#end
+        			tree.add(mainClassNode);
+                #end
+      			document.write(tree);	
+    		</script>
+	</div>	
+</div>						
+#vspacer(10)
+#end

@@ -1,0 +1,130 @@
+<script>
+	function onEdit() {
+	var previousEmail = $('#emailDisplay').attr('data-value');
+		$('#emailDisplay').html('<input name="email" id="email" type="email" value="' + previousEmail + '" required>');
+		$('#save-button').show();
+	}
+</script>	
+	#set($loggedUser = $session.visit.folioAccount)
+	#set($user = $session.visit.folioAccount)
+<!-- components/userPanel/folio_account.vm -->
+<h2 class="px-5">$text.your_data</h2>
+<div class="row m-0">
+	<div class="col-12">
+		<button class="button-blue mt-3 mr-5 px-4 py-1 float-right" type="button" onclick="onEdit()">$text.edit</button>	
+	</div>	
+</div>	
+	<div class="strSizeOnly">
+	<form action="updateFolioUser" method="post" class="bg-white px-5 py-4">
+		<div class="row attribute-row py-2">
+			<div class="col-md-2 col-3 user-label">$text.name</div>
+			<div class="col-md-10 col-9">#if($user.firstName)${user.firstName}#end</div>
+		</div>
+		<div class="row attribute-row py-2">
+			<div class="col-md-2 col-3 user-label">$text.surname</div>
+			<div class="col-md-10 col-9">#if($user.lastName)${user.lastName}#end</div>
+		</div>
+		<div class="row attribute-row py-2">
+			<div class="col-md-2 col-3 user-label">$text.barcode</div>
+			<div class="col-md-10 col-9">#if($user.barcode)${user.barcode}#end</div>
+		</div>
+		<div class="row attribute-row py-2">
+			<div class="col-md-2 col-3 user-label">$text.username</div>
+			<div class="col-md-10 col-9">#if($user.username)${user.username}#end</div>
+		</div>
+		<div class="row attribute-row py-2">
+			<div class="col-md-2 col-3 user-label">Email</div>
+			<div class="col-md-10 col-9" id="emailDisplay" data-value="#if($user.email)${user.email}#end">#if($user.email)${user.email}#end</div>
+		</div>
+		<div class="row attribute-row py-2">
+			<div class="col-md-2 col-3 user-label">$text.mobile</div>
+			<div class="col-md-10 col-9">#if($user.mobile)${user.mobile}#end</div>
+		</div>
+		<div class="row attribute-row py-2">
+			<div class="col-md-2 col-3 user-label">$text.telephone</div>
+			<div class="col-md-10 col-9">#if($user.telephone)${user.telephone}#end</div>
+		</div>
+		<div class="row attribute-row py-2">
+			<div class="col-md-2 col-3 user-label">$text.job</div>
+			<div class="col-md-10 col-9">#if($user.getJob())$user.getJob()#end</div>
+		</div>
+		<div class="row attribute-row py-2">
+			<div class="col-md-2 col-3 user-label">$text.residenceAddress</div>
+			<div class="col-md-10 col-9">
+				#if($user.address.size() > 0)    
+    				#set($address1 = $user.address.get(0))
+    				#if($address1.addressLine)$address1.addressLine#end#if($address1.postalCode), $address1.postalCode#end#if($address1.city), $address1.city#end#if($address1.region), $address1.region#end
+    			#end
+			</div>
+		</div>
+		#if($user.address.size() > 1)   
+			#set($address2 = $user.address.get(1))
+			<div class="row attribute-row py-2">
+				<div class="col-md-2 col-3 user-label">$text.domicileAddress</div>
+				<div class="col-md-10 col-9">
+					#if($address2.addressLine)$address2.addressLine#end#if($address2.postalCode), $address2.postalCode#end#if($address2.city), $address2.city#end#if($address2.region), $address2.region#end
+				</div>
+			</div>
+		#end
+		<div class="row attribute-row py-2">
+			<div class="col-md-2 col-3 user-label">$text.nation</div>
+			<div class="col-md-10 col-9">#if($user.getNation())$user.getNation()#end</div>
+		</div>
+		<div class="row attribute-row py-2">
+			<div class="col-md-2 col-3 user-label">$text.gender</div>
+			<div class="col-md-10 col-9">#if($user.getGender())$user.getGender()#end</div>
+		</div>
+		<div class="row attribute-row py-2">
+    		<div class="col-md-2 col-3 user-label">$text.fiscalCode</div>	
+    		<div class="col-md-10 col-9">#if($user.fiscalCode)$user.fiscalCode#end</div>
+    	</div>
+    	<div class="row attribute-row py-2">
+    		<div class="col-md-2 col-3 user-label">$text.dateOfBirth</div>	
+    		<div class="col-md-10 col-9">#if($user.dateOfBirth)$string.showSimpleDate($user.dateOfBirth)#end</div>
+    	</div>
+    	<div class="row attribute-row py-2">
+    		<div class="col-md-2 col-3 user-label">$text.birthLocation</div>	
+    		<div class="col-md-10 col-9">#if($user.getBirthLocation())$user.getBirthLocation()#end</div>
+    	</div>
+    	<div class="row attribute-row py-2">
+    		<div class="col-md-2 col-3 user-label">$text.document</div>	
+    		<div class="col-md-10 col-9">#if($user.getDocumentType())$text.docType $user.getDocumentType()#end 
+    		#if($user.getDocumentNumber()) ; $text.docNumber $user.getDocumentNumber()#end
+    		#if($user.getDocumentReleasedBy()) ; $text.docReleasedBy $user.getDocumentReleasedBy()#end
+    		#if($user.getDocumentExpiration()) ; $text.docExpiration $user.getDocumentExpiration()#end </div>
+    	</div>
+    	#if($user.getTutorName())
+	    	<div class="row attribute-row py-2">
+	    		<div class="col-md-2 col-3 user-label">$text.guardianDocument</div>	
+	    		<div class="col-md-10 col-9">$text.nameTutor $user.getTutorName() ; 
+	    									$text.surnameTutor $user.getTutorSurname() ; 
+	    									$text.typeDocumentTutor $user.getTutorDocumentType() ;
+	    									$text.docNumber $user.getTutorDocumentNumber() ;
+	    									$text.docReleasedBy $user.getTutorDocumentReleasedBy() ;
+	    									$text.docExpiration $user.getTutorDocumentExpiration()
+	    		</div>
+	    	</div>
+	    #end	
+
+	    #if($user.getResidencePermissionNumber())
+	    	<div class="row attribute-row py-2">
+	    		<div class="col-md-2 col-3 user-label">$text.residencePermission</div>	
+	    		<div class="col-md-10 col-9">$text.numResidencyPermission $user.getResidencePermissionNumber() ; 
+	    									$text.expirationResidencePermission $user.getResidencePermissionExpiration()</div>
+	    	</div>
+	    #end
+	    <div class="row attribute-row py-2">
+	   		<div class="col-md-2 col-3 user-label">$text.category</div>	
+	   		<div class="col-md-10 col-9">#if($user.patronGroupName)$user.patronGroupName#end</div>	   		
+	   	</div>	   
+	   <div class="row attribute-row py-2">
+	   		<div class="col-md-2 col-3 user-label">$text.documentExpire</div>
+	   		<div class="col-md-10 col-9">#if($user.expireDate) $string.showSimpleDate($user.expireDate)#end</div>
+	   </div>	
+	   <div class="row m-0">
+	   		<div class="col-12">
+	   			<button id="save-button" style="display: none" class="button-blue m-5 px-5 py-1 float-right" type="submit">$text.save</button>
+	   		</div>
+	   </div>	
+	</form>	
+	</div>

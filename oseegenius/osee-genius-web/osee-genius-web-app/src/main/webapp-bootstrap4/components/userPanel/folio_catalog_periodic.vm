@@ -1,0 +1,99 @@
+<!-- components/userPanel/folio_catalog_periodic.vm -->
+<div class="form-group row">
+	<label for="collocation_periodic" class="col-4 col-form-label label-search">$text.collocation *</label>
+	<div class="col-8">
+		<input type="text" class="form-control form-osee" name="collocation_periodic" id="collocation_periodic" required> 
+	</div>
+</div>
+
+<div class="form-group row">
+	<label for="title_periodic" class="col-4 col-form-label label-search">$text.title *</label>
+	<div class="col-8">
+		<input type="text" class="form-control form-osee" name="title_periodic" id="title_periodic" required> 
+	</div>
+</div>
+
+<div class="form-group row">
+	<label for="publisher_periodic" class="col-4 col-form-label label-search">$text.publisher</label>
+	<div class="col-8">
+		<input type="text" class="form-control form-osee" name="publisher_periodic" id="publisher_periodic"> 
+	</div>
+</div>
+
+<div class="form-group row">
+	<label for="place_periodic" class="col-4 col-form-label label-search">$text.place_of_publication</label>
+	<div class="col-8">
+		<input type="text" class="form-control form-osee" name="place_periodic" id="place_periodic"> 
+	</div>
+</div>
+
+<div class="form-group row">
+	<label for="publication_date_periodic" class="col-4 col-form-label label-search">$text.publication_date *</label>
+	<div class="col-8">
+		<input type="text" class="form-control form-osee" name="publication_date_periodic" id="publication_date_periodic" required> 
+	</div>
+</div>
+
+<div class="form-group row">
+	<label for="year_periodic" class="col-4 col-form-label label-search">$text.year *</label>
+	<div class="col-8">
+		<input type="text" class="form-control form-osee" name="year_periodic" id="year_periodic" required> 
+	</div>
+</div>
+
+
+<div class="form-group row">
+	<label for="volume_periodic" class="col-4 col-form-label label-search">$text.volume</label>
+	<div class="col-8">
+		<input type="text" class="form-control form-osee" name="volume_periodic" id="volume_periodic"> 
+	</div>
+</div>
+
+
+<div class="form-group row">
+	<label for="issue_periodic" class="col-4 col-form-label label-search">$text.issue</label>
+	<div class="col-8">
+		<input type="text" class="form-control form-osee" name="issue_periodic" id="issue_periodic"> 
+	</div>
+</div>
+
+<div class="form-group row">
+	<label for="day_periodic" class="col-4 col-form-label label-search">$text.day</label>
+	<div class="col-8">
+		<input type="text" class="form-control form-osee" name="day_periodic" id="day_periodic"> 
+	</div>
+</div>
+
+
+<div class="form-group row">
+	<label for="month_periodic" class="col-4 col-form-label label-search">$text.month</label>
+	<div class="col-8">
+		<input type="text" class="form-control form-osee" name="month_periodic" id="month_periodic"> 
+	</div>
+</div>
+
+<div class="form-group row">
+	<label for="note" class="col-4 col-form-label label-search">$text.note</label>
+	<div class="col-8">
+		<input type="text" class="form-control form-osee" name="note" id="note"> 
+	</div>
+</div>
+#set($loggedUser = $session.visit.folioAccount)
+#set($defaultServicePoint = $loggedUser.getDefaultServicePoint())
+<div class="form-group row">
+	<label for="servicePoint" class="col-4 col-form-label label-search">$text.service_point_label</label>
+	<div class="col-sm-8">
+		<select class="form-control form-osee" name="servicePoint_periodic" id="servicePoint">
+			#foreach($element in $request.servicePointList)
+				<option value="${element.getName()}___${text.bundleGet('additional_resources', $element.getValue())}" #if($element.getValue() == $defaultServicePoint)selected#end>
+					$text.bundleGet('additional_resources', $element.getValue())
+				</option>
+			#end	
+		</select>
+	</div>
+</div>  	
+<div class="form-group row">
+	<div class="col-8 offset-4">
+		<button id="request-submit-button" class="button-blue btn-block py-2 strSizeOnly" type="submit" >$text.web_circ_doloans</button>
+	</div>
+</div>	

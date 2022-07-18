@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="it">
+	<head>
+		<title>OPAC - $institution</title>
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		#default_head
+	</head>
+	<body>
+		<!-- layout/modal_display.vm -->	
+		<div class="main bg-white">
+			<div class="container-fluid px-0">							
+					$screen_content		
+			</div>
+		</div>	
+	</body>
+</html>

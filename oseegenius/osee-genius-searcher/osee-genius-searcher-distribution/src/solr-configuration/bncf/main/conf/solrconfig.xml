@@ -1,0 +1,1241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config xmlns:xi="http://www.w3.org/2001/XInclude">
+	<abortOnConfigurationError>${solr.abortOnConfigurationError:true}</abortOnConfigurationError>
+	<luceneMatchVersion>LUCENE_47</luceneMatchVersion>
+ 	<dataDir>${solr.data.dir}/${solr.core.name}/data</dataDir>
+	<indexConfig>
+	    <lockType>${solr.lock.type:native}</lockType>
+  	</indexConfig>
+	<updateHandler class="solr.DirectUpdateHandler2" />
+	<query>
+		<maxBooleanClauses>1024</maxBooleanClauses>
+	    <filterCache class="solr.LRUCache" size="102400" initialSize="102400" autowarmCount="51200"/>
+	    <fieldValueCache class="solr.FastLRUCache" size="5120" autowarmCount="2048" showItems="64"/>
+	    <queryResultCache class="solr.LRUCache" size="8192" initialSize="8192" autowarmCount="0"/>
+	    <documentCache class="solr.LRUCache" size="51200" initialSize="51200" autowarmCount="10240"/>
+	    <enableLazyFieldLoading>true</enableLazyFieldLoading>
+	    <useFilterForSortedQuery>true</useFilterForSortedQuery>
+	    <queryResultWindowSize>80</queryResultWindowSize>
+	    <queryResultMaxDocsCached>100</queryResultMaxDocsCached>
+	    <HashDocSet maxSize="200000" loadFactor="0.75"/>
+    	<listener event="newSearcher" class="solr.QuerySenderListener">
+      		<arr name="queries">
+      		    <lst>
+      		        <str name="q">*:*</str> 
+      		        <str name="qt">def</str>
+      		        <str name="sort">title_sort asc, author_sort asc, publication_date_sort desc</str> 
+				</lst>
+      		    <lst>
+      		        <str name="q">storia</str> 
+      		        <str name="qt">any_bc</str>
+      		        <str name="sort">title_sort asc, author_sort asc, publication_date_sort desc</str> 
+				</lst>
+      		    <lst>
+      		        <str name="q">potter</str> 
+      		        <str name="qt">author_bc</str>
+      		        <str name="sort">title_sort asc, author_sort asc, publication_date_sort desc</str> 
+				</lst>				
+      		    <lst>
+      		        <str name="q">italia</str> 
+      		        <str name="qt">sub_bc</str>
+      		        <str name="sort">title_sort asc, author_sort asc, publication_date_sort desc</str> 
+				</lst>				
+			</arr>
+		</listener>
+    	<listener event="firstSearcher" class="solr.QuerySenderListener">
+      		<arr name="queries">
+      		    <lst>
+      		        <str name="q">*:*</str> 
+      		        <str name="qt">def</str>
+      		        <str name="sort">title_sort asc, author_sort asc, publication_date_sort desc</str> 
+				</lst>
+      		    <lst>
+      		        <str name="q">storia</str> 
+      		        <str name="qt">any_bc</str>
+      		        <str name="sort">title_sort asc, author_sort asc, publication_date_sort desc</str> 
+				</lst>
+      		    <lst>
+      		        <str name="q">potter</str> 
+      		        <str name="qt">author_bc</str>
+      		        <str name="sort">title_sort asc, author_sort asc, publication_date_sort desc</str> 
+				</lst>				
+      		    <lst>
+      		        <str name="q">italia</str> 
+      		        <str name="qt">sub_bc</str>
+      		        <str name="sort">title_sort asc, author_sort asc, publication_date_sort desc</str> 
+				</lst>				
+			</arr>  
+    	</listener>
+    	<useColdSearcher>true</useColdSearcher>
+    	<maxWarmingSearchers>2</maxWarmingSearchers>
+    </query>
+  	<requestDispatcher handleSelect="true" >
+    	<requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="2048" />
+    	<httpCaching lastModifiedFrom="openTime" etagSeed="Solr" />
+    </requestDispatcher>
+	<requestHandler name="/replication" class="solr.ReplicationHandler" >
+		<lst name="slave">
+        	<str name="masterUrl">http://${oseegenius.i.host}:${oseegenius.i.port}/solr/${solr.core.name}/replication</str>  
+        	<str name="pollInterval">00:00:10</str>  
+	        <str name="compression">internal</str>
+	        <str name="maxNumberOfBackups">0</str>
+	        <str name="httpConnTimeout">5000</str>
+	        <str name="httpReadTimeout">10000</str>
+		</lst>
+	</requestHandler>
+	<!-- <requestHandler name="/browse" class="com.atc.osee.genius.searcher.browsing.FrontControllerBrowseRequestHandler"/>-->
+	<requestHandler name="/doc" class="solr.SearchHandler" >
+    		<lst name="defaults">
+		    	<str name="echoParams">explicit</str>
+		    	<str name="df">id</str>
+				<str name="fl">*</str>
+		    	<str name="rows">1</str>
+				<str name="facet">false</str>	
+				<str name="hl">false</str>
+			</lst>
+			<!-- <arr name="last-components">
+				<str>holdings</str>
+			</arr>	 -->	
+	</requestHandler>
+	<requestHandler name="/mlt" class="solr.MoreLikeThisHandler" >
+    	<lst name="defaults">
+	    	<str name="echoParams">explicit</str>
+			<str name="mlt">true</str>
+			<str name="mlt.match.include">false</str>
+			<str name="mlt.fl">dewey,author_1xx_search,author_7xx_search</str>
+			<str name="mlt.qf">
+				dewey^5000
+				author_1xx_search^5000
+				author_7xx_search^5000
+			</str>
+			<str name="mlt.mintf">1</str>
+			<str name="mlt.mindf">2</str>
+			<str name="mlt.boost">true</str>
+			<str name="rows">5</str>				
+		</lst>		
+	</requestHandler>
+	<requestHandler name="limits" class="solr.SearchHandler">
+    	<lst name="defaults">
+	    	<str name="echoParams">explicit</str>
+	    	<str name="rows">0</str>
+			<str name="facet">true</str>
+			<str name="facet.mincount">1</str>
+			<str name="facet.field">publication_date_interval</str>
+			<str name="facet.field">publication_date</str>
+			<str name="facet.field">language</str>
+			<str name="facet.field">format_for</str>
+			<str name="f.format_for.facet.limit">-1</str>
+			<str name="f.format_for.facet.sort">count</str>
+			<str name="facet.field">bibliographic_level</str>
+			<str name="facet.field">publication_country</str>
+			<str name="facet.field">library</str>
+			<str name="f.library.facet.limit">-1</str>
+			<str name="f.library.facet.sort">count</str>
+			<str name="facet.field">lccn_advance</str>
+			<str name="facet.field">other_classification_number</str>
+			<str name="facet.field">dewey_facet</str>
+			<str name="f.dewey_facet.facet.sort">index</str>
+			<str name="facet.limit">11</str>
+			<str name="fl">score</str>
+		</lst>
+	</requestHandler>
+	<requestHandler name="sub_head" class="solr.SearchHandler">
+    	<lst name="defaults">
+	    	<str name="echoParams">explicit</str>
+	    	<str name="rows">10</str>
+			<str name="sort">score desc</str>
+			<str name="facet">true</str>
+			<str name="facet.mincount">1</str>		
+			<str name="facet.field">heading_subject_with_id</str>			
+			<str name="f.heading_subject_with_id.facet.limit">-1</str>	
+			<str name="f.heading_subject_with_id.facet.sort">index</str>			
+			<str name="facet.limit">10</str>
+			<str name="fl">*</str>
+		</lst>
+	</requestHandler>
+	<requestHandler name="def" class="solr.SearchHandler">
+    	<lst name="defaults">
+	    	<str name="echoParams">explicit</str>
+	    	<str name="rows">10</str>
+			<str name="sort">score desc, title_sort asc, author_sort asc, publication_date_sort desc, dewey_sort asc</str>
+			<str name="facet">true</str>
+			<str name="facet.mincount">1</str>		
+			<str name="facet.field">format_for</str>
+			<str name="facet.field">publication_date</str>
+			<str name="facet.field">publication_date_interval</str>
+			<str name="f.publication_date_interval.facet.sort">index</str>
+			<str name="facet.field">language</str>
+			<str name="facet.field">library</str>
+			<str name="facet.field">author_person_facet</str>
+			<str name="facet.field">author_corporate_facet</str>
+			<str name="facet.field">author_conference_facet</str>
+			<str name="facet.field">author_family_facet</str>
+			<str name="facet.field">lccn_advance</str>
+			<str name="facet.field">publisher_name</str>						
+			<str name="facet.field">topical_subject</str>
+			<str name="facet.field">subject_person</str>
+			<str name="facet.field">subject_corporate</str>
+			<str name="facet.field">subject_conference</str>
+			<str name="facet.field">geographic_subject</str>			
+			<str name="facet.field">chronological_subject</str>
+			<str name="facet.field">genre_form_subject</str>			
+			<str name="facet.field">bibliographic_level</str>
+			<str name="facet.field">dewey_facet</str>
+			<str name="f.dewey_facet.facet.sort">index</str>
+			<str name="facet.limit">11</str>
+			<str name="fl">*</str>
+		</lst>
+	</requestHandler>
+	<requestHandler name="hp" class="solr.SearchHandler">
+    	<lst name="defaults">
+    		<str name="rows">0</str>
+			<str name="facet">true</str>
+			<str name="facet.field">dewey_facet</str>
+			<str name="facet.mincount">1</str>	
+			<str name="facet.limit">-1</str>			
+		</lst>
+	</requestHandler>
+	<requestHandler name="any_bc" class="solr.SearchHandler" default="true">
+		<lst name="defaults">
+			<str name="defType">edismax</str>
+			<str name="echoParams">explicit</str>
+			<str name="sort">score desc, title_sort asc, author_sort asc, publication_date_sort desc</str>
+			<str name="mm">100%</str> 	
+			<str name="qf">
+				    
+			    title_200a_unstem_search^10000
+								       
+				title_200_unstem_search^7000     
+				   
+			    title_245a_unstem_search^10000
+				    
+				title_245_unstem_search^7000     
+				   
+				title_uniform_unstem_search^2000
+				
+				title_variant_unstem_search^2000
+				
+				title_related_unstem_search^1000
+				
+				title_series_unstem_search^1000
+
+				author_1xx_search^5000
+				author_7xx_search^5000
+				author_variant_search^5000
+				
+				dewey_search^10000
+			
+				dewey_with_expression^3000
+				topical_subject_unstem_search^3000	
+				
+				subject_corporate_unstem_search^3000
+				subject_conference_unstem_search^3000
+				subject_family_unstem_search^3000
+								
+				geographic_subject_unstem_search^3000
+				
+				subject_uniform_title_unstem_search^3000
+								
+				general_note_search^500
+				bibliography_note_search^500
+				formatted_content_note_search^500
+				summary_note_search^500
+				creation_credits_note_search^500
+				participant_note_search^500
+				target_audience_note_search^500
+				system_note_search^500
+				scale_note_search^500
+				data_quality_note_search^500
+				computer_type_note_search^500
+				preferred_citation_note_search^500
+				supplement_note_search^500
+				reproduction_note_search^500
+				action_note_search^500
+				
+				publisher_search^5000
+				publication_place_search^3000
+								
+				series_statement_unsteam_search^1000
+				fingerprint_search^10000
+				mark_search^100000
+		
+				isbn_issn_search^10000
+				others_id_uni_sw^10000
+				inventory^10000
+				barcode_search^10000
+				id_search^10000	
+			</str>
+			<str name="pf">  
+			    title_200a_unstem_search^100000
+				      
+				title_200_unstem_search^70000  
+				   
+			    title_245a_unstem_search^10000
+				    
+				title_245_unstem_search^7000        
+				   
+				title_uniform_unstem_search^20000
+				
+				title_variant_unstem_search^20000
+				
+				title_related_unstem_search^10000
+				
+				title_series_unstem_search^10000
+
+				author_1xx_search^50000
+				author_7xx_search^50000
+				author_variant_search^5000
+	
+				dewey_search^100000
+				
+				dewey_with_expression^3000
+				topical_subject_unstem_search^30000		
+														
+				subject_person_unstem_search^30000
+				subject_corporate_unstem_search^30000
+				subject_conference_unstem_search^30000
+				subject_family_unstem_search^30000
+								
+				geographic_subject_unstem_search^30000				
+
+				subject_uniform_title_unstem_search^30000
+					
+				general_note_search^5000
+				bibliography_note_search^5000
+				formatted_content_note_search^5000
+				summary_note_search^5000
+				creation_credits_note_search^5000
+				participant_note_search^5000
+				target_audience_note_search^5000
+				system_note_search^5000
+				scale_note_search^5000
+				data_quality_note_search^5000
+				computer_type_note_search^5000
+				preferred_citation_note_search^5000
+				supplement_note_search^5000
+				reproduction_note_search^5000
+				action_note_search^5000
+				
+				publisher_search^50000
+				publication_place_search^30000
+								
+				series_statement_unsteam_search^1000
+				fingerprint_search^10000
+				mark_search^100000
+				
+				isbn_issn_search^100000
+				others_id_uni_sw^10000
+				inventory^10000
+				barcode_search^10000
+				id_search^100000
+			</str>
+			<int name="ps">0</int>
+			<float name="tie">0.1</float>
+			<str name="facet">true</str>
+			<str name="facet.mincount">1</str>		
+			<str name="facet.field">format_for</str>
+			<str name="facet.field">publication_date</str>		
+			<str name="facet.field">publication_date_interval</str>
+			<str name="f.publication_date_interval.facet.sort">index</str>
+			<str name="facet.field">language</str>
+			<str name="facet.field">author_person_facet</str>
+			<str name="facet.field">author_corporate_facet</str>
+			<str name="facet.field">author_conference_facet</str>
+			<str name="facet.field">author_family_facet</str>			
+			<str name="facet.field">lccn_advance</str>			
+			<str name="facet.field">library</str>
+			<str name="facet.field">publisher_name</str>
+			<str name="facet.field">topical_subject</str>
+			<str name="facet.field">subject_person</str>
+			<str name="facet.field">subject_corporate</str>
+			<str name="facet.field">subject_conference</str>
+			<str name="facet.field">geographic_subject</str>
+			<str name="facet.field">chronological_subject</str>
+			<str name="facet.field">genre_form_subject</str>			
+			<str name="facet.field">bibliographic_level</str>
+			<str name="facet.field">dewey_facet</str>
+			<str name="f.dewey_facet.facet.sort">index</str>
+			<str name="facet.limit">11</str>
+			<str name="fl">*</str>
+			<str name="spellcheck">true</str>
+			<str name="spellcheck.dictionary">spell_any_bc</str>
+			<str name="spellcheck.onlyMorePopular">false</str>
+			<str name="spellcheck.extendedResults">true</str>
+			<str name="spellcheck.collate">true</str>
+			<str name="spellcheck.count">10</str>
+		</lst>
+		<arr name="last-components">
+			<str>spellcheck</str>
+		</arr>
+	</requestHandler> 	       
+	<requestHandler name="publisher_bc" class="solr.SearchHandler">
+		<lst name="defaults">
+			<str name="defType">edismax</str>
+			<str name="echoParams">explicit</str>
+			<str name="sort">score desc, title_sort asc, author_sort asc, publication_date_sort desc</str>
+			<str name="mm">100%</str> 
+			<str name="qf">
+				publisher_search^5000
+				publication_place_search^3000
+				
+			</str>
+			<str name="pf">
+				publisher_search^50000
+				publication_place_search^30000
+			</str>
+			<int name="ps">0</int>
+			<float name="tie">0.1</float>
+			<str name="facet">true</str>
+			<str name="facet.mincount">1</str>		
+			<str name="facet.field">format_for</str>
+			<str name="facet.field">publication_date</str>					
+			<str name="facet.field">publication_date_interval</str>
+			<str name="f.publication_date_interval.facet.sort">index</str>
+			<str name="facet.field">language</str>
+			<str name="facet.field">library</str>			
+			<str name="facet.field">author_person_facet</str>
+			<str name="facet.field">author_corporate_facet</str>
+			<str name="facet.field">author_conference_facet</str>
+			<str name="facet.field">author_family_facet</str>			
+			<str name="facet.field">lccn_advance</str>			
+			<str name="facet.field">topical_subject</str>
+			<str name="facet.field">subject_person</str>
+			<str name="facet.field">subject_corporate</str>
+			<str name="facet.field">subject_conference</str>
+			<str name="facet.field">geographic_subject</str>
+			<str name="facet.field">subject_family</str>
+			<str name="facet.field">chronological_subject</str>
+			<str name="facet.field">genre_form_subject</str>
+			<str name="facet.field">bibliographic_level</str>
+			<str name="facet.field">dewey_facet</str>
+			<str name="f.dewey_facet.facet.sort">index</str>
+			<str name="facet.limit">11</str>
+			<str name="fl">*</str>
+			<str name="spellcheck">true</str>
+			<str name="spellcheck.dictionary">spell_pub_bc</str>
+			<str name="spellcheck.onlyMorePopular">false</str>
+			<str name="spellcheck.extendedResults">true</str>
+			<str name="spellcheck.collate">true</str>
+			<str name="spellcheck.count">10</str>
+		</lst>
+		<arr name="last-components">
+			<str>spellcheck</str>
+		</arr>
+	</requestHandler>     			
+	<requestHandler name="title_bc" class="solr.SearchHandler">
+		<lst name="defaults">
+			<str name="defType">edismax</str>
+			<str name="echoParams">explicit</str>
+			<str name="sort">score desc, title_sort asc, author_sort asc, publication_date_sort desc</str>
+			<str name="mm">100%</str> 
+			<str name="qf">
+				title_200a_unstem_search^10000
+				  
+				title_200_unstem_search^7000     
+								
+				title_variant_unstem_search^2000
+				
+			</str>
+			<str name="pf"> 
+			    title_200a_unstem_search^100000
+				
+				title_200_unstem_search^70000     
+				
+				title_variant_unstem_search^20000
+				
+			</str>
+			<int name="ps">0</int>
+			<float name="tie">0.1</float>
+			<str name="facet">true</str>
+			<str name="facet.mincount">1</str>		
+			<str name="facet.field">format_for</str>
+			<str name="facet.field">publication_date</str>
+			<str name="f.publication_date.facet.limit">11</str>			
+			<str name="facet.field">publication_date_interval</str>
+			<str name="f.publication_date_interval.facet.sort">index</str>
+			<str name="facet.field">language</str>
+			<str name="facet.field">library</str>
+			<str name="facet.field">author_person_facet</str>
+			<str name="facet.field">author_corporate_facet</str>
+			<str name="facet.field">author_conference_facet</str>
+			<str name="facet.field">author_family_facet</str>			
+			<str name="facet.field">lccn_advance</str>
+			<str name="facet.field">publisher_name</str>			
+			<str name="facet.field">topical_subject</str>
+			<str name="facet.field">subject_person</str>
+			<str name="facet.field">subject_corporate</str>
+			<str name="facet.field">subject_conference</str>
+			<str name="facet.field">geographic_subject</str>
+			<str name="facet.field">chronological_subject</str>
+			<str name="facet.field">genre_form_subject</str>
+			<str name="facet.field">bibliographic_level</str>
+			<str name="facet.field">dewey_facet</str>
+			<str name="f.dewey_facet.facet.sort">index</str>
+			<str name="facet.limit">11</str>
+			<str name="fl">*</str>
+			<str name="spellcheck">true</str>
+			<str name="spellcheck.dictionary">spell_title_bc</str>
+			<str name="spellcheck.onlyMorePopular">false</str>
+			<str name="spellcheck.extendedResults">true</str>
+			<str name="spellcheck.collate">true</str>
+			<str name="spellcheck.count">10</str>
+		</lst>
+		<arr name="last-components">
+			<str>spellcheck</str>
+		</arr>
+	</requestHandler> 
+	<requestHandler name="author_bc" class="solr.SearchHandler">
+		<lst name="defaults">
+			<str name="defType">edismax</str>
+			<str name="echoParams">explicit</str>
+			<str name="sort">score desc, title_sort asc, author_sort asc, publication_date_sort desc</str>
+			<str name="mm">100%</str> 
+			<str name="qf">
+				author_1xx_search^5000
+				author_7xx_search^5000
+				author_variant_search^5000
+			</str>
+			<str name="pf">
+				author_1xx_search^50000
+				author_7xx_search^50000
+				author_variant_search^5000
+			</str>
+			<int name="ps">0</int>
+			<float name="tie">0.1</float>
+			<str name="facet">true</str>
+			<str name="facet.mincount">1</str>		
+			<str name="facet.field">format_for</str>
+			<str name="facet.field">publication_date</str>			
+			<str name="facet.field">publication_date_interval</str>
+			<str name="f.publication_date_interval.facet.sort">index</str>
+			<str name="facet.field">language</str>
+			<str name="facet.field">author_person_facet</str>
+			<str name="facet.field">author_corporate_facet</str>
+			<str name="facet.field">author_conference_facet</str>
+			<str name="facet.field">author_family_facet</str>			
+			<str name="facet.field">lccn_advance</str>
+			<str name="facet.field">library</str>
+			<str name="facet.field">publisher_name</str>
+			<str name="facet.field">topical_subject</str>
+			<str name="facet.field">subject_person</str>
+			<str name="facet.field">subject_corporate</str>
+			<str name="facet.field">subject_conference</str>
+			<str name="facet.field">geographic_subject</str>
+			<str name="facet.field">chronological_subject</str>
+			<str name="facet.field">genre_form_subject</str>
+			<str name="facet.field">bibliographic_level</str>
+			<str name="facet.field">dewey_facet</str>
+			<str name="f.dewey_facet.facet.sort">index</str>
+			<str name="facet.limit">11</str>
+			<str name="fl">*</str>
+			<str name="spellcheck">true</str>
+			<str name="spellcheck.dictionary">spell_author_bc</str>
+			<str name="spellcheck.onlyMorePopular">false</str>
+			<str name="spellcheck.extendedResults">true</str>
+			<str name="spellcheck.collate">true</str>
+			<str name="spellcheck.count">10</str>
+		</lst>
+		<arr name="last-components">
+			<str>spellcheck</str>
+		</arr>
+	</requestHandler> 
+	<requestHandler name="series_bc" class="solr.SearchHandler">
+		<lst name="defaults">
+			<str name="defType">edismax</str>
+			<str name="echoParams">explicit</str>
+			<str name="sort">score desc, title_sort asc, author_sort asc, publication_date_sort desc</str>
+			<str name="mm">100%</str> 
+			<str name="qf">
+				series_statement_unsteam_search^1000
+			</str>
+			<str name="pf">
+				series_statement_unsteam_search^1000
+			</str>
+			<int name="ps">0</int>
+			<float name="tie">0.1</float>
+			<str name="facet">true</str>
+			<str name="facet.mincount">1</str>		
+			<str name="facet.field">format_for</str>
+			<str name="facet.field">publication_date</str>
+			<str name="f.publication_date.facet.limit">11</str>			
+			<str name="facet.field">publication_date_interval</str>
+			<str name="f.publication_date_interval.facet.sort">index</str>
+			<str name="facet.field">language</str>
+			<str name="facet.field">author_person_facet</str>
+			<str name="facet.field">author_corporate_facet</str>
+			<str name="facet.field">author_conference_facet</str>
+			<str name="facet.field">author_family_facet</str>
+			<str name="facet.field">lccn_advance</str>			
+			<str name="facet.field">library</str>
+			<str name="facet.field">publisher_name</str>
+			<str name="facet.field">topical_subject</str>
+			<str name="facet.field">subject_person</str>
+			<str name="facet.field">subject_corporate</str>
+			<str name="facet.field">subject_conference</str>
+			<str name="facet.field">geographic_subject</str>
+			<str name="facet.field">chronological_subject</str>
+			<str name="facet.field">genre_form_subject</str>
+			<str name="facet.field">bibliographic_level</str>
+			<str name="facet.field">dewey_facet</str>
+			<str name="f.dewey_facet.facet.sort">index</str>
+			<str name="facet.limit">11</str>
+			<str name="fl">*</str>
+			<str name="spellcheck">true</str>
+			<str name="spellcheck.dictionary">spell_series_bc</str>
+			<str name="spellcheck.onlyMorePopular">false</str>
+			<str name="spellcheck.extendedResults">true</str>
+			<str name="spellcheck.collate">true</str>
+			<str name="spellcheck.count">10</str>
+		</lst>
+		<arr name="last-components">
+			<str>spellcheck</str>
+		</arr>
+	</requestHandler> 
+	<requestHandler name="sub_bc" class="solr.SearchHandler">
+		<lst name="defaults">
+			<str name="defType">edismax</str>
+			<str name="echoParams">explicit</str>
+			<str name="sort">score desc, title_sort asc, author_sort asc, publication_date_sort desc</str>
+			<str name="mm">100%</str> 	
+			<str name="qf">
+				topical_subject_unstem_search^3000		
+														
+				subject_person_unstem_search^3000
+
+				subject_corporate_unstem_search^3000
+				subject_conference_unstem_search^3000
+				
+				geographic_subject_unstem_search^3000
+				
+				subject_uniform_title_unstem_search^3000
+				
+			</str>
+			<str name="pf">
+				topical_subject_unstem_search^30000		
+														
+				subject_person_unstem_search^30000
+
+				subject_corporate_unstem_search^30000
+				subject_conference_unstem_search^30000
+				
+				geographic_subject_unstem_search^30000
+				
+				subject_uniform_title_unstem_search^30000
+				
+			</str>
+			<int name="ps">0</int>
+			<float name="tie">0.1</float>
+			<str name="facet">true</str>
+			<str name="facet.mincount">1</str>		
+			<str name="facet.field">format_for</str>
+			<str name="facet.field">publication_date</str>
+			<str name="f.publication_date.facet.limit">11</str>			
+			<str name="facet.field">publication_date_interval</str>
+			<str name="f.publication_date_interval.facet.sort">index</str>
+			<str name="facet.field">language</str>
+			<str name="facet.field">library</str>
+			<str name="facet.field">author_person_facet</str>
+			<str name="facet.field">author_corporate_facet</str>
+			<str name="facet.field">author_conference_facet</str>
+			<str name="facet.field">author_family_facet</str>
+			<str name="facet.field">lccn_advance</str>
+			<str name="facet.field">publisher_name</str>
+			<str name="facet.field">topical_subject</str>
+			<str name="facet.field">subject_person</str>
+			<str name="facet.field">subject_corporate</str>
+			<str name="facet.field">subject_conference</str>
+			<str name="facet.field">geographic_subject</str>
+			<str name="facet.field">chronological_subject</str>
+			<str name="facet.field">genre_form_subject</str>
+			<str name="facet.field">bibliographic_level</str>
+			<str name="facet.field">dewey_facet</str>
+			<str name="f.dewey_facet.facet.sort">index</str>
+			<str name="facet.limit">11</str>
+			<str name="fl">*</str>
+			<str name="spellcheck">true</str>
+			<str name="spellcheck.dictionary">spell_sub_bc</str>
+			<str name="spellcheck.onlyMorePopular">false</str>
+			<str name="spellcheck.extendedResults">true</str>
+			<str name="spellcheck.collate">true</str>
+			<str name="spellcheck.count">10</str>
+		</lst>
+		<arr name="last-components">
+			<str>spellcheck</str>
+		</arr>
+	</requestHandler> 
+  	<requestHandler name="adv" class="solr.SearchHandler" >
+		<lst name="defaults">
+		<str name="defType">lucene</str>
+	     	<str name="echoParams">explicit</str>
+	      	<str name="rows">5</str>
+	      	<str name="df">title_200_search</str>      
+	      	<str name="q.op">OR</str>    
+	      	<str name="qs">1</str>    
+			<str name="sort">score desc, title_sort asc, author_sort asc, publication_date_sort desc</str>         
+			<str name="mm">100%</str>      	      	                 
+	      	<str name="ps">3</str>                  
+			<float name="tie">0.01</float>	
+			<str name="any_bc_query">
+			    title_200a_unstem_search^10000
+				         
+				title_200_unstem_search^7000 
+				
+			    title_245a_unstem_search^10000
+
+				title_245_unstem_search^7000  
+
+				title_uniform_unstem_search^2000
+
+				title_variant_unstem_search^2000
+
+				title_related_unstem_search^1000
+
+				title_series_unstem_search^1000
+
+				author_1xx_search^5000
+				author_7xx_search^5000
+				author_variant_search^5000
+	
+				dewey_search^10000
+			
+				dewey_with_expression^3000
+				
+				topical_subject_unstem_search^3000	
+										
+				subject_person_unstem_search^3000
+
+				subject_corporate_unstem_search^3000
+				subject_conference_unstem_search^3000
+				
+				geographic_subject_unstem_search^3000
+				
+				subject_uniform_title_unstem_search^3000
+				
+				general_note_search^500
+				bibliography_note_search^500
+				formatted_content_note_search^500
+				summary_note_search^500
+				creation_credits_note_search^500
+				participant_note_search^500
+				target_audience_note_search^500
+				system_note_search^500
+				scale_note_search^500
+				data_quality_note_search^500
+				computer_type_note_search^500
+				preferred_citation_note_search^500
+				supplement_note_search^500
+				reproduction_note_search^500
+				action_note_search^500
+				
+				publisher_search^5000
+				publication_place_search^3000
+								
+				series_statement_unsteam_search^1000
+				fingerprint_search^10000
+				mark_search^100000
+				
+				miur_code_search^3000		
+				
+				isbn_issn_search^10000
+				others_id_uni_sw^10000
+				inventory^10000
+				barcode^10000
+				id_search^10000				
+			</str>                    
+			<str name="any_bc_phrase">				   
+			    title_200a_unstem_search^100000
+
+				title_200_unstem_search^70000    
+
+			    title_245a_unstem_search^10000
+
+				title_245_unstem_search^7000     
+
+				title_uniform_unstem_search^20000
+
+				title_variant_unstem_search^20000
+
+				title_related_unstem_search^10000
+
+				title_series_unstem_search^10000
+
+				author_1xx_search^50000
+				author_7xx_search^50000
+				author_variant_search^5000
+	
+				dewey_search^100000
+
+				dewey_with_expression^3000
+				topical_subject_unstem_search^30000	
+														
+				subject_person_unstem_search^30000
+
+				subject_corporate_unstem_search^30000
+				subject_conference_unstem_search^30000
+				
+				geographic_subject_unstem_search^30000
+				
+				subject_uniform_title_unstem_search^30000
+				
+				general_note_search^5000
+				bibliography_note_search^5000
+				formatted_content_note_search^5000
+				summary_note_search^5000
+				creation_credits_note_search^5000
+				participant_note_search^5000
+				target_audience_note_search^5000
+				system_note_search^5000
+				scale_note_search^5000
+				data_quality_note_search^5000
+				computer_type_note_search^5000
+				preferred_citation_note_search^5000
+				supplement_note_search^5000
+				reproduction_note_search^5000
+				action_note_search^5000
+				
+				publisher_search^50000
+				publication_place_search^3000
+								
+				series_statement_unsteam_search^1000
+				fingerprint_search^10000
+				mark_search^100000
+				
+				miur_code_search^3000
+		
+				isbn_issn_search^100000
+				others_id_uni_sw^100000
+				inventory^10000
+				barcode^10000
+				id_search^100000
+			</str>		
+		   	<str name="title_bc_query">    
+			    title_200a_unstem_search^10000
+				
+				title_200_unstem_search^7000 
+				
+				title_variant_unstem_search^2000				
+				
+		   	</str>
+		   	<str name="title_bc_phrase">
+
+			    title_200a_unstem_search^100000
+
+				title_200_unstem_search^70000   
+
+				title_variant_unstem_search^20000
+		   	</str>
+		   	<str name="tsw_bc_query">
+				title_200_rtp_search^10000			
+				title_variant_rtp_search^100
+		   	</str>
+		   	<str name="tsw_bc_phrase">
+				title_200_rtp_search^10000
+				title_variant_rtp_search^100
+		   	</str>
+		   	<str name="author_bc_query">
+				author_1xx_search^5000
+				author_7xx_search^5000
+				author_variant_search^5000
+			</str>
+			<str name="author_bc_phrase">
+				author_1xx_search^50000
+				author_7xx_search^50000
+				author_variant_search^5000
+			</str>
+			<str name="asw_bc_query">
+				author_1xx_rtp_search^5000
+				author_7xx_rtp_search^5000
+				author_variant_rtp_search^5000
+			</str>
+			<str name="asw_bc_phrase">
+				author_1xx_rtp_search^50000
+				author_7xx_rtp_search^50000
+				author_variant_rtp_search^5000
+			</str>
+			<str name="sub_bc_query">
+				topical_subject_unstem_search^3000		
+				
+			</str>                    
+			<str name="sub_bc_phrase">
+				topical_subject_unstem_search^30000		
+										
+			</str>	
+			<str name="series_bc_query">
+				
+				series_statement_unsteam_search^1000
+			</str>                    
+			<str name="series_bc_phrase">
+				
+				series_statement_unsteam_search^1000		
+			</str>
+			<str name="pub_bc_query">
+				publisher_search^5000
+			</str>                    
+			<str name="pub_bc_phrase">
+				publisher_search^50000
+			</str>					
+			<str name="classification_query">
+				dewey_search^10000
+			</str>
+			<str name="classification_phrase">
+				dewey_search^100000
+			</str>
+			<str name="classification_sw_query">
+				dewey_rtp_search^10000
+			</str>
+			<str name="classification_sw_phrase">
+				dewey_rtp_search^100000
+			</str>
+			<str name="miur_code_query">
+				miur_code_search^10000
+			</str>
+			<str name="miur_code_phrase">
+				miur_code_search^100000
+			</str>
+			<str name="an_query">
+				id_search^10000
+			</str>
+			<str name="an_phrase">
+				id_search^100000
+			</str>	
+			<str name="fingerprint_query">
+				fingerprint_search^10000
+				<!-- fingerprint_unstem_search^1000 -->
+			</str>
+			<str name="fingerprint_phrase">
+				fingerprint_search^100000
+				<!-- fingerprint_unstem_search^1000 -->
+			</str>	
+			<str name="mark_query">
+				mark_search^10000
+				<!-- mark_unstem_search^1000 -->
+			</str>
+			<str name="mark_phrase">
+				mark_search^100000
+				<!-- mark_unstem_search^1000 -->
+			</str>	
+			<str name="note_bc_query">
+				general_note_search^500
+				bibliography_note_search^500
+				formatted_content_note_search^500
+				summary_note_search^500
+				creation_credits_note_search^500
+				participant_note_search^500
+				target_audience_note_search^500
+				system_note_search^500
+				scale_note_search^500
+				data_quality_note_search^500
+				computer_type_note_search^500
+				preferred_citation_note_search^500
+				supplement_note_search^500
+				reproduction_note_search^500
+				action_note_search^500
+			</str>			
+			<str name="note_bc_phrase">
+				general_note_search^5000
+				bibliography_note_search^5000
+				formatted_content_note_search^5000
+				summary_note_search^5000
+				creation_credits_note_search^5000
+				participant_note_search^5000
+				target_audience_note_search^5000
+				system_note_search^5000
+				scale_note_search^5000
+				data_quality_note_search^5000
+				computer_type_note_search^5000
+				preferred_citation_note_search^5000
+				supplement_note_search^5000
+				reproduction_note_search^5000
+				action_note_search^5000
+			</str>		
+			<str name="publ_place_bc_query">
+				publication_place_search^3000
+			</str>	
+			<str name="publ_place_bc_phrase">
+				publication_place_search^30000
+			</str>
+			<str name="collocation_sw_query">
+				collocation_rtp_search^10
+			</str>	
+			<str name="collocation_sw_phrase">
+				collocation_rtp_search^10
+			</str>								
+			<str name="collocation_query">
+				collocation_search^10
+			</str>
+			<str name="collocation_phrase">
+				collocation_search^10
+			</str>	
+			<str name="collocation_part_query">
+				collocation_unstem_search^10
+			</str>	
+			<str name="collocation_part_phrase">
+				collocation_unstem_search^10
+			</str>								
+			<str name="isbn_or_issn_query">
+				isbn_issn_search^10000
+			</str>
+			<str name="isbn_or_issn_phrase">
+				isbn_issn_search^100000
+			</str>
+			<str name="others_id_uni_sw_query">
+				others_id_uni_sw^10000
+			</str>
+			<str name="others_id_uni_sw_phrase">
+				others_id_uni_sw^100000
+			</str>
+			<str name="bninumber_query">
+				bninumber^10000
+			</str>
+			<str name="bninumber_phrase">
+				bninumber^100000
+			</str>
+			<str name="inventory_query">
+				barcode^10000
+				inventory^1000
+				barcode_search^1000
+			</str>
+			<str name="inventory_phrase">
+				barcode^10000
+				inventory^1000
+				barcode_search^1000
+			</str>
+			<str name="possessor_query">
+				possessor_search^10000
+			</str>
+			<str name="possessor_phrase">
+				possessor_search^100000
+			</str>	
+			<str name="provenance_query">
+				provenance_search^10000
+			</str>
+			<str name="provenance_phrase">
+				provenance_search^100000
+			</str>							
+			<str name="facet">true</str>
+			<str name="facet.mincount">1</str>		
+			<str name="facet.field">format_for</str>
+			<str name="facet.field">publication_date</str>		
+			<str name="facet.field">publication_date_interval</str>
+			<str name="f.publication_date_interval.facet.sort">index</str>
+			<str name="facet.field">language</str>
+			<str name="facet.field">library</str>	
+			<str name="facet.field">other_classification_number</str>
+			<str name="facet.field">author_person_facet</str>
+			<str name="facet.field">author_corporate_facet</str>
+			<str name="facet.field">author_conference_facet</str>
+			<str name="facet.field">author_family_facet</str>			
+			<str name="facet.field">lccn_advance</str>					
+			<str name="facet.field">publisher_name</str>
+			<str name="facet.field">topical_subject</str>
+			<str name="facet.field">subject_person</str>
+			<str name="facet.field">subject_corporate</str>
+			<str name="facet.field">subject_conference</str>
+			<str name="facet.field">geographic_subject</str>
+			<str name="facet.field">chronological_subject</str>
+			<str name="facet.field">genre_form_subject</str>
+			<str name="facet.field">bibliographic_level</str>
+			<str name="facet.field">dewey_facet</str>
+			<str name="f.dewey_facet.facet.sort">index</str>
+			<str name="facet.limit">11</str>
+			<str name="fl">*</str>
+			<str name="spellcheck">false</str>
+		</lst>
+	</requestHandler>
+	<requestHandler name="/z3950" class="solr.SearchHandler" >
+		<lst name="defaults">
+			<str name="defType">lucene</str>
+	     	<str name="echoParams">explicit</str>
+	      	<str name="rows">10</str>
+	      	<str name="wt">marc_xml</str>
+	      	<str name="fl">marc_xml</str>
+	      	<str name="df">title_245a_search</str>      
+	      	<str name="q.op">AND</str>    
+	      	<str name="qs">0</str>    
+	      	                  
+	      	<str name="ps">0</str>                  
+			<float name="tie">0.01</float>	
+			<str name="any_keyword">
+				title_245a_search^10000        
+				title_245_search^8500         
+				title_uniform_search^2000
+				title_variant_search^750
+				title_related_search^650
+				title_series_search^550  	
+
+				author_1xx_search^500
+				author_7xx_search^450
+	
+				other_classification_number_search^350
+			
+				topical_subject_search^350
+				subject_person_search^350
+				subject_corporate_search^350
+				subject_conference_search^350
+				geographic_subject_search^350
+				chronological_subject_search^350
+				genre_form_subject_search^350
+				index_term_search^350
+				subject_uniform_title_search^350
+				
+				formatted_content_note^300
+				bibliography_note^275
+				summary_note^275
+				general_note_search^250
+				original_version_note^250
+				
+				publisher_search^200
+				publication_date_sort^2000
+				
+				isbn_issn_search^10000
+				id^10000			
+			</str>
+			<str name="title_keyword">
+				title_245a_search^10000        
+				title_245_search^8500         
+				title_uniform_search^2000
+				title_variant_search^750
+				title_related_search^650
+				title_series_search^550  			
+			</str>
+			<str name="title_right_truncated_phrase">
+				title_245_rtp_search^10000
+				title_uniform_rtp_search^2500
+				title_variant_rtp_search^1000
+			</str>
+			<str name="author_keyword">
+				author_1xx_search^500
+				author_7xx_search^200				
+			</str>
+			<str name="author_right_truncated_phrase">
+				author_1xx_rtp_search^500
+				author_7xx_rtp_search^200							
+			</str>
+			<str name="isbn_exact_phrase">
+				isbn_issn_search^10000
+			</str>	
+			<str name="issn_exact_phrase">
+				isbn_issn_search^10000
+			</str>			
+			<str name="subject_keyword">
+				topical_subject_search^350
+				subject_person_search^350
+				subject_corporate_search^350
+				subject_conference_search^350
+				geographic_subject_search^350
+				chronological_subject_search^350
+				genre_form_subject_search^350
+				index_term_search^350
+				subject_uniform_title_search^350			
+			</str>
+			<str name="subject_right_truncated_phrase">
+				subject_rtp_search^350
+			</str>
+			<str name="publication_date_exact_phrase">
+				publication_date_sort^2000
+			</str>	
+			<str name="language_exact_phrase">
+				language^1000
+			</str>			
+			<str name="publisher_keyword">
+				publisher_search^200
+			</str>
+			<str name="publisher_right_truncated_phrase">
+				publisher_rtp_search^200
+			</str>
+			<str name="id_exact_phrase">
+				id^10000
+			</str>						
+		</lst>
+	</requestHandler>		
+	<requestHandler name="suggest" class="solr.SearchHandler">
+		<lst name="defaults">	
+			<str name="rows">5</str>
+			<str name="facet">false</str>
+			<str name="fl">title, author</str>
+		</lst>		
+	</requestHandler>
+	<searchComponent name="spellcheck" class="solr.SpellCheckComponent">
+     	<lst name="spellchecker">
+			<str name="name">spell_any_bc</str>
+			<str name="fieldType">text-spell-word</str>	
+   			<str name="field">spell_any_bc</str>
+   			<str name="classname">solr.DirectSolrSpellChecker</str>
+      		<!-- <str name="spellcheckIndexDir">./spell_any_bc</str> -->
+			<float name="accuracy">0.5</float>
+			<str name="buildOnOptimize">true</str>
+    	</lst>
+     	<lst name="spellchecker">
+			<str name="name">spell_title_bc</str>
+			<str name="fieldType">text-spell-word</str>	
+   			<str name="field">spell_title_bc</str>
+   			<str name="classname">solr.DirectSolrSpellChecker</str>
+      		<!-- <str name="spellcheckIndexDir">./spell_title_bc</str> -->
+			<float name="accuracy">0.5</float>
+			<str name="buildOnOptimize">true</str>
+    	</lst>
+     	<lst name="spellchecker">
+			<str name="name">spell_author_bc</str>
+			<str name="fieldType">text-spell-word</str>	
+   			<str name="field">spell_author_bc</str>
+   			<str name="classname">solr.DirectSolrSpellChecker</str>
+      		<!-- <str name="spellcheckIndexDir">./spell_author_bc</str> -->
+			<float name="accuracy">0.5</float>
+			<str name="buildOnOptimize">true</str>
+    	</lst>
+     	<lst name="spellchecker">
+			<str name="name">spell_sub_bc</str>
+			<str name="fieldType">text-spell-word</str>	
+   			<str name="field">spell_sub_bc</str>
+   			<str name="classname">solr.DirectSolrSpellChecker</str>
+      		<!-- <str name="spellcheckIndexDir">./spell_sub_bc</str> -->
+			<float name="accuracy">0.5</float>
+			<str name="buildOnOptimize">true</str>
+    	</lst>
+    		<lst name="spellchecker">
+			<str name="name">spell_pub_bc</str>
+			<str name="fieldType">text-spell-word</str>	
+   			<str name="field">spell_pub_bc</str>
+   			<str name="classname">solr.DirectSolrSpellChecker</str>
+			<float name="accuracy">0.5</float>
+			<str name="buildOnOptimize">true</str>
+    	</lst>
+    		<lst name="spellchecker">
+			<str name="name">spell_series_bc</str>
+			<str name="fieldType">text-spell-word</str>	
+   			<str name="field">spell_series_bc</str>
+   			<str name="classname">solr.DirectSolrSpellChecker</str>
+			<float name="accuracy">0.5</float>
+			<str name="buildOnOptimize">true</str>
+    	</lst>
+		<str name="queryAnalyzerFieldType">text-spell-word</str>
+	</searchComponent> 
+
+	<queryConverter name="queryConverter" class="solr.SpellingQueryConverter"/>
+  	<requestHandler name="/update" class="solr.XmlUpdateRequestHandler" startup="lazy"/>
+	<requestHandler name="/admin/ping" class="solr.PingRequestHandler">
+	    <lst name="defaults">
+	      	<str name="qt">def</str>
+	      	<str name="q">*:*</str>
+	      	<str name="rows">0</str>
+			<str name="facet">false</str>
+	    </lst>
+	  </requestHandler>
+  	<requestHandler name="/update/javabin" class="solr.BinaryUpdateRequestHandler" startup="lazy"/>
+  	<requestHandler name="/admin/" class="org.apache.solr.handler.admin.AdminHandlers" />
+	<requestHandler name="/debug/dump" class="solr.DumpRequestHandler" >
+	    <lst name="defaults">
+    		<str name="echoParams">explicit</str>
+     		<str name="echoHandler">true</str>
+      		<str name="debugQuery">true</str>
+    	</lst>
+  	</requestHandler>
+<queryResponseWriter name="marc_xml" class="com.atc.osee.genius.searcher.response.writer.MarcXmlResponseWriter"/> 
+  	<queryResponseWriter name="json" class="solr.JSONResponseWriter"/>
+  	<queryResponseWriter name="xslt" class="org.apache.solr.response.XSLTResponseWriter">
+    	<int name="xsltCacheLifetimeSeconds">1000</int>
+  	</queryResponseWriter>	
+  	<admin>
+    	<defaultQuery>BNCF</defaultQuery>
+	</admin>
+</config>

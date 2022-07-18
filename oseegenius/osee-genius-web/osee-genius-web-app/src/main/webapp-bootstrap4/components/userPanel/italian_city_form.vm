@@ -1,0 +1,20 @@
+<!-- components/userPanel/folio_city_form.vm -->
+<div id="birth-location-select" style="display:none;">
+	<div class="form-group">
+		<label class="close-label" for="city-location-select">$text.birthday_province</label>
+		<select name="cityLocationSelect" id="city-location-select" class="form-control form-osee"> 
+			#foreach($currentCity in $cityList.keySet())	
+				<option value="${currentCity}-${cityList.get($currentCity)}" #if($request.user.getBirthCityLocation() == "${currentCity}-${cityList.get($currentCity)}")selected#end>$cityList.get($currentCity)</option>
+			#end
+		</select>
+	</div>
+	### this select is replaced by a script in sign_up
+	<div class="form-group">
+		<label class="close-label" for="municipality-location-select">$text.birthday_municipality</label>
+		<select name="municipLocationSelect" id="municipality-location-select" class="form-control form-osee"> 
+			#foreach($currentMunicip in $municipList)	
+				<option value="$currentMunicip" #if($request.user.getBirthMunicipalityLocation() == "$currentMunicip")selected#end>$currentMunicip vs $request.user.getBirthMunicipalityLocation()</option>
+			#end
+		</select>
+	</div>
+</div>

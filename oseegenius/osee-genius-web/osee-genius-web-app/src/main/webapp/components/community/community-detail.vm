@@ -1,0 +1,160 @@
+<link href="$link.relative('/style/workspace.css')" rel="stylesheet" type="text/css" />
+#if ($license.communityPluginEnabled && $session.visit.authenticated)
+	<table id="workspace" class="detail_record" cellspacing="4" width="100%">
+		<tr>
+			<td>
+            	<table cellspacing="0">
+            		<tr>
+            			<td colspan="3"><span class="detail-section-title">Workspace</span></td>
+            		</tr>
+            		<tr class="review-row-odd">
+						#if (!$request.tags)
+							<td colspan="2">$text.no_tag_defined</td>
+						#else	
+                			<td>Tags:</td>
+                			<td>
+								<span id="tag">
+									#foreach($tag in $request.tags)#if($velocityCount > 1), #end<a style="cursor:pointer;" onclick="removeFromTag('$tag.id','$resource.id')"> $tag.label</a>#end
+								</span>	
+    						</td>
+						#end	
+						<td>
+							#spacer(15)	
+						</td>
+						<td colspan="2">
+							<span id="newtag_$resource.id">
+								<a class="linked_value" style="cursor:pointer;" onclick="addNewTag('$resource.id')">[$text.add_new_tag]</a>
+							</span>	
+						</td>
+            		</tr>
+					<tr class="review-row-even">
+						#if (!$request.itemWishLists || $request.itemWishLists.isEmpty())
+							<td colspan="2">$text.no_wishlist_defined</td>
+						#else
+							<td>${text.wishlists}:</td>
+							<td>
+    							<span id="wishlist">
+    								#foreach($itemWishlist in $request.itemWishLists.entrySet())#if($velocityCount > 1), #end<a style="cursor:pointer;" onclick="removeFromWishList('$itemWishlist.key','$resource.id')"> $itemWishlist.value</a>#end
+    							</span>
+							</td>	
+						#end
+						<td>
+							#spacer(15)	
+						</td>
+						<td>
+							#if ($request.userWishLists)	
+								<select id="add2wl" onchange="add2WishList('$resource.id')">
+									<option>$text.add_to_wishlist</option>
+									#foreach($wl in $request.userWishLists.entrySet())
+										<option value="$wl.key">$wl.value</option>
+									#end
+								</select>
+							#end			
+						</td>
+						<td>
+        					<span id="newwishlist_$resource.id">
+                				<a class="linked_value" style="cursor:pointer;" onclick="addNewWishList('$resource.id')">[$text.add_new_wish_list]</a>
+                			</span>
+						</td>
+					</tr>
+					<tr class="review-row-odd">
+						<td colspan="5">
+							#if($request.bibliography)
+								<a class="linked_value" style="cursor:pointer;" onclick="removeFromBibliography('$resource.id')">[$text.remove_from_bibliography]</a>
+							#else
+								<a class="linked_value" style="cursor:pointer;" onclick="add2Bibliography('$resource.id')">[$text.add_to_bibliography]</a>
+							#end	
+						</td>
+					</tr>					
+					<tr class="review-row-even">
+						<td colspan="5">
+							<span id="newreview">
+								<a class="linked_value" style="cursor:pointer;" href="newReview?uri=$resource.id">[${text.add_new_review}]</a>
+							</span>
+						</td>
+					</tr>
+            	</table>
+			</td>
+		</tr>
+	</table>	
+<!--	
+    	<ul id="up"><li class="c"><a><span>$text.mlt</span></a> </li></ul>			    			
+    		<div id="documents">				
+    			<div class="hit">
+    				<table>
+        	#set($itemData = $request.community.get($document.id))
+        	<tr>
+        		<td colspan="3">
+        			<table class="community-datatable" width="100%">
+        				<tr>	
+        					<td valign="top" align="left" width="1">$text.reviews:</td>
+        						#if(!$itemData || $itemData.reviewsCount == 0)	
+                            		<td nowrap="nowrap" align="left">
+                        				$text.no_comment_on_this_item
+        						</td>
+    						#else
+    							<td valign="top" align="left"><a class="linked_value" href="resource?uri=${document.id}#reviews">$itemData.reviewsCount $text.comment_on_this_item</a></td>
+    						#end
+            			<td nowrap="nowrap" align="right">
+            				<a class="linked_value" style="cursor:pointer;" href="newReview?uri=$document.id">[${text.add_new_review}]</a>
+            			</td>
+    				</tr>
+    				<tr>
+    					<td valign="top" align="left" width="1">Tags:</td>
+    					#if($itemData.tags && !$itemData.tags.isEmpty())
+    						<td valign="top" align="left">
+    							<span id="tag"> 
+                    				#foreach($tag in $itemData.tags)#if($velocityCount > 1),&nbsp;#end<a style="cursor:pointer;" onclick="removeFromTag('$tag.id','$document.id')">$tag.label</a>#end
+                    				&nbsp;
+                				</span>
+    						</td>
+    					#else
+    						<td valign="top" align="left">$text.no_tag_defined</td>
+    					#end	
+    					<td nowrap="nowrap" align="right">
+    						<span id="newtag_$document.id">
+    							<a class="linked_value" style="cursor:pointer;" onclick="addNewTag('$document.id')">[$text.add_new_tag]</a>
+    						</span>
+    					</td>
+    				</tr>	  
+    				<tr>	
+    					<td valign="top"  align="left" width="1">${text.wishlists}:</td>
+    					#if($itemData.wishLists && !$itemData.wishLists.isEmpty())
+    						<td valign="top" align="left">
+                				<span id="tag"> 
+                    				#foreach($wl in $itemData.wishLists.entrySet())#if($velocityCount > 1),&nbsp;#end<a style="cursor:pointer;" onclick="removeFromWishList('$wl.key','$document.id')">$wl.value</a>#end
+                    				&nbsp;
+                				</span>
+    						</td>	
+    					#else
+    						<td valign="top">$text.no_wishlist_defined</td>
+    					#end	
+    					<td nowrap="nowrap" align="right" valign="top">
+    						<span id="newwishlist_$document.id">
+                				<a class="linked_value" style="cursor:pointer;" onclick="addNewWishList('$document.id')">[$text.add_new_wish_list]</a>
+                        	</span>	
+    						<br/>
+    						 <select id="add2wl" onchange="add2WishList('$document.id')">
+        						<option>$text.add_to_wishlist</option>
+        						#foreach($wl in $itemData.userWishLists.entrySet())
+        							<option value="$wl.key">$wl.value</option>
+        						#end
+        					</select>
+                		</td>
+    				</tr>
+            		<tr>
+                		<td colspan="3" align="left">
+            				#if($itemData.inBibliography)
+            					<a class="linked_value" style="cursor:pointer;" onclick="removeFromBibliography('$document.id')">$text.remove_from_bibliography</a>
+            				#else
+            					<a class="linked_value" style="cursor:pointer;" onclick="add2Bibliography('$document.id')">$text.add_to_bibliography</a>
+            				#end	
+            			</td>
+    				</tr>
+    			</table>
+    	</td>	
+    </tr>
+				</table>
+			</div>
+			-->
+#end

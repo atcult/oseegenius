@@ -1,0 +1,51 @@
+IMPORTANTE: NON LANCIARE COME ROOT LA PROCEDURA DI INSTALLAZIONE!!!
+
+*** REQUISITI SOFTWARE ***
+
+1) JDK 1.6
+2) Apache ANT 1.7 o superiore
+3) Apache Maven 3.x
+4) SVN Client
+
+*** SIGNIFICATO DELLE DIRECTORY ***
+
+1) bin
+La procedura di installazione deve essere lanciata da qui tramite il comando
+
+> ant
+
+2) install-config
+Questa directory contiene 1 file di configurazione per cliente / ambiente. La sua nomenclatura è la seguente
+
+<customer-code>-<ambiente>.config
+
+dove
+
+customer-code: è il codice assegnato al cliente
+ambiente: test / production
+
+In sostanza la procedura di installazione chiede questi due parametri e poi va a cercare un file che abbia
+un nome corrispondente (e.g. pio-test-config) che utilizzerà. In questo file sono definiti tutte le variabili
+utilizzate dalla procedura per lo specifico cliente per lo specifico ambiente.
+All'interno della directory sotto SVN è presente un file di esempio (installazione del PIO in ambiente di test)
+
+3) install-logs
+I comandi lanciati durante la procedura che producono molto output (e.g sftp, maven) scrivono tutti all'interno 
+di un file di questa cartella. Tale file viene creato ogni volta che viene lanciata la procedura ed ha la seguente 
+nomenclatura:
+
+gg-MM-yyyy-hhmm-<customer code in maiuscolo>.log
+
+4) install-templates
+Ci sono tutti i file che la procedura "customizza" per la specifica installazione. Non è necessario toccare niente qui
+
+5) install-tmp
+directory di appoggio utilizzata dalla procedura.
+
+*** LANCIO DELLA PROCEDURA ***
+Posizionarsi nella directory bin e lanciare il seguente comando:
+
+> ant
+
+Verranno richieste alcune informazioni. Al termine la procedura stamperà a video un breve sunto e chiederà la pressione del tasto enter.
+  

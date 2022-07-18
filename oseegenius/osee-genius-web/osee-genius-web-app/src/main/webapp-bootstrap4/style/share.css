@@ -1,0 +1,42 @@
+@charset "utf-8";
+/* CSS Document */
+
+/** share toolbar */
+.share-bebo, .share-delicious, .share-digg, .share-facebook, .share-generic, .share-livespaces, .share-myspace, .share-orkut, .share-twitter, .share-misterwong, .share-reader, .share-technorati, .share-meneame, .share-igoogle, .share-buzz {
+    background: url('../img/sharing-sprite.gif') no-repeat scroll 0 0 transparent;
+}
+ul.gcb-sharelinks li {
+    list-style: none outside none;
+}
+.share-facebook {
+    background-position: 0 0;
+}
+.share-reader {
+    background-position: 0 -160px;
+}
+.share-igoogle {
+    background-position: 0 -208px;
+}
+.share-digg {
+    background-position: 0 -96px;
+}
+.share-delicious {
+    background-position: 0 -32px;
+}
+.share-buzz {
+    background-position: 0 -224px;
+}
+.share-twitter {
+    background-position: 0 -48px;
+}
+.share-label {
+    height: 16px;
+    padding-right: 15px;
+}
+.share {
+    display: block;
+    float: left;
+    margin-top: 8px; padding-left: 5px; padding-right: 20px;
+		width: 16px; height: 16px;    
+		cursor: pointer;
+}

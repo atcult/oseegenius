@@ -1,0 +1,30 @@
+
+
+<lst name="holdings">
+	<lst name="17272829"> <!--  COPY ID -->
+		<int name="holds-count">12</int>
+		<bool name="on-order">false</bool>
+		<str name="shelf-list">pp018.131 094 532 BIB 1b</str>	
+		<str name="location">Sala lettura</str>
+		<date name="due-date">2006-02-13T15:26:37Z</date>
+		<int name="institution-id">12</int>
+		<str name="institution-name">Biblioteca Comunale di Trento</str>
+		<str name="institution-symbol">BIBLCMNLTNT</str>
+		<int name="sub-institution-id">12</int>
+		<str name="sub-institution-name">Biblioteca Comunale di Trento</str>
+		<str name="sub-institution-symbol">BIBLCMNLTNT</str>
+	</lst>
+	<lst name="17272829"> <!--  COPY ID -->
+		<int name="holds-count">12</int>
+		<bool name="on-order">false</bool>
+		<str name="shelf-list">pp018.131 094 532 BIB 1b</str>	
+		<str name="location">Sala lettura</str>
+		<date name="due-date">2006-02-13T15:26:37Z</date>
+		<int name="institution-id">12</int>
+		<str name="institution-name">Biblioteca Comunale di Trento</str>
+		<str name="institution-symbol">BIBLCMNLTNT</str>
+		<int name="sub-institution-id">12</int>
+		<str name="sub-institution-name">Biblioteca Comunale di Trento</str>
+		<str name="sub-institution-symbol">BIBLCMNLTNT</str>
+	</lst>	
+</lst>	

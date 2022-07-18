@@ -1,0 +1,10 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed May 11 10:16:01 CEST 2022
+http\://maven.restlet.com/.error=
+https\://repo.maven.apache.org/maven2/.lastUpdated=1652256961161
+https\://repo1.maven.org/maven2/.error=
+http\://maven.restlet.com/.lastUpdated=1652190359550
+https\://repo.maven.apache.org/maven2/.error=
+https\://maven.stardog.com/.lastUpdated=1652190359665
+https\://repo1.maven.org/maven2/.lastUpdated=1652190359026
+https\://maven.stardog.com/.error=

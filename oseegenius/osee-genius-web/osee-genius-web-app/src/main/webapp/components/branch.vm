@@ -1,0 +1,43 @@
+#set( $layout = "empty.vm" ) 
+#set($branch = $request.branch)
+<table width="100%" border="0">
+		<tr>
+			<td valign="top">
+				<table width="100%">
+					<tr><td><a class="document_title">$branch.name</a></td></tr>
+					<tr><td>$branch.street, $branch.zipCode -  $branch.city #if ($branch.province) ($branch.province)#end</td></tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr><td>
+							#if ($branch.telephone)Tel. $branch.telephone<br/>#end
+							#if($branch.fax)Fax $branch.fax<br/>#end
+							#if($branch.email)$branch.email#end
+					</td></tr>
+					<tr><td>&nbsp;</td></tr>					
+					
+				</table>
+			</td>
+			<td valign="top" align="right"><iframe width="400" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?channel=fs&amp;q=${branch.street}, ${branch.zipCode} ${branch.city}&amp;oe=utf-8&amp;ie=UTF8&amp;hl=it&amp;z=30&amp;vpsrc=0&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/maps?client=ubuntu&amp;channel=fs&amp;q=Viterbo&amp;oe=utf-8&amp;ie=UTF8&amp;hl=en&amp;hq=&amp;hnear=Viterbo,+Lazio,+Italy&amp;z=9&amp;vpsrc=0&amp;ll=42.417379,12.104854&amp;source=embed" style="color:#0000FF;text-align:left">View Larger Map</a></small></td>-->
+		</tr>
+			<td colspan="2">
+				<table width="100%">
+					<tr>
+						<td colspan="4"><center><b>$text.opening_hours</b></center></td>
+					</tr>
+                    #foreach ($day in  $branch.openingHours)
+                    	<tr>
+                    		<td>$text.get($day.dayOfTheWeek)</td> 
+                    		<td align="center">
+                    			#if ($day.morningClosed)----------#else${day.openingMorningHours}:${day.openingMorningMinutes} - ${day.closingMorningHours}:${day.closingMorningMinutes}#end
+                    		</td>
+                    		<td align="center">
+                    			#if ($day.afternoonClosed)----------#else${day.openingAfternoonHours}:${day.openingAfternoonMinutes} - ${day.closingAfternoonHours}:${day.closingAfternoonMinutes}#end
+                    		</td>		
+                    		<td align="center">
+                    			#if ($day.eveningClosed)----------#else${day.openingEveningHours}:${day.openingEveningMinutes} - ${day.closingEveningHours}:${day.closingEveningMinutes}#end
+                    		</td>					
+                    	</tr>
+                    #end	
+				</table>
+			</td>
+		</tr>
+</table>	

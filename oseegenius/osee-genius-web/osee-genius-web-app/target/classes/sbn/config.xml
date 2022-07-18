@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<defaults>
+		<record-syntax>XML</record-syntax>
+		<transform>marc21.xsl</transform>
+		<page-size>10</page-size>
+		<default-index name="any"/>
+		<index name="name" use="1003"/>
+		<index name="title" use="4"/>
+		<index name="any" use="1016"/>
+		<index name="subject" use="21"/>
+	</defaults>
+	<targets>
+		<target name="sbn" host="opac.sbn.it" port="2100" database="nopac">
+			<record-syntax>UNIMARC</record-syntax>
+			<transform>/sbn/unimarc.xsl</transform>
+			<page-size>10</page-size>
+		</target>
+	<!-- <target name="test" host="berlioz.libricore.com" port="2033" database="any">
+			<record-syntax>USMARC</record-syntax>
+		</target>  -->	
+	</targets>
+</configuration>

@@ -1,0 +1,94 @@
+<div class="sidemenu slidemenu">
+	<h5 class="mt-2 heading_generic mb-1">$text.other_databases &nbsp;<span id="progress"></span></h5>
+		<ul id="targets" class="strSizeOnly">
+		</ul>
+    </div>
+<div class="sidemenu slidemenu" id="sbn"></div>	
+#if ($request.federatedSearchApplicable)	
+    <script  type="text/javascript" >
+    	function refreshTargets()
+    	{
+    		${esc.dollar}.ajax({
+    		    url: "pazpar2?command=termlist&name=xtargets&num=30",
+    			cache: false,
+    		    success: function(data) {
+    				var targets = [];
+    				${esc.dollar}(data).find("term").each(function(){				
+    					var id = ${esc.dollar}(this).find("id").text();
+    					var name = ${esc.dollar}(this).find("name").text();
+    					var hits = ${esc.dollar}(this).find("frequency").text();	
+    					targets.push('<li><a href="metasearch?h='+Request.parameter('h')+'&q='+Request.parameter('q')+'&f=xt:'+id+'&num='+Request.parameter('s')+'">' + name+ ' </a> (' + hits + ')</li>');
+    				});
+    				
+    				${esc.dollar}("#targets").html(targets.join(' '));
+    				
+    				${esc.dollar}.ajax({
+    					url: "pazpar2?command=stat",
+    					cache: false,
+    					contentType: "text/xml;charset=UTF-8",
+    					success: function(statresponse)
+    					{
+    						var progress =  Math.floor(parseFloat(${esc.dollar}(statresponse).find("progress").text()) * 100) ;
+    						if (progress != 100)
+    						{						
+    							${esc.dollar}("#progress").html("("+progress+"%)");
+    							setTimeout(function() { refreshTargets(); }, 1500);
+    						} else 
+    						{
+    							${esc.dollar}("#progress").html("");
+    							var howMany = parseInt(${esc.dollar}(statresponse).find("hits").text());
+    							if (howMany != 0)
+    							{
+        							${esc.dollar}("#targets").prepend("<li><a href='metasearch?q="+Request.parameter('q')+"'>$text.open_all</a>  (" + howMany + ")</li>");
+									
+								} else 
+    							{
+        							${esc.dollar}("#targets").prepend("<li><a>${text.no_results}</a></li>");
+    							}
+    						}
+    					}
+    				});
+    		    }
+    		  });	
+    	}
+    	$(document).ready(function(){
+		  	#set($refresh='true')
+    		 #if($session.targetsEnabled.size()==1 && $session.targetsEnabled.iterator().next().indexOf("opac.sbn.it")!=-1)
+    		     #set($refresh='false')
+    		 #end
+             #if($refresh == 'true')
+    		    refreshTargets();
+    		 #end
+			#if($session.targetsEnabled)
+					{
+					  #foreach($target in $session.targetsEnabled){
+					    #if($target.contains("opac.sbn.it")){
+								sbn();
+						}
+						#end
+					  }
+					  #end
+					}
+					#end
+		});
+		
+		function sbn()
+    	{
+    		${esc.dollar}.ajax({
+			        dataType: "json",
+					mimeType: "application/json",
+        		    url: 'sbnsearch?q='+Request.parameter('q')+'&h='+Request.parameter('h')+'&s='+Request.parameter('s')+'&cforres=true',
+        			cache: false,
+        		    success: function(data) {
+						var num = data.sbnResult;
+						if (num != 0)
+    					{ 
+        					${esc.dollar}("#sbn").prepend('<h3><a>SBN</a></h3><ul><li><a href="sbnsearch?q='+Request.parameter('q')+'&h='+Request.parameter('h')+'&s='+Request.parameter('s')+'">SBN ('+ num +')</a></li></ul>');
+						} else {
+        					 ${esc.dollar}("#sbn").prepend("<h3><a>SBN</a></h3><ul><li><a>${text.no_results}</a></li></ul>");
+    					}
+					}	 
+        		});		
+		}			
+    </script>
+#end

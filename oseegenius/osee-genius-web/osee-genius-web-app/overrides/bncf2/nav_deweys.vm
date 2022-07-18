@@ -1,0 +1,214 @@
+#set( $O = '(' )
+#set( $C = ')' )
+#set( $P1 = '"(')
+#set( $P2 = ')"')
+#set($listDewey = $request.listDewey)
+#set($deweyRoot = $request.deweyRoot)
+#set($lenDewey = $request.lenDewey)
+#set($totalrecords = $request.totalrecords)
+#set($numClass = $request.numClass)
+#set($nextIs4= $request.nextIs4)
+#set($deweycodes = $request.deweycodes)
+#set($descriptions = $request.descriptions)
+#set($deweyNumbers = $request.deweyNumbers)
+#set($deweyorig = $request.deweyorig)
+#set($filterEdDewey ='')
+#set($srcfilEdDewey ='')
+#if ($request.ValEdclass)
+	#set($filterEdDewey = "&Edclass=$request.ValEdclass")
+	#set($srcfilEdDewey =" AND other_classification_number:"+$P1+$request.ValEdclass+$P2)
+#end
+
+<!-- bncf2/nav_dewey.vm -->
+<div class="main">
+	<div class="row m-0 pt-3">
+	<div class="col-md-6 offset-md-1 col-sm-12">
+		<h2>Navigatore Dewey</h2>
+	</div>
+	</div>
+	<div class="row m-0 p-0">
+	<div class="col-md-6 offset-md-1 col-sm-12 treeDewey">
+	#set ($counterTreeDewey = 0)
+	#foreach ($breadcamevalue in $deweyRoot)
+		#if ($breadcamevalue == 'head')
+			#if ($request.ValEdclass)
+				<a class="treeDeweylink" href = "showDeweys?Edclass=$request.ValEdclass">$esc.html($text.bundleGet("deweynav",$breadcamevalue))</a>
+			#else
+				<a class="treeDeweylink" href = "showDeweys">$esc.html($text.bundleGet("deweynav",$breadcamevalue))</a>
+			#end
+		#else
+			<a class="treeDeweylink" href="showDeweys?dewey=$breadcamevalue$filterEdDewey">$esc.html($text.bundleGet("deweynav",$breadcamevalue))</a>
+		#end 
+		#if ($lenDewey == $counterTreeDewey)
+		#else
+			<img class="img-responsive" src="img/step.png" alt="separatore" width="15" height="11.25"/>
+		#end
+		#set($counterTreeDewey = $counterTreeDewey+1)
+	#end
+	#if ($totalrecords)
+		$O$totalrecords notizie collegate$C
+	#end
+	</div>
+	</div>
+</div>
+
+<div class="row m-0 pt-4 pb-5">
+	<div class="col-md-9 offset-md-1 col-sm-12">
+	<ul class="list-group list-group-flush">
+		<li class="list-group-item">
+			<div class="row headDewey">
+				#if ($nextIs4 == 'Y')
+					<div class="col-md-2">Sezione</div>
+					<div class="col-md-9">Descrizione</div>
+					<div class="col-md-1">Notizie</div>
+				#else
+					<div class="col-sm-2 col-md-1">Sezione</div>
+					<div class="col-sm-9 col-md-10">Descrizione</div>
+					<div class="col-md-1">Notizie</div>
+				#end
+			</div>
+		</li>
+		#if ($nextIs4 == 'Y')
+			##Numero classi: $numClass<br/>
+			#set ($ncode=0)
+			#foreach ($code in  $deweycodes)
+				<li class="list-group-item resultDewey">
+					<div class="row">
+						<div class="col-md-2 semibold-text breakstring">$code</div>
+						<div class="col-md-9"><a class="treeDeweylink semibold-text" href='search?h=any_bc&s=10&f=dewey:$code$srcfilEdDewey'>$descriptions.get($ncode)</a></div>
+						<div class="col-md-1"><a class="treeDeweylink semibold-text" href='search?h=any_bc&s=10&f=dewey:$code$srcfilEdDewey'>$deweyNumbers.get($ncode)</a></div>
+					</div>
+				</li>
+				#set ($ncode=$ncode+1)
+			#end
+		#else
+			#foreach ($code in  $listDewey.keySet())
+				<li class="list-group-item resultDewey">
+					<div class="row">
+						<div class="col-sm-2 col-md-1 semibold-text">#addpoints($code)</div>
+						<div class="col-sm-9 col-md-10"><a class="treeDeweylink semibold-text" href="showDeweys?dewey=$code$filterEdDewey">$esc.html($text.bundleGet("deweynav",$code))</a></div>
+						<div class="col-md-1"><a class="treeDeweylink semibold-text" href='search?h=any_bc&s=10&f=dewey:$code*$srcfilEdDewey'>$listDewey.get($code)</a></div>
+					</div>
+				</li>
+			#end
+		#end
+		<li class="list-group-item resultDewey"></li>
+	</ul>
+	</div>
+	#if ($nextIs4 == 'Y')
+		<div class="col-md-9 offset-md-2 col-sm-12">
+			#navigator()
+		</div>
+	#end
+	#if ($request.lenDewey == 0)
+		<div class="col-md-9 offset-md-1 col-sm-12">
+		#if ($request.ValEdclass)
+	    	<span class="headDewey">$text.bundleGet("deweynav","about_filter") $text.bundleGet('list_ed_deweys', $request.ValEdclass)<br/></span>
+	    	<span class="headDewey">$text.bundleGet("deweynav","del_filter_1") <a  class="treeDeweylink" href='$link.relative('showDeweys')'>$text.bundleGet("deweynav","del_filter_2")</a></span>
+	    #else
+	    	<div class="form-group col-md-3">
+    			<select class="form-control form-osee" onchange="javascript:manipulateQueryString('Edclass',this.value)">
+    			#foreach( $valueDewey in $configuration.filterDeweyEd )
+    				<option value="$valueDewey">$text.bundleGet('list_ed_deweys', $valueDewey)</option>
+    			#end
+				</select>
+			</di>
+	    #end
+	    </div>
+	#else
+		#if ($request.ValEdclass)
+			<div class="col-md-9 offset-md-1 col-sm-12">
+				<span class="headDewey">$text.bundleGet("deweynav","del_filter_1") <a class="treeDeweylink" href='$link.relative('showDeweys')'>$text.bundleGet("deweynav","del_filter_2")</a></span>
+			</div>
+		#end
+	#end
+</div>
+
+
+
+
+<div class="linedotted pt-5">
+</div>
+
+#macro( addpoints $value)
+#set ($str1= "$value..")
+#set ($str2= $str1.substring(0, 3))
+$str2
+#end
+
+#macro( navigator )	
+	#set($howManyRecords = $request.numClass)
+	#set ($pageSizeParameter = $request.s)
+	#if ($pageSizeParameter)
+		#set($Integer = 0)
+	    #set($howManyRecordsPerPage = $Integer.parseInt($request.s))
+	#else
+		#set($howManyRecordsPerPage =  $Integer.parseInt($request.numClass))		
+	#end
+	 
+	#set($start = $Integer.parseInt($request.start))
+	#set($startIndex = $start + 1)
+	#set($endIndex = $start + $howManyRecordsPerPage)
+	#set ( $pages = $Integer.parseInt($howManyRecords) / $howManyRecordsPerPage )
+	#if ($howManyRecords && $Integer.parseInt($howManyRecords) % $howManyRecordsPerPage > 0)
+		#set ($pages = $pages + 1)
+	#end	
+	
+	#if ($pages > 1)
+		#set ($curPage = $Integer.parseInt($request.p))
+		#if ($curPage == 0) #set($curPage = 1) #end
+		
+		#set ($onsides = 6)
+		#set ($tmp = $curPage - $onsides)
+		#if ($tmp > 0) 
+			#set ($firstClkbl = $tmp)
+		#else	
+			#set ($firstClkbl = 1)
+		#end
+		
+		#set ($tmpIndex = $firstClkbl + (2 * $onsides))
+		#if ($tmpIndex < $pages)
+			#set ($lastClkbl = $tmpIndex)
+		#else
+			#set ($lastClkbl = $pages)				
+		#end
+		
+		#if($curPage > 1)
+			 <a href='$link.relative('showDeweys')?dewey=$deweyorig$filterEdDewey&p=1'><img src="img/fastRewindEnabled.png"/></a>
+		#else
+			
+		#end
+		
+		#if ($curPage > 1)
+			#set ($previousPage = $curPage - 1)
+			<a href='$link.relative('showDeweys')?dewey=$deweyorig$filterEdDewey&p=$previousPage'><img src="img/stepRewindEnabled.png"/></a>
+		#else
+								
+		#end	
+		
+		#if ($firstClkbl > 1) <span class="page mx-1">...</span> #end
+			
+		#foreach($pageIndex in [$firstClkbl..$lastClkbl])
+			#if ($pageIndex == $curPage)
+				<span class="current-page-number page mx-1">$curPage</span>
+			#else
+				<a class="page mx-1" href='$link.relative('showDeweys')?dewey=$deweyorig$filterEdDewey&p=$pageIndex'>$pageIndex</a>			
+			#end	
+		#end 
+		
+		#if ($lastClkbl < $pages) <span class="page mx-1">...</span> #end	
+		
+		#if ($pages - $curPage > 0)
+			#set ($nextPage = $curPage + 1)
+			<a href='$link.relative('showDeweys')?dewey=$deweyorig$filterEdDewey&p=$nextPage'><img src="img/stepForwardEnabled.png"/></a>
+		#else
+											
+		#end 
+		
+		#if ($pages - $curPage > 0)
+			 <a href='$link.relative('showDeweys')?dewey=$deweyorig$filterEdDewey&p=$pages'><img src="img/fastForwardEnabled.png"/></a>
+		#else	 
+			
+		#end
+	#end
+#end

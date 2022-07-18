@@ -1,0 +1,182 @@
+<!-- components/userPanel/folio_catalog_manuscript.vm -->
+
+<script>
+	$(document).ready(function(){
+		updateCollocation();
+	
+	
+		$('#fondo').on('input', function(e) {
+			updateCollocation();
+	       });
+	       
+	    $('#collocation_manuscript').on('input', function(e) {
+			updateSpecification();
+	    });
+	    
+	    $('#specification').on('input', function(e) {
+			updateNewCollocation();
+	    });
+	});
+      
+    function updateSpecification() {
+    	var collocationType = 2;
+		var collocationId = $('#collocation_manuscript').val();
+		${esc.dollar}.ajax({
+			url: "folioManuscript?inputId=" + collocationId + "&inputType=" + collocationType,
+			dataType: "json",   
+			success: function(data) {  
+				$('#specification').empty();   
+				${esc.dollar}.each(data.results, function(key,value) {
+					var currentOption = '<option value="' + value.id + '"'; 
+					currentOption = currentOption + ">" + value.label + "</option>";
+	  				$('#specification').append(currentOption);	  				
+				}); 
+				updateNewCollocation();	  				
+			},
+			error: function(data) {
+				console.log("ajax error");
+				}
+        });
+    }
+    
+    function displayVolume(data) {   
+    	$('#volume-div').empty();    
+    	$('#volume_label_hidden').val('');    	
+    	if(data.volume_type == 'select') {  
+    		var volumeRequestType = 4;      		
+    		var specificationId = $('#specification').val();
+    		var label = data.volume_label;
+    		$('#volume_label_hidden').val(label);
+    		$('#volume-div').html('<div class="form-group row">' +
+    							'<label for="volume_manuscript_select" class="col-3 col-form-label label-search">' + label.replace("_", " ") + '</label>' +
+    							'<div class="col-sm-9">' +
+    							'<select class="form-control form-osee" name="volume_manuscript_select" id="volumeSelect"/>' +
+    							'</div>');
+    		${esc.dollar}.ajax({
+    			url: "folioManuscript?specificationId=" + specificationId + "&inputType=" + volumeRequestType,
+    			dataType: "json",
+    			success: function(data) {  
+	  				$('#volumeSelect').empty();  
+	  				${esc.dollar}.each(data.results, function(key,value) {
+	  					var currentOption = '<option value="' + value.label + '"'; 
+						currentOption = currentOption + ">" + value.label + "</option>";
+	  					$('#volumeSelect').append(currentOption);
+	  				});  						 
+				},
+				error: function(data) {
+					console.log("ajax error");
+				}
+        	});
+    	}
+    	else {
+    		if (data.volume_type == 'input') {
+    			var label = data.volume_label;    			
+    			$('#volume_label_hidden').val(label);    
+    			$('#volume-div').html('<div class="form-group row">' +
+    								'<label for="volume_manuscript_input" class="col-3 col-form-label label-search">' + label.replace("_", " ") + '*</label>' +
+    								'<div class="col-sm-9">' +
+										'<input type="text" class="form-control form-osee" name="volume_manuscript_input" id="volume_manuscript_input" required>' +
+									'</div>' +	 
+								'</div>');
+    		}   		
+    	}
+    }
+    
+    function updateNewCollocation() {
+    	$('#new-collocation').val("");
+    	var newCollocationType = 3;
+    	var collocationId = $('#collocation_manuscript').val();
+    	var specificationId = $('#specification').val();
+    	${esc.dollar}.ajax({
+			url: "folioManuscript?collocationId=" + collocationId + "&specificationId=" + specificationId + "&inputType=" + newCollocationType,
+			dataType: "json",   
+			success: function(data) {  
+	  			$('#new-collocation').val(data.new_collocation);	  		
+	  			displayVolume(data);	
+	  			updateHiddenFields()			 
+			},
+			error: function(data) {
+				console.log("ajax error");
+			}
+        });
+    }       
+    
+    function updateHiddenFields() {
+    	$('#fondo_manuscript_hidden').val($("#fondo option:selected").html());
+    	$('#collocation_manuscript_hidden').val($("#collocation_manuscript option:selected").html());
+    	$('#specification_manuscript_hidden').val($("#specification option:selected").html());
+    }
+       
+    function updateCollocation() {
+  		var fondoType = 1;
+		var fondoId = $('#fondo').val();
+		${esc.dollar}.ajax({
+			url: "folioManuscript?inputId=" + fondoId + "&inputType=" + fondoType,
+			dataType: "json",   
+			success: function(data) {  
+				$('#collocation_manuscript').empty();   
+				${esc.dollar}.each(data.results, function(key,value) {
+					var currentOption = '<option value="' + value.id + '"'; 
+					currentOption = currentOption + ">" + value.label + "</option>";
+	  				$('#collocation_manuscript').append(currentOption);
+				});
+				updateSpecification(); 
+			},
+			error: function(data) {
+				console.log("ajax error");
+			}
+		});
+		return;
+	}
+	
+</script>
+
+<div class="form-group row">
+	<label for="fondo" class="col-3 col-form-label label-search">$text.fondo</label>
+	<div class="col-sm-9">
+		<select class="form-control form-osee" name="fondo" id="fondo">	
+			#foreach($currentFondo in $fondo.keySet())
+				<option value="${currentFondo}">
+					${fondo.get($currentFondo)}
+				</option>
+			#end				               
+		</select>
+	</div>
+</div>
+
+<div class="form-group row">
+	<label for="collocation_manuscript" class="col-3 col-form-label label-search">$text.collocation</label>
+	<div class="col-sm-9">
+		<select class="form-control form-osee" name="collocation_manuscript" id="collocation_manuscript">					               
+		</select>
+	</div>
+</div>
+
+<div class="form-group row">
+	<label for="specification" class="col-3 col-form-label label-search">$text.specification</label>
+	<div class="col-sm-9">
+		<select class="form-control form-osee" name="specification" id="specification">					               
+		</select>
+	</div>
+</div>
+<div id="volume-div">
+</div>
+						
+<div class="form-group row">
+	<label for="note" class="col-3 col-form-label label-search">$text.note</label>
+	<div class="col-9">
+		<input type="text" class="form-control form-osee" name="note" id="note"> 
+	</div>
+</div>
+			
+<div class="form-group row">
+	<div class="col-9 offset-3">
+		<button id="request-submit-button" class="button-blue btn-block py-2 strSizeOnly" type="submit" >$text.web_circ_doloans</button>
+	</div>
+</div> 					
+
+<input id="new-collocation" name="new_collocation" type="hidden"/>	
+<input id="fondo_manuscript_hidden" name="fondo_manuscript_hidden" type="hidden" required />
+<input id="collocation_manuscript_hidden" name="collocation_manuscript_hidden" type="hidden" required/>
+<input id="specification_manuscript_hidden" name="specification_manuscript_hidden" type="hidden" required/>	
+<input id="volume_label_hidden" name="volume_label_hidden" type="hidden"/>								

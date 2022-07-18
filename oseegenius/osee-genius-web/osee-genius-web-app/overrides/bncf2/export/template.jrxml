@@ -1,0 +1,1012 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" resourceBundle="resources">
+	<property name="template.type" value="columnar"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#000000" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<style name="attribute_name" forecolor="#93002D" backcolor="#FFFFFF" fontSize="11" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<style name="attribute_value" forecolor="#000000" backcolor="#FFFFFF" fontSize="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<subDataset name="items" whenResourceMissingType="Empty">
+	<field name="id" class="java.lang.String"/>
+	<field name="physical_description" class="java.util.List"/>
+	<field name="author" class="java.lang.String"/>
+	<field name="title" class="java.lang.String"/>
+	<field name="publisher" class="java.util.List"/>
+	<field name="other_classification_number" class="java.util.List"/>
+	<field name="other_classification_label" class="java.util.List"/>
+	<field name="collocation" class="java.util.List"/>
+	<field name="other_author_person" class="java.util.List"/>
+	<field name="other_author_corporate" class="java.util.List"/>
+	<field name="other_author_conference" class="java.util.List"/>
+	<field name="general_note" class="java.util.List"/>
+	<field name="abbreviated_title" class="java.util.List"/>
+	<field name="key_title" class="java.util.List"/>
+	<field name="cat_agency_translation_title" class="java.util.List"/>
+	<field name="title_variant" class="java.util.List"/>
+	<field name="portion_of_title" class="java.util.List"/>
+	<field name="parallel_title" class="java.util.List"/>
+	<field name="distinctive_title" class="java.util.List"/>
+	<field name="other_title" class="java.util.List"/>
+	<field name="cover_title" class="java.util.List"/>
+	<field name="added_title_page_title" class="java.util.List"/>
+	<field name="caption_title" class="java.util.List"/>
+	<field name="spine_title" class="java.util.List"/>
+	<field name="running_title" class="java.util.List"/>
+	<field name="uniform_title" class="java.lang.String"/>
+	<field name="edition" class="java.util.List"/>
+	<field name="current_publication_frequency" class="java.util.List"/>
+	<field name="former_publication_frequency" class="java.util.List"/>
+	<field name="series_statement" class="java.util.List"/>
+	<field name="series_added_entry_uniform_title" class="java.util.List"/>
+	<field name="series_added_entry_name" class="java.util.List"/>
+	<field name="with_note" class="java.util.List"/>
+	<field name="dissertation_note" class="java.util.List"/>
+	<field name="bibliography_note" class="java.util.List"/>
+	<field name="formatted_content_note" class="java.util.List"/>
+	<field name="restrictions_on_access_note" class="java.util.List"/>
+	<field name="scale_note" class="java.util.List"/>
+	<field name="creation_credits_note" class="java.util.List"/>
+	<field name="citation_note" class="java.util.List"/>
+	<field name="participant_note" class="java.util.List"/>
+	<field name="type_of_report_note" class="java.util.List"/>
+	<field name="data_quality_note" class="java.util.List"/>
+	<field name="numbering_peculiarities_note" class="java.util.List"/>
+	<field name="computer_type_note" class="java.util.List"/>
+	<field name="date_type_place_note" class="java.util.List"/>
+	<field name="summary_note" class="java.util.List"/>
+	<field name="target_audience_note" class="java.util.List"/>
+	<field name="geo_coverage_note" class="java.util.List"/>
+	<field name="preferred_citation_note" class="java.util.List"/>
+	<field name="supplement_note" class="java.util.List"/>
+	<field name="study_program_information_note" class="java.util.List"/>
+	<field name="add_form_note" class="java.util.List"/>
+	<field name="reproduction_note" class="java.util.List"/>
+	<field name="original_version_note" class="java.util.List"/>
+	<field name="location_dup_note" class="java.util.List"/>
+	<field name="funding_not" class="java.util.List"/>
+	<field name="system_note" class="java.util.List"/>
+	<field name="use_note" class="java.util.List"/>
+	<field name="source_acq_note" class="java.util.List"/>
+	<field name="location_arc_note" class="java.util.List"/>
+	<field name="bio_note" class="java.util.List"/>
+	<field name="lang_note" class="java.util.List"/>
+	<field name="form_title_note" class="java.util.List"/>
+	<field name="issuing_note" class="java.util.List"/>
+	<field name="entity_note" class="java.util.List"/>
+	<field name="cumulative_index" class="java.util.List"/>
+	<field name="info_doc_note" class="java.util.List"/>
+	<field name="own_note" class="java.util.List"/>
+	<field name="cpy_version_note" class="java.util.List"/>
+	<field name="binding_note" class="java.util.List"/>
+	<field name="casefile_note" class="java.util.List"/>
+	<field name="method_note" class="java.util.List"/>
+	<field name="link_entry_complexity_note" class="java.util.List"/>
+	<field name="pub_mat_note" class="java.util.List"/>
+	<field name="action_note" class="java.util.List"/>
+	<field name="accumulation_note" class="java.util.List"/>
+	<field name="exhi_note" class="java.util.List"/>
+	<field name="awards_note" class="java.util.List"/>
+	<field name="universal_decimal_classification_number" class="java.util.List"/>
+	<field name="dewey" class="java.util.List"/>
+	<field name="isbn" class="java.util.List"/>
+	<field name="issn" class="java.util.List"/>
+	<field name="bibliographic_level" class="java.lang.String"/>
+	<field name="format" class="java.lang.String"/>
+	<field name="language" class="java.util.List"/>
+	<field name="added_uniform_title" class="java.util.List"/>
+	<field name="uncontrolled_related_title" class="java.util.List"/>
+	<field name="main_series_entry" class="java.util.List"/>
+	<field name="subseries_entry" class="java.util.List"/>
+	<field name="original_language_entry" class="java.util.List"/>
+	<field name="translation_entry" class="java.util.List"/>
+	<field name="supplement_entry" class="java.util.List"/>
+	<field name="supplement_parent_entry" class="java.util.List"/>
+	<field name="other_edition_entry" class="java.util.List"/>
+	<field name="add_form_entry" class="java.util.List"/>
+	<field name="issued_with_entry" class="java.util.List"/>
+	<field name="preceding_entry" class="java.util.List"/>
+	<field name="succeeding_entry" class="java.util.List"/>
+	<field name="fingerprint" class="java.util.List"/>
+	<field name="is_part_of" class="java.util.List"/>
+	<field name="uri" class="java.util.List"/>
+	<field name="subject" class="java.util.List"/>
+	<field name="location" class="java.util.List"/>	
+	</subDataset>
+	<subDataset name="dataset1">
+		<field name="_THIS" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="ITEMS" class="java.util.List"/>
+	<field name="id" class="java.lang.String"/>
+	<field name="physical_description" class="java.util.List"/>
+	<field name="author" class="java.lang.String"/>
+	<field name="title" class="java.lang.String"/>
+	<field name="publisher" class="java.util.List"/>
+	<field name="other_classification_number" class="java.util.List"/>
+	<field name="other_classification_label" class="java.util.List"/>
+	<field name="collocation" class="java.util.List"/>
+	<field name="other_author_person" class="java.util.List"/>
+	<field name="other_author_corporate" class="java.util.List"/>
+	<field name="other_author_conference" class="java.util.List"/>
+	<field name="general_note" class="java.util.List"/>
+	<field name="abbreviated_title" class="java.util.List"/>
+	<field name="key_title" class="java.util.List"/>
+	<field name="cat_agency_translation_title" class="java.util.List"/>
+	<field name="title_variant" class="java.util.List"/>
+	<field name="portion_of_title" class="java.util.List"/>
+	<field name="parallel_title" class="java.util.List"/>
+	<field name="distinctive_title" class="java.util.List"/>
+	<field name="other_title" class="java.util.List"/>
+	<field name="cover_title" class="java.util.List"/>
+	<field name="added_title_page_title" class="java.util.List"/>
+	<field name="caption_title" class="java.util.List"/>
+	<field name="spine_title" class="java.util.List"/>
+	<field name="running_title" class="java.util.List"/>
+	<field name="uniform_title" class="java.lang.String"/>
+	<field name="edition" class="java.util.List"/>
+	<field name="current_publication_frequency" class="java.util.List"/>
+	<field name="former_publication_frequency" class="java.util.List"/>
+	<field name="series_statement" class="java.util.List"/>
+	<field name="series_added_entry_uniform_title" class="java.util.List"/>
+	<field name="series_added_entry_name" class="java.util.List"/>
+	<field name="with_note" class="java.util.List"/>
+	<field name="dissertation_note" class="java.util.List"/>
+	<field name="bibliography_note" class="java.util.List"/>
+	<field name="formatted_content_note" class="java.util.List"/>
+	<field name="restrictions_on_access_note" class="java.util.List"/>
+	<field name="scale_note" class="java.util.List"/>
+	<field name="creation_credits_note" class="java.util.List"/>
+	<field name="citation_note" class="java.util.List"/>
+	<field name="participant_note" class="java.util.List"/>
+	<field name="type_of_report_note" class="java.util.List"/>
+	<field name="data_quality_note" class="java.util.List"/>
+	<field name="numbering_peculiarities_note" class="java.util.List"/>
+	<field name="computer_type_note" class="java.util.List"/>
+	<field name="date_type_place_note" class="java.util.List"/>
+	<field name="summary_note" class="java.util.List"/>
+	<field name="target_audience_note" class="java.util.List"/>
+	<field name="geo_coverage_note" class="java.util.List"/>
+	<field name="preferred_citation_note" class="java.util.List"/>
+	<field name="supplement_note" class="java.util.List"/>
+	<field name="study_program_information_note" class="java.util.List"/>
+	<field name="add_form_note" class="java.util.List"/>
+	<field name="reproduction_note" class="java.util.List"/>
+	<field name="original_version_note" class="java.util.List"/>
+	<field name="location_dup_note" class="java.util.List"/>
+	<field name="funding_not" class="java.util.List"/>
+	<field name="system_note" class="java.util.List"/>
+	<field name="use_note" class="java.util.List"/>
+	<field name="source_acq_note" class="java.util.List"/>
+	<field name="location_arc_note" class="java.util.List"/>
+	<field name="bio_note" class="java.util.List"/>
+	<field name="lang_note" class="java.util.List"/>
+	<field name="form_title_note" class="java.util.List"/>
+	<field name="issuing_note" class="java.util.List"/>
+	<field name="entity_note" class="java.util.List"/>
+	<field name="cumulative_index" class="java.util.List"/>
+	<field name="info_doc_note" class="java.util.List"/>
+	<field name="own_note" class="java.util.List"/>
+	<field name="cpy_version_note" class="java.util.List"/>
+	<field name="binding_note" class="java.util.List"/>
+	<field name="casefile_note" class="java.util.List"/>
+	<field name="method_note" class="java.util.List"/>
+	<field name="link_entry_complexity_note" class="java.util.List"/>
+	<field name="pub_mat_note" class="java.util.List"/>
+	<field name="action_note" class="java.util.List"/>
+	<field name="accumulation_note" class="java.util.List"/>
+	<field name="exhi_note" class="java.util.List"/>
+	<field name="awards_note" class="java.util.List"/>
+	<field name="universal_decimal_classification_number" class="java.util.List"/>
+	<field name="dewey" class="java.util.List"/>
+	<field name="isbn" class="java.util.List"/>
+	<field name="issn" class="java.util.List"/>
+	<field name="bibliographic_level" class="java.lang.String"/>
+	<field name="format" class="java.lang.String"/>
+	<field name="language" class="java.util.List"/>
+	<field name="added_uniform_title" class="java.util.List"/>
+	<field name="uncontrolled_related_title" class="java.util.List"/>
+	<field name="main_series_entry" class="java.util.List"/>
+	<field name="subseries_entry" class="java.util.List"/>
+	<field name="original_language_entry" class="java.util.List"/>
+	<field name="translation_entry" class="java.util.List"/>
+	<field name="supplement_entry" class="java.util.List"/>
+	<field name="supplement_parent_entry" class="java.util.List"/>
+	<field name="other_edition_entry" class="java.util.List"/>
+	<field name="add_form_entry" class="java.util.List"/>
+	<field name="issued_with_entry" class="java.util.List"/>
+	<field name="preceding_entry" class="java.util.List"/>
+	<field name="succeeding_entry" class="java.util.List"/>
+	<field name="fingerprint" class="java.util.List"/>
+	<field name="is_part_of" class="java.util.List"/>
+	<field name="uri" class="java.util.List"/>
+	<field name="subject" class="java.util.List"/>
+	<field name="location" class="java.util.List"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="501" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="attribute_value" positionType="Float" x="169" y="0" width="386" height="15"/>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="attribute_value" x="0" y="0" width="20" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}+"."]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="0" width="149" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("an")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="attribute_name" positionType="Float" x="20" y="32" width="149" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("title")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="attribute_value" positionType="Float" x="169" y="32" width="386" height="15"/>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{title}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="50" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{publisher} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("publisher")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="50" width="386" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{publisher})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="386">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<line>
+				<reportElement positionType="Float" mode="Transparent" x="20" y="66" width="534" height="1" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{publisher} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="84" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{uniform_title} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="102" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$F{isbn} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="21" y="120" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{issn} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="138" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{edition} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="156" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{physical_description} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="174" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{series_statement} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="192" width="534" height="1" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{other_classification_number} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="210" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{other_classification_label} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="228" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{other_author_person} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="246" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{other_author_corporate} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="264" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{other_author_conference} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="282" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{dewey} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="300" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{subject} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="318" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{location} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="336" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{collocation} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="354" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{language} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="21" y="372" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{format} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="390" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{bibliographic_level} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="408" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{general_note} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="21" y="426" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{bibliography_note} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="444" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{formatted_content_note} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="462" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{summary_note} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="480" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{is_part_of} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="498" width="534" height="1" isRemoveLineWhenBlank="true" forecolor="#39B125">
+					<printWhenExpression><![CDATA[$F{uri} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="attribute_name" positionType="Float" x="20" y="68" width="149" height="15">
+					<printWhenExpression><![CDATA[$F{uniform_title} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("uniform_title")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="attribute_value" positionType="Float" x="169" y="68" width="385" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{uniform_title} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{uniform_title}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="86" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{isbn} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA["ISBN"]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="86" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{isbn})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="104" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{issn} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA["ISSN"]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="104" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{issn})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="140" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{physical_description} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("physical_description")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="140" width="385" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{physical_description}!= null]]></printWhenExpression>
+				</reportElement>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{physical_description})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="158" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{series_statement} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("series_statement")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="158" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{series_statement})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="176" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{other_classification_number} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("other_classification_number")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="176" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{other_classification_number})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="194" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{other_classification_label} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("other_classification_label")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="194" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{other_classification_label})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="212" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{other_author_person} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("other_author_person")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="212" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{other_author_person})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="230" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{other_author_corporate} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("other_author_corporate")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="230" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{other_author_corporate})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="248" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{other_author_conference} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("other_author_conference")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="248" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{other_author_conference})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="266" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{dewey} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("dewey")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="266" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{dewey})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField>
+				<reportElement style="attribute_name" positionType="Float" x="20" y="284" width="149" height="15">
+					<printWhenExpression><![CDATA[$F{subject} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("subjects")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="284" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{subject})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="302" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{location} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("location")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="302" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{location})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="320" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{collocation} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("collocation")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="320" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{collocation})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="338" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{language} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("language")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="338" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{language})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[java.util.ResourceBundle.getBundle("languages",$P{REPORT_LOCALE}).getString($F{_THIS})]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="356" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{format} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("format")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="122" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{edition} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("edition")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="attribute_value" positionType="Float" x="169" y="122" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{edition}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="21" y="374" width="148" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{bibliographic_level} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("bibliographic_level")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="21" y="392" width="148" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{general_note} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("general_note")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="392" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{general_note})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="21" y="410" width="148" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{bibliography_note} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("bibliography_note")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="428" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{formatted_content_note} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("formatted_content_note")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="410" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{bibliography_note})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="21" y="446" width="148" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{summary_note} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("summary_note")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="428" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{formatted_content_note})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="446" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{summary_note})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="21" y="464" width="148" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{is_part_of} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("is_part_of")]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement style="attribute_value" positionType="Float" x="169" y="464" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{is_part_of})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="385">
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement style="attribute_value" positionType="Float" x="0" y="0" width="385" height="15" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="21" y="482" width="148" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{uri} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("uri")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="attribute_value" positionType="Float" x="169" y="482" width="385" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{uri} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{uri}.get( 0 )]]></textFieldExpression>
+			</textField>
+			
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_name" positionType="Float" x="20" y="16" width="149" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{author} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}.getString("author")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="attribute_value" positionType="Float" x="169" y="16" width="386" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{author} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{author}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" mode="Transparent" x="20" y="48" width="534" height="1" isRemoveLineWhenBlank="true"/>
+				<graphicElement>
+					<pen lineStyle="Dashed" lineColor="#D2D2D2"/>
+				</graphicElement>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_value" positionType="Float" x="169" y="356" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[java.util.ResourceBundle.getBundle("format_for",$P{REPORT_LOCALE}).getString($F{format})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="attribute_value" positionType="Float" x="169" y="374" width="385" height="15" isRemoveLineWhenBlank="true"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[java.util.ResourceBundle.getBundle("bibliographic_level",$P{REPORT_LOCALE}).getString($F{bibliographic_level})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

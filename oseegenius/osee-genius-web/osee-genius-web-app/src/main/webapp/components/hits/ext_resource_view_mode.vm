@@ -1,0 +1,57 @@
+#set ($resource = $request.resource)
+<table >
+	<tr>
+		<td colspan="4">
+			<span class="document_title_detail">$request.resource.title</span>
+			#spacer(4)
+			<br/>
+			#if($resource.author_person)
+                <a href='$link.relative('/search')?h=author_bc&q=$esc.q$resource.author_person$esc.q' class="document_author_detail">$resource.author_person</a>
+			#elseif($resource.author_corporate)
+                <a href='$link.relative('/search')?h=author_bc&q=$esc.q$resource.author_corporate$esc.q' class="document_author_detail">$resource.author_corporate</a>
+			#elseif($resource.author_conference)
+                <ahref='$link.relative('/search')?h=author_bc&q=$esc.q$resource.author_conference$esc.q' class="document_author_detail">$resource.author_conference</a>
+			#else
+				$text.author_na
+			#end
+			#if ($resource.publisher)
+				<br/><br/>
+				<i><span class="publisher_detail">$resource.publisher</span></i>
+			#end
+			<br/>
+			<br/>
+		</td>
+	</tr>
+	#parse('customization/hits/bc_resource_view_additional_attributes.vm')
+</table>	
+#if ($license.holdingDataViewerEnabled)
+<div id="holdings"></div>
+<table width="100%">
+	<tr><td><hr style="color: #c0c0c0;"/></td></tr>
+	<tr>
+		<td>
+			#parse('components/circulation/holdings.vm')
+		</td>	
+	</tr>
+</table>
+#end
+#if ($license.moreLikeThisViewerEnabled)
+<table id="mlt">
+	<tr><td><hr style="color: #c0c0c0;"/></td></tr>
+	<tr>
+		<td>
+			#parse('components/search/mlt.vm')
+		</td>	
+	</tr>
+</table>
+#end
+#if ($request.reviews)
+<table id="reviews" width="100%">
+	<tr><td><hr style="color: #c0c0c0;"/></td></tr>
+	<tr>
+		<td>
+			#parse('components/search/reviews.vm')
+		</td>	
+	</tr>
+</table>
+#end

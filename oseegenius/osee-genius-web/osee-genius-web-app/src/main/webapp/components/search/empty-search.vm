@@ -1,0 +1,43 @@
+#set ($tab = $session.visit.searchExperience.currentTab)
+<link href="$link.relative('/style/jqcloud.css')" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${link.relative('/js/jqcloud-0.1.8.min.js')}"></script>
+<span>
+<br/><br/>
+<font style="font-size:18px; color:#C0C0C0; margin-left:10px;}'">$text.no_results</font>
+	<div id="did_you_mean1" style="height:300px; width:500px;"></div>		
+	
+	#if ($tab.didYouMeanTerms )
+	<script type="text/javascript">
+	
+      var word_list = ${tab.didYouMeanTerms};
+      $(document).ready(function() 
+	  {
+		screenW = screen.width;
+		screenH = screen.height;	
+		$("#did_you_mean1").css("width",screenW / 2);
+		$("#did_you_mean1").css("height",400);
+        $("#did_you_mean1").jQCloud(word_list);
+      });
+    </script>
+	#end 
+	<script type="text/javascript">
+	function searchBySuggestion(term)
+	{
+		var location = document.location.href;
+		var startIndex = location.indexOf("q=");
+		if (startIndex != -1)
+		{
+			var endIndex = location.indexOf("&",startIndex+1)
+			if (endIndex != -1)
+			{
+				location = location.substring(0, startIndex)+location.substring(endIndex);
+			} else 
+			{
+				location = location.substring(0, startIndex);					
+			}
+		}
+		
+		document.location.href=location+"&q="+term;
+	}
+</script>
+</span>

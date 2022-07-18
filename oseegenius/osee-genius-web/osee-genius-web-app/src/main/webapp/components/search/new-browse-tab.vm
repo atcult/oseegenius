@@ -1,0 +1,18 @@
+<br/>
+<br/>
+<font style="font-size:26px; color:#C0C0C0">$text.emptyBrowseTabTitle</font>
+<br/><br/><br/>
+<table style="margin: 0px 0px 0px 10px;  border-spacing:10px; border-collapse: separate;" width="100%" cellspacing="10">
+	<tr >
+		<td style="margin:0px 3px 0px 0px;" width="34%">
+			<font style="font-size:14px; color:#00388E">$text.browsing</font><br/>$text.browsingMsg<br/><br/>
+		</td>
+		<td valign="top" width="33%">
+			<font style="font-size:14px; color:#00388E">$text.simple_search</font><br/>$text.searchMsg<br/><br/>
+		</td>
+		<td valign="top" width="33%">
+			<font style="font-size:14px; color:#00388E">$text.advancedSearchTitle</font><br/>$text.advancedSearchMsg<br/><br/>
+		</td>
+	</tr>
+</table>
+<center><img src="$link.relative('/img/logo.png')"  class="logoBig"/></center>

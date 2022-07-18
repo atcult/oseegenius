@@ -1,0 +1,33 @@
+#set ($tab = $session.visit.searchExperience.currentTab)
+#set($howManyRecords = $tab.response.results.numFound)
+<!-- components/search/search_expression.vm -->
+<strong><span class="navigation-result">$howManyRecords $text.search_exp_results
+	#if ($tab.query)
+	    $text.search_exp_querydone 
+		#if ($tab.query.query == '*:*')
+			#set($yourSearch = "(" + $text.all_results + ")")
+		#elseif ($tab.query.query.indexOf('_query_') != -1)
+			#set($yourSearch = $esc.html($request.hrq))			
+		#else
+			#set($yourSearch = $tab.query.query)
+		#end
+		<span id="yoursearch" class="searchqeryexp"> $yourSearch</span>
+	
+		#if ($tab.query.query.indexOf('_query_') == -1 || $tab.query.query != '*:*')
+        	#set ($filterQueries = $tab.getFilterQueries($request))
+    		#foreach ($filterQuery in $filterQueries)
+    			#if ($velocityCount == 1) <span class="searchfilter"> $text.search_exp_filters</span>#end 
+    			#if ($filterQuery.indexOf("catalog_source") == -1 && $filterQuery.indexOf(" OR ") == -1)
+            		#set ( $toRemove = "&f=$filterQuery" )
+					#set ( $divId = "bd${velocityCount}")
+					<span class="searchfilter"> >$breadcrumbTool.getHumanReadableFilterName($request, $filterQuery): $breadcrumbTool.getHumanReadableLabel($request, $filterQuery,$session.visit.preferredLocale)</span>
+    			#elseif ($filterQuery.indexOf(" OR ") != -1)
+					#set ($filterConditions = $filterQuery.split(" OR "))
+					#foreach($filterCondition in $filterConditions)
+						<span class="searchfilter"> $breadcrumbTool.getHumanReadableLabel($request, $filterCondition, $session.visit.preferredLocale)</span>
+					#end	
+				#end 	
+			#end
+		#end	
+	#end
+</span></strong>

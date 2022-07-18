@@ -1,0 +1,68 @@
+#set ($layout="one_column.vm")
+<table style="font-size:12px;">
+	<tr>
+		<td valign="top" rowspan="2"><img src="img/reserved.png"/></td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<form  action="j_security_check" method="post">
+			<table>
+				<tr>
+					<td valign="top"><b><span style="font-size:15px;">$text.reserved_area</span></b></td>
+				</tr>
+				<tr>
+					<td>
+						$text.reserved_area_info
+					</td>
+				</tr>	
+			</table>
+			<br/>
+			<table cellspacing="0" cellpadding="2">
+    		  <tbody>
+    			<tr>
+    				<td>Username:</td>
+    				<td><input name="j_username" type="text" style="width:90%;"/></td>
+    			</tr>
+    			<tr>
+    				<td>Password:</td>
+    				<td><input  name="j_password" type="password" style="width:90%;" /></td>
+    			</tr>
+    			
+				<tr >
+    			    <td colspan="2" align="left">&nbsp;</td>
+    			</tr>
+    			<tr>
+    				<td colspan="2">
+						<input type="submit" value="$text.login"  style="padding:3px;"/>
+						&nbsp;&nbsp;&nbsp;
+						<input type="button" value="$text.cancel"  onclick="goback()" style="padding:3px;"/></td>
+    			</tr>	
+				<tr>
+					<td colspan="2"><br/><br/></td>
+				</tr>
+    		  </tbody>
+    		</table> 	
+    	</form>
+		</td>
+	</tr>
+	<tr><td colspan="2">&nbsp;</td></tr>
+	#if ($configuration.emailReceiverAddress)
+	<tr>
+			<td colspan="2">
+				${text.reserved_area_contact_us}:<a href="mailto:$configuration.emailReceiverAddress">$configuration.emailReceiverAddress</a> 
+			</td>
+	</tr>
+	#end
+</table>		
+<br/>	<br/>	<br/>	<br/>	<br/>	<br/><br/>	<br/>
+<script>
+	function goback()
+	{
+		#if (!$visit.searchExperience.empty)
+			document.location = 'search?${session.visit.searchExperience.currentTab.queryParameters}&dls=uj'
+		#else
+			document.location = 'home';
+		#end
+	
+	}
+</script>	

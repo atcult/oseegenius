@@ -1,0 +1,107 @@
+#if ($license.moreLikeThisViewerEnabled)
+    <div id="mlt" style="padding-top: 170px; margin-top: -170px;"></div>
+    #set ($viewType = $params.v)
+    #if (!$viewType) #set($viewType = 'l') #end
+    #set ($mlt = $request.similarItems.results && $request.similarItems.results.numFound != 0)
+    #if ($mlt)
+	
+    <table class="detail_record" width="100%" cellspacing="4">
+    	<tr>
+    		<td><span class="detail-section-title">$text.mlt</span></td>
+    	</tr>			
+    	<tr>
+    		<td>
+    		       <div id="mlt-navigator">		
+    				#set ($currentAddress = $request.requestURL)
+            		#set($howManyRecords = $request.similarItems.results.numFound)
+            		#set ($pageSizeParameter = 10)
+            		#set($howManyRecordsPerPage =10)
+            		#set($start = $request.similarItems.results.start)
+            		#set($startIndex = $start + 1)
+            		#set($endIndex = $start + $howManyRecordsPerPage)
+            		#set ($pages = $howManyRecords / $howManyRecordsPerPage)
+            		#if ($howManyRecords % $howManyRecordsPerPage > 0)
+            			#set ($pages = $pages + 1)
+            		#end	
+            		#if ($pages > 1)	
+            			#set($curPage = $start / $howManyRecordsPerPage + 1)
+            			#set ($onsides = 6)
+            			#set ($tmp = $curPage - $onsides)
+            			#if ($tmp > 0) 
+            				#set ($firstClkbl = $tmp)
+            			#else	
+            				#set ($firstClkbl = 1)
+            			#end
+            			#set ($tmpIndex = $firstClkbl + (2 * $onsides))
+            			#if ($tmpIndex < $pages)
+            				#set ($lastClkbl = $tmpIndex)
+            			#else
+            				#set ($lastClkbl = $pages)				
+            			#end	
+            			<b>$startIndex - $endIndex</b> $text.of <b>$howManyRecords $text.results_found</b>&nbsp;
+            			##if( $firstClkbl > 1)
+						#if( $curPage > 1)	
+                			 <a style="cursor:pointer;" onclick="mlt('p','1')">&lt;&lt;</a>
+                		#end
+            			#if ($curPage > 1)
+                			#set ($previousPage = $curPage - 1)
+                			<a style="cursor:pointer;" onclick="javascript:mlt('p','$previousPage')">&lt;</a>
+            			#end	
+            			#if ($firstClkbl > 1) ... #end	
+            			#foreach($pageIndex in [$firstClkbl..$lastClkbl])
+            				#if ($pageIndex == $curPage)
+            					<span class="current-page-number">$curPage</span>
+            				#else
+            					<a style="cursor:pointer;" onclick="javascript:mlt('p','$pageIndex')">$pageIndex</a>			
+            				#end	
+            			#end 
+            			#if ($lastClkbl < $pages) ...
+            			#end	
+            			#if ($pages - $curPage > 0)
+            				#set ($nextPage = $curPage + 1)
+    						<a style="cursor:pointer;" onclick="javascript:mlt('p','$nextPage')">&gt;</a>
+            			#end 
+            			##if ($firstClkbl <= 1)
+						#if ($pages - $curPage > 0)		
+                			<a style="cursor:pointer;" onclick="javascript:mlt('p','$pages')">&gt;&gt;</a>
+            			#end
+            		#elseif ($howManyRecords > 0)
+            			<b>$howManyRecords $text.results_found</b>
+            		#end
+            	</div>	
+    		</td>
+    	</tr>
+    	#foreach($document in $request.similarItems.results)
+			#if ($velocityCount % 2 == 0)
+				#set ($rowStyle="mlt-row-even")
+			#else
+				#set ($rowStyle="mlt-row-odd")
+			#end	
+        	<tr class="$rowStyle">
+        		<td>
+    				#set ($title = "title_$document.category_code")
+            		<a href="$link.relative('/resource')?uri=$document.id&v=$viewType" class="document_title">#if ($document.get($title))$document.get($title)#else$text.title_na#end</a> 
+            		<br/>
+    				#if ($document.category_code == "bc")
+    					#if ($document.author_person)
+    						 <span class="document_author">$document.author_person</span>
+    					#elseif ($document.author_corporate)
+    						<span class="document_author">$document.author_corporate</span>
+    					#elseif ($document.author_conference)
+    						 <span class="document_author">$document.author_conference</span>												
+            			#end
+    				#elseif ($document.category_code == "dg")
+    					#if ($document.author_dg)
+    						#foreach($author in $resource.author_dg)
+    							#if ($velocityCount > 1), #end<a href='$link.relative('/search')?h=author_dg&q=$esc.q$author$esc.q' class="document_author">$author</a>
+    						#end									
+    					#else
+    						<a class="document_author">$text.author_na</a>
+    					#end
+    				#end					
+    			</td>
+        	</tr>
+    	#end	
+    </table>			
+	#end	
+#end	

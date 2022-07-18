@@ -1,0 +1,45 @@
+<!-- components/userPanel/login.vm -->
+<script>
+	function showPassword() {
+		var passwordInput = document.getElementById("password");
+		if (passwordInput.type === "password") {
+			passwordInput.type = "text";
+		}
+		else {
+			passwordInput.type = "password";
+		}
+	}
+</script>
+ #if ($request.inError) 
+	<div class="row p-5">		
+		<div class="col-12 alert alert-danger">$esc.html($text.get($request.errorMessage))</div>
+	</div>
+#end
+<div class="form-signin">
+	<h2 class="text-center my-5">$text.reserved_area</h2>
+	
+	<form class="bg-white shadow p-5 strSizeOnly" action="signIn" method="post">
+		<div class="form-group">
+			<label class="close-label" for="username">Username</label>
+			<input name="username" id="username" type="text" class="form-control form-osee" required/>	
+		</div>
+		<div class="form-group">
+			<label class="close-label label-block" for="password">
+				Password 
+				<img class="float-right pt-1" onclick="showPassword()" src="img/eye.png" />
+			</label>
+			<input id="password" name="password" type="password"  class="form-control form-osee" required/>
+			
+			#if($request.getParameter('redirectId'))
+				<input name="redirectId" type="hidden" value="$esc.javascript($request.getParameter('redirectId'))"/>
+			#end
+		</div>
+		<div class="text-center mt-5">
+			<button class="button-blue btn-block uppercase py-2" type="submit">$text.login</button>	
+		</div>		
+	</form>
+	<div class="row mx-0  py-3 strSizeOnly14">	
+		<div class="mr-auto"><a href="${configuration.getFolioUrlFrontend()}/forgot-password">$text.reset_password</a></div>
+		<div class="ml-auto">$text.dont_have_account <a href="signUp">$text.sign_up</a></div>
+	</div>
+</div>

@@ -1,0 +1,192 @@
+<record>
+	<leader>02078nam a2200409 i 4500</leader>
+	<controlfield tag="001">000005869864</controlfield>
+	<controlfield tag="003">CaOOAMICUS</controlfield>
+	<controlfield tag="005">20070117112244.0</controlfield>
+	<controlfield tag="008">061102s2003 it e 00000 ita c</controlfield>
+	<datafield tag="020" ind1=" " ind2=" ">
+		<subfield code="a">8850623127 (v. 3)</subfield>
+	</datafield>
+	<datafield tag="020" ind1=" " ind2=" ">
+		<subfield code="a">8850624492</subfield>
+	</datafield>
+	<datafield tag="020" ind1=" " ind2=" ">
+		<subfield code="a">8850623100 (v. 1)</subfield>
+	</datafield>
+	<datafield tag="020" ind1=" " ind2=" ">
+		<subfield code="a">8850623119 (v. 2)</subfield>
+	</datafield>
+	<datafield tag="040" ind1=" " ind2=" ">
+		<subfield code="a">IT-TrCB</subfield>
+		<subfield code="b">ita</subfield>
+		<subfield code="e">NRA</subfield>
+	</datafield>
+	<datafield tag="082" ind1="0" ind2=" ">
+		<subfield code="a">581.945</subfield>
+		<subfield code="2">21</subfield>
+	</datafield>
+	<datafield tag="090" ind1=" " ind2=" ">
+		<subfield code="a">1</subfield>
+	</datafield>
+	<datafield tag="100" ind1="1" ind2=" ">
+		<subfield code="a">Pignatti, Sandro.</subfield>
+		<subfield code="4">aut. </subfield>
+	</datafield>
+	<datafield tag="245" ind1="0" ind2="0">
+		<subfield code="a">Flora d'Italia /</subfield>
+		<subfield code="c">Sandro Pignatti ; comitato di redazione
+			Anzalone B. ... [et al.].</subfield>
+	</datafield>
+	<datafield tag="250" ind1=" " ind2=" ">
+		<subfield code="a">3. rist. [agg.]</subfield>
+	</datafield>
+	<datafield tag="260" ind1=" " ind2=" ">
+		<subfield code="a">Bologna :</subfield>
+		<subfield code="b">Edagricole,</subfield>
+		<subfield code="c">2003.</subfield>
+	</datafield>
+	<datafield tag="300" ind1=" " ind2=" ">
+		<subfield code="a">3 v. (790, 732, 780 p.) :</subfield>
+		<subfield code="b">ill. ;</subfield>
+		<subfield code="c">30 cm</subfield>
+	</datafield>
+	<datafield tag="650" ind1=" " ind2="4">
+		<subfield code="a">Flora - Italia.</subfield>
+	</datafield>
+	<datafield tag="700" ind1="1" ind2=" ">
+		<subfield code="a">Anzalone, Bruno.</subfield>
+		<subfield code="4">edt. </subfield>
+	</datafield>
+	<datafield tag="850" ind1=" " ind2=" ">
+		<subfield code="a">MOENA</subfield>
+	</datafield>
+	<datafield tag="850" ind1=" " ind2=" ">
+		<subfield code="a">RONCONE</subfield>
+	</datafield>
+	<datafield tag="850" ind1=" " ind2=" ">
+		<subfield code="a">TN_UNIVERSITA</subfield>
+	</datafield>
+	<datafield tag="852" ind1=" " ind2=" ">
+		<subfield code="a">TN_UNIVERSITA</subfield>
+		<subfield code="W">166</subfield>
+		<subfield code="x">Sala lettura</subfield>
+		<subfield code="m">v1ECO- 28</subfield>
+		<subfield code="b">(I)  </subfield>
+		<subfield code="n">NO</subfield>
+		<subfield code="B">6072269</subfield>
+		<subfield code="C">INGEGNERIA</subfield>
+		<subfield code="Z">167</subfield>
+		<subfield code="F">6072269       </subfield>
+		<subfield code="H">148165/M                      </subfield>
+		<subfield code="8">2</subfield>
+	</datafield>
+	<datafield tag="852" ind1=" " ind2=" ">
+		<subfield code="a">TN_UNIVERSITA</subfield>
+		<subfield code="W">166</subfield>
+		<subfield code="x">Sala lettura</subfield>
+		<subfield code="m">v1ECO- 28</subfield>
+		<subfield code="b">(II)</subfield>
+		<subfield code="n">NO</subfield>
+		<subfield code="B">6072270</subfield>
+		<subfield code="C">INGEGNERIA</subfield>
+		<subfield code="Z">167</subfield>
+		<subfield code="F">6072270       </subfield>
+		<subfield code="H">148166/M                      </subfield>
+		<subfield code="8">2</subfield>
+	</datafield>
+	<datafield tag="852" ind1=" " ind2=" ">
+		<subfield code="a">TN_UNIVERSITA</subfield>
+		<subfield code="W">166</subfield>
+		<subfield code="x">Sala lettura</subfield>
+		<subfield code="m">v1ECO- 28</subfield>
+		<subfield code="b">(III)   </subfield>
+		<subfield code="n">NO</subfield>
+		<subfield code="B">6072271</subfield>
+		<subfield code="C">INGEGNERIA</subfield>
+		<subfield code="Z">167</subfield>
+		<subfield code="F">6072271       </subfield>
+		<subfield code="H">148167/M                      </subfield>
+		<subfield code="8">2</subfield>
+	</datafield>
+	<datafield tag="852" ind1=" " ind2=" ">
+		<subfield code="a">MOENA</subfield>
+		<subfield code="W">49</subfield>
+		<subfield code="x">Sala lettura</subfield>
+		<subfield code="m">1d581-PIG- 1</subfield>
+		<subfield code="b">I</subfield>
+		<subfield code="B">6212417</subfield>
+		<subfield code="C">MOENA_</subfield>
+		<subfield code="Z">50</subfield>
+		<subfield code="F">6212417       </subfield>
+		<subfield code="H">24381                         </subfield>
+		<subfield code="8">1</subfield>
+	</datafield>
+	<datafield tag="852" ind1=" " ind2=" ">
+		<subfield code="a">MOENA</subfield>
+		<subfield code="W">49</subfield>
+		<subfield code="x">Sala lettura</subfield>
+		<subfield code="m">1d581-PIG- 1</subfield>
+		<subfield code="b">II</subfield>
+		<subfield code="B">6212421</subfield>
+		<subfield code="C">MOENA_</subfield>
+		<subfield code="Z">50</subfield>
+		<subfield code="F">6212421       </subfield>
+		<subfield code="H">24382                         </subfield>
+		<subfield code="8">1</subfield>
+	</datafield>
+	<datafield tag="852" ind1=" " ind2=" ">
+		<subfield code="a">MOENA</subfield>
+		<subfield code="W">49</subfield>
+		<subfield code="x">Sala lettura</subfield>
+		<subfield code="m">1d581-PIG- 1</subfield>
+		<subfield code="b">III</subfield>
+		<subfield code="B">6212423</subfield>
+		<subfield code="C">MOENA_</subfield>
+		<subfield code="Z">50</subfield>
+		<subfield code="F">6212423       </subfield>
+		<subfield code="H">24383                         </subfield>
+		<subfield code="8">1</subfield>
+	</datafield>
+	<datafield tag="852" ind1=" " ind2=" ">
+		<subfield code="a">RONCONE</subfield>
+		<subfield code="W">73</subfield>
+		<subfield code="x">Sala lettura</subfield>
+		<subfield code="m">8f581-PIG- 1</subfield>
+		<subfield code="B">I</subfield>
+		<subfield code="B">6451222</subfield>
+		<subfield code="C">RONCONE_</subfield>
+		<subfield code="Z">74</subfield>
+		<subfield code="F">6451222       </subfield>
+		<subfield code="H">23657                         </subfield>
+		<subfield code="8">2</subfield>
+	</datafield>
+	<datafield tag="852" ind1=" " ind2=" ">
+		<subfield code="a">RONCONE</subfield>
+		<subfield code="W">73</subfield>
+		<subfield code="x">Sala lettura</subfield>
+		<subfield code="m">8f581-PIG- 1</subfield>
+		<subfield code="B">II</subfield>
+		<subfield code="B">6451224</subfield>
+		<subfield code="C">RONCONE_</subfield>
+		<subfield code="Z">74</subfield>
+		<subfield code="F">6451224       </subfield>
+		<subfield code="H">23658                         </subfield>
+		<subfield code="8">2</subfield>
+	</datafield>
+	<datafield tag="852" ind1=" " ind2=" ">
+		<subfield code="a">RONCONE</subfield>
+		<subfield code="W">73</subfield>
+		<subfield code="x">Sala lettura</subfield>
+		<subfield code="m">8f581-PIG- 1</subfield>
+		<subfield code="B">III</subfield>
+		<subfield code="B">6451226</subfield>
+		<subfield code="C">RONCONE_</subfield>
+		<subfield code="Z">74</subfield>
+		<subfield code="F">6451226       </subfield>
+		<subfield code="H">23659                         </subfield>
+		<subfield code="8">2</subfield>
+	</datafield>
+	<datafield tag="946" ind1=" " ind2=" ">
+		<subfield code="a">0</subfield>
+	</datafield>
+</record>

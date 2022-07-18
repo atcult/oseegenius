@@ -1,0 +1,31 @@
+<!-- components/hits/table_view_mode.vm -->
+<table class="responsive">
+	<tr>
+		<th>&nbsp;</th>	
+		<th>$text.author</th>
+		<th>$text.title</th>
+		<th>$text.year</th>
+	</tr>
+	#foreach($document in $tab.response.results)
+	<tr class="tableLine">
+		<td width="4%" valign="top" align="center">
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" onclick="javascript:toggle('$document.id')" name="to_check" id="check_${document.id}">
+			</div>
+		</td>
+		<td  width="16%" valign="top">
+		#if ($document.author)			  
+			<span class="strSizeOnly">$document.author</span>
+		#end
+		</td>
+		<td width="75%" valign="top">
+			<span class="strSizeOnly"><a class="colorLinkOnly" href="$link.relative('/resource')?uri=$document.id" class="document_title">$document.title</a></span>
+		</td>
+		<td width="5%" valign="top">
+		#if($document.publication_date)
+			<span class="strSizeOnly">$document.publication_date</span>
+		#end
+		</td>
+	</tr>
+	#end
+</table>

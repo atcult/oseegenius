@@ -1,0 +1,11 @@
+<style>
+	#breadcrumb a:hover {border:none;text-decoration: none;}
+</style>
+<div id="breadcrumb">
+	#if($request.getHeader("Referer") && $request.getHeader("Referer").indexOf("children") != -1)
+		<a class="linked_value" href='$request.getHeader("Referer")'>($text.back) </a>
+	#else	
+		#set($tab = $session.visit.searchExperience.currentTab)		
+		#if (!$visit.searchExperience.empty)<a class="linked_value" href='search?${session.visit.searchExperience.currentTab.queryParameters}'>($text.return_to_search) </a>#else<a href="$link.relative('/home')">($text.return_home)</a>#end
+	#end
+</div>

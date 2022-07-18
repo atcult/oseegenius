@@ -1,0 +1,54 @@
+<!-- history/simple_searches.vm -->
+<div class="table-responsive container-fluid">
+<table class="table">
+	<thead>
+	<tr class="d-flex">
+		<th class="col-1">$text.date</th>
+		<th class="col-3">$text.terms</th>
+		##<th class="col-1 d-none d-md-block">$text.index</th>
+		<th class="col-1">$text.rpp_history_header</th>
+		##<th class="col-1 d-none d-lg-block">$text.order_by</th>
+		##<th class="col-1 d-none d-lg-block">$text.filters</th>
+		<td class="col-3">&nbsp;</td>
+	</tr>
+    </thead>
+	<tbody>
+	#foreach($entry in $request.result)
+	<tr class="d-flex">
+		<td class="col-1 my-0" valign="middle"><a class="landingLink strSizeOnly my-0" href='$entry.searchUri'>$entry.data</td>
+		
+		#set ($queryText = $entry.query)
+		#if ($queryText == '*:*')
+			#set ($queryText = $text.all_results)
+		#end 
+		
+		#if ($entry.queryType == 'def')
+			#set ($indexName = $text.any_bc)
+		#else
+			#set ($indexName = $text.get($entry.queryType))
+		#end
+		<td class="col-3  strSizeColor my-0">$queryText ($indexName)</td>
+		##<td class="col-1 strSizeColor my-0 d-none d-md-block">$indexName</td>
+		<td class="col-1 strSizeColor my-0">$entry.howManyResults</td>
+		##<td class="col-1 strSizeColor my-0 d-none d-lg-block">$text.get($entry.orderByCriteria)</td>
+		#*
+		<td class="col-1 strSizeColor my-0 d-none d-lg-block">
+			#if ($entry.filters)
+					#foreach($filter in $entry.filters)
+						#if($filter != '{!geofilt}')
+							#foreach($value in $filter.split(" OR "))
+								- $breadcrumbTool.getHumanReadableLabel($request, $value.trim(),$session.visit.preferredLocale)#if ($filter.indexOf("catalog_source") != -1) #set($useLvFilter=true) (*)#end<br/>
+							#end	
+						#end		
+					#end	
+			#end
+		</td>
+		*#
+		##gestire il caso in cui viene eliminata andando ad eliminare la riga della tabella anche sul db
+		<td class="col-3  my-0" valign="middle"><a class="landingLink strSizeOnly my-0" href="javascript:removeElementResearchHistory('$entry.idSearch')"><img src="img/minus.png" alt="">&nbsp;$text.remove</a></td> 
+	</tr>
+	#end
+	</tbody>
+</table>
+</div>
+

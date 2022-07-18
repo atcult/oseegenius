@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="it">
+	<head>
+		<title>OPAC - $institution</title>
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		#default_head
+	</head>
+	<body>
+		<!-- layout/history_homepage.vm -->
+		<nav class="navbar navbar-light navbar-expand-md p-0 bg-white">
+			#parse('components/page/default-search-header.vm')
+		</nav>	
+		<div class="main pb-5 pt-2">
+			<div class="container-fluid px-0">							
+				<div class="row pl-5">
+				<div class="btn-group">
+  					#if($session.visit.searchHistory.simpleSearchListNotEmpty)
+  						#if ($session.hsection == 'simple')
+  							<div class="btn btn-outline-default mr-2">
+    							<span class="bold-text">$text.simple_searches</span>
+    						</div>
+    					#else
+    						<a class="btn btn-outline-default landingLink turntowhite" href="history?section=simple">$text.simple_searches</a>
+    					#end
+    				#end
+    				#if($session.visit.searchHistory.advancedSearchListNotEmpty)
+  						#if ($session.hsection == 'advanced')
+							<div class="btn  mr-2">
+    							<span class="bold-text">$text.advanced_searches</span>
+    						</div>
+    					#else
+    						<a class="btn btn-outline-default landingLink turntowhite" href="history?section=advanced">$text.advanced_searches</a>
+    					#end
+    				#end
+					#if($session.visit.searchHistory.federatedSearchListNotEmpty)
+						
+  						#if ($session.hsection == 'federated')
+  							<div class="btn  mr-2">
+    							<span class="bold-text">$text.federated_list</span>
+    						</div>
+    					#else
+    						<a class="btn btn-outline-default landingLink turntowhite" href="history?section=federated">$text.federated_list</a>
+    					#end
+    					
+    				#end
+    				#if($session.visit.searchHistory.browsingListNotEmpty)
+  						#if ($session.hsection == 'browsing')
+  						<div class="btn  mr-2">
+    						$text.federated_list
+    					</div>
+    					#else
+    						<a class="btn btn-outline-default landingLink turntowhite" href="history?section=browsing">$text.federated_list</a>
+    					#end
+    				#end
+				</div>
+				</div>
+				<div class="row" id="idresults">
+					$screen_content
+				</div>		
+			</div>
+		</div>
+		<footer class="pt-md-5">
+			<div class="container-fluid">
+				#parse('components/page/footer.vm')
+			</div>
+		</footer>		
+	</body>
+</html>

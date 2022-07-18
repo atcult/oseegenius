@@ -1,0 +1,62 @@
+<table style="font-size:12px;" width="100%">
+	<tr>
+		<td valign="top" rowspan="2"  width="1%"><img src="img/sent.png"/></td>
+	</tr>
+	<tr>
+		<td valign="top" width="400">
+    			<table>
+    				<tr>
+    					<td valign="top"><b><span style="font-size:15px;">$text.suggestion_sent</span></b></td>
+    				</tr>
+    				<tr>
+    					<td>
+							$text.suggestion_sent_message <a style="cursor:pointer;" onlick="goback()">$text.this_link</a> $text.suggestion_sent_message_2
+    					</td>
+    				</tr>	
+    			</table>
+		</td>
+		<td rowspan="2" valign="top">
+				#if($session.selection && !$session.selection.isEmpty())
+					<table class="selection-table">
+						<tr><th colspan="2">$text.selected_data</th></tr>
+						#foreach($selectedItem in $session.selection)
+        					#if ($velocityCount % 2 == 0)
+        						#set ($rowStyle="selection-row-even")
+        					#else
+        						#set ($rowStyle="selection-row-odd")
+        					#end					
+    						<tr class="$rowStyle">
+            					<td valign="top" width="1">
+            		                ${velocityCount}.
+            					</td>
+            					<td class="pari">
+            						<span class="selection-title">$selectedItem.title</span>
+            						#if ($selectedItem.author)<br/><span class="selection-author">$selectedItem.author</span>#end
+    								#if ($selectedItem.publisher)<br/><span class="selection-publisher">$selectedItem.publisher.get(0)</span>#end
+        							#if ($selectedItem.isbn)<br/><span style="selection-isbn">$selectedItem.isbn.get(0)</span>#end
+            					</td>
+    						</tr>
+						#end
+					</table>	
+				#else	
+					$text.empty_selection		
+				#end
+		</td>
+	</tr>
+</table>		
+<br/>	<br/>	<br/>	<br/>	<br/>	<br/><br/>	<br/>
+<script>
+	function goback()
+	{
+		#if (!$visit.searchExperience.empty)
+			#if ($visit.searchExperience.currentTab.externalSearchTab) 
+				document.location = 'metasearch?${session.visit.searchExperience.currentTab.queryParameters}'
+			#else
+				document.location = 'search?${session.visit.searchExperience.currentTab.queryParameters}&dls=ik'
+			#end
+		#else
+			document.location = 'home';
+		#end
+	
+	}
+</script>	

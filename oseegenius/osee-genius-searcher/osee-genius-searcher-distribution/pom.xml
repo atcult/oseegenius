@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>osee-genius-searcher</artifactId>
+		<groupId>com.atc.osee.genius</groupId>
+		<version>1.2</version>
+		<relativePath>..</relativePath>
+	</parent>
+	<artifactId>osee-genius-searcher-distribution</artifactId>
+	<packaging>pom</packaging>
+	<name>OseeGenius -S- Distribution Project</name>
+	<profiles>
+		<profile>
+			<id>BNCF</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<version>2.2.1</version>
+						<configuration>
+							<descriptors>
+								<descriptor>src/assembly/bncf.xml</descriptor>
+							</descriptors>
+						</configuration>
+						<executions>
+							<execution>
+								<id>make-assembly</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	<modules>
+		<module>../osee-genius-searcher-browsing</module>
+		<module>../osee-genius-searcher-core</module>
+		<module>../osee-genius-searcher-holdings</module>
+	</modules>
+</project>

@@ -1,0 +1,1 @@
+<span class = "strSizeColor">$string.convertXslt($request, $session.visit.preferredLocale, $document.marc_xml, "breve")</span>

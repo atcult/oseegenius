@@ -1,0 +1,6 @@
+<div id="toolbar" class="box">
+	<span style="float:left;">#spacer(10)</span>
+	<div id="navigator" style="padding-top:4px;">	
+		#i18nToolbar			 
+	</div>	
+</div>	

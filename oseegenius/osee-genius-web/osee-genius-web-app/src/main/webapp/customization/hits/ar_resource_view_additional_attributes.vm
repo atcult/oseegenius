@@ -1,0 +1,170 @@
+<script>
+	${esc.dollar}(document).ready(function() {  
+		${esc.dollar}('.authorityLink').each(function(){		
+			var uri = ${esc.dollar}(this).attr('uri');
+			var current = $(this);
+			${esc.dollar}.ajax({
+				url: "authResource?authGroupId=" + uri,
+				success: function(data){
+					var call = "window.open('authResource?authGroupId=" + uri + "','','width=650,height=600,scrollbars=auto,menubar=no,toolbar=no,status=no,location=no')"; 
+		            current.prepend("<a href=\"#\"  onclick=\"" + call + "\"><img src='img/icon-details.png'></a>");
+				},
+				error : function(data) {
+					//do nothing
+				}		
+			});
+		});
+	});
+</script>
+
+#detail_monovalued_literal_attribute($text.an $resource.id)
+
+#detail_monovalued_literal_attribute($text.initial_date  $resource.initial_date)
+#detail_monovalued_literal_attribute($text.final_date  $resource.final_date)
+
+##Intestazione principale (tag 100/110/111/130)
+#detail_monovalued_linked_literal_attribute ($text.main_entry_uniform_title $resource.main_entry_uniform_title 'title_uniform_search')
+#detail_monovalued_linked_literal_attribute ($text.uniform_title $resource.uniform_title 'title_uniform_search')
+
+##Area della descrizione fisica (300)
+#detail_multivalued_literal_attribute ($text.ARC_physical_description $resource.getFieldValues('physical_description'))
+#detail_multivalued_literal_attribute ($text.ARC_physical_medium $resource.getFieldValues('physical_medium'))
+
+#detail_multivalued_i18n_attribute ($text.ARC_organization_and_arrangement_of_materials $resource.getFieldValues('organization_and_arrangement_of_materials') 'typologies')
+
+##Area delle note (5XX)
+#detail_multivalued_literal_attribute ($text.general_note  $resource.general_note)
+#detail_multivalued_literal_attribute ($text.with_note  $resource.with_note)
+#detail_multivalued_literal_attribute ($text.dissertation_note $resource.dissertation_note)
+#detail_multivalued_literal_attribute ($text.bibliography_note $resource.bibliography_note)
+#detail_multivalued_literal_attribute ($text.formatted_content_note $resource.formatted_content_note)
+#detail_multivalued_literal_attribute ($text.ARC_restrictions_on_access_note $resource.restrictions_on_access_note)
+#detail_multivalued_literal_attribute ($text.scale_note $resource.scale_note)
+#detail_multivalued_literal_attribute ($text.creation_credits_note $resource.creation_credits_note)
+#detail_multivalued_literal_attribute ($text.citation_note $resource.citation_note)
+#detail_multivalued_literal_attribute ($text.participant_note $resource.participant_note)
+#detail_multivalued_literal_attribute ($text.type_of_report_note $resource.type_of_report_note)
+#detail_multivalued_literal_attribute ($text.data_quality_note $resource.data_quality_note)
+#detail_multivalued_literal_attribute ($text.numbering_peculiarities_note $resource.numbering_peculiarities_note)
+#detail_multivalued_literal_attribute ($text.computer_type_note $resource.computer_type_note)
+#detail_multivalued_literal_attribute ($text.date_type_place_note $resource.date_type_place_note)
+#detail_multivalued_literal_attribute ($text.ARC_summary_note $resource.summary_note)
+#detail_multivalued_literal_attribute ($text.target_audience_note $resource.target_audience_note)
+#detail_multivalued_literal_attribute ($text.geo_coverage_note $resource.geo_coverage_note)
+#detail_multivalued_literal_attribute ($text.preferred_citation_note $resource.preferred_citation_note)
+#detail_multivalued_literal_attribute ($text.supplement_note $resource.supplement_note)
+#detail_multivalued_literal_attribute ($text.study_program_information_note $resource.study_program_information_note)
+#detail_multivalued_literal_attribute ($text.add_form_note $resource.add_form_note)
+#detail_multivalued_literal_attribute ($text.reproduction_note $resource.reproduction_note)
+#detail_multivalued_literal_attribute ($text.original_version_note $resource.original_version_note)
+#detail_multivalued_literal_attribute ($text.location_dup_note $resource.location_dup_note)
+#detail_multivalued_literal_attribute ($text.funding_not $resource.funding_not)
+#detail_multivalued_literal_attribute ($text.ARC_system_note $resource.system_note)
+#detail_multivalued_literal_attribute ($text.ARC_use_note $resource.use_note)
+#detail_multivalued_literal_attribute ($text.ARC_source_acq_note $resource.source_acq_note)
+#detail_multivalued_literal_attribute ($text.location_arc_note $resource.location_arc_note)
+#detail_multivalued_literal_attribute ($text.ARC_bio_note $resource.bio_note)
+#detail_multivalued_literal_attribute ($text.lang_note $resource.lang_note)
+#detail_multivalued_literal_attribute ($text.form_title_note $resource.form_title_note)
+#detail_multivalued_literal_attribute ($text.issuing_note $resource.issuing_note)
+#detail_multivalued_literal_attribute ($text.entity_note $resource.entity_note)
+#detail_multivalued_literal_attribute ($text.ARC_cumulative_index $resource.cumulative_index)
+#detail_multivalued_literal_attribute ($text.ARC_info_doc_note $resource.info_doc_note)
+#detail_multivalued_literal_attribute ($text.ARC_own_note $resource.own_note)
+#detail_multivalued_literal_attribute ($text.cpy_version_note $resource.cpy_version_note)
+#detail_multivalued_literal_attribute ($text.binding_note $resource.binding_note)
+#detail_multivalued_literal_attribute ($text.casefile_note $resource.casefile_note)
+#detail_multivalued_literal_attribute ($text.method_note $resource.method_note)
+#detail_multivalued_literal_attribute ($text.archivist_note $resource.archivist_note)
+#detail_multivalued_literal_attribute ($text.link_entry_complexity_note $resource.link_entry_complexity_note)
+#detail_multivalued_literal_attribute ($text.pub_mat_note $resource.pub_mat_note)
+#detail_multivalued_literal_attribute ($text.ARC_action_note $resource.action_note)
+#detail_multivalued_literal_attribute ($text.ARC_accumulation_note $resource.accumulation_note)
+#detail_multivalued_literal_attribute ($text.exhi_note $resource.exhi_note)
+#detail_multivalued_literal_attribute ($text.awards_note $resource.awards_note)
+
+
+##Soggetti e classificazione (tag 600/610/611/630/655/084)
+
+##detail_multivalued_linked_literal_attribute ($text.topical_subject $resource.topical_subject 'topical_subject')
+##detail_multivalued_linked_literal_attribute ($text.subject_person $resource.subject_person 'subject_person')
+##detail_multivalued_linked_literal_attribute ($text.subject_corporate $resource.subject_corporate 'subject_corporate')
+##detail_multivalued_linked_literal_attribute ($text.subject_conference $resource.subject_conference 'subject_conference')
+##detail_multivalued_linked_literal_attribute ($text.subject_uniform_title $resource.subject_uniform_title 'subject_uniform_title')
+##detail_multivalued_linked_literal_attribute ($text.geographic_subject $resource.geographic_subject 'geographic_subject')
+##detail_multivalued_linked_literal_attribute ($text.genre_form_subject $resource.genre_form_subject 'genre_form_subject')
+##detail_multivalued_linked_literal_attribute ($text.chronological_subject $resource.chronological_subject 'chronological_subject')
+
+#detail_multivalued_linked_splitted_literal_attribute_ar ($text.topical_subject $resource.topical_subject 'topical_subject')
+#detail_multivalued_linked_splitted_literal_attribute_ar ($text.subject_person $resource.subject_person 'subject_person')
+#detail_multivalued_linked_splitted_literal_attribute_ar ($text.subject_corporate $resource.subject_corporate 'subject_corporate')
+#detail_multivalued_linked_splitted_literal_attribute_ar ($text.subject_conference $resource.subject_conference 'subject_conference')
+#detail_multivalued_linked_splitted_literal_attribute_ar ($text.subject_uniform_title $resource.subject_uniform_title 'subject_uniform_title')
+#detail_multivalued_linked_splitted_literal_attribute_ar ($text.geographic_subject $resource.geographic_subject 'geographic_subject')
+#detail_multivalued_linked_splitted_literal_attribute_ar ($text.genre_form_subject $resource.genre_form_subject 'genre_form_subject')
+#detail_multivalued_linked_splitted_literal_attribute_ar ($text.chronological_subject $resource.chronological_subject 'chronological_subject')
+
+
+
+#detail_multivalued_linked_literal_attribute ($text.other_classification_label $resource.other_classification_label 'other_classification_label')
+#detail_multivalued_linked_literal_attribute ($text.other_classification_number $resource.other_classification_number 'other_classification_number')
+
+##classificazioni
+#detail_multivalued_linked_literal_attribute ($text.lccn $resource.getFieldValues('lccn'))
+#detail_multivalued_literal_attribute ($text.udc $resource.universal_decimal_classification_number)
+#detail_multivalued_literal_attribute ($text.dewey $resource.getFieldValues('dewey'))
+#detail_multivalued_literal_attribute ($text.local_classification $resource.getFieldValues('local_classification'))
+
+##Area del numero standard (020,022)
+#detail_multivalued_literal_attribute('ISBN'	$resource.isbn)
+#detail_multivalued_literal_attribute('ISSN'	$resource.issn)
+
+##Livello archivistico
+#detail_monovalued_i18n_attribute ($text.hierarchy_level $resource.level_code 'ar_hierarchy_level' 'level_code')
+
+##Lingua
+#detail_multivalued_linked_i18n_attribute ($text.language $resource.getFieldValues('language') 'languages' 'language')
+
+##Altri autori (tag 700/710/711)
+##detail_multivalued_linked_literal_attribute ($text.other_author $resource.getFieldValues('other_author_person') 'author_1xx_7xx_search')
+#detail_multivalued_linked_literal_authority_attribute ($text.other_author $resource.getFieldValues('other_author_person') 'author_1xx_7xx_search'  $resource.getFieldValues('other_author_person_ols_link'))
+#detail_multivalued_linked_literal_authority_attribute ($text.other_author_corporate $resource.getFieldValues('other_author_corporate') 'author_1xx_7xx_search' $resource.getFieldValues('other_author_corporate_ols_link'))
+#detail_multivalued_linked_literal_authority_attribute ($text.other_author_conference $resource.getFieldValues('other_author_conference') 'author_1xx_7xx_search' $resource.getFieldValues('other_author_conference_ols_link'))
+
+## Altri titoli analitici (tag 730/740)
+#detail_multivalued_linked_literal_attribute ($text.added_uniform_title $resource.getFieldValues('added_uniform_title') 'titles_linked_search')
+#detail_multivalued_linked_literal_attribute ($text.uncontrolled_related_title $resource.getFieldValues('uncontrolled_related_title') 'titles_linked_search')
+
+##Relazioni (tag 76X-78X)
+#detail_literal_linked_entry ($text.main_series_entry $resource.main_series_entry $resource.main_series_entry_id)
+#detail_literal_linked_entry ($text.subseries_entry $resource.subseries_entry $resource.subseries_entry_id)
+#detail_literal_linked_entry ($text.original_language_entry $resource.original_language_entry $resource.original_language_entry_id)
+#detail_literal_linked_entry ($text.subseries_entry $resource.subseries_entry $resource.subseries_entry_id)
+#detail_literal_linked_entry ($text.translation_entry $resource.translation_entry $resource.translation_entry_id)
+#detail_literal_linked_entry ($text.supplement_entry $resource.supplement_entry $resource.supplement_entry_id)
+#detail_literal_linked_entry ($text.supplement_parent_entry $resource.supplement_parent_entry $resource.supplement_parent_entry_id)
+#detail_literal_linked_entry ($text.other_edition_entry $resource.other_edition_entry $resource.other_edition_entry_id)
+#detail_literal_linked_entry ($text.add_form_entry $resource.add_form_entry $resource.add_form_entry_id)
+#detail_literal_linked_entry ($text.issued_with_entry $resource.issued_with_entry $resource.issued_with_entry_id)
+#detail_literal_linked_entry ($text.preceding_entry $resource.preceding_entry $resource.preceding_entry_id)
+#detail_literal_linked_entry ($text.succeeding_entry $resource.succeeding_entry $resource.succeeding_entry_id)
+#detail_literal_linked_entry ($text.other_relationship_entry $resource.other_relationship_entry $resource.other_relationship_entry_id)
+#detail_literal_linked_entry ($text.constituent_unit_entry $resource.constituent_unit_entry $resource.children_id)
+#detail_literal_linked_entry ($text.is_part_of $resource.is_part_of $resource.parent_id)
+
+#detail_multivalued_literal_attribute ($text.fingerprint $resource.fingerprint)
+
+#detail_multivalued_linked_id_attribute_ar($text.constituent_unit_entry $resource.getFieldValues('arc_link') 'arc_link' 'arc_link')
+
+#if ($resource.uri)
+<tr> 
+		<td valign="top" width="10%" nowrap="nowrap">
+			<span class="attribute_name_detail">$text.uri</span>
+		</td>
+		<td valign="top">
+			#foreach($uri in $resource.uri)
+				<a class="linked_value" href='$uri' target="_blank"><span class="attribute_value_detail">$uri</span></a><br/>		
+			#end
+		</td>			
+	</tr>
+#end

@@ -1,0 +1,77 @@
+<!-- components/hits/bc_resource_view_mode.vm -->
+#if ($resource.format=='dvd')
+	#set($ident=$resource.ean.get(0))
+#else
+	#set($ident=$resource.isbn.get(0))							
+#end
+
+#set ($resource = $request.resource)
+
+
+ <script>
+      $(document).ready(function(){
+        var data = $request.schema;
+        var script = document.createElement('script');
+		script.type = 'application/ld+json';
+        script.text = JSON.stringify( data );
+		document.getElementsByTagName('head')[0].appendChild(script); 
+        ##document.getElementById("resource-details").append(script);
+        });
+    </script>
+<div class="col-12 back_to_search">
+	    	#parse('components/search/breadcrumb-resource.vm')
+	    </div>
+<div class="container" id="resource-details">
+	<div class="row my-5">	
+	    <div class="col-12 col-md-3">
+	    	<div class="row">
+	    		<div class="col-12">
+	    			<div id="copert" class="d-none d-md-block" #*class="float-md-right"*#>
+	    			</div>
+	    		</div>
+	    	</div>
+	    	#parse('components/search/export-download-detail.vm')
+	    </div>
+	    
+		<div id="infoBook" class="col-12 col-md-9 px-5">
+			#if($request.getParameter("found")!=1)
+				#parse("components/hits/nextPrevious.vm")
+			#end	
+			#set ($XSLTmap = {"ext_title" : $resource.display_title})	
+			#if ($request.v=='m21')
+				<tr><td colspan="4"><div>$breadcrumbTool.toMarc21($resource.marc_xml)</div></td></tr>
+			#else
+				$string.convertXsltWebTable($request, $session.visit.preferredLocale, $resource.marc_xml, "dettaglio", $XSLTmap)   
+			#end	
+			#if($configuration.viewPerspectivesEnabled && $params.v == 'm21')
+				<div class="row py-5" >
+					<div class="col-md-12">
+		    			<a class="btn button-search current-button" href="javascript:manipulateQueryString('v','l')" >($text.view_l)</a>
+		    		</div>
+		    	</div>	
+			#end
+			
+				
+		</div>
+	</div>
+</div>
+<div class="bg-white py-3">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				#parse('components/circulation/holdings.vm')
+			</div>
+		</div>
+	</div>
+</div>
+#if ($license.moreLikeThisViewerEnabled && $request.similarItems.results.numFound != 0)
+<div class="bg-white p-0">
+	<div class="container">
+		<div class="row">
+			#parse('components/search/mlt.vm')
+		</div>
+	</div>
+</div>
+#end
+<div class="linedotted bg-white pt-5"/>
+#parse("email.vm")

@@ -1,0 +1,25 @@
+<br/>
+<br/>
+<span class="history-title">$text.emptyTabTitle</span>
+<br/><br/><br/>
+<table  width="100%" cellspacing="10">
+	<tr >
+		<td style="margin:0px 3px 0px 0px;">
+			<span class="history-subtitle">$text.reopenTitle</span><br/>$text.reopenMsg<br/><br/>
+		</td>
+		<td valign="top">
+			<span class="history-subtitle">$text.searchTitle</span><br/>$text.searchMsg<br/><br/>
+		</td>
+	</tr>
+	#foreach($searchEntry in $session.visit.thSearchExperience.history.entrySet())
+		<tr>
+			<td>
+				<img src="$link.relative('/img/bullet.gif')"/>
+				#spacer(4)
+                <a href="thsearch?$searchEntry.value">$searchEntry.key</a>
+			</td>
+			<td></td>
+		</tr>
+	#end
+</table>
+<center><img src="$link.relative('/img/th-genius-logo.png')"  class="logoBig"/></center>

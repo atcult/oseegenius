@@ -1,0 +1,46 @@
+<div id="breadcrumb">
+	#set ($tab = $session.visit.searchExperience.currentTab)
+	#if ($tab.query)
+		#if ($tab.query.query == '*:*')
+			#set($yourSearch = "(" + $text.all_results + ")")
+		#elseif ($tab.query.query.indexOf('_query_') != -1)
+			#set($yourSearch = "(" + $text.advanced_search + ")")			
+		#else
+			#set($yourSearch = $tab.query.query)
+		#end
+		###questo if è aggiunto per il bug 1882 del cbt ma esteso a tutti	
+        #if($request.getParameter("h")=='adv')
+			<a style="border:none;text-decoration: none;" href='$link.relative('/advanced')'>&nbsp;$yourSearch</a>
+        #else <span>&nbsp;$yourSearch</span>#end
+		################################################################
+		#if ($tab.query.query.indexOf('_query_') == -1 || $tab.query.query != '*:*')
+        	#set ($filterQueries = $tab.getFilterQueries($request))
+    		#foreach ($filterQuery in $filterQueries)
+    			#if ($filterQuery.indexOf("catalog_source") == -1 && $filterQuery.indexOf(" OR ") == -1)
+            		<span>>></span>
+            		#set ( $toRemove = "&f=$filterQuery" )
+					#set ( $divId = "bd${velocityCount}")
+					<a class="linked_value" href="javascript:removeFilterFromBreadcrumb('$divId')">
+						<span>$breadcrumbTool.getHumanReadableLabel($request, $filterQuery,$session.visit.preferredLocale)</span>
+            		</a>
+					<div style="display:none;" id="$divId">$filterQuery</div>
+					#if ($license.pinFiltersEnabled)
+						#if ($tab.filterIsPinned($filterQuery))
+							<a style="cursor:pointer;" href='javascript:unpin("$esc.javascript($filterQuery)")'><img src="img/unpin.png"></a>
+						#else
+							<a style="cursor:pointer;" href='javascript:pin("$esc.javascript($filterQuery)")'><img src="img/pin.png"></a>
+						#end	
+					#end	
+    			#elseif ($filterQuery.indexOf(" OR ") != -1)
+					#set ($filterConditions = $filterQuery.split(" OR "))
+					#foreach($filterCondition in $filterConditions)
+						<span>>></span>
+						<a class="linked_value" href='$link.relative('/')${request.searcher}?$string.removeFilterClause($request.parameters, $filterCondition, $filterQuery)'>
+							<span>$breadcrumbTool.getHumanReadableLabel($request, $filterCondition, $session.visit.preferredLocale)</span>
+						</a>
+					#end	
+				#end 	
+			#end
+		#end	
+	#end	
+</div>

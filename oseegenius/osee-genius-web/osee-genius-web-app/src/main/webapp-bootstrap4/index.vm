@@ -1,0 +1,78 @@
+<!-- index.vm -->
+<div class="row m-0">
+	<div class="col-md-6 offset-md-3 col-sm-12">	
+		#set($searchType = 'simple')
+		############################# menu di ricerca #################################
+		#parse('components/page/menu-navigator.vm')  
+	</div> 
+</div> 
+<div class="row m-0">
+	<div class="col-md-6 offset-md-3 col-sm-12">			
+			    ############################# form #################################  
+				<form name="searchForm" method="get" action="search">
+					<input type="hidden" id="v" name="v" value="l"/>
+					######################## input lunga  ##########################
+					<div class="mt-3 bg-white shadow">		
+						<div class="input-group input-search">					
+							<input type="text" class="form-control search-input no-radius" id="q" name="q" autocomplete="off" placeholder="$text.simple_search_placeholder" aria-label="Search"/>
+							<div class="input-group-append">
+			        			<span class="input-group-text fa fa-search icon-input no-radius">
+			        				<button type="submit" class="magnifier">
+			        					<img src="img/search.png" alt="Search">
+			        				</button>
+			        			</span>
+			      			</div>
+						</div>		
+					</div>	
+					##################### select  #################################
+					<div class="mt-2 mb-5 pt-3 bg-white shadow">
+						<div class="row p-3 form-row">				
+							<label for="h" class="sr-only col-md-1 col-form-label col-form-label-sm label-search">$text.search_for </label>
+							<div class="form-group col-md-6 px-3">
+								#set ($group = $configuration.searchableMetaAttributes.entrySet().iterator().next())
+								<select  name="h" id="h" class="form-control form-osee">
+									<option value="" selected disabled>$text.search_for</option>
+							    	#foreach($attribute in $group.value)
+							        	<option value="$attribute">$text.get($attribute)</option>
+							        #end
+								</select>
+							</div>
+						
+							<label for="rel" class="sr-only col-md-1 col-form-label col-form-label-sm label-search">$text.sorting_order_for </label>
+							<div class="form-group col-md-6  px-3">							
+					       		<select  name="o" id="rel" class="form-control form-osee">
+						       		#foreach($criteria in $configuration.orderByMetaAttributes)
+						      			<option value="$criteria.value">$text.get($criteria.messageKey)</option>
+						       		#end
+					       		 </select>	
+							</div>			
+						</div>
+						<div class="row mt-5">
+							<div class="col-md-4 offset-md-8 nopadding-left">
+								<button type="submit" class="button-blue  uppercase float-right btn-block py-2">$text.search</button>
+							</div>
+						</div>
+					</div>
+					
+				</form>
+
+				<script>
+				var width = $("body").width();
+				if (width > 768) {
+					var acType = $("#h").val();
+					var a = $('#q').autocomplete({ 
+						serviceUrl:'suggest',
+						minChars:2, 
+						maxHeight:500,
+						width:300,
+						zIndex: 9999,
+						deferRequestBy: 0, 
+						noCache: false, 
+						onSelect: function(value, data){ reSubmitSearch(); }
+					});
+				};
+				</script>
+				
+		</div>		
+	
+</div>

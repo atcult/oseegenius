@@ -1,0 +1,11 @@
+<div id="toolbar" class="box">
+	#if ($license.thExplorerEnabled)
+	<div style="float:left; padding-left:3px;">
+    	<a href="$link.relative('/thexplorer')"><img src="$link.relative('/img/th-genius-logo.png')" height="24"/></a>
+	</div>
+	#end	
+	<div id="navigator">			
+		<span id="pager">Wait please... <img src="wait.gif"/></span>
+		 #i18nToolbar 
+	</div>	
+</div>

@@ -1,0 +1,2662 @@
+
+/* here are the styles for policy */
+
+#borrowerGeneralHead{
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+}
+
+#borrowerGeneralHead h1{
+	position:relative;
+	margin: 0px 0px 10px 0px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	float:left;
+}
+
+#borrowerGeneralHead p{
+	position:relative;
+	margin: 0px 0px 10px 0px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	color:blue;
+	width:30%;
+	float:left;
+}
+
+#borrowerGeneralHead h2{
+	width:100%;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0px 0px 0px 0px;
+}
+
+#borrowerGeneralHead hr{
+	border-style: dashed;
+	color: #e75a00;
+	float:right;
+	height:1px;
+}
+
+#borrowerGeneralData{
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	font-weight:bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	font-family: 'microsoft sans serif', 'arial unicode ms',verdana, helvetica, 'microsoft sans serif';
+}
+#borrowerGeneralData h1{
+	position:relative;
+	margin: 0px 0px 5px 0px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	float:left;
+}
+
+#borrowerGeneralData h2{
+	width:95%;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 10px 0px;
+}
+
+#borrowerGeneralData hr{
+	border-style: dashed;
+	color: #e75a00;
+	float:right;
+	height:1px;
+}
+
+#borrowerGeneralLocal{
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+}
+
+#borrowerGeneralLocal h1{
+	position:relative;
+	margin: 0px 0px 5px 0px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	float:left;
+}
+
+#borrowerGeneralLocal h1.first{
+	position:relative;
+	margin: 0px 0px 0px 20px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	float:left;
+}
+
+#borrowerGeneralLocal h2{
+	width:95%;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 10px 0px;
+}
+
+#borrowerGeneralLocal hr{
+	border-style: dashed;
+	color: #e75a00;
+	float:right;
+	height:1px;
+}
+
+#borrowerGeneralAddress{
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	font-weight:bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	/*border: 1px solid black;*/
+}
+
+#borrowerGeneralAddress h1{
+	position:relative;
+	margin: 0px 0px 5px 0px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	float:left;
+}
+
+#borrowerGeneralAddress h1.combobox{
+	position:relative;
+	margin: 0px 0px 0px 20px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	float:right;
+}
+
+#borrowerGeneralAddress h2{
+	width:95%;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 10px 0px;
+}
+
+#borrowerGeneralAddress hr{
+	border-style: dashed;
+	color: #e75a00;
+	float:right;
+	height:1px;
+	margin: 10px 0px 0px 0px;
+}
+
+#borrowerSearch h1{
+	margin: 0px 0px 10px 0px;
+	padding: 0px 0px 0px 0px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	font-weight:bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	/*border: 1px solid black*/;
+}
+
+#borrowerSearch p{
+	margin: 2px 0px 0px 0px;
+	float:left;
+	width:40%;
+}
+
+#borrowerSearch hr{
+	border-style: dashed;
+	color: #e75a00;
+	height: 1px;
+}
+
+#borrowerSearch p{
+	margin: 2px 0px 0px 0px;
+	float:left;
+	width:40%;
+}
+
+#borrowerCirculation h6{
+	position:relative;
+	margin: 0px 60px 0px 0px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	float:left;
+	/*border: 1px solid black;*/
+}
+
+#borrowerCirculation h6.head{
+	position:relative;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	float:left;
+	/*border: 1px solid black;*/
+}
+
+#borrowerCirculation h6.hold{
+	position:relative;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	float:left;
+	/*border: 1px solid black;*/
+}
+
+#borrowerCirculation h6.combo{
+	position:relative;
+	margin: 0px 100px 0px 0px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	float:left;
+	/*border: 1px solid black;*/
+	width:25%;
+}
+
+#borrowerCirculation p{
+	position:relative;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	color:blue;
+	width:20%;
+	float:left;
+	font-weight:bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	/*border: 1px solid black;*/
+}
+
+#borrowerCirculation p.hold{
+	position:relative;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	color:blue;
+	width:10%;
+	float:left;
+	font-weight:bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#borrowerCirculation hr{
+	border-style: dashed;
+	color: #e75a00;
+	height: 1px;
+	margin: 0px 0px 0px 0px;
+}
+
+#borrowerCirculation h5{
+	width:97%;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0px 0px 0px 10px;
+	margin: 5px 0px 5px 0px;
+	/*border: 1px solid black;*/
+}
+
+#borrowerCirculation h5.head{
+	width:97%;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0px 0px 0px 20px;
+	margin: 5px 0px 5px 0px;
+	/*border: 1px solid black;*/
+}
+
+#borrowerCirculation h4{
+	position:relative;
+	margin: 10px 0px 20px 0px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	text-align:center;
+	font-weight:bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	text-decoration:underline;
+	/*border: 1px solid black;*/
+}
+
+#borrowerFines h6{
+	position:relative;
+	margin: 10px 0px 10px 0px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	text-align:center;
+	font-weight:bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	text-decoration:underline;
+	/*border: 1px solid black;*/
+}
+
+#borrowerLibrivision h6{
+	position:relative;
+	margin: 10px 0px 10px 0px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	text-align:right;
+	/*border: 1px solid black;*/
+	width:60%;
+}
+
+#borrowerLibrivision h5{
+	position:relative;
+	margin: 10px 0px 10px 0px;
+	padding: 0px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	text-align:center;
+}
+
+#borrowerLibrivision hr{
+	border-style: dashed;
+	color: #e75a00;
+	height: 1px;
+	margin: 0px 0px 0px 0px;
+}
+
+#borrowerEmail h6{
+	width:97%;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0px 0px 0px 0px;
+	margin: 5px 0px 5px 20px;
+}
+
+/* here are the styles for policy */
+
+#policyHead{
+	margin: 10px 0px 0px 30px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0px 10px 30px 20px;
+}
+
+#policyHead h1{
+	margin: 10px 0px 0px 20px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	font-weight:bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	padding: 10px 10px 30px 10px;
+	float:left;
+}
+
+#policyBody{
+	margin: 40px 0px 0px 0px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 10px 10px 30px 0px;
+}
+
+#policyBody h1{
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	font-weight: bold;
+	font-size: 12px;
+	color:black;
+	border-bottom: 1px dashed #EE5512;
+	padding: 0px 0px 5px 0px;
+}
+
+#policyBody p{
+	/*border: 1px solid black;*/
+	width:40%;
+	padding: 0px 0px 0px 30px;
+	float:left;
+}
+
+#policyBody h2{
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	font-weight: bold;
+	font-size: 10px;
+	text-decoration: underline;
+	text-indent: 5ex;
+	color:black;
+}
+
+/*here are the styles for circulationCounter*/
+
+#circulationCounterHead h5{
+	width:95%;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0px 0px 0px 10px;
+	margin: 10px 0px 0px 10px;
+	float:left;
+	text-align:center;
+	border: 1px solid #edf6fd;
+}
+
+
+#circulationCounterHead h6{
+	position:relative;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 10px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	float:left;
+	/*border: 1px solid #edf6fd;*/
+}
+
+#circulationCounterHead p{
+	float:left;
+	font-weight:bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	/*border: 1px solid black;*/
+}
+
+#circulationCounterHead hr{
+	border-style: dashed;
+	color: #e75a00;
+	height: 1px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	width:50%;
+	text-align:left;
+}
+
+#circulationCounter hr{
+	border-style: dashed;
+	color: #e75a00;
+	height: 1px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+}
+
+#circulationCounter h5{
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0px 0px 0px 0px;
+	margin: 20px 0px 10px 0px;
+	/*border: 1px solid black;*/
+}
+
+
+#circulationCounter h6{
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0px 0px 0px 0px;
+	margin: 10px 0px 10px 0px;
+	/*border: 1px solid black;*/
+	text-align:center;
+}
+
+/* here are the styles for policy tabs */
+
+#policyTabHeader {
+	float:left;
+    	width:95%;
+    	background:#edf6fd url(<html:rewrite page="/images/bg.gif"/>) 
+      	repeat-x bottom ;
+    	font-size:93%;
+    	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+    	line-height:normal;
+}
+
+#policyTabHeader ul {
+	margin:0;
+    	padding:10px 10px 0;
+    	list-style:none;
+}
+
+#policyTabHeader li {
+	float:left;
+    	background:url(<html:rewrite page="/images/norm_right.gif"/>) 
+      	no-repeat right top;
+    	margin:0;
+    	padding:0;
+}
+    
+#policyTabHeader a {
+	display:block;
+    	background:url(<html:rewrite page="/images/norm_left.gif"/>) 
+      	no-repeat left top;
+    	padding:5px 15px 4px;
+    	color : #353c72;
+    	font-weight: normal;
+    	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+    
+#policyTabHeader p {
+	display:block;
+    	background:url(<html:rewrite page="/images/norm_left.gif"/>) 
+      	no-repeat left top;
+    	padding:5px 15px 4px;
+    	color : #EE5512;
+    	font-weight: bold;
+    	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#policyTabHeader #current {
+	background-image:url(<html:rewrite page="/images/norm_right_on.gif"/>);
+}
+
+#policyTabHeader #current p {
+	background-image: url(<html:rewrite page="/images/norm_left_on.gif"/>);
+}
+
+/* here are the styles for Inter library list*/
+
+.interLibraryTable{
+	border: 1px solid #edf6fd;
+}
+
+.interLibraryHead 
+{	
+	font-weight: bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	font-size: 8pt;
+	background:#CCFF33;
+	color: #353c72;
+	width: 22%;
+	padding-left: 1ex;
+	border: 1px solid #edf6fd;
+}
+
+td.interLibraryHead{
+	width: 5%;
+}
+
+th.interLibraryHead{
+	width: 5%;
+}
+
+.interLibraryHeadTransfer
+{	
+	font-weight: bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	font-size: 8pt;
+	background:#cadce8;
+	color: #353c72;
+	width: 22%;
+	padding-left: 1ex;
+	border: 1px solid #edf6fd;
+}
+
+
+td.interLibraryHeadTransfer {
+	width: 5%;
+}
+
+th.interLibraryHeadTransfer {
+	width: 5%;
+}
+
+
+.interLibrary 
+{	
+	font-size: 8pt;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	background-color: #ffffff;
+	color: #39316a;
+	width: 22%;
+	padding-left: 1ex;
+	border: 1px solid #edf6fd;
+}
+
+p.interLibrary{
+	color:#0033FF;
+	font-size: 10pt;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	font-weight: bold;
+	border: 1px solid #ffffff;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+tr.interlibraryRecordSeperator{
+	width : 1px;
+	height: 1px;
+	background-color: #ffbc67;
+}
+
+tr.interlibraryItemsSeperator{
+	width : 1px;
+	height: 7px;
+	background-color:#edf6fd;
+}
+
+.interLibraryButtonHead
+{	
+	font-weight: bold;
+	font-size: 8pt;
+	background:#cadce8;
+	color: #353c72;
+	padding-left: 1ex;
+	border: 1px solid #edf6fd;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+td.interLibraryButtonHead {
+	width: 5%;
+}
+
+th.interLibraryButtonHead {
+	width: 5%;
+}
+
+.interLibraryButtonHeadTransfer
+{	
+	font-weight: bold;
+	font-size: 8pt;
+	background:#CCFF33;
+	color: #353c72;
+	padding-left: 1ex;
+	border: 1px solid #edf6fd;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+td.interLibraryButtonHeadTransfer {
+	width: 5%;
+}
+
+th.interLibraryButtonHeadTransfer {
+	width: 5%;
+}
+
+.interLibraryButton {	
+	font-size: 8pt;
+	background-color: #ffffff;
+	color: #39316a;
+	padding-left: 1ex;
+	border: 1px solid #edf6fd;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+/* Here are the styles for left menu*/
+
+#leftmenu {
+	margin: 10px 0px 0px 0px;
+	background: white;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0.5ex;
+	padding-bottom: 3em;
+	border: 1px solid black;
+	margin-left: 1em;
+	height: auto;
+}
+
+#leftmenu dt {
+	cursor: pointer;
+	margin: 2px 0;;
+	height: 20px;
+	line-height: 20px;
+	text-align: left;
+	font-weight: bold;
+	border: 1px solid gray;
+	color: white;
+	background: #3D406D;
+	padding: 0 0 0 5px;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#leftmenu dd {
+	margin:0;
+}
+
+#leftmenu dd dt {
+	text-align: center;
+	background: #DAF0FE;
+}
+
+#leftmenu dd dt a{
+	color: #000;
+	text-decoration: none;
+	display: block;
+	border: 0 none;
+	height: 100%;
+}
+
+#leftmenu dd dt a:hover {
+	color:#EE5512;
+	background: #DAF0FE;
+}
+
+dd#submenu1,dd#submenu2,dd#submenu3,dd#submenu4,dd#submenu5,dd#submenu6 ,dd#submenu7 {
+	display: none;		
+}
+
+#subleftmenu ul, li {
+	margin: 0;
+	list-style-type: none;
+}
+
+#subleftmenu {
+	position: absolute;
+	left: 1em;
+	width: 30em;
+}
+
+#subleftmenu ul {
+	position: absolute;
+	left: 12em;
+	margin-top: -1.4em;
+	width: 15em;
+	background: transparent;
+	padding: 2px;
+	visibility: visible;
+}
+
+#subleftmenu li {
+	text-align: center;
+	font-size: 100%;
+	height: 18px;
+	line-height: 25px;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#subleftmenu li a {
+	color: #000;
+	text-decoration: none;
+	display: block;
+	height: 100%;
+	border: 1px solid white;
+	background: #FEBD61;
+}
+
+#subleftmenu li a:hover {
+	text-decoration: underline;
+	color:#3D406D;
+	background: #FEBD61;
+}
+
+
+
+
+
+
+
+
+
+
+/*** Global variables *****/
+html
+{
+	overflow: hidden;
+}
+
+body{
+	font-family: 'microsoft sans serif', verdana, 'arial unicode ms', Helvetica, 'microsoft sans serif';
+	font-size: 8pt;
+	background: #ffffff;
+	margin: 0px;
+	color: #000000;
+	overflow: hidden;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#menu{
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	height: 83px;
+	overflow: hidden;
+}
+
+#headerContent{
+	border-bottom: 2px solid black;
+}
+
+#headerContentOrangeBorder{
+	height: 75px;
+	border-bottom: 6px solid #ffbd62;
+}
+
+#headerAmicusLogo{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-image: url(<html:rewrite page=""/>);
+	border: none;
+	width: 690px;
+	height: 75px;
+}
+
+#headerLibrisuiteLogo{
+	position: absolute;
+	top: 30px;
+	right: auto;
+	bottom: auto;
+	left: 110px;
+   border: none;
+
+}
+
+#headerMenuImage{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: auto;
+	left: 464px;
+	
+	border: none;
+
+}
+
+#errorsCirculation{
+	background:#ffffc1 url('<html:rewrite page="/images/error.gif"/>') no-repeat left center;
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	font-weight: bold;
+	font-size: 12px;
+	color:black;
+	border: 1px solid black;
+	height:40px;
+	overflow: visible;
+	padding: 20px 20px 0px 0px;
+	text-align:left;
+	vertical-align:middle;
+}
+
+#errorsCirculation p{
+	margin:30px 0px 0px 45px;
+	float:none;
+}
+
+#errors
+{
+	background:#ffffc1 center;
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	font-weight: bold;
+	font-size: 12px;
+	color:black;
+	border: 1px solid black;
+    overflow: visible;
+	padding: 20px 20px 0px 0px;
+	text-align:left;
+	vertical-align:middle;
+	
+	
+}
+
+#errors p{
+
+	  
+	margin:30px 0px 0px 45px;
+	float:none;
+}
+
+
+#errors #errorDetail{
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	font-size: 10px;
+	font-style: italic;
+	color:#444;
+}
+
+#okMessages
+{
+	background:#dcfdd7 url(<html:rewrite page="/images/ok.gif"/>) no-repeat left center;
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	font-weight: bold;
+	font-size: 12px;
+	border: 1px solid black;
+	height:40px;
+	overflow: visible;
+	padding: 0px 0px 0px 0px;
+	text-align:left;
+	vertical-align:middle;
+}
+
+#okMessages p{
+	margin:10px 0px 0px 30px;
+	float:none;
+	color:black;
+}
+
+#important{
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	font-weight: bold;
+	font-size: 14px;
+	color:blue;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#headerMenuItems{
+	position: absolute;
+	top: 58px;
+	right: -5ex;
+	bottom: auto;
+	left: auto;
+	background-image: url(<html:rewrite page="/images/background_menu_trasp2.png"/>);
+	border: none;
+	width: 512px;
+	height: 17px;
+	padding-left : 5ex;
+}
+
+#headerMenuItems.logon{
+	right: 0px;
+	background-image: url(<html:rewrite page="/images/background_menu_trasp2.png"/>);
+	padding-left : 0px;
+}
+
+.headerMenuItemSeperator{
+	width: 0.5ex;
+	float: left;
+	height: 17px;
+/*	background-color: #99c7e1;*/
+}
+
+#subMenu{
+	position: absolute;
+	left: 0;
+	top: 83px;
+	bottom: 2em;
+	margin: 0;
+	padding: 0;
+	width: 70px;
+	z-index: 100000;
+}
+
+#leftImage{
+	margin: 0;
+	padding: 0;
+	width: 52px;
+	height: 177px;
+	overflow: hidden;
+	border: none;
+	background-image: url(<html:rewrite page="/images/imagenizq.jpg"/>);
+	background-repeat: no-repeat;
+}
+
+/*ROB-22022007
+left: 152px;
+margin: 1em;*/
+#content{
+	position: absolute;
+	left: 70px;
+	top: 83px;
+	right: 160px;
+	bottom: 2em;
+	margin-top: 1em;
+	padding: 1em;
+	overflow: auto;
+	border: 1px solid #97c5dd;
+	background-color: #edf6fd;
+	z-index: 2;
+}
+
+#resolverContent{
+	position: absolute;
+	left: 50px;
+	top: 83px;
+	right: 2em;
+	bottom: 2em;
+	margin: 1em;
+	padding: 1em;
+	overflow: auto;
+	border: 1px solid #97c5dd;
+	background-color: #edf6fd;
+	z-index: 2;
+}
+
+#groupScuare{
+	background: url(<html:rewrite page="/images/arrow_orange.png"/>) no-repeat left center;
+	border-bottom: 1px solid #e75a00;
+	padding-left: 2ex;
+	padding-top: 0.5ex;
+	padding-bottom: 0.5ex;
+	margin-bottom: 1em;
+}
+
+#content #contentLabel, #resolverContent #contentLabel {
+	background: url(<html:rewrite page="/images/arrow_orange.png"/>) no-repeat left center;
+	border-bottom: 1px solid #e75a00;
+	padding-left: 2ex;
+	padding-top: 0.5ex;
+	padding-bottom: 0.5ex;
+	margin-bottom: 1em;
+}
+
+#content #contentLabel input, #content #contentLabel select, #content #contentLabel option  #groupScuare{
+	margin: 0;
+	padding-left: 0.5ex;
+	padding-right: 0.5ex;
+	border: none;
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	border: 1px solid #333366;
+}
+
+#content #contentLabel input.button #groupScuare{
+	background: none;
+	width: 12ex;
+	
+}
+
+#resolverBanner {
+        font-weight: bold;
+        /* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#resolverTable {
+        border: thin solid gray;
+        margin: 5em;
+        margin-left: 0;
+        margin-top: 0;
+}
+
+#resolverTable tr, #resolverTable td, #resolverTable th {
+        padding: .5em;
+}
+
+#options{
+	position: absolute;
+	top: 83px;
+	right: 0;
+	bottom: 2em;
+	margin: 0;
+	padding: 0;
+	padding-top: 1em;
+	width: 150px;
+	overflow: hidden;
+}
+
+#rightMenuContent{
+	padding: 0.5ex;
+	padding-bottom: 3em;
+	border: 1px solid black;
+	width: 140px;
+	margin-left: 0em;
+	height: auto;
+}
+
+#rightMenuOptions{
+	background-color: #FEBD61;
+	font-size: 120%;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #3D406D;
+	border: 1px solid red;
+	padding-left: 0.5ex;
+	margin-bottom: 1em;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+.rightMenuOptions2{
+	background-color: #edf6fd;
+	font-size: 100%;
+	font-weight: bold;
+	color: #3D406D;
+	border: 1px solid black;
+	padding-left: 0.9ex;
+	margin-bottom: 0.8em;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+.rightMenuTitle{
+	color: #3D406D;
+	font-size: 100%;
+	font-weight: bold;
+	padding-left: 0;
+	padding-bottom: 0.5em;
+	padding-top: 0.5em;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+.rightMenuGroup{
+	border: 1px solid black;
+	border-color: #dfc2a0;
+	margin-bottom: 0.5em;
+}
+.rightMenuGroupTitle{
+	font-size: 110%;
+	color: #252;
+	background-color: #ffe2c0;
+	padding-left: 0.5ex;
+	padding-bottom: 0.2ex;
+	margin-bottom: 0.7ex;
+	border-bottom: 1px solid black;
+	border-bottom-color: #dfc2a0;
+}
+.rightMenuItem {
+	font-size: 100%;
+	border: none;
+	color: #3D406D;
+	padding-left: 1ex;
+	padding-bottom: 0.5em;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+.rightMenuItem a {
+	background-color: white;
+	text-decoration: none;
+	display: block;
+}
+
+.rightMenuItem a:hover {
+	background-color: #DAF0FE;
+	color: #EE5512;
+	text-decoration: none;
+}
+
+
+.rightMenuItem a:link {
+	color: #3D406D;
+
+}	
+
+.rightMenuItem a:visited {
+	color: #3D406D;
+}
+
+.rightMenuItem a:visited:hover {
+	color: #3D406D;
+}
+
+.rightMenuTitle a:link {
+	color:blue;
+}
+
+.rightMenuTitle a:visited {
+	color:blue;
+}
+
+.rightMenuTitle a:visited:hover {
+	color:blue;
+}
+
+#copyright{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: 0;
+	padding: 0;
+	height: 12pt;
+	overflow: hidden;
+	color: #ED5B00;
+	font-size: 8pt;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#footerLeftRuler{
+	padding-left: 5%;
+	display: inline;
+	width: 30%;
+	float: left;
+}
+
+#footerLibrisuite{
+	display: inline;
+	width: 20%;
+	float: left;
+	text-align: center;
+}
+
+#footerRightRuler{
+	padding-right: 5%;
+	display: inline;
+	width: 30%;
+	float: right;
+}
+
+#footerLeftRuler hr, #footerRightRuler hr{
+	height: 1px;
+	border: 1px solid #ffbc67;
+}
+
+#footerLibrisuite span {
+		color: white; 
+		margin-left: 1px; 
+		margin-right: 0px; 
+		padding-left: 2px; 
+		padding-right: 2px;
+		cursor: default;
+		font-size: x-small;
+}
+
+#footerLibrisuite	span.cataloguingMode{ background-color: #C0B090;	}
+#footerLibrisuite	span.navigation 	{ background-color: #90B0C0; 	}
+#footerLibrisuite	span.relationship 	{ background-color: #B0B020; 	}
+#footerLibrisuite	span.mother		 	{ background-color: #00FF00; 	}
+#footerLibrisuite	span.browse		 	{ background-color: #2020B0; 	}
+#footerLibrisuite	span.editHeading 	{ background-color: #2020B0; border: 2px solid #F40;	}
+
+
+/* Here are the default content styles */
+
+a, a:link, a:visited{
+	font: inherit;
+	text-decoration: none;
+	color: inherit;
+	font-weight: bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', verdana, 'arial unicode ms', helvetica, 'microsoft sans serif';
+}
+                                                                                                                             
+a:hover, a:active, a:focus{
+	text-decoration: underline;
+	background-color: #edf6fd;
+}
+
+a.ancora {
+	text-decoration: none;
+}
+
+a.button{
+	background-color: #93c7ec;
+	color: #333366;
+	vertical-align: middle;
+    padding: 0.2ex;
+	padding-left: 0.5ex;
+	padding-right: 0.5ex;
+	margin: 2px;
+	font-weight: bold;
+	background-image: url(<html:rewrite page="/images/background__vertical__ffbc67_to_fdfcf7__18px.png"/>);
+	background-position: bottom left;
+	background-repeat: repeat-x;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	border: 1px solid #333366;	
+}
+
+a.headerMenuItem, a.headerMenuItemSelected{
+	height: 17px;
+	float: left;
+	text-align: center;
+	padding-left: 0.5ex;
+	padding-right: 0.5ex;
+	/*padding-top: auto;*/
+	/*padding-bottom: auto;*/
+/*	background-color: #353b77;*/
+/*	border-left: 1px solid #99c7e1;
+	border-right: 1px solid #99c7e1;*/
+	color: white;
+}
+
+a.headerMenuItemSelected, a.headerMenuItem:hover{
+	text-decoration: none;
+	color: #daf0fe;
+	color: #353b77;
+	background-color: #ffbf68;
+}
+
+
+select, option{
+	font: inherit;
+	font-size: 8pt;
+	border: 1px solid #333366;
+	background-color: #ffffff;
+	color: #333366;
+	vertical-align: middle;
+	padding: 0;
+	margin: 0;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+textarea,input{
+	font: inherit;
+	font-size: 8pt;
+	border: 1px solid #AAD;
+	color: #333366;
+	vertical-align: middle;
+	
+	padding: 0;
+	margin: 0;
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+
+/*ROB
+background-color: #93c7ec;*/
+input:focus, select:focus, option:focus, textarea:focus {
+	background-color: #ffffff;
+}
+
+/*ROB*/
+select:focus
+{
+	background-color: #ffffff;
+}
+
+input.orange, input.orangeButton{
+	border: 1px solid #333366;
+	background-color: #ffbc67;
+}
+
+/*ROB
+background-color: #edf6fd;*/
+input.orange:focus, input.orangeButton:focus{
+	background-color: #FFBC67;
+}
+
+/* this only works with CSS2 */
+input[type="submit"], input[type="reset"], input[type="button"]{
+ 	font-weight: bold;
+	background-position: bottom left;
+	background-repeat: repeat-x;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	
+}
+/* for CSS1 */
+input.button, input.orangeButton{
+   	border: 1px solid #333366;
+   	vertical-align: middle;
+	font-weight: bold;
+	background-position: bottom left;
+	background-repeat: repeat-x;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+/* this only works with CSS2 */
+input[type="submit"], input[type="reset"], input[type="button"]{
+	background-image: url(<html:rewrite page="/images/background__vertical__ffbc67_to_fdfcf7__18px.png"/>);
+	border: 1px solid #333366;
+}
+/* for CSS1 */
+input.button{
+	background-image: url(<html:rewrite page="/images/background__vertical__ffbc67_to_fdfcf7__18px.png"/>);
+	border: 1px solid #333366;
+}
+
+/* this only works with CSS2 */
+input[type="submit"].orange, input[type="reset"].orange, input[type="button"].orange{
+	background-image: url(<html:rewrite page="/images/background__vertical__ffbc67_to_fdfcf7__18px.png"/>);
+}
+/* for CSS1 */
+input.orangeButton{
+	background-image: url(<html:rewrite page="/images/background__vertical__ffbc67_to_fdfcf7__18px.png"/>);
+}
+
+/* this only works with CSS2 */
+input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
+/* for CSS1 */
+input.button:hover, input.orangeButton:hover{
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+table{
+	margin: 0;
+	padding: 0;
+	border-collapse: collapse;
+	border: none;
+}
+
+#content table.contentTable{
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+#content table.cacheTable{
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+#content table.contentTable tr.contentTableHeading{
+	background-color: #bbbbbb;
+	text-align: left;
+}
+
+#content table.contentTable tr.contentTableHeadingCopies{
+	background-color: #FEBD61;
+	text-align: left;
+}
+
+#content table.contentTable tr.contentTableRow0{
+	background-color: #eeeeee;
+	vertical-align:top;
+}
+
+#content table.contentTable tr.contentTableRow1{
+	background-color: #eeeeee;
+	vertical-align:top;	
+}
+
+#content table.contentTable th{
+	border: 1px solid #aaaaaa;
+	padding: 0.5ex;
+}
+
+#content table.contentTable td{
+	border: 1px solid #bbbbbb;
+	padding: 0.5ex;
+}
+
+#content table.cacheTable td.label{
+	border: 1px solid #bbbbbb;
+	padding: 0.5ex;
+	color: blue;
+}
+#content table.cacheTable th{
+	border: 1px solid #aaaaaa;
+	padding: 0.5ex;
+}
+
+#content table.cacheTable td{
+	border: 1px solid #bbbbbb;
+	padding: 0.5ex;
+}
+
+/* Here are the styles for maintenance  pages*/
+
+#manHead{
+	margin: 10px 0px 0px 0px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0.5ex;
+	margin-left: 1em;
+	height: auto;
+}
+
+#manHead h2{
+	position : relative;
+	vertical-align:top;
+	float: left;
+	color: black;
+	font-size:100%;
+	font-weight:bold;
+	margin:0px 0px 0px 5px;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#manHead p{
+	position : relative;
+	vertical-align:top;
+	float: left;
+	color: blue;
+	margin:0px 0px 0px 20px;
+	font-size:100%;
+	font-weight:bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+
+
+#manHead h4{
+	position : relative;
+	vertical-align:top;
+	color: black;
+	font-size:100%;
+	margin: 5px 10px 5px 10px;
+	font-weight:bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#manHead h5{
+	position : relative;
+	vertical-align:top;
+	float: left;
+	color: black;
+	font-size:100%;
+	margin:0px 0px 0px 10px;
+	font-weight:normal;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#manHead h6{
+	width:97%;
+	position:relative;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 10px 10px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	float:left;
+	/*border: 1px solid #edf6fd*/;
+}
+
+#manHead hr{
+	margin: 0px 0px 0px 0px;
+	border-style: dashed;
+	color: #e75a00;
+	height: 1px;
+	width:100%;
+}
+
+#manHead h3{
+	position : relative;
+	margin: 2px 0px 0px 20px;
+	vertical-align:top;
+	float: left;
+	color: black;
+	font-size:100%;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#manBody{
+	margin: 10px 0px 0px 20px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0.5ex;
+	padding-bottom: 2em;
+	margin-left: 1em;
+	height: auto;
+	line-height: 30px;
+	/*border: 1px solid black;*/
+	width: 95%;
+}
+
+#manBody legend{
+	font-size:100%;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#manBody  hr{
+	border-style: dashed;
+	color: #e75a00;
+	height: 1px;
+}
+
+#manTitle {
+	font-weight:bold;
+	font-size:100%;
+	width:100%;
+	margin-left: 1em;
+	height: auto;
+	line-height: 20px;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#manTitle h3{
+	position : relative;
+	vertical-align:top;
+	float: left;
+	color: black;
+	font-size:100%;
+	margin: 0px 15px 15px 0px;
+	width:90%;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#manTitle p{
+	position : relative;
+	vertical-align:top;
+	float: left;
+	color: blue;
+	margin:0px 0px 0px 20px;
+}
+
+#manTitle h4{
+	position : relative;
+	vertical-align:top;
+	float: left;
+	color: black;
+	font-size:100%;
+	margin:0px 15px 10px 0px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#manCirc {
+	margin: 10px 0px 0px 0px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0.5ex;
+	margin-left: 1em;
+	height: auto;
+	/*border: 1px solid black;*/
+}
+
+#manCirc legend{
+	font-size:100%;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#manCirc h3{
+	position : relative;
+	vertical-align:top;
+	float: left;
+	color: black;
+	font-size:100%;
+	margin: 0px 0px 0px 0px;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#manCirc h4{
+	position : relative;
+	vertical-align:top;
+	float: none;
+	color: black;
+	font-size:100%;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#manCirc p{
+	position : relative;
+	vertical-align:top;
+	float: left;
+	color: blue;
+	font-size:100%;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+/* Here are the styles for library page*/
+
+#lib{
+	position: relative;
+	width:100%;
+	float:left;
+	margin:40px 20px 0px 10px;
+}
+
+#libHead h5{
+	width:96%;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0px 0px 0px 10px;
+	margin: 10px 0px 0px 10px;
+	float:left;
+	text-align:center;
+	/*border: 1px solid black;*/
+}
+
+#libHead h6{
+	position:relative;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 20px 0px 40px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	float:left;
+	/*border: 1px solid #edf6fd;*/
+}
+
+#libHead  hr{
+	border-style: dashed;
+	color: #e75a00;
+	float:right;
+	height:1px;
+}
+
+#lib table{ 
+	margin: 0;
+	table-layout: fixed;
+	width: 90%;
+	text-align: center;
+}
+
+#lib tr{
+	background-color: #bbbbbb;
+	text-align: center;
+	width: 6ex;
+}
+
+#libInterBnch   {
+	margin: 20px 0px 20px 0px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0.5ex;
+	margin-left: 1em;
+	height: auto;
+}
+
+#libInterBnch hr{
+	width:100%;
+	border-style: dashed;
+	color: #e75a00;
+	height: 1px;
+	margin: 10px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	float:left;
+}
+
+#libInterBnch   h1{
+	position : relative;
+	vertical-align:top;
+	float: left;
+	color: black;
+	font-size:140%;
+	font-weight:bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#libInterBnch h2{
+	position : relative;
+	vertical-align:top;
+	float: left;
+	color: blue;
+	margin:0px 0px 0px 20px;
+	font-size:140%;
+	border: 1px solid black;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#libInterBnch h3{
+	position : relative;
+	vertical-align:top;
+	float: left;
+	margin:0px 0px 0px 20px;
+	font-size:140%;
+	width:93%;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	border: 2px solid #edf6fd;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+
+#otherBrnch   {
+	margin: 10px 0px 0px 0px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0.5ex;
+	padding-bottom: 2em;
+	margin-left: 1em;
+	height: auto;
+}
+
+#otherBrnch h1{
+	position : relative;
+	vertical-align:top;
+	float: left;
+	font-size:100%;
+	width:100%;
+	margin: 5px 0px 20px 0px;
+	font-weight:normal;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#otherBrnch h2{
+	position : relative;
+	vertical-align:top;
+	float: left;
+	font-size:140%;
+	border-bottom: 1px solid black;
+	width:100%;
+	margin: 0px 0px 30px 0px;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#libSetup   {
+	margin: 10px 0px 10px 0px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0.5ex;
+	margin-left: 1em;
+	height: auto;
+}
+
+#libSetup h3{
+	position : relative;
+	vertical-align:top;
+	float: left;
+	font-size:140%;
+	width:100%;
+	margin: 10px 0px 10px 0px;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#fieldSet   {
+	margin: 10px 0px 0px 10px;
+	font: 100% verdana, 'arial unicode ms', 'microsoft sans serif';
+	padding: 0.5ex;
+	padding-bottom: 2em;
+	margin-left: 1em;
+	height: auto;
+}
+
+#libSetup legend{
+	font-size:100%;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+/* Here are the styles for the Logon Page */
+
+#logon{
+	background-image: url(<html:rewrite page="/images/img1.jpg"/>);
+	background-position: left bottom;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 90%;
+}
+
+#logonWelcome h1
+{
+	font-size: 24pt;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#logonContent{
+	margin-left: 160px;
+}
+
+#logon #enterYourLogonData{
+	background-image: url(<html:rewrite page="/images/arrow_orange.png" />);
+	background-repeat: no-repeat;
+	background-position: left center;
+	padding-left: 14px;
+	font-size: 8pt;
+	font-weight: bold;
+	color: #353C72;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#logon fieldSet{
+	border: 1px solid #E65A00;
+	background-color: #99C6E5;
+	width:70%;
+}
+
+#logon p.namePassword{
+	padding-left: 12ex;
+	padding-right: 3ex;
+	padding-top: 3ex;
+	padding-bottom: 3ex;
+	background-image: url(<html:rewrite page="/images/arrow_blue.png" />);
+	background-repeat: no-repeat;
+	background-position: 10ex center;
+	vertical-align: middle;
+	width:20%;
+	float:left;
+}
+
+#logon p.inputNamePassword{
+	padding-right: 12ex;
+	padding-left: 3ex;
+	padding-top: 3ex;
+	padding-bottom: 3ex;
+	width:30%;
+	float:left;
+}
+
+#logon p.enterLibriSuite{
+	text-align: center;
+	padding-top: 4ex;
+	padding-bottom: 2ex;
+}
+
+#logon #changeLocale{
+	margin-top: 4ex;
+}
+
+#logon #changeLocaleButton{
+	display: none;
+}
+
+/* Here are the styles for the Search pages */
+
+#newFromModelButton{
+	display: none;
+}
+#newFromDigitalButton{
+	display: none;
+}
+#sortButton{
+	display: none;
+}
+
+#searchButton{
+	margin-top: 2ex;
+	margin-bottom: 4ex;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+#advancedSearch table.advancedSearch{
+	margin-left: 2ex;
+	width: 95%;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 12px;
+}
+
+#advancedSearch tr.advancedSearchDescription{
+	height: 2em;
+	background-color: #93C7EC;
+	font-size: 12px;
+}
+
+#advancedSearch th.advancedSearchDescription{
+	width: 100%;
+	font-size: 12px;
+}
+
+a.advancedSearchHelp {
+ 	background-color: #ffbd62;
+ 	border: 1px solid #3d406d;
+ 	padding-left: 0.5ex;
+ 	padding-right: 0.5ex;
+ 	font-size: 12px;
+}
+ 
+tr.advancedSearchInput{
+	height: 3.5em;
+	background-color: #edf6fd;
+	font-size: 12px;
+}
+
+advancedSearchNew{
+	font: inherit;
+	font-size: 8pt;
+	border: 1px solid #ffbc67;
+	background-color: white;
+	color: #333366;
+	vertical-align: middle;
+	padding: 0;
+	margin: 0;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+ 
+tr.advancedSearchOperator{
+	height: 2em;
+	background-color: #fce6bd;
+}
+
+#advancedSearch table.advancedSearch table{
+	margin-left: 2ex;
+	width: 95%;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#advancedSearch table.advancedSearch table input{
+	background: none;
+	border: none;
+	background-color: white;
+}
+
+/* Here are the styles for the Expert Search page */
+
+#expertSearch form{
+	text-align: center;
+}
+
+#expertSearch #buttons input{
+	margin: 1em;
+}
+
+#expertSearch textarea{
+	margin-bottom: 1em;
+}
+
+/* Here are the styles for the Result Summary Page */
+
+#resultSummary table#resultSummaryRecords{
+	width: 95%;
+}
+
+
+#resultSummary table#resultSummaryRecords td.resultSummaryHeader{
+	text-align: left;
+	border-top: 1px dashed #E86807;
+	border-bottom: 1px dashed #E86807;
+	padding: 2ex;
+	padding-top: 0.5ex;
+	padding-bottom: 0.5ex;
+}
+
+#resultSummaryHeaderPrintResults{
+	padding-left: 20px;
+	margin-left: 1ex;
+	background-image: url(<html:rewrite page="/images/printimg.jpg" />);
+	background-repeat: no-repeat;
+}
+
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordNumberContent{
+	vertical-align: top;
+	background-color: white;
+	padding-right: 1ex;
+}
+
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordNumberContent .resultSummaryRecordNumber,
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordNumberContent .resultSummaryRecordSlash,
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordNumberContent .resultSummaryRecordTotalNumberOfRecords{
+	display: inline;
+}
+
+#resultSummary table#resultSummaryRecords tr.resultSummaryRecordSeperator{
+	height: 1ex;
+}
+
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordContent table.record{
+	width: 100%;
+}
+
+/* SANDRAAAAAAAA PROVA TAG LINKABILE DA CRESULTSUMMARY*/
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordContent table.record td.fieldValue, 
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordContent table.record td.fieldValue a, 
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordContent table.record td.fieldMarcField{
+	font-family: Microsoft San Serif, Arial Unicode MS, sans-serif;
+}
+
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordContent td.fieldLabel,
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordContent td.fieldExtraLabel{
+	font-size: 8pt;
+	color: #353c72;
+	width: 22%;
+	padding-left: 1ex;
+	border: 1px solid #edf6fd;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordContent td.fieldValue{
+	font-size: 8pt;
+	padding-left: 1ex;
+	border: 1px solid #edf6fd;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	/*font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';*/
+	font-family: Microsoft San Serif, Arial Unicode MS, sans-serif;
+	color: black;
+}
+
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordContent td.fieldLabel{
+	background-color: #f8dab4;
+}
+
+td.fieldExtraValue{
+	padding-top: 0.5ex;
+	padding-bottom: 0.5ex;
+}
+
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordContent td.fieldExtraLabel{
+	background-color: #cadce8;
+}
+
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordContent td.fieldExtraValue{
+	width: 33%;
+}
+
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordContent td.fieldExtraValue a{
+	border: 1px solid #ffbc67;
+	background-color: #93c7ec;
+	color: #333366;
+	vertical-align: middle;
+	padding: 0;
+	padding-left: 0.5ex;
+	padding-right: 0.5ex;
+	margin: 0;
+	font-weight: bold;
+	background-image: url(<html:rewrite page="/images/background__vertical__93c7ec_to_cdeafc__18px.png"/>);
+	background-position: bottom left;
+	background-repeat: repeat-x;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordContent td.fieldValue{
+	background-color: #ffffff;
+	color: #39316a;
+	/* MODIFICA SANDRA 30/03/2009 - Visualizzazione diacritici */	
+	font-family: Microsoft San Serif, Arial Unicode MS, sans-serif;
+}
+
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordContent td.fieldValue table{
+	width: 100%;
+}
+
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordContent td.separator{
+	background-color: #ffbc67;
+	height: 2px;
+}
+
+#resultSummary table#resultSummaryRecords td.resultSummaryRecordContent td.separator span{
+	display: none;
+}
+
+#resultSummary table#resultSummaryRecords td.resultSummaryNextPrevious{
+	text-align: center;
+	border-top: 1px dashed #E86807;
+	border-bottom: 1px dashed #E86807;
+	padding: 2ex;
+	padding-top: 0.5ex;
+	padding-bottom: 0.5ex;
+}
+
+/* here are the styles for browse page*/
+
+#content #browse #contentLabel input.button{
+ 	border: 1px solid black;
+	vertical-align: middle;
+	padding: 0.2ex;
+	padding-left: 0.5ex;
+	padding-right: 0.5ex;
+	margin: 2px;
+	font-weight: bold;
+}
+
+#content #browse table.contentTable{
+	margin: 0;
+}
+
+#content #browse table.contentTable{
+	table-layout: fixed;
+	width: 95%;
+}
+
+
+
+#content #browse table.contentTable tr.contentTableHeading th.crossReferenceCount{
+	text-align: center;
+	width: 6ex;
+}
+
+#content #browse table.contentTable tr.contentTableHeading th.editHeading{
+	text-align: center;
+	width: 13ex;
+	align:center;
+}
+
+#content #browse table.contentTable tr.contentTableHeading th.authorityCount{
+	text-align: center;
+	width: 6ex;
+}
+
+#content #browse table.contentTable tr.contentTableHeading th.documentCount{
+	text-align: center;
+	width: 6ex;
+}
+#content #browse table.contentTable tr.contentTableHeading th.language{
+	text-align: center;
+	width: 10ex;
+}
+#content #browse table.contentTable tr.contentTableHeading th.verificationLevel{
+	text-align: center;
+	width: 8em;
+}
+
+#content #browse table.contentTable tr.contentTableHeading th.edition{
+	text-align: center;
+	width: 12ex;
+}
+#content #browse table.contentTable td.heading{
+	text-align: left;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+#content #browse table.contentTable td.crossReferenceCount{
+	text-align: center;
+}
+
+#content #browse table.contentTable td.authorityCount{
+	text-align: center;
+}
+
+#content #browse table.contentTable td.documentCount{
+	text-align: center;
+}
+
+#content #browse table.contentTable td.verificationLevel_LOW{
+	text-align: left;
+	font-size: 10px;
+	color: #C00;
+}
+
+#content #browse table.contentTable td.verificationLevel_MAX{
+	text-align: left;
+	font-size: 10px;
+	color: #080;
+}
+
+#content #browse table.contentTable td.verificationLevel_MID{
+	text-align: left;
+	font-size: 10px;
+	color: #666;
+}
+
+#content #browse #nextButton, #content  #browse #previousButton{
+	display: block;
+	margin: 0;
+	width: 95%;
+}
+
+/* here are the styles from cataloguing/bibliographic */
+
+#editBibliographicItem{
+	display: block;
+}
+
+#editBibliographicItem table.recordMarcEncoding{
+	border-collapse: collapse;
+	margin: 0;
+	padding: 0;
+	white-space: normal;
+/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	color:blue;
+}
+
+#editBibliographicItem td{
+	border: none;
+	margin: 0;
+	padding: 0.5ex;
+}
+
+/* MODIFICA BARBARA 10/04/2007 - data1 e data2 del tag 008 numerico di quattro caratteri */
+#editBibliographicItem col.tagNum{
+	width: 45ex;
+	float: right;
+}
+
+#editBibliographicItem col.indicator1, #editBibliographicItem col.indicator2{
+	width: 2ex;
+}
+
+#editBibliographicItem a.recordMarcEncoding{
+	text-decoration: none;
+	font-weight: normal;
+	padding-left: 0ex;
+	padding-right: 0ex;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	color:blue;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#editBibliographicItem a.recordMarcEncodingValue{
+	text-decoration: none;
+	font-weight: normal;
+	padding-left: 0ex;
+	padding-right: 0ex;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	color: black;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	/*	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';*/
+	/* MODIFICA SANDRA 30/03/2009 - Visualizzazione diacritici */
+	font-family: Microsoft San Serif, Arial Unicode MS, sans-serif;
+}
+
+#editBibliographicItem a.recordMarcEncoding{
+	text-decoration: none;
+	font-weight: normal;
+	padding-left: 0ex;
+	padding-right: 0ex;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	color:blue;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+	/*	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif'; */
+	/* MODIFICA SANDRA 30/03/2009 - Visualizzazione diacritici */
+	font-family: Microsoft San Serif, Arial Unicode MS, sans-serif;
+}
+#editBibliographicItem tr.field:hover{
+	background-color: #97c5dd;
+	color: black;
+}
+
+#editBibliographicItem input.subField{
+	font-size: 10pt;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+	color: black;
+}
+
+#editBibliographicItem td.editingField, #editBibliographicItem td.editingAction{
+	border: 1px solid #ffbc67;
+	padding-top: 2em;
+	padding-bottom: 2em;
+	color: black;
+}
+
+#editBibliographicItem td.tagValue{
+	color: black;
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+#editBibliographicItem td.editingField{
+	border-right: none;
+}
+
+#editBibliographicItem td.editingAction{
+	border-left: none;
+}
+
+#editBibliographicItem tr.editingDisplayField td{
+	border: 1px solid #ffbc67;
+}
+
+#editBibliographicItem tr.editingDisplayField td.tag, #editBibliographicItem tr.editingDisplayField td.indicator1, #editBibliographicItem tr.editingDisplayField td.indicator2, #editBibliographicItem tr.editingDisplayField td.fieldValue{
+	border-right: none;
+	color: black;
+}
+
+#editBibliographicItem tr.editingDisplayField td.indicator1, #editBibliographicItem tr.editingDisplayField td.indicator2, #editBibliographicItem tr.editingDisplayField td.fieldValue, #editBibliographicItem tr.editingDisplayField td.action{
+	border-left: none;
+	color:black;
+}
+
+#editBibliographicItem tr.editingDisplayField{
+	background-color: #93c7ec;
+}
+#editBibliographicItem tr.optionalFieldtrue:hover{
+	background-color: orange;
+}
+
+#editBibliographicItem tr.optionalFieldfalse:hover{
+	background-color: #97c5dd;
+}
+
+/* MODIFICA BARBARA 09/02/2007 - modifica colore di selezione tag inutilizzati*/
+#editBibliographicItem tr.optionalFieldtrue{
+	background-color: orange;
+}
+
+#editBibliographicItem tr.optionalFieldfalse{
+	background-color: red;
+}
+
+#editBibliographicItem #newTagFromModelButton{
+	display: none;
+}
+
+/* styles for isbd format display */
+
+.isbdNameMainEntry {
+	text-indent: -4ex;
+	margin-left: 13ex;
+	font-weight: bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+.isbdTitleMainEntry {
+	text-indent: -2ex;
+	margin-left: 11ex;
+}
+
+.isbdCallNumber {
+	float: left;
+	width: 7ex
+}
+
+.isbdTitleStatement {
+	text-indent: 2ex;
+	margin-left: 9ex;
+	font-weight: bold;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+.isbdDescription {
+	text-indent: 2ex;
+	margin-left: 9ex;
+}
+
+.isbdNotes {
+	text-indent: 2ex;
+	margin-left: 9ex;
+	font-size: smaller;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+.isbdTracings {
+	margin-top: 1ex;
+	text-indent: 2ex;
+	margin-left: 9ex;
+	font-size: smaller;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+.isbdPrintConstant {
+	font-style: italic;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+.isbdAmicusNumber {
+	margin-top: 1ex;
+	float: right;
+}
+
+/* here are the styles from cataloguing/copy */
+
+#changeBranchButton{
+	display: none;
+}
+
+#editPublisher .topSeparation{
+	margin-top: 3ex;
+}
+
+.invisibleButton{
+	display: none;
+}
+
+/* here are the styles from cataloguing/bibliographicModel */
+
+#model{
+	display: block;
+}
+
+#model #toggleOptionalButton{
+	display: none;
+}
+
+#model #changeCategoryButton{
+	display: none;
+}
+
+#model #changeCorrelationValuesButton{
+	display: none;
+}
+
+#model #changeSubfieldButton{
+	display: none;
+}
+
+/* Styles for the calendar of libraryDatesClosed.jsp*/
+
+.backgroundMonthTable{
+	background-color:#f5f5f5
+}
+
+.backgroundCalendar{
+	background-color:#6699cc;
+	text-align: center;
+}
+
+.textWeeksDays{
+	font-family:'arial unicode ms', Helvetica, 'microsoft sans serif';
+	font-size:11px;
+	font-weight:bold;
+	text-decoration:none;
+	color:#6699cc;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+.textMonthName{
+	font-family:'arial unicode ms', Helvetica, 'microsoft sans serif';
+	font-size:11px;
+	font-weight:bold;
+	text-decoration:none;
+	color:#000000;
+	text-align: center;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+.festive{
+	font-family:'arial unicode ms', Helvetica, 'microsoft sans serif';
+	font-size:9px;
+	font-weight:bold;
+	text-decoration:none;
+	color:Red;
+	text-align: center;
+	/* MODIFICA BARBARA 27/03/2007 - PRN 86 */	
+		font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif';
+}
+
+.closed{
+	font-family:'arial unicode ms', Helvetica, 'microsoft sans serif';
+	font-size:9px;
+	font-weight:bold;
+	text-decoration:none;
+	color:#008B8B;
+	text-align: center;
+}
+
+.free{
+	font-family:'arial unicode ms', Helvetica, 'microsoft sans serif';
+	font-size:9px;
+	font-weight:bold;
+	text-decoration:none;
+	color:#000000;
+	text-align: center;
+}
+
+.popupMenu{
+        position: absolute;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        width: 250px;
+        height: 20px;
+        border: 1px solid #97c5dd;
+        background-color: #edf6fd;
+        z-index: 10000;
+}
+
+.itemBorder { 
+	border: 1px solid black 
+}
+
+#advancedSearchCombo1, #advancedSearchCombo1 option
+{
+	width: 270px;
+	background-color: white;
+	font-size: 12px;
+}
+
+
+/* 	Natasha 08/05/2007 : lista Codici RicercaAvanzata */
+#advancedSearchCombo2, #advancedSearchCombo2 option
+{
+	background-color: white;
+	font-size: 12px;
+}
+
+/* 
+	Natasha 08/05/2007 : aggiunte scrollbars per lista Codici
+	nella RicercaAvanzata
+*/
+#divContenitoreCodici
+{
+	font-size:18pt;
+	height:100px;
+	width:270px;
+	overflow:auto;
+	vertical-align: top;
+}
+
+/*--------------------------------------------------*/
+
+/* ----------- MARC HELPER ------------- */
+textarea.mhVariant_true{
+	/* font-size: 10pt;
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif'; */
+	color: black;
+	background-color: #93c7ec;
+	border-color: #939393;
+}
+
+textarea.mhVariant_false{
+	/* font-size: 10pt;
+	font-family: 'microsoft sans serif', 'arial unicode ms', verdana, helvetica, 'microsoft sans serif'; */
+	color: black;
+	background-color: #B3E7FF;
+	border-color: #B3B3B3;
+}
+
+td.mhMenu {
+	vertical-align: top;
+		border-left: 1px;
+		border-color: orange;
+		border-style: dotted;
+	
+}
+
+a.mhLink:link, a.mhLink:visited
+{
+	color: #010165;
+	text-decoration: none;
+	font-weight: normal;
+	background-color: #edf6fd;
+}
+
+a.mhLink:hover
+{
+	text-decoration: none;
+	background-color: white;
+	color: #262;
+}
+
+tr.mhLink {
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+td.mhLinkLeft {
+	border: 1px solid #b0e0ff;
+	border-right: 1px dashed #adf;
+}
+td.mhLinkRight {
+	border: 1px solid #b0e0ff;
+	border-left: 0px;
+}
+legend.mhLegend {
+	color: #448;
+	font-weight: bold;
+	font-family: arial;
+	margin-bottom: 8px;
+	background-color: #DEF;
+	border: 1px solid #fae8a0;
+}
+/*- browse list -----------------------------*/
+a.browse:link, a.browse:visited
+{
+	color: #00F;
+}
+ul.group {	
+   vertical-align: middle; 
+   color: black; 
+   font-weight: lighter;
+   margin-top: 0px;
+   margin-bottom:2px;
+}
+li.eo { 
+   list-style-image: url(<html:rewrite page="/images/ball_orange.gif"/>);
+ }
+li.er {
+   list-style-image: url(<html:rewrite page="/images/ball_red.gif"/>); 
+ }
+li.ey {
+    list-style-image: url(<html:rewrite page="/images/ball_yellow.gif"/>);
+}
+li.eg {
+    list-style-image: url(<html:rewrite page="/images/ball_green.gif"/>);
+}
+
+
+/************************************
+ Collections Table Definitions v 1.0 
+ ************************************/
+
+.collections {	
+	border-collapse: separate; 
+	background-color: white;	
+	margin-top: 1em; 
+/* font-size: 11px;  eliminare per ristabilire size testo normale */
+}
+
+.collections tr .record {	margin-bottom: 2px; }
+
+.collections th {	
+	background-color: #FECC99; /* #EDF6FD; */	
+	vertical-align: center;	
+	margin: 2px; 
+}
+
+.collections td {	
+	background-color: #E0EDF0; /* #EDF6FD; */	
+	vertical-align: top;	
+	margin: 2px; 
+	padding-left: 1ex;
+}
+
+.collections .check {	
+	text-align: left; 
+	color: #A22254;
+/* font-weight: bold; */
+}
+
+.collections .author {	
+text-align: left; 
+/* font-weight: bold; */ 
+}
+
+.collections .title {	
+	text-align: left; 
+	color: #A22254;
+}
+div.fondo { height: 2em; margin-top: 1em; background-color: #E4E8EC; border-top: 2px solid #FFFFFF; border-left: 2px solid #FFFFFF; padding: 0.5ex; margin-left: 1ex; }
+div.titletrue { width: 50%;  margin-top: 0px; border: 1px solid #DC6; background-color: #dde6ed; height: 1.3em;}
+span.detail { font-size: 11px; background-color: #f8dab4; cursor: pointer; text-align: right; color: #040; border-bottom: 1px solid #CA8; border-right: 1px solid #CA8; float: left;}
+/* *********************************
+ End of Collections Table Definitions
+ *********************************** */

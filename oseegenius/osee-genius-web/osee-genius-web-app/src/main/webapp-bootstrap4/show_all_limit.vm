@@ -1,0 +1,85 @@
+<!-- show_all_limits.vm -->
+#set($limit = $request.limit)
+#set($bundlename = $request.bundle)
+
+ <div class="row bg-white p-3">
+	<div class="col-md-12">
+		############ not available with the new assets with modal ######### 
+		#*
+		<div class="row top-bar">
+			#set ($resources = $session.visit.advancedSearchExperience)
+			<ul class="list-group list-group-horizontal">	
+				#top_link_with_bundle_bootstrap($text.library $resources.getLimit('library') 'library')
+				#top_link_with_bundle_bootstrap($text.format $resources.getLimit('format_for') 'format_for')		
+				#top_link_with_bundle_bootstrap($text.language $resources.getLimit('language') 'languages')	
+				#top_link_with_bundle_bootstrap($text.publication_country $resources.getLimit('publication_country') 'publication_countries')
+				#top_link_with_bundle_bootstrap($text.dewey $resources.getLimit('other_classification_number') 'list_ed_deweys')	
+			</ul>
+		</div>
+		*#
+		<div class="row my-3">
+			<div class="col-md-12">
+				#set ($currentRowIndex = 0)		
+				#set ($limitFacet = $request.limitFacet)
+	    		#foreach($facet in $limit.values)
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" #if($limitFacet.isSelected($facet.name)) checked="true" #end onclick="toggleLimit('$limitname', '$esc.javascript($facet.name)', this.checked, $facet.count, false)">
+						<label class="form-check-label label-blue">
+							#if($bundlename)$text.bundleGet($bundlename, $facet.name)#else $facet.name#end ($facet.count)    					
+							
+						</label> 
+						#set ($currentRowIndex = $currentRowIndex + 1)  
+					</div>
+				#end
+			</div>
+		</div>		
+	</div>
+</div>
+
+
+#*
+<b>$text.get($request.limitname)</b><br/>
+#set($limit = $request.limit)
+#set($bundlename = $request.bundle)
+##if($limitname == 'language')
+	##set ( $bundlename = "languages")
+##else
+	##set ( $bundlename = "publication_countries")
+##end
+<hr/>
+<input type="button" value="$text.confirm" onclick="document.location='advanced'">
+#set ($maxColumns = 3)
+#set ($module = $limit.valueCount % $maxColumns)
+#if (($module) == 0)
+	#set( $howManyRowsPerColumn = $limit.valueCount / $maxColumns ) 
+#else 
+	#set ($howManyRowsPerColumn = ($limit.valueCount / $maxColumns) + $module )
+#end
+    <table cellspacing="5">
+    	#set ($currentRowIndex = 0)		
+		#set ($limitFacet = $request.limitFacet)
+    	#foreach($facet in $limit.values)
+			##if($bundlename && $bundlename != "library" && !$text.bundleGet($bundlename,$facet.name).startsWith("?"))
+			 #if($bundlename)	
+    			#if ($currentRowIndex == 0 )
+    				<tr nowrap="nowrap" valign="top">
+    				<td>
+    					<ul type = none>
+    			#elseif ($currentRowIndex == $howManyRowsPerColumn)
+					#set ($currentRowIndex = 0)	
+    					</ul>
+    					<td>
+    					<ul type = none>
+    			#end
+    			 <li>		
+						<input type="checkbox" #if($limitFacet.isSelected($facet.name)) checked="true" #end onclick="toggleLimit('$limitname', '$esc.javascript($facet.name)', this.checked, $facet.count, false)">
+        				$text.bundleGet($bundlename,$facet.name) ($facet.count)
+    					#set ($currentRowIndex = $currentRowIndex + 1)
+        		</li>				
+			#end	
+    	#end
+    	</ul>
+    	</td>
+    	</tr>
+    </table>	
+    *#

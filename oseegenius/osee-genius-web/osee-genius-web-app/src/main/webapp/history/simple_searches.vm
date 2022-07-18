@@ -1,0 +1,54 @@
+<table class="copies" cellpadding="5">
+    <thead>
+    	<tr>
+        	<th scope="col">$text.date</th>			
+        	<th scope="col">$text.terms</th>
+            <th scope="col">$text.index</th>
+            <th scope="col">$text.rpp_history_header</th>
+			<th scope="col">$text.order_by</th>
+			<th scope="col">$text.filters</th>
+			<th scope="col">&nbsp;</th>			
+        </tr>
+    </thead>
+    <tbody>
+		#foreach($entry in $request.entries)	
+    	<tr>
+        	<td><a class="linked_value" href='$entry.searchUri'>$date.format("dd/MM/yyyy HH:mm",$entry.date, $session.visit.preferredLocale)</a></td>
+			#set ($queryText = $entry.query)
+			#if ($queryText == '*:*')
+				#set ($queryText = $text.all_results)
+			#end 
+			
+			#if ($entry.targetMetaAttribute == 'def')
+				#set ($indexName = $text.any_bc)
+			#else
+				#set ($indexName = $text.get($entry.targetMetaAttribute))
+			#end
+			<td><a class="linked_value" href='$entry.searchUri'>$queryText</a></td>
+            <td><a class="linked_value" href='$entry.searchUri'>$indexName</a></td>
+            <td><a class="linked_value" href='$entry.searchUri'>$entry.howManyResults</a></td>
+            <td><a class="linked_value" href='$entry.searchUri'>$text.get($entry.orderByCriteria)</a></td>
+			<td>
+				#if ($entry.filters)
+				<a class="linked_value" href='$entry.searchUri'>
+						#foreach($filter in $entry.filters)
+							#if($filter != '{!geofilt}')
+								#foreach($value in $filter.split(" OR "))
+									- $breadcrumbTool.getHumanReadableLabel($request, $value.trim(),$session.visit.preferredLocale)#if ($filter.indexOf("catalog_source") != -1) #set($useLvFilter=true) (*)#end<br/>
+								#end	
+							#end		
+						#end	
+				</a>
+				#end
+			</td>
+			<td valign="middle">
+				<a class="linked_value" href="javascript:removeSearchEntry('$entry.id')"><img src="img/minus.gif" style="vertical-align:middle;">&nbsp;$text.remove</a>
+			</td>					
+        </tr>
+		#end
+    </tbody>
+</table>
+#if ($useLvFilter)
+	<br/><i>* $text.lv_filter_advice</i>
+#end
+<br/><br/><br/><br/>

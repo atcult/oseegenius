@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>    
+		<title>Osee Genius - Search and Discovery</title>
+		<link rel="icon" type="image/x-icon" href="$link.relative('/img/favicon.ico')" />
+		<link href="$link.relative('/style/og.css')" rel="stylesheet" type="text/css" />
+		<link href="$link.relative('/style/jquery.ui.theme.css')" rel="stylesheet" type="text/css" />
+		<link href="$link.relative('/style/customer.css')" rel="stylesheet" type="text/css" />
+		<link href="$link.relative('/style/xtree.css')" rel="stylesheet" type="text/css" />
+		<link href="$link.relative('/style/prettyPhoto.css')" rel="stylesheet" type="text/css" />	
+		<link href="$link.relative('/style/jquery.ui.selectmenu.css')" rel="stylesheet" type="text/css" />	
+		<link href="$link.relative('/style/jquery.autocomplete.css')" rel="stylesheet" type="text/css" />	
+        <script type="text/javascript" src="$link.relative('/js/jquery.min.1.4.4.js')"></script> 
+		<script type="text/javascript" src="$link.relative('/js/jquery.prettyPhoto.js')"></script>
+        <script type="text/javascript" src="$link.relative('/js/xtree.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.core.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.widget.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.position.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.selectmenu.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.ui.button.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/jquery.autocomplete.js')"></script>
+		<script type="text/javascript" src="$link.relative('/js/oseegenius.js')"></script>
+		#autosuggestorScript
+		<script type="text/javascript" charset="utf-8">
+    		$(document).ready(function(){
+    			$("[rel^='prettyPhoto']").prettyPhoto({social_tools: false});
+    		});
+		</script>		
+	</head>
+	
+	<body>
+    	<div id="container"> 
+			#banner
+			#parse('components/links.vm')
+			<div id="top-toolbar">
+				#parse('components/page/top-toolbar.vm')	
+				#parse('components/search/breadcrumb-detail.vm')	
+			</div>
+			<div id="header"></div>
+            <div id="content-detail">$screen_content</div>
+    		#parse('components/search/bottom-detail-toolbar.vm')	
+		</div>			
+	</body>
+</html>

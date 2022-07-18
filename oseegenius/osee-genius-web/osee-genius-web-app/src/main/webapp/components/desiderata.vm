@@ -1,0 +1,19 @@
+#if ($license.desiderataEnabled && $configuration.desiderataAddress)
+#set($selectionSize = $session.visit.searchExperience.currentTab.howManySelectedForExport())
+<div class="viewlet" id="desiderata">
+	<div class="viewlet_toggable_head">
+		<h3>Desiderata</h3>
+	</div>
+	<div class="viewlet_body">
+		<table width="100%">
+			<tr>
+                <td>
+					$text.desiderata_1					
+					&nbsp;<a style="cursor:pointer;" href="desiderata">${text.this_link}</a>.
+				</td>
+			</tr>
+		</table>
+	</div>
+	#vspacer(10)
+</div>
+#end

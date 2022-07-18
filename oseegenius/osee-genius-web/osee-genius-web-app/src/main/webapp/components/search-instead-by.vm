@@ -1,0 +1,45 @@
+#set ($tab = $session.visit.searchExperience.currentTab)
+#set ($a = !$tab.response.spellCheckResponse.suggestions.isEmpty())
+
+#if ($tab.response.results.numFound != 0 && $tab.response.spellCheckResponse && !$tab.response.spellCheckResponse.correctlySpelled && !$tab.response.spellCheckResponse.suggestions.isEmpty())	
+<div class="viewlet">
+	<div class="viewlet_toggable_head">
+		<h3>$text.did_you_mean</h3>
+	</div>
+	<div class="viewlet_body">
+		<center>
+			#if ($tab.response.spellCheckResponse.collatedResult)
+				<a style="color:black; font-style:italic; font-weight:normal; cursor:pointer;" onclick="javascript:searchBySuggestion('$tab.response.spellCheckResponse.collatedResult')">$tab.response.spellCheckResponse.collatedResult</a>
+			#end
+		#foreach($suggestion in $tab.response.spellCheckResponse.suggestions)
+			#if ($tab.response.spellCheckResponse.collatedResult || $velocityCount > 1) 
+				<h4><span style="color:black; font-style:italic; font-weight:normal;"><br/>oppure</span></h4>
+				<br/>
+			#end
+			#foreach($alternative in $suggestion.alternatives)#if ($velocityCount > 1), #end<a style="color:black; font-style:italic; font-weight:normal; font-size:1.0em; cursor:pointer;" onclick="javascript:searchBySuggestion('$alternative')">$alternative</a>#end
+		#end	
+		<center>	
+	</div>
+</div>	
+#vspacer(10)
+<script type="text/javascript">
+	function searchBySuggestion(term)
+	{
+		var location = document.location.href;
+		var startIndex = location.indexOf("q=");
+		if (startIndex != -1)
+		{
+			var endIndex = location.indexOf("&",startIndex+1)
+			if (endIndex != -1)
+			{
+				location = location.substring(0, startIndex)+location.substring(endIndex);
+			} else 
+			{
+				location = location.substring(0, startIndex);					
+			}
+		}
+		
+		document.location.href=location+"&q="+term;
+	}
+</script>
+#end

@@ -1,0 +1,34 @@
+#set($isAdmin = $session.visit.folioAccount.isAdmin())
+#if($isAdmin)
+	#if ($request.inError) 
+		<div class="row p-5">		
+			<div class="col-12 alert alert-danger">$esc.html($text.get($request.errorMessage))</div>
+		</div>
+	#end
+	#if ($request.message) 
+		<div class="row p-5">		
+			<div class="col-12 alert alert-success">$text.success</div>
+		</div>
+	#end
+	#if($request.userId)
+		#set($editView = true)
+	#end
+	
+	<div class="bg-grey py-5">
+		<div class="form-signin">
+			<h1 class="text-center my-5">$text.edit</h1>
+			
+			<form class="bg-white shadow p-4" action="updateFolioUser" method="post">
+				<input type="hidden" name="userId" value="$esc.javascript($request.userId)"/>
+			
+				#parse("components/userPanel/sign_up_1.vm")
+				#parse("components/userPanel/sign_up_2.vm")
+				#parse("components/userPanel/sign_up_3.vm")
+				#parse("components/userPanel/sign_up_4.vm")
+				<button class="button-blue btn-block py-2" type="submit">
+					$text.save
+				</button>	
+			</form>
+		</div>
+	</div>
+#end

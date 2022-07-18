@@ -1,0 +1,24 @@
+<div class="account-form">
+		<table class="login-table" >
+		  <tbody>
+				<tr>
+					<td colspan="2"><div class="account-form-sub-title">$text.review_submitted</div></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<br/>
+						Il commento &egrave;s stato inoltrato all'amministratore per 
+						<br/>il controllo dei contenuti. Non appena verrà
+						approvato<br/> riceverai una email.
+						<br/><br/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<br/><br/><br/><br/><br/>
+						<center><img src="$link.relative('/img/logoBanner.png')"/></center>
+					</td>
+				</tr>
+		  </tbody>
+		</table>
+	</div>

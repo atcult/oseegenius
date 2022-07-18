@@ -1,0 +1,26 @@
+<div id="cookieMessage" style="padding:5px;position:fixed;top:0;left:0;width:100%;color:#666;background-color:#000;z-index:9999;box-sizing:border-box;opacity:.97;text-align:center;"> 
+			$text.cookie_1
+			<a target="_blank" href="/informativa-cookies.pdf" style="color:#aaa;">$text.cookie_2</a>
+			<a data-action="okBtn" style="display:inline-block;margin-left:20px;padding:3px 5px;color:#666;border:1px solid #222;font-size:80%;cursor:pointer;text-decoration:none;">OK</a>
+			<script>
+				function getCookie(t){
+					for(var n=t+"=",r=document.cookie.split(";"),e=0;e < r.length;e++){
+						for(var i=r[e];" "==i.charAt(0);) {
+							i=i.substring(1);
+							if(0==i.indexOf(n))return i.substring(n.length,i.length);
+						}
+					}
+					return""
+				}
+					
+				if (!getCookie('cookiePolicyMessage')){
+					var ok=document.querySelector('[data-action=okBtn]');
+					ok.onclick=function(){
+						document.cookie="cookiePolicyMessage=1; expires=Tue, 01 Jan 2030 12:00:00 UTC; path=/";
+						$('#cookieMessage').hide(0);
+					}
+				} else {
+					$('#cookieMessage').hide(0);
+				}
+			</script>
+</div>

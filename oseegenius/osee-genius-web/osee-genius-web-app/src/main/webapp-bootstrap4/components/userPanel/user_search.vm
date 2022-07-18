@@ -1,0 +1,140 @@
+<!-- components/userPanel/user_search.vm -->
+<script type="text/javascript">
+    $(function () {
+        $(".identifyingModalClass").click(function () {
+            var id_user = $(this).data('userid');
+            $(".modal-footer #userIdModal").val(id_user);
+        })
+    });
+</script>
+
+#set($loggedUser = $session.visit.folioAccount)
+#set($query = $request.getParameter("userQuery"))
+#if($loggedUser.isAdmin())	
+	<div class="row m-0 py-4 bg-grey">
+		<div class="col-md-6 offset-md-3 col-sm-12 py-4">
+			<h2>$text.user_search</h2>
+			#set($howManyRecords = $request.numFound)	
+			#if ($howManyRecords)					
+				<strong><span class="navigation-result">$howManyRecords ${text.result_for}: $query</span></strong>
+			#end	
+		</div> 
+	</div>
+	<div class="bg-white p-5 m-0 strSizeOnly"> 	
+		#if ($request.inError) 
+			<div class="alert alert-danger">$request.errorMessage</div>
+		#end
+		#if ($request.message)
+			<div class="alert alert-success" role="alert">$text.get($message)</div>
+		#end 
+		####### input search ############
+		<div class="row"> 
+			<div class="col-12">					
+				<form  action="searchFolio" method="get">			
+					
+					<div class="row">
+						<div class="col-md-8 nopadding-right">
+							<div class="input-group">					
+								<label class="sr-only" for="userQuery">$text.user_search</label>
+								<input type="text" class="form-control search-input" id="userQuery" name="userQuery" placeholder="$text.user_search" aria-label="$text.user_search" required />														
+						     </div>
+						</div>
+						<div class="col-md-4 nopadding-left d-flex">		
+							<button type="submit" class="button-blue uppercase float-right btn-block py-2">$text.search</button>	
+						</div>					    
+					</div>					
+				</form>			
+			</div>
+		</div>
+		########### result list ###########
+		#if($userList && !$userList.isEmpty())
+			<div class="row my-3">
+				<div class="col-12">
+					<table class="table"> 
+	            		<thead>
+	                		<th>$text.name</th>
+	                		<th>Username</th>
+	                		<th>$text.dateOfBirth</th>
+	                		<th>$text.barcode</th>
+	                		<th>Email</th>      
+	                		<th>$text.category</th>    
+	                		<th>$text.blocked_untill</th>  						
+	                        <th><span class="sr-only">$text.edit</span></th>
+	                        #if($loggedUser.isSuperAdmin())							
+								<th><span class="sr-only">$text.clear</span></th>
+							#end
+							<th><span class="sr-only">$text.block_user</span></th>
+							<th><span class="sr-only">$text.print_card</span></th>
+							<th><span class="sr-only">Folio</span></th>
+	            		</thead>
+	            		<tbody>
+	                    	#foreach($currentUser in $userList)
+	                    		<tr>        						
+	                    			<td>#if($currentUser.firstName)$currentUser.firstName #end  #if($currentUser.lastName)$currentUser.lastName #end</td>
+	                    			<td>#if($currentUser.username)$currentUser.username #end</td>
+	                    			<td>#if($currentUser.dateOfBirth)$string.showSimpleDate($currentUser.dateOfBirth)#end</td>
+	                    			<td>#if($currentUser.barcode)$currentUser.barcode #end</td>
+	                    			<td>#if($currentUser.email)$currentUser.email #end</td>    
+	                    			<td>#if($currentUser.patronGroupName)$currentUser.patronGroupName#end</td> 
+	                    			<td>#if($currentUser.blockExpireDate)$string.showSimpleDate($currentUser.blockExpireDate)#end</td>
+									<!-- <td><a href="resetPassword?userId=$currentUser.id" class="btn">reset password</a></td> -->
+									<td><a href="updateFolioUser?userId=$currentUser.id" title="$text.edit" aria-label="$text.edit"><img src="img/edit-icon.png" height="35px" alt="$text.edit"></a></td>
+									#if($loggedUser.isSuperAdmin())				
+										<td>
+											<button type="button" aria-label="$text.clear" class="btn btn-default shadow-none identifyingModalClass p-0" data-toggle="modal" data-target="#deleteUserModal" data-userid="${currentUser.id}">
+	  											<input type="image" title="$text.clear" aria-label="$text.clear" src="img/delete-icon.png" height="35px" alt="$text.clear">
+											</button>			
+										</td>
+									#end
+									<td>
+									#### to enable when unblock function will be developed
+										#*
+										#if($currentUser.blockExpireDate)
+											<a href="unblockUser?userId=$currentUser.id" title="$text.block_user"><img alt="$text.block_user" src="img/block-icon.png" height="35px"></a>
+										#else												
+											<a href="blockUser?userId=$currentUser.id" title="$text.block_user"><img alt="$text.block_user" src="img/block-icon.png" height="35px"></a>
+										#end	
+										*#
+									<a href="blockUser?userId=$currentUser.id" title="$text.block_user"><img alt="$text.block_user" src="img/block-icon.png" height="35px"></a>			
+																			
+									</td>
+									<td>
+	    								<a target="_blank" href="folioCard?name=$currentUser.firstName&surname=$currentUser.lastName&cfu=$currentUser.barcode&userId=$currentUser.id" title="$text.print_card" aria-label="$text.print_card"><img alt="$text.print_card" src="img/print-icon.png" height="35px"></a>
+	    							</td>
+	    							<td>
+	    								#set($relocated = "${folioFrontendUrl}/users/view/${currentUser.id}?layer=edit&sort=name")
+	    								<a target="_blank" href="$relocated" aria-label="Folio">
+	    									<button type="button" class="button-blue py-2 px-4">Folio</button>	
+										</a>
+	    							</td>    										
+	                    		</tr>
+	            			#end
+	            		</tbody>
+	            	</table>
+				</div>
+			#end
+	</div>
+<!-- user_search.vm (Modal) -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title" id="deleteUserModalLabel">$text.user_search_modal_confirm_cancel1</span>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-secondary" data-dismiss="modal">$text.user_search_modal_confirm_cancel2</button>
+        <form  action="deleteUser" method="POST">
+        	<button type="submit" name="submitModal" class="btn btn-primary">$text.user_search_modal_confirm_cancel3</button>
+        	<input name="userId" id="userIdModal" type="hidden"  value=""/>
+			<input name="previousQuery" type="hidden"  value="#if($query)${query}#end" />
+		</form>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
+#end

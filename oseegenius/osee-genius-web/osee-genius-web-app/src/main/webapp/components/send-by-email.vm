@@ -1,0 +1,20 @@
+#set($selectionSize = $session.visit.searchExperience.currentTab.howManySelectedForSend())
+#if ($configuration.emailSenderAddress)
+<div class="viewlet" style="#if ($selectionSize == 0) display:none; #end" id="send-by-email">
+	<div class="viewlet_toggable_head">
+		<h3>${text.send} (<span id="selected-send-count">$selectionSize</span>)</h3>
+	</div>
+	<div class="viewlet_body">
+		<table width="100%">
+			<tr>
+				<td>
+					<select id="send" value="">
+						<option value="email">$text.send_by_email</option>
+					</select>
+					<a rel="prettyPhoto" href="$link.relative('email')?iframe=true&height=460&width=450"><img src="$link.relative('/img')/play.png" style="vertical-align:middle;"/></a>
+				</td>	
+			</tr>
+		</table>
+	</div>
+</div>
+#end

@@ -1,0 +1,134 @@
+<!-- components/userPanel/sign_up_2.vm -->
+<script>
+	$(document).ready(function(){
+		var cityCode = $('#city-location-select').val().substring(0,2);
+			${esc.dollar}.ajax({
+              	url: 'municipality?cityId=' + cityCode,
+              	dataType: "json",           	
+              	success: function(data) {      
+              		$('#municipality-location-select').empty();           		
+              		${esc.dollar}.each(data.municipalities, function(key,value) {
+              			var currentOption = '<option value="' + value.label + '"';              			
+              			if (value.label == "$request.user.getBirthMunicipalityLocation()") {
+              				currentOption = currentOption + " selected ";
+              			}
+              			currentOption = currentOption + ">" + value.label + "</option>";
+  						$('#municipality-location-select').append(currentOption);
+					});
+              	},
+				error: function(data) {
+					console.log("ajax error");
+				}
+        });
+        
+        ### initial settings
+        if($('#birth-nation').val() == 'Italia') {
+        	$('#birthLocationText').attr('value', "");        	
+        	$('#birth-location-text').hide();			
+			$('#birthLocationText').attr('required', false);			
+			$('#birth-location-select').show();		
+        }
+        else {
+        	$('#birth-location-select').hide();			
+			$('#birth-location-text').show();
+			$('#birthLocationText').attr('required', true);
+        }
+        
+        if($('#nation').val() == 'Italia') {
+			$('#fiscalCode-group').show();
+			$('#fiscalCode').attr('required', true);
+			$('#residencePermission').hide();
+			$('#resPermissionNumber').attr('value', "");
+			$('#resPermissionExpire').attr('value', "");					
+			$('.italian-only').attr('disabled', false);			
+		}
+		else {				
+			$('#fiscalCode-group').hide();
+			$('#fiscalCode').attr('value', "");
+			$('#fiscalCode').attr('required', false);
+			$('#residencePermission').show();	
+			$('.italian-only').attr('disabled', true);
+		}
+		
+        $("#birth-nation").change('input', function(e) {
+        	if($('#birth-nation').val() == 'Italia') {        		
+        		$('#birthLocationText').attr('value', "");	 
+        		$('#birth-location-text').hide("slow");					
+				$('#birthLocationText').attr('required', false);
+				$('#birth-location-select').show("slow");	
+			}
+			else {
+				$('#birth-location-select').hide("slow");
+				$('#birth-location-text').show("slow");
+				$('#birthLocationText').attr('required', true);
+			}
+		});
+        
+  		$("#nation").change('input', function(e) {
+		if($('#nation').val() == 'Italia') {			
+			$('#fiscalCode-group').show("slow");
+			$('#fiscalCode').attr('required', true);
+			$('#residencePermission').hide();
+			$('#resPermissionNumber').attr('value', "");
+			$('#resPermissionExpire').attr('value', "");
+			$('.italian-only').attr('disabled', false);					
+		}
+		else {				
+			$('#fiscalCode-group').hide("slow");
+			$('#fiscalCode').val("");
+			$('#fiscalCode').attr('required', false);
+			$('#residencePermission').show();
+			$('.italian-only').attr('disabled', true);
+		}
+	});
+	
+	$('#city-location-select').change('input', function(e) {
+		var cityCode = $('#city-location-select').val().substring(0,2);
+		${esc.dollar}.ajax({
+              	url: 'municipality?cityId=' + cityCode,
+              	dataType: "json",           	
+              	success: function(data) {      
+              		$('#municipality-location-select').empty();           		
+              		${esc.dollar}.each(data.municipalities, function(key,value) {
+  						$('#municipality-location-select').append(${esc.dollar}("<option></option>").attr("value", value.label).text(value.label));
+					});
+              	},
+				error: function(data) {
+					console.log("ajax error");
+				}
+            });
+       });
+	});
+</script>
+
+<h3 class="bold-text strSizeOnlyNotReduce">$text.nation_data</h3>		
+<input type="hidden" type="text" name="current_step" value="2">
+
+<div class="form-group">
+	<label class="close-label" for="nation">$text.select_nation</label>
+	<select name="nation" id="nation" class="form-control form-osee" required> 
+		#set($currentSelect = "nation")
+		#set($lang = $session.visit.preferredLocale.language)
+		<option value="">$text.select</option>
+		#parse("components/userPanel/country_form_${lang}.vm")
+	</select>
+</div>
+<div class="form-group">
+	<label class="close-label" for="birth-nation">$text.select_birth_nation</label>
+	<select name="birth-nation" id="birth-nation" class="form-control form-osee"> 
+		#set($currentSelect = "birth-nation")
+		#set($lang = $session.visit.preferredLocale.language)
+		<option value="">$text.select</option>
+		#parse("components/userPanel/country_form_${lang}.vm")
+	</select>
+</div>
+<div class="form-group" id="birth-location-text">
+	<label class="close-label" for="birthLocationText">$text.birthLocation</label>
+	<input id="birthLocationText" name="birthLocationText" type="text" placeholder="$text.birthLocation" class="form-control form-osee" #if( $request.user.getBirthMunicipalityLocation()) value="$esc.html($request.user.getBirthMunicipalityLocation())"#end >
+</div>	
+#parse("components/userPanel/italian_city_form.vm")
+
+<div class="form-group" id="fiscalCode-group">
+	<label class="close-label" for="fiscalCode">${text.fiscalCode}</label>
+	<input id="fiscalCode" name="fiscalCode" type="text" placeholder="$text.fiscalCode" class="form-control form-osee" #if($request.user.fiscalCode) value="$esc.html($request.user.fiscalCode)"#end >
+</div>	

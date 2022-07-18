@@ -1,0 +1,70 @@
+<!-- components/userPanel/sign_up_4.vm -->
+<h3 class="bold-text strSizeOnlyNotReduce">$text.document</h3>
+		
+		<input type="hidden" type="text" name="current_step" value="4">
+		
+		<div class="form-group">
+			<label class="close-label" for="documentType">${text.document_type_bncf}</label>
+			<select name="documentType" id="documentType" class="form-control form-osee" required> 
+				<option value="">$text.select</option>
+				<option value="$text.bundleGet('additional_resources', 'document_identity', 'it')" #if($string.compareNormalization($request.user.getDocumentType(), $text.bundleGet('additional_resources', 'document_identity', 'it')))selected#end>$text.document_identity</option>
+				<option value="$text.bundleGet('additional_resources', 'document_passport', 'it')" #if($request.user.getDocumentType() == $text.bundleGet('additional_resources', 'document_passport', 'it'))selected#end>$text.document_passport</option>					
+				
+				<option class="italian-only" value="$text.bundleGet('additional_resources', 'document_pens', 'it')" #if($request.user.getDocumentType() == $text.bundleGet('additional_resources', 'document_pens', 'it'))selected#end #if ($request.user.getNation() != 'Italia') disabled	#end>$text.document_pens</option>	
+				<option class="italian-only" value="$text.bundleGet('additional_resources', 'document_drive', 'it')" #if($request.user.getDocumentType() == $text.bundleGet('additional_resources', 'document_drive', 'it'))selected#end #if ($request.user.getNation() != 'Italia') disabled	#end>$text.document_drive</option>
+				<option class="italian-only" value="$text.bundleGet('additional_resources', 'document_naut', 'it')" #if($request.user.getDocumentType() == $text.bundleGet('additional_resources', 'document_naut', 'it'))selected#end #if ($request.user.getNation() != 'Italia') disabled	#end>$text.document_naut</option>
+				<option class="italian-only" value="$text.bundleGet('additional_resources', 'document_imp', 'it')" #if($request.user.getDocumentType() == $text.bundleGet('additional_resources', 'document_imp', 'it'))selected#end #if ($request.user.getNation() != 'Italia') disabled	#end>$text.document_imp</option>
+				<option class="italian-only" value="$text.bundleGet('additional_resources', 'document_weapon', 'it')" #if($string.compareNormalization($request.user.getDocumentType(), $text.bundleGet('additional_resources', 'document_weapon', 'it')))selected#end #if ($request.user.getNation() != 'Italia') disabled	#end>$text.document_weapon</option>
+				<option class="italian-only" value="$text.bundleGet('additional_resources', 'document_state', 'it')" #if($request.user.getDocumentType() == $text.bundleGet('additional_resources', 'document_state', 'it'))selected#end #if ($request.user.getNation() != 'Italia') disabled	#end>$text.document_state</option>	
+						
+			</select>	
+		</div>
+		
+		<div class="form-group">
+			<label class="close-label" for="documentNumber">$text.documentNumber</label>
+			<input name="documentNumber" id="documentNumber" type="text" class="form-control form-osee" placeholder="$text.insert_document_number" #if($request.user.getDocumentNumber()) value="$esc.html($request.user.getDocumentNumber())"#end required/>	
+		</div>	
+		<div class="form-group">
+			<label class="close-label" for="documentProvenance">$text.documentProvenance</label>
+			<input name="documentProvenance" id="documentProvenance" type="text" class="form-control form-osee" placeholder="$text.insert_document_provenance" #if($request.user.getDocumentReleasedBy()) value="$esc.html($request.user.getDocumentReleasedBy())"#end required/>	
+		</div>
+		<div class="form-group">
+			<label class="close-label" for="documentExpire">$text.documentExpire</label>
+			<input name="documentExpire" id="documentExpire" type="text" class="form-control form-osee" placeholder="$text.date_placeholder" #if($request.user.getDocumentExpiration()) value="$esc.html($request.user.getDocumentExpiration())"#end required/>	
+		</div>	
+				
+		<div id="residencePermission" #if($request.user.getNation() == 'Italia') style="display: none;" #end>
+			<h3 class="bold-text strSizeOnlyNotReduce">$text.residencePermission</h3> 	
+			<div class="form-group">
+				<label class="close-label" for="resPermissionNumber">$text.res_permission_number</label>
+				<input id="resPermissionNumber" name="resPermissionNumber" type="text" placeholder="$text.res_permission_number" class="form-control form-osee" #if($request.user.getResidencePermissionNumber()) value="$esc.html($request.user.getResidencePermissionNumber())"#end >
+			</div>	
+			<div class="form-group">
+				<label class="close-label" for="resPermissionExpire">$text.res_permission_expire</label>
+				<input id="resPermissionExpire" name="resPermissionExpire" type="text" placeholder="$text.date_placeholder" class="form-control form-osee" #if($request.user.getResidencePermissionExpiration()) value="$esc.html($request.user.getResidencePermissionExpiration())"#end >
+			</div>	
+		</div>
+				
+		#if($isAdmin)	
+		<div class="form-group">	
+			<label class="close-label" for="note">$text.note</label>	
+			<input name="note" id="note" type="text" placeholder="$text.note" class="form-control form-osee" #if($request.user.generalNote) value="$esc.html($request.user.generalNote)"#end />
+		</div>
+		#end
+		
+		
+		<div class="form-check">
+			<input type="checkbox" name="gdpr" class="form-check-input" id="gdpr" value="1" #if($isAdmin) checked #end required />
+			<label class="from-check-label" for="gdpr">* $text.gdpr_1 $text.open_round_bracket<a target="_blank" href="https://www.bncf.firenze.sbn.it/privacy-policy/">https://www.bncf.firenze.sbn.it/ privacy-policy/</a>$text.closing_round_bracket</label>
+		</div>			
+		<div class="form-check">
+			<input type="checkbox" name="reproduction" class="form-check-input" id="reproduction" value="1" #if($isAdmin) checked #end required />
+			<label class="from-check-label" for="reproduction">* $text.reproduction_1 $text.open_round_bracket<a target="_blank" href="https://www.bncf.firenze.sbn.it/wp-content/uploads/2021/03/Regolamento_BNCF_marzo_2021.pdf">https://www.bncf.firenze.sbn.it/wp-content/uploads/2021/03/ Regolamento_BNCF_marzo_2021.pdf</a>$text.closing_round_bracket $text.reproduction_2</label>
+		</div>
+		
+		
+		#if(!$isAdmin) 			
+			<div class="g-recaptcha my-2" data-sitekey="6Le5ZbYUAAAAAL_d6kCYi_CNBv4XoPI-_P76hYlG"></div> 
+		#end
+		
+		

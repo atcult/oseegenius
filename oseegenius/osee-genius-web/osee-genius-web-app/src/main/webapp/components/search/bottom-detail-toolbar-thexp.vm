@@ -1,0 +1,15 @@
+<div id="toolbar" class="box">
+	<span style="float:left;">#spacer(10)</span>
+	<span style="float:left;margin-bottom:5px;">#spacer(10)</span>
+	<div id="navigator" style="padding-top:4px;">
+		<a class="bottom-toolbar-link" href="javascript:goTo('header')">$text.general</a>
+		#if ($resource.in_scheme)<a class="bottom-toolbar-link" href="javascript:goTo('schemes')">$text.scheme_name</a>#end
+		#if ($resource.altLabel)<a class="bottom-toolbar-link" href="javascript:goTo('altLabel')">$text.alt_labels</a>#end
+		#if ($resource.scopeNote)<a class="bottom-toolbar-link" href="javascript:goTo('scopeNote')">$text.scope_note</a>#end
+		#if ($resource.editorialNote)<a class="bottom-toolbar-link" href="javascript:goTo('editorialNote')">$text.editorial_note</a>#end
+		#if ($resource.historyNote)<a class="bottom-toolbar-link" href="javascript:goTo('historyNote')">$text.history_notes</a>#end
+		#if ($resource.note)<a class="bottom-toolbar-link" href="javascript:goTo('note')">$text.note</a>#end
+		#if ($resource.broader || $resource.narrower || $resource.related)<a class="bottom-toolbar-link" href="javascript:goTo('relations')">$text.relations</a>#end
+		#i18nToolbar		 
+	</div>	
+</div>	

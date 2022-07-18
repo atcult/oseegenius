@@ -1,0 +1,85 @@
+<!-- bncf2/componets/circulation/sebinaResult.vm -->
+#if($detail)
+	#foreach($fascic in $detail)
+		#if ($velocityCount == 1)
+			<h5 class="text-center bold-text">$text.sebina_subs_title_details</h5>
+			<div class="table-responsive">
+			<table class="table table_morecondensed offset-1 strSizeOnly table-borderless col-8">
+				<tr>
+					<td class="bold-text col-1">$text.sebina_subs_title_gen</td><td>$fascic.subcriptionCode</td>
+				</tr>
+				<tr>
+					<td class="bold-text col-1">$text.sebina_subs_loc: </td><td>$fascic.collocation</td>
+				</tr>
+				<tr>
+					<td class="bold-text col-1">$text.sebina_subs_year: </td><td>$fascic.yearDesc</td>
+				</tr>
+				<tr>
+					<td class="bold-text col-1">$text.sebina_subs_inv: </td><td>$fascic.inventory</td>					
+				</tr>
+				<tr>					
+					<td class="bold-text col-1">$text.sebina_subs__holding: </td><td>$fascic.possessed</td>					
+				</tr>
+			</table>
+			</div>
+			<br/>
+			<br/>
+			<div class="table-responsive">
+			<table class="table table-sm offset-1 table-border col-3">
+				<thead class="strSizeOnly">
+				<tr>
+					<th class="text-nowrap">$text.sebina_subs_label</th>
+					<th class="text-nowrap">$text.sebina_subs_date</th>
+					<th class="text-nowrap">$text.sebina_subs_status</th>					
+				</tr>
+    			</thead>
+    			<tbody class="strSizeOnly14">				
+					<tr>
+						<td>$fascic.label</td>
+						<td>$fascic.date</td>
+						<td>$fascic.status</td>									
+					</tr>
+		#else
+					<tr>
+						<td>$fascic.label</td>
+						<td>$fascic.date</td>
+						<td>$fascic.status</td>									
+					</tr>
+		#end
+	#end
+				</tbody>
+			</table>
+			</div>
+#else
+<h5 class="text-center bold-text">$text.sebina_subs_title_gen ($subscriptionCode)</h5>
+<br/>
+<div class="table-responsive">
+	<table class="table table-sm offset-1 table-border col-12 col-md-7">
+		<thead class="strSizeOnly">
+		<tr>
+			<th class="text-nowrap">$text.sebina_subs_year</th>
+			<th class="text-nowrap">$text.sebina_subs_loc</th>
+			<th class="text-nowrap">$text.sebina_subs_inv</th>
+			<th class="text-nowrap">$text.sebina_subs_holdings</th>					
+		</tr>
+    	</thead>
+    	<tbody class="strSizeOnly14">
+	#foreach($sub in $subscriptions)
+		<tr>
+			<td>
+				<a class="colorLinkOnly" href="sebinaSol?yearId=$sub.yearId">$sub.yearDesc</a>							
+			</td>						
+			<td>
+				$sub.collocation
+			</td>
+			<td>
+				$sub.inventory
+			</td>
+			<td>
+				$sub.possessed
+			</td>					
+		</tr>					
+	#end
+	</table>
+</div>
+#end

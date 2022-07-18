@@ -1,0 +1,87 @@
+<ServiceDirectory>
+	<Repository className="com.atc.osee.z3950.services.SearchService" code="osee-genius-searcher" serviceName="Osee Genius Searcher">
+		<Preferences>
+			<Preference name="serviceUrl">http://127.0.0.1:8983/solr/main/z3950</Preference>
+			<Preference name="queryBuilderName">OGQF</Preference>
+			<Preference name="browserUrl">http://127.0.0.1:8983/solr/main/browse</Preference>
+			<Preference name="defaultScanAccessPoint">bib-1.1.4</Preference>
+			
+			<!--  Default values -->
+			<Preference name="AccessPoint">1.1016</Preference>
+			<Preference name="Relation">2.3</Preference>
+			<Preference name="Position">3.3</Preference>
+			<Preference name="Structure">4.2</Preference>
+			<Preference name="Truncation">5.100</Preference>
+			<Preference name="Completeness">6.1</Preference>
+		</Preferences>
+		<RecordArchetypes>
+			<Archetype name="Default">xml:solr:F</Archetype>
+			<Archetype name="F">xml:solr:F</Archetype>
+			<Archetype name="f">xml:solr:f</Archetype>
+			<Archetype name="B">xml:solr:B</Archetype>
+			<Archetype name="b">xml:solr:b</Archetype>
+		</RecordArchetypes>
+		<Collections>
+			<Collection code="OG" name="Default" localId="default" profile="bath" />
+		</Collections>
+		<TargetSpecificTranslations>
+			<Translate qualIndex="bib-1.1.4" toIndex="title" />
+			<Translate qualIndex="bib-1.1.5" toIndex="title" />
+			<Translate qualIndex="bib-1.1.6" toIndex="title" />
+			<Translate qualIndex="bib-1.1.7" toIndex="isbn" />
+			<Translate qualIndex="bib-1.1.8" toIndex="issn" />
+			<Translate qualIndex="bib-1.1.20" toIndex="classification" />
+			<Translate qualIndex="bib-1.1.21" toIndex="subject" />
+			<Translate qualIndex="bib-1.1.31" toIndex="publication_date" />
+			<Translate qualIndex="bib-1.1.54" toIndex="language" />
+			<Translate qualIndex="bib-1.1.1003" toIndex="author" />
+			<Translate qualIndex="bib-1.1.1016" toIndex="any" />
+			<Translate qualIndex="bib-1.1.1018" toIndex="publisher" />
+			<Translate qualIndex="bib-1.1.1032" toIndex="id" />
+			<Translate qualIndex="bib-1.2.3" toIndex="equal" />
+			<Translate qualIndex="bib-1.3.3" toIndex="any" />
+			<Translate qualIndex="bib-1.4.2" toIndex="word" />
+			<Translate qualIndex="bib-1.2.101" toIndex="stem" />
+			<Translate qualIndex="bib-1.5.1" toIndex="right" />
+			<Translate qualIndex="bib-1.5.100" toIndex="none" />
+			<Translate qualIndex="bib-1.6.1" toIndex="complete-field" />
+		</TargetSpecificTranslations>
+	</Repository>
+	<Repository className="com.atc.osee.z3950.services.ScanService" code="osee-genius-browser" serviceName="Osee Genius Browser">
+		<Preferences>
+			<Preference name="serviceUrl">http://127.0.0.1:8983/solr/main/browse</Preference>
+			<Preference name="defaultScanAccessPoint">bib-1.1.4</Preference>
+		</Preferences>
+		<TargetSpecificTranslations>
+			<Translate qualIndex="bib-1.1.4" toIndex="title" />
+			<Translate qualIndex="bib-1.1.5" toIndex="title" />
+			<Translate qualIndex="bib-1.1.6" toIndex="title" />
+<!-- 			<Translate qualIndex="bib-1.1.7" toIndex="isbn" /> -->
+<!-- 			<Translate qualIndex="bib-1.1.8" toIndex="issn" /> -->
+<!-- 			<Translate qualIndex="bib-1.1.20" toIndex="classification" /> -->
+			<Translate qualIndex="bib-1.1.21" toIndex="subject" />
+			<Translate qualIndex="bib-1.1.59" toIndex="publication_place" />
+			<Translate qualIndex="bib-1.1.1003" toIndex="author" />
+			<Translate qualIndex="bib-1.1.1018" toIndex="publisher" />
+		</TargetSpecificTranslations>
+	</Repository>	
+	<CollectionPosting code="Test" name="InfoType" value="Default" />
+	<ApplicationProfiles>
+		<ClasspathProfile resource="/config/profiles/bath.xml" />
+	</ApplicationProfiles>
+	<Crosswalks>
+		<ClasspathCrosswalk resource="/config/crosswalks/QueryModel/bib-1.xml" />
+	</Crosswalks>
+	<RecordConversion>
+		<converter type="DOM-XSL-DOM" classname="org.jzkit.search.util.RecordConversion.StandardXSLTTransformer" />
+		<converter type="DOM-XSL-TXT" classname="org.jzkit.search.util.RecordConversion.StringProducerTransformer"/> 
+		<mapping fromSpec="solr" toSpec="sutrs" type="DOM-XSL-TXT" resource="/config/base/crosswalks/RecordModel/solr_2_sutrs-DC_2_SUTRS_F.xsl"/> 
+		<mapping fromSpec="solr" toSpec="F" type="DOM-XSL-DOM" resource="/config/base/crosswalks/RecordModel/identity.xsl"/> 
+		<mapping fromSpec="solr" toSpec="f" type="DOM-XSL-DOM" resource="/config/base/crosswalks/RecordModel/identity.xsl"/> 
+		<mapping fromSpec="solr" toSpec="B" type="DOM-XSL-DOM" resource="/config/base/crosswalks/RecordModel/identity.xsl"/> 
+		<mapping fromSpec="solr" toSpec="b" type="DOM-XSL-DOM" resource="/config/base/crosswalks/RecordModel/identity.xsl"/> 
+		<mapping fromSpec="solr" toSpec="ukmarc" type="DOM-XSL-DOM" resource="/config/base/crosswalks/RecordModel/solr_2_marc21.xsl"/> 
+		<mapping fromSpec="solr" toSpec="marc21" type="DOM-XSL-DOM" resource="/config/base/crosswalks/RecordModel/solr_2_marc21.xsl"/> 
+		<mapping fromSpec="solr" toSpec="usmarc" type="DOM-XSL-DOM" resource="/config/base/crosswalks/RecordModel/solr_2_marc21.xsl" />
+	</RecordConversion>
+</ServiceDirectory>

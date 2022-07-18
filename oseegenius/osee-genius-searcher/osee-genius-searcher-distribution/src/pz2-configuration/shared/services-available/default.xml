@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service  xmlns="http://www.indexdata.com/pazpar2/1.0">
+  <timeout session="60" z3950_operation="30" z3950_session="180"/>
+  <settings src="settings/targets.xml"/>
+  
+   <relevance>
+    <icu_chain id="relevance" locale="en">
+      <transform rule="[:Control:] Any-Remove"/>
+      <tokenize rule="l"/>
+      <transform rule="[[:WhiteSpace:]] Remove"/>
+      <casemap rule="l"/>
+    </icu_chain>
+  </relevance>
+  
+  <sort>
+    <icu_chain id="sort" locale="en">
+      <transform rule="[[:Control:][:WhiteSpace:][:Punctuation:]`] Remove"/>
+      <casemap rule="l"/>
+    </icu_chain>
+  </sort>
+  
+  <mergekey>
+    <icu_chain id="mergekey" locale="en">
+      <tokenize rule="l"/>
+      <transform rule="[[:Control:][:WhiteSpace:][:Punctuation:]`] Remove"/>
+      <casemap rule="l"/>
+    </icu_chain>
+  </mergekey>
+  
+  <metadata name="id" brief="yes"/>
+  <metadata name="isbn" brief="yes"/>
+  <metadata name="issn" brief="yes"/>
+
+  <metadata name="marcxml" brief="yes"  />
+ 
+  <metadata name="abbreviated-title" brief="yes"  />
+  <metadata name="key-title" brief="yes"  />
+  <metadata name="title" brief="yes" merge="longest" rank="4" mergekey="required" sortkey="skiparticle"/>
+  <metadata name="date" brief="yes" sortkey="numeric" type="year" merge="range" termlist="yes"/>
+  <metadata name="author" brief="yes" termlist="yes" merge="longest" rank="2"  mergekey="optional"/>
+  <metadata name="corporate" brief="yes" termlist="yes" merge="longest" rank="2"  mergekey="optional"/>
+  <metadata name="conference" brief="yes" termlist="yes" merge="longest" rank="2"  mergekey="optional"/>
+  
+  <metadata name="other-author"  brief="yes" rank="2"  />
+  <metadata name="other-corporate" brief="yes" rank="2"  />
+  <metadata name="other-conference" brief="yes" rank="2"  />
+
+  <metadata name="publisher" brief="yes" />
+  <metadata name="publisher-name" brief="yes" merge="longest" mergekey="optional"/>
+  <metadata name="publication-date"  brief="yes" />
+  <metadata name="publication-place"  brief="yes" />
+
+  <metadata name="edition" brief="yes"/>
+
+  <metadata name="physical-description" brief="yes"/>
+  
+  <metadata name="series-title" brief="yes"/>
+ 
+  <metadata name="description" brief="yes"/>
+
+  <metadata name="subject" termlist="yes" rank="3" brief="no"/>
+  <metadata name="subject_person" rank="3" brief="yes"/>
+  <metadata name="subject_corporate" rank="3" brief="yes"/>
+  <metadata name="subject_conference" rank="3" brief="yes"/>
+  <metadata name="chronological_subject" rank="3" brief="yes"/>
+  <metadata name="subject_uniform_title" rank="3" brief="yes"/>
+  <metadata name="topical_subject" rank="3" brief="yes"/>
+  <metadata name="geographic_subject" rank="3" brief="yes"/>
+  <metadata name="genre_form_subject" rank="3" brief="yes"/>
+  <metadata name="index_term" rank="3" brief="yes"/>
+
+  <metadata name="citation" brief="yes"/>
+  <metadata name="holding" brief="yes"/>
+  <metadata name="fulltext" brief="yes"/>
+  <metadata name="collocation" brief="yes"/>
+  
+<metadata name="callnumber" brief="yes" />
+  <metadata name="publicnote" brief="yes"/>
+  <metadata name="score" brief="yes"/>
+</service>
+<!-- Keep this comment at the end of the file
+     Local variables:
+     mode: nxml
+     End:
+-->

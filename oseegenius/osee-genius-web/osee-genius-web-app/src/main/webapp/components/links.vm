@@ -1,0 +1,17 @@
+<div id="links">
+	<ul>
+		#if ($license.libraryPluginEnabled)
+		<li><a href="libraries">$text.the_libraries</a></li>			
+		#end
+		#if ($license.accountPluginEnabled)
+			#if ($session.visit.authenticated) 
+				<li><a href="workspace">WORKSPACE</a></li>
+				<li><a href="logout">(logout)</a></li>
+			#else		
+				<li><a href="workspace">LOGIN</a></li>
+			#end
+		#end
+		<li>#parse("links/help.jsp")</li>
+		<li>#parse("links/contacts.jsp")</li>
+	</ul>
+</div>
